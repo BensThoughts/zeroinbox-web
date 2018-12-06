@@ -1,0 +1,55 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button type="button" aria-label="Toggle nav" mat-icon-button (click)="nav.toggle()" color="primary">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span><img src="./assets/logo.png"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #nav mode="side" opened role="navigation">
+    <mat-nav-list class="dashboard">
+
+      <a mat-list-item routerLink='/home'>
+        <mat-icon matListIcon class="app-nav-list-icon">
+        <fa-icon icon="home" style="color: #808DE1;"></fa-icon>
+        </mat-icon>
+        <span style="padding-left: .5em;">&nbsp;Home</span>
+      </a>
+
+      <a mat-list-item routerLink='/suggestions'>
+        <mat-icon matListIcon class="app-nav-list-icon">
+        <fa-icon icon="lightbulb" style="color: #808DE1;"></fa-icon>
+        </mat-icon>
+        <span style="padding-left: .5em;">&nbsp;Suggestions</span>
+      </a>
+
+      <a mat-list-item routerLink='/labels'>
+        <mat-icon matListIcon class="app-nav-list-icon">
+        <fa-icon icon="tag" style="color: #808DE1;"></fa-icon>
+        </mat-icon>
+        <span style="padding-left: .5em;">&nbsp;Labels</span>
+
+      </a>
+
+      <a mat-list-item routerLink='/filters'>
+        <mat-icon matListIcon class="app-nav-list-icon">
+        <fa-icon icon="filter"style="color: #808DE1;"></fa-icon>
+        </mat-icon>
+        <span style="padding-left: .5em;">&nbsp;Filters</span>
+      </a>
+
+
+      <a mat-list-item routerLink='/settings'>
+        <mat-icon matListIcon class="app-nav-list-icon">
+        <fa-icon icon="cog"style="color: #808DE1;"></fa-icon>
+        </mat-icon>
+        <span style="padding-left: .5em;">&nbsp;Settings</span>
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

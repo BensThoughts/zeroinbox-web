@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/scss/bootstrap-reboot';
+@import '../node_modules/bootstrap/scss/bootstrap-grid';
+
+@import 'styles-reset.scss';
+
+@import '../node_modules/@angular/material/theming';
+@include mat-core();
+
+// Define the default theme (same as the example above).
+$go-app-primary: mat-palette($mat-grey, 700, 300, 900);
+$go-app-accent:  mat-palette($mat-blue-grey, 400);
+$go-app-theme:   mat-light-theme($go-app-primary, $go-app-accent);
+
+// Include the default theme styles.
+@include angular-material-theme($go-app-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
