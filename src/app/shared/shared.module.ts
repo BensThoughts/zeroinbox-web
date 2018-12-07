@@ -12,29 +12,52 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Material component modules
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material';
-import { MatListModule } from '@angular/material/list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Fontawesome library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faBook,
   faCog,
   faFilter,
   faHome,
   faLightbulb,
-  faTag
+  faStream,
+  faTag,
+  faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGithub,
+  faMediumM,
+  faTwitter,
+  faInstagram,
+  faYoutube
+} from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faBook,
   faCog,
   faFilter,
   faHome,
   faLightbulb,
-  faTag
+  faStream,
+  faTag,
+  faGithub,
+  faMediumM,
+  faTwitter,
+  faInstagram,
+  faYoutube,
+  faWindowMaximize,
 );
 
 @NgModule({
@@ -45,10 +68,15 @@ library.add(
     FontAwesomeModule,
 
     MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
     MatNativeDateModule,
     MatSidenavModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
     MatToolbarModule
   ],
   exports: [
@@ -58,10 +86,15 @@ library.add(
     FontAwesomeModule,
 
     MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
     MatNativeDateModule,
     MatSidenavModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
     MatToolbarModule
   ]
 })

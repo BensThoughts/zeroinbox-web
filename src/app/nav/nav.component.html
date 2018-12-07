@@ -1,14 +1,10 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <button type="button" aria-label="Toggle nav" mat-icon-button (click)="nav.toggle()" color="primary">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <span><img src="./assets/logo.png"></span>
-  </mat-toolbar-row>
-</mat-toolbar>
 <mat-sidenav-container class="example-container">
   <mat-sidenav #nav mode="side" opened role="navigation">
     <mat-nav-list class="dashboard">
+
+      <button type="button" aria-label="Toggle nav" mat-icon-button (click)="nav.toggle()" color="primary">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
 
       <a mat-list-item routerLink='/home'>
         <mat-icon matListIcon class="app-nav-list-icon">
@@ -50,6 +46,19 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <router-outlet></router-outlet>
+    <mat-toolbar style="position: sticky;">
+      <mat-toolbar-row>
+        <button type="button" aria-label="Toggle nav" mat-icon-button (click)="nav.toggle()" color="primary">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span><img src="./assets/logo.png"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+  <div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <router-outlet #o="outlet"></router-outlet>
+  </div>
+
+
   </mat-sidenav-content>
 </mat-sidenav-container>

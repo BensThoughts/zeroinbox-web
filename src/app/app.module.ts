@@ -6,23 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// App Components
-import { NavComponent } from './nav/nav.component';
-import { HomeComponent } from './home/home.component';
 
 import { SharedModule } from '@app/shared';
+import { CoreModule } from '@app/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // App components
-    NavComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
+    CoreModule,
     SharedModule,
   ],
   providers: [],

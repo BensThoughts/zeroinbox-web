@@ -15,6 +15,12 @@
   vertical-align: middle;
 }
 
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 //.mat-sidenav {
 //  vertical-align: middle;
 //  display: inline-flex;

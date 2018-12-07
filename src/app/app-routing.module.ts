@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { SettingsModule } from './settings/settings.module';
-
 const routes: Routes = [
-  { path: '', component: HomeComponent, data: { title: 'Home'}},
-  { path: 'home', component: HomeComponent, data: { title: 'Home'}},
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule',
+    data: { title: 'Home'}
+  },
   {
     path: 'suggestions',
     loadChildren: './suggestions/suggestions.module#SuggestionsModule',
