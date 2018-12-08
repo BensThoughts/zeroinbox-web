@@ -10,6 +10,7 @@ import {
 } from '@app/core';
 
 import { fadeAnimation } from './fadeAnimations';
+import { slideAnimation } from './slideAnimation';
 
 import { environment as env } from '@env/environment';
 
@@ -17,7 +18,7 @@ import { environment as env } from '@env/environment';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [fadeAnimation]
+  animations: [slideAnimation]
 })
 export class AppComponent {
   title = 'gmail-starter';
