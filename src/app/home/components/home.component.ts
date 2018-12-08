@@ -1,18 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, features } from './features.data';
 
-import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
-
+import { fadeElementsAnimation } from './elementsAnimations'
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  animations: [fadeElementsAnimation]
+//  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HomeComponent implements OnInit {
-  routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   features: Feature[] = features;
 
   constructor() { }

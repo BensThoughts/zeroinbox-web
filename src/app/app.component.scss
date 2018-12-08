@@ -1,4 +1,34 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+//@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.go-sidenav-container {
+  position: absolute;
+  top: 60px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+
+.go-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  //background: rgba(255, 0, 0, 0.5);
+}
+
+.go-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.mat-icon {
+  color: #808DE1;
+  text-align: center;
+}
+/*
 
 
 .mat-sidenav-container {
@@ -20,3 +50,4 @@ router-outlet ~ * {
   height: 100%;
   width: 100%;
 }
+*/

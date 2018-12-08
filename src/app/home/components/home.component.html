@@ -5,7 +5,8 @@
     </div>
   </div>
   <div class="row align-items-end">
-    <div *ngFor="let feature of features" class="col-md-6 col-lg-4" [ngClass]="routeAnimationsElements">
+
+    <div *ngFor="let feature of features" class="col-md-6 col-lg-4" [@listAnimation]="features.length">
       <mat-card>
         <mat-card-title>
           <code *ngIf="feature.version">{{ feature.version }}</code>{{ feature.name }}
@@ -26,5 +27,6 @@
         </mat-card-actions>
       </mat-card>
     </div>
+
   </div>
 </div>

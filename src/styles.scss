@@ -24,5 +24,10 @@
 // Include the default theme styles.
 //@include angular-material-theme($go-app-theme);
 
+//.mat-sidenav-content {
+//  display: flex !important;
+//  flex-direction: column !important;
+//}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
