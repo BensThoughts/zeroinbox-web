@@ -19,6 +19,14 @@ export const environment = {
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript'],
     cypress: packageJson.devDependencies['cypress']
+  },
+  firebase: {
+    apiKey: "AIzaSyApj72ln0LXGOfDphTmxjm5du142jPe0kw",
+    authDomain: "labelorganizer.firebaseapp.com",
+    databaseURL: "https://labelorganizer.firebaseio.com",
+    projectId: "labelorganizer",
+    storageBucket: "labelorganizer.appspot.com",
+    messagingSenderId: "268592066050"
   }
 };
 

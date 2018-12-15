@@ -23,6 +23,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+// Flex Layout Module for implementing @angular/flex-layout
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 // Fontawesome library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -32,6 +35,7 @@ import {
   faFilter,
   faHome,
   faLightbulb,
+  faSignOutAlt,
   faStream,
   faTag,
   faWindowMaximize,
@@ -50,6 +54,7 @@ library.add(
   faFilter,
   faHome,
   faLightbulb,
+  faSignOutAlt,
   faStream,
   faTag,
   faGithub,
@@ -77,7 +82,9 @@ library.add(
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatToolbarModule
+    MatToolbarModule,
+
+    FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -95,7 +102,9 @@ library.add(
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatToolbarModule
+    MatToolbarModule,
+
+    FlexLayoutModule
   ]
 })
 export class SharedModule {}

@@ -1,5 +1,9 @@
 //@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+.app-nav-list-icon {
+padding-bottom: 8px;
+}
+
 .go-sidenav-container {
   position: absolute;
   top: 60px;
@@ -12,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  width: 175px;
   //background: rgba(255, 0, 0, 0.5);
 }
 
@@ -27,6 +31,10 @@
 .mat-icon {
   color: #808DE1;
   text-align: center;
+}
+
+mat-sidenav {
+  min-width: 50px;
 }
 /*
 

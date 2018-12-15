@@ -1,17 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-
-import {
-  routeAnimations,
-  LocalStorageService,
-  AppState
-} from '@app/core';
-
-//import { slideAnimation } from './slideAnimation';
 
 import { environment as env } from '@env/environment';
+import { GoogleApiService } from 'ng-gapi';
+import { GoogleAuthService } from 'ng-gapi';
+import { UserService } from '@app/core/services/user.service';
+
+//import { google } from 'googleapis';
 
 @Component({
   selector: 'app-root',
@@ -27,12 +21,24 @@ export class AppComponent {
   year = new Date().getFullYear();
   logo = require('../assets/logo.png');
 
-  constructor(
-    private storageService: LocalStorageService
-  ) {}
+  constructor(private userService: UserService,
+              private authService: GoogleAuthService,
+              private gapiService: GoogleApiService
+  ) {
+         this.gapiService.onLoad().subscribe();
+  }
 
 
   ngOnInit(): void {
+//    console.log(google.getSupportedApis());
+  }
+
+  public isLoggedIn(): boolean {
+    return this.userService.isUserSignedIn;
+  }
+
+  public signOut(): void {
+    this.userService.signOut();
   }
 
 }

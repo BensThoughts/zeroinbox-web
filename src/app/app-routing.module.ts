@@ -1,37 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+//import { LoginComponent } from '@app/login/components/login.component';
+import { AuthModule } from './auth/auth.module';
+import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomeModule',
-    data: { title: 'Home'}
-  },
-  {
-    path: 'suggestions',
-    loadChildren: './suggestions/suggestions.module#SuggestionsModule',
-    data: { title: 'Suggestions'}
-  },
-  {
-    path: 'labels',
-    loadChildren: './labels/labels.module#LabelsModule',
-    data: { title: 'Labels'}
-  },
-  {
-    path: 'filters',
-    loadChildren: './filters/filters.module#FiltersModule',
-    data: { title: 'Filters'}
-  },
-  {
-    path: 'settings',
-    loadChildren: './settings/settings.module#SettingsModule',
-    data: { title: 'Settings'}
-  }
+//  {
+//    path: 'admin-panel',
+//    loadChildren: './admin-panel/admin-panel.module#AdminPanelModule'
+//  }
+/*  {
+    path: 'auth',
+    loadChildren: './auth/auth.module#AuthModule'
+  },*/
 ];
 
 @NgModule({

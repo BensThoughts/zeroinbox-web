@@ -18,7 +18,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  openLink(link: string) {
-    window.open(link, '_blank');
-  }
+
 }

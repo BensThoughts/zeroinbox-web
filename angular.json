@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "go",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -137,5 +137,18 @@
       }
     }
   },
-  "defaultProject": "gmail-starter"
+  "defaultProject": "gmail-starter",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  },
+  "schematics": {
+    "@ngrx/schematics:component": {
+      "inlineStyle": false,
+      "inlineTemplate": false,
+      "flat": false,
+      "spec": true,
+      "prefix": "go",
+      "styleext": "scss"
+    }
+  }
 }

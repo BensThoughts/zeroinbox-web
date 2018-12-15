@@ -1,0 +1,8 @@
+<button type="button" aria-label="Logout" mat-icon-button (click)="getLabels()" color="primary">
+  <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+</button>
+<p *ngIf="foundLabels">
+  <code>
+  {{foundLabels | json}}
+  </code>
+</p>
