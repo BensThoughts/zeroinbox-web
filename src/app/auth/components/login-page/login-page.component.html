@@ -1,10 +1,14 @@
 
-<div [fxLayout]="direction" fxLayoutAlign="center center" class="login-card">
-<mat-card>
+<div [fxLayout]="direction" fxLayoutAlign="center center" class="login-card-container">
+<mat-card class="login-card">
   <mat-card-header>
+    Gmail Organizer
   </mat-card-header>
     <mat-card-content>
-      Gmail Organizer is an attachment to your Gmail inbox.
+      Gmail Organizer is an attachment to your Gmail inbox. It will give you
+      suggestions for labels and filters that you can then decide to use.  You
+      can also create and manage new labels and filters that it has yet to
+      suggest.
     </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="signIn()" color="primary">Login</button>

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 
-import { LabelsComponent } from './labels/components/labels.component';
+import { LabelsComponent } from './labels/components/labels/labels.component';
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'labels',
-    component: LabelsComponent
+    loadChildren: './labels/labels.module#LabelsModule'
   }
 ];
 

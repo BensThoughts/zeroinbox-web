@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+<div fxFlex="50%">
+<mat-card>
+  <mat-card-title>
+    Your current labels
+  </mat-card-title>
+    <go-labels-list [labelsList]="labels"></go-labels-list>
+</mat-card>
+</div>
+<div fxFlex="50%">
+<mat-card>
+  <mat-card-title>
+    Your suggested labels
+  </mat-card-title>
+    <go-labels-list [labelsList]="labels"></go-labels-list>
+</mat-card>
+</div>
+</div>
+
+<p *ngIf="foundLabels">
+  <code>
+  {{foundLabels | json}}
+  </code>
+</p>

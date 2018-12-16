@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material component modules
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -74,6 +75,7 @@ library.add(
 
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
     MatDividerModule,
     MatIconModule,
     MatInputModule,
@@ -94,6 +96,7 @@ library.add(
 
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
     MatDividerModule,
     MatIconModule,
     MatInputModule,

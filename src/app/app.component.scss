@@ -1,4 +1,11 @@
 //@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+:host {
+  display: block;
+}
+
+.myContent {
+  transform: scale(1,1);
+}
 
 .app-nav-list-icon {
 padding-bottom: 8px;
@@ -16,8 +23,7 @@ padding-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 175px;
-  //background: rgba(255, 0, 0, 0.5);
+//  width: 10px;
 }
 
 .go-header {
@@ -32,30 +38,3 @@ padding-bottom: 8px;
   color: #808DE1;
   text-align: center;
 }
-
-mat-sidenav {
-  min-width: 50px;
-}
-/*
-
-
-.mat-sidenav-container {
-  height: 100%;
-}
-
-.mat-icon {
-  color: #808DE1;
-  text-align: center;
-}
-
-.mat-nav-list {
-  text-align: center;
-  vertical-align: middle;
-}
-
-router-outlet ~ * {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-*/
