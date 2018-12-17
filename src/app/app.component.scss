@@ -3,12 +3,17 @@
   display: block;
 }
 
-.myContent {
-  transform: scale(1,1);
-}
 
 .app-nav-list-icon {
-padding-bottom: 8px;
+padding-bottom: 7px;
+}
+
+.chevron-button {
+  padding-top: 4px;
+}
+
+.menu-chevron {
+  padding-left: 10px;
 }
 
 .go-sidenav-container {

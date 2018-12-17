@@ -46,9 +46,9 @@ export class LabelsComponent implements OnInit {
   public getLabelsJson() {
     this.gmailService.getLabels(this.userService.getToken())
       .subscribe( (labels_resource) => {
-        console.log(labels_resource);
+      //  console.log(labels_resource);
 
-        this.foundLabels = labels_resource['labels'].filter( label => label.type == 'user');
+      //  this.foundLabels = labels_resource['labels'].filter( label => label.type == 'user');
 
       });
     }

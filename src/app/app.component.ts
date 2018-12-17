@@ -3,12 +3,18 @@ import { of, Observable, from } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 
+import { MenuItem, menu_items } from './menuitems.data';
+
 import { GoogleApiService } from 'ng-gapi';
 import { GoogleAuthService } from 'ng-gapi';
 
 import { UserService } from '@app/core/services/user.service';
 
-import { sideNavAnimation, sideNavContainerAnimation } from './sidenav.animations';
+import {
+  sideNavAnimation,
+  sideNavContainerAnimation,
+  sideNavChevronAnimation
+} from './sidenav.animations';
 
 
 
@@ -16,7 +22,11 @@ import { sideNavAnimation, sideNavContainerAnimation } from './sidenav.animation
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [sideNavAnimation, sideNavContainerAnimation]
+  animations: [
+    sideNavAnimation,
+    sideNavContainerAnimation,
+    sideNavChevronAnimation
+  ]
 //  animations: [slideAnimation]
 })
 export class AppComponent {
@@ -26,6 +36,9 @@ export class AppComponent {
   version = env.versions.app;
   year = new Date().getFullYear();
   logo = require('../assets/logo.png');
+
+  menu_items: MenuItem[] = menu_items;
+
 
   isOpen = true;
 

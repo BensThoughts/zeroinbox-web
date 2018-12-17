@@ -1,76 +1,23 @@
 <mat-toolbar class="go-header">
   <mat-toolbar-row>
-    <button type="button" aria-label="Toggle nav" mat-icon-button (click)="nav.toggle()" color="primary">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
     <span><img src="./assets/logo.png"></span>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container class="go-sidenav-container">
 
+  <mat-sidenav [@openCloseSidenav]="isOpen ? 'open' : 'closed'" *ngIf="isLoggedIn() | async" #nav mode="side" opened class="go-sidenav" role="navigation">
+    <mat-nav-list  class="dashboard" class="mat-sidenav-keep">
 
-  <mat-sidenav *ngIf="isLoggedIn() | async" #nav mode="side" opened class="go-sidenav" role="navigation">
-    <mat-nav-list [@openClose]="isOpen ? 'open' : 'closed'" class="dashboard" class="mat-sidenav-keep">
-
-      <button type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()" color="primary">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-
-      <a mat-list-item routerLink='/home'>
+      <a mat-list-item *ngFor="let menu_item of menu_items" routerLink='{{ menu_item.link }}'>
         <span  class="app-nav-list-icon">
           <mat-icon matListIcon>
-            <fa-icon icon="home" style="color: #808DE1;"></fa-icon>
+            <fa-icon icon='{{ menu_item.icon }}' style="color: #808DE1;"></fa-icon>
           </mat-icon>
         </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Home</mat-chip>
-        </mat-chip-list>
-      </a>
-
-      <a mat-list-item routerLink='/suggestions'>
-        <span  class="app-nav-list-icon">
-          <mat-icon matListIcon class="app-nav-list-icon">
-            <fa-icon icon="lightbulb" style="color: #808DE1;"></fa-icon>
-          </mat-icon>
+        <span *ngIf="isOpen" style="padding-left: .5em;">
+          {{ menu_item.name }}
         </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Suggestions</mat-chip>
-        </mat-chip-list>
-      </a>
-
-      <a mat-list-item routerLink='/labels'>
-        <span  class="app-nav-list-icon">
-          <mat-icon matListIcon class="app-nav-list-icon">
-            <fa-icon icon="tag" style="color: #808DE1;"></fa-icon>
-          </mat-icon>
-        </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Labels</mat-chip>
-        </mat-chip-list>
-      </a>
-
-      <a mat-list-item routerLink='/filters'>
-        <span  class="app-nav-list-icon">
-          <mat-icon matListIcon class="app-nav-list-icon">
-            <fa-icon icon="filter"style="color: #808DE1;"></fa-icon>
-          </mat-icon>
-        </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Filters</mat-chip>
-        </mat-chip-list>
-      </a>
-
-
-      <a mat-list-item routerLink='/settings'>
-        <span  class="app-nav-list-icon">
-          <mat-icon matListIcon class="app-nav-list-icon">
-            <fa-icon icon="cog"style="color: #808DE1;"></fa-icon>
-          </mat-icon>
-        </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Settings</mat-chip>
-        </mat-chip-list>
       </a>
 
       <a mat-list-item (click)="signOut()">
@@ -79,19 +26,28 @@
             <fa-icon icon="sign-out-alt"style="color: #808DE1;"></fa-icon>
           </mat-icon>
         </span>
-        <mat-chip-list *ngIf="isOpen" style="padding-left: .5em;">
-          <mat-chip>Logout</mat-chip>
-        </mat-chip-list>
+        <span *ngIf="isOpen" style="padding-left: .5em;">
+          Logout
+        </span>
       </a>
 
     </mat-nav-list>
+
+    <div class="menu-chevron">
+      <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()" color="primary">
+        <fa-icon size="2x" icon="chevron-circle-left" style="color: #808DE1;"></fa-icon>
+      </button>
+    </div>
+
   </mat-sidenav>
 
-<mat-sidenav-content [@closeOpen]="isOpen ? 'open' : 'closed'">
-  <router-outlet></router-outlet>
-</mat-sidenav-content>
+  <mat-sidenav-content [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 
 </mat-sidenav-container>
+
+
 <!--
   <mat-sidenav position="end">End</mat-sidenav>
 

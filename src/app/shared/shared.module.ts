@@ -33,6 +33,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBook,
   faCog,
+  faChevronCircleLeft,
   faFilter,
   faHome,
   faLightbulb,
@@ -52,6 +53,7 @@ import {
 library.add(
   faBook,
   faCog,
+  faChevronCircleLeft,
   faFilter,
   faHome,
   faLightbulb,
