@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 
-//import { LabelsResponse } from './label.model';
+import { LabelResult } from '@app/admin-panel/labels/models/label.model';
 
 @Injectable()
 export class GmailLabelService {
@@ -21,12 +21,12 @@ export class GmailLabelService {
             retry(3), // retry a failed request up to 3 times
             map(response => {
               return <any>response['labels'].map(labelObject => {
-                console.log("raw item", labelObject);  // uncomment for debug
-              //  return new LabelResult({
-              //    id: labelObject.id,
-              //    name: labelObject.name,
-              //    type: labelObject.type
-              //  });
+                //console.log("raw item", labelObject);  // uncomment for debug
+                return new LabelResult({
+                  id: labelObject.id,
+                  name: labelObject.name,
+                  type: labelObject.type
+                });
               });
             }),
             catchError(this.handleError) // then handle the error
