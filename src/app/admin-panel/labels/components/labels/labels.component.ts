@@ -6,7 +6,7 @@ import { UserService } from '@app/core/services/auth-user/user.service';
 
 import { filter } from 'rxjs/operators';
 
-import { GmailLabel, Label } from '../../models/gmail-label.model';
+import { GmailLabel, Label } from '@app/core/services/label/models/gmail-label.model';
 
 
 @Component({

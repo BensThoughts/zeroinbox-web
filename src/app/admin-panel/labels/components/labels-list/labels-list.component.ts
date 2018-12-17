@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GmailLabel } from '../../models/gmail-label.model';
+import { GmailLabel } from '@app/core/services/label/models/gmail-label.model';
 
 @Component({
   selector: 'go-labels-list',

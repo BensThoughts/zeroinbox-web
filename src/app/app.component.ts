@@ -23,7 +23,7 @@ import {
   styleUrls: ['./app.component.scss'],
   animations: [
     sideNavAnimation,
-    sideNavContainerAnimation,
+    sideNavContentAnimation,
     sideNavChevronAnimation
   ]
 })
