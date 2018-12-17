@@ -10,9 +10,9 @@
  }
 
  /**
-  * Label is a data-structure that holds an individual label
+  * GmailLabel is a data-structure that holds an individual label
   */
- export class LabelResult {
+ export class GmailLabel {
      id: string;
      name: string;
      type: string;

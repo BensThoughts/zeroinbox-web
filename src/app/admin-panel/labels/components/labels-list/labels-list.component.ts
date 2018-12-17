@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Label } from '../../models/label.model';
+import { GmailLabel } from '../../models/gmail-label.model';
 
 @Component({
   selector: 'go-labels-list',
@@ -8,7 +8,7 @@ import { Label } from '../../models/label.model';
 })
 export class LabelsListComponent implements OnInit {
 
-  @Input() labelsList: Label[];
+  @Input() labelsList: GmailLabel[];
 
   constructor() { }
 

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 
-import { LabelResult } from '@app/admin-panel/labels/models/label.model';
+import { GmailLabel } from '@app/admin-panel/labels/models/gmail-label.model';
 
 @Injectable()
 export class GmailLabelService {
@@ -22,7 +22,7 @@ export class GmailLabelService {
             map(response => {
               return <any>response['labels'].map(labelObject => {
                 //console.log("raw item", labelObject);  // uncomment for debug
-                return new LabelResult({
+                return new GmailLabel({
                   id: labelObject.id,
                   name: labelObject.name,
                   type: labelObject.type

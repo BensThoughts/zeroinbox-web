@@ -6,7 +6,7 @@ import { UserService } from '@app/core/services/user.service';
 
 import { filter } from 'rxjs/operators';
 
-import { Label, LabelResult } from '../../models/label.model';
+import { GmailLabel, Label } from '../../models/gmail-label.model';
 
 @Component({
   selector: 'app-labels',
@@ -16,8 +16,8 @@ import { Label, LabelResult } from '../../models/label.model';
 export class LabelsComponent implements OnInit {
   public foundLabels: any;
   public data: any;
+  gmail_labels: GmailLabel[];
   labels: Label[];
-  labelResult: LabelResult[];
 
   constructor(private gmailService: GmailLabelService,
               private userService: UserService) {
@@ -41,40 +41,16 @@ export class LabelsComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.getLabelsJson();
+    this.getLabels();
   }
 
-  public getLabelsJson() {
+  public getLabels() {
     this.gmailService.getLabels(this.userService.getToken())
-      .subscribe( (results: LabelResult[]) => {
-        this.labelResult = results.filter( label => label.type == 'user');
-        //console.log(this.labelResult);
+      .subscribe( (results: GmailLabel[]) => {
+        this.gmail_labels = results.filter( label => label.type == 'user');
+        console.log(this.gmail_labels);
         //console.log(results);
-
-      //  this.foundLabels = labels_resource['labels'].filter( label => label.type == 'user');
-
       });
     }
-
-
-    //  }
-      /*
-        this.foundLabels = labels_resource;
-        console.log('our data', labels_resource);
-        this.data = labels_resource['labels'];
-        //for ( item in this.data ) {
-        //  console.log(item);
-        //}
-      //  console.log(LABELS);
-        console.log(this.data);
-        this.data.forEach((arrayItem) => {
-            if (arrayItem['type'] == 'user') {
-              console.log(arrayItem);
-            }
-        });
-      });
-
-      */
-
 
 }
