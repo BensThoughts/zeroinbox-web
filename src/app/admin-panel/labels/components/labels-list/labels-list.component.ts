@@ -10,6 +10,16 @@ export class LabelsListComponent implements OnInit {
 
   @Input() labelsList: GmailLabel[];
 
+  removable: boolean = true;
+
+  remove(myLabel: GmailLabel): void {
+    const index = this.labelsList.indexOf(myLabel);
+
+    if (index >= 0) {
+      this.labelsList.splice(index, 1);
+    }
+  }
+
   constructor() { }
 
   ngOnInit() {
