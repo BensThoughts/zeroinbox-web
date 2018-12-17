@@ -34,7 +34,7 @@ export const sideNavAnimation = trigger('openCloseSidenav', [
  * comments: Sets the margin-left to 201px when "open" and 61px when "closed".
  */
 
-export const sideNavContainerAnimation = trigger('openCloseSidenavContent', [
+export const sideNavContentAnimation = trigger('openCloseSidenavContent', [
     state('open', style({
       'margin-left': '181px',
     })),
@@ -50,7 +50,7 @@ export const sideNavContainerAnimation = trigger('openCloseSidenavContent', [
    * animation: sideChevronAnimation
    * trigger: 'twirlChevron'
    *
-   * comments: translateX(30px) when "open", translateX(10px) when "closed".
+   * comments: rotate(0deg) when "open", rotate(180deg) when "closed".
    */
 
   export const sideNavChevronAnimation = trigger('twirlChevron', [

@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { LabelsComponent } from './labels/components/labels/labels.component';
 
 import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
-import { UserService } from '@app/core/services/user.service';
+import { UserService } from '@app/core/services/auth-user/user.service';
 
 import { LabelsModule } from './labels/labels.module';
 

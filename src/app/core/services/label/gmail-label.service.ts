@@ -21,9 +21,11 @@ export class GmailLabelService {
             retry(3), // retry a failed request up to 3 times
             map(response => {
               return <any>response['labels'].map(labelObject => {
-                //console.log("raw item", labelObject);  // uncomment for debug
+                console.log("raw item", labelObject);  // uncomment for debug
                 return new GmailLabel({
                   id: labelObject.id,
+                  labelListVisibility: labelObject.labelListVisibility,
+                  messageListVisibility: labelObject.messageListVisibility,
                   name: labelObject.name,
                   type: labelObject.type
                 });

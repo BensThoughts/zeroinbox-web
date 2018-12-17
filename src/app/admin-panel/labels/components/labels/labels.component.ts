@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
-import { UserService } from '@app/core/services/user.service';
+import { UserService } from '@app/core/services/auth-user/user.service';
 
 import { filter } from 'rxjs/operators';
 
 import { GmailLabel, Label } from '../../models/gmail-label.model';
+
 
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
   styleUrls: ['./labels.component.scss']
 })
+
 export class LabelsComponent implements OnInit {
-  public foundLabels: any;
-  public data: any;
-  gmail_labels: GmailLabel[];
+  gmail_labels: GmailLabel[]; // The list of labels currently in the gmail acc.
   labels: Label[];
 
   constructor(private gmailService: GmailLabelService,

@@ -8,14 +8,13 @@ import { MenuItem, menu_items } from './menuitems.data';
 import { GoogleApiService } from 'ng-gapi';
 import { GoogleAuthService } from 'ng-gapi';
 
-import { UserService } from '@app/core/services/user.service';
+import { UserService } from '@app/core/services/auth-user/user.service';
 
 import {
   sideNavAnimation,
-  sideNavContainerAnimation,
+  sideNavContentAnimation,
   sideNavChevronAnimation
 } from './sidenav.animations';
-
 
 
 @Component({
@@ -27,8 +26,8 @@ import {
     sideNavContainerAnimation,
     sideNavChevronAnimation
   ]
-//  animations: [slideAnimation]
 })
+
 export class AppComponent {
   title = 'gmail-starter';
   isProd = env.production;
@@ -39,7 +38,7 @@ export class AppComponent {
 
   menu_items: MenuItem[] = menu_items;
 
-
+  // track the state of the sidenav
   isOpen = true;
 
    toggle() {
@@ -62,6 +61,7 @@ export class AppComponent {
   }
 
   // used to sign the google user out of the app
+  //  signIn() in implemented in auth/components/login-page.component.ts
   public signOut(): void {
     this.userService.signOut();
   }

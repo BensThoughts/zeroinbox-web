@@ -25,7 +25,7 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 // Service to authorize a google user, store their token and some minor details
 // about their google profile
-import { UserService } from '@app/core/services/user.service';
+import { UserService } from '@app/core/services/auth-user/user.service';
 
 // Handles all calls to get or set the labels of the users gmail
 import { GmailLabelService } from '@app/core/services/label/gmail-label.service';

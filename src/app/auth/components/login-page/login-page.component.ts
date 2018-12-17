@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserService } from '@app/core/services/user.service';
+import { UserService } from '@app/core/services/auth-user/user.service';
 
 
 @Component({
@@ -9,16 +9,15 @@ import { UserService } from '@app/core/services/user.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
+
 export class LoginPageComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService) { }
 
-    //this.gapiService.onLoad().subscribe();
-  }
+  ngOnInit() { }
 
-  ngOnInit() {
-  }
-
+  // used to sign a google user in
+  //  signOut() in implemented in app.component.ts
   public signIn() {
     this.userService.signIn();
   }
