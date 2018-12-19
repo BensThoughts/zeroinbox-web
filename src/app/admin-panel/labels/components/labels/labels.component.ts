@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
 import { UserService } from '@app/core/services/auth-user/user.service';
 
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import { GmailLabel, Label } from '@app/core/services/label/models/gmail-label.model';
+import { GmailLabel } from '@app/core/services/label/models/gmail-label.model';
 
 
 @Component({
@@ -17,27 +17,27 @@ import { GmailLabel, Label } from '@app/core/services/label/models/gmail-label.m
 
 export class LabelsComponent implements OnInit {
   gmail_labels: GmailLabel[]; // The list of labels currently in the gmail acc.
-  labels: Label[];
+  suggested_labels: GmailLabel[];
+  label_names: string[] = [];
 
   constructor(private gmailService: GmailLabelService,
               private userService: UserService) {
-                this.labels = [
-                  new Label(
-                    'Label_4',        // id
-                    'Josh Lennon',    // name
-                    'user'            // type
-                  ),
-                  new Label(
-                    'Label_54',
-                    'Best Buy',
-                    'user'
-                  ),
-                  new Label(
-                    'Label_22',
-                    'News Lists',
-                    'user'
-                  )
+                this.suggested_labels = [
+                  new GmailLabel({
+                    name: "Josh",
+                  }),
+                  new GmailLabel({
+                    name: "Best Buy",
+                  }),
+                  new GmailLabel({
+                    name: "Mailing Lists",
+                  }),
+                  new GmailLabel({
+                    name: "Tech Crunch",
+                  })
                 ];
+                this.suggested_labels.forEach(
+                  label => this.label_names.push(label.name));
               }
 
   ngOnInit() {
@@ -48,8 +48,11 @@ export class LabelsComponent implements OnInit {
     this.gmailService.getLabels(this.userService.getToken())
       .subscribe( (results: GmailLabel[]) => {
         this.gmail_labels = results.filter( label => label.type == 'user');
-        console.log(this.gmail_labels);
-        //console.log(results);
+
+        // fill label_names with the names of all of our results
+        //results.forEach((label) => {this.label_names.push(label.name);});
+        //console.log(this.gmail_labels);
+        ///console.log(results);
       });
     }
 

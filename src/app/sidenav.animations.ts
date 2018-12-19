@@ -55,10 +55,10 @@ export const sideNavContentAnimation = trigger('openCloseSidenavContent', [
 
   export const sideNavChevronAnimation = trigger('twirlChevron', [
       state('left', style({
-        transform: 'rotate(0deg)',
+        'transform': 'rotate(0deg)',
       })),
       state('right', style({
-        transform: 'rotate(180deg)',
+        'transform': 'rotate(180deg)',
       })),
       transition('left <=> right', [
         animate('0.3s')

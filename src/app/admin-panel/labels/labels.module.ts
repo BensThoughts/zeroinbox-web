@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { LabelsRoutingModule } from './labels-routing.module';
 import { LabelsComponent } from './components/labels/labels.component';
 import { LabelsListComponent } from './components/labels-list/labels-list.component';
-import { LabelComponent } from './components/label/label.component';
+import { LabelInputComponent } from './components/label-input/label-input.component';
 
 import { SharedModule } from '@app/shared';
+import { DropListComponent } from './components/drop-list/drop-list.component';
 
 @NgModule({
-  declarations: [LabelsComponent, LabelsListComponent, LabelComponent],
+  declarations: [LabelsComponent, LabelsListComponent, LabelInputComponent, DropListComponent],
   imports: [
     CommonModule,
     SharedModule,

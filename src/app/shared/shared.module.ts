@@ -8,9 +8,13 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 // Material component modules
+import { MatAutocompleteModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -24,6 +28,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+
 // Flex Layout Module for implementing @angular/flex-layout
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -34,12 +41,15 @@ import {
   faBook,
   faCog,
   faChevronCircleLeft,
+  faEdit,
   faFilter,
   faHome,
   faLightbulb,
+  faPlus,
   faSignOutAlt,
   faStream,
   faTag,
+  faTrash,
   faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -54,27 +64,35 @@ library.add(
   faBook,
   faCog,
   faChevronCircleLeft,
+  faEdit,
   faFilter,
   faHome,
   faLightbulb,
+  faPlus,
   faSignOutAlt,
   faStream,
   faTag,
+  faTrash,
+  faWindowMaximize,
+
   faGithub,
   faMediumM,
   faTwitter,
   faInstagram,
   faYoutube,
-  faWindowMaximize,
 );
 
 @NgModule({
   imports: [
     CommonModule,
+
     FormsModule,
+    ReactiveFormsModule,
 
     FontAwesomeModule,
 
+
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
@@ -87,15 +105,20 @@ library.add(
     MatSlideToggleModule,
     MatSnackBarModule,
     MatToolbarModule,
+
+    DragDropModule,
 
     FlexLayoutModule
   ],
   exports: [
     CommonModule,
+
     FormsModule,
+    ReactiveFormsModule,
 
     FontAwesomeModule,
 
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
@@ -108,6 +131,8 @@ library.add(
     MatSlideToggleModule,
     MatSnackBarModule,
     MatToolbarModule,
+
+    DragDropModule,
 
     FlexLayoutModule
   ]

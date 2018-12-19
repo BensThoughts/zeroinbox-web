@@ -1,11 +1,11 @@
 <div class="myChipList">
-<mat-chip-list aria-orientation="vertical" multiple="false">
-<mat-chip *ngFor="let myLabel of labelsList" [removable]="removable" (removed)="remove(myLabel)">
-  {{myLabel.name}}
-  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-</mat-chip>
-
-</mat-chip-list>
+  <mat-chip-list multiple="false">
+    <mat-chip *ngFor="let myLabel of labelsList" [removable]="removable" (removed)="remove(myLabel)">
+      <mat-icon matChipRemove>menu</mat-icon>
+      {{myLabel.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
 </div>
 
 <!--
