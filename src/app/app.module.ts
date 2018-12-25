@@ -35,15 +35,15 @@ import { UserService } from '@app/core/services/auth-user/user.service';
 // assist in the use of the google api's
 import {
     GoogleApiModule,
-    GoogleApiService,
-    GoogleAuthService,
+//    GoogleApiService,
+//    GoogleAuthService,
     NgGapiClientConfig,
     NG_GAPI_CONFIG,
-    GoogleApiConfig
+//    GoogleApiConfig
 } from "ng-gapi";
 
 import { environment } from '@env/environment';
-import { EffectsModule } from '@ngrx/effects';
+//import { EffectsModule } from '@ngrx/effects';
 
 // config of ng-gapi 3rd party library
 let gapiClientConfig: NgGapiClientConfig = {
@@ -70,7 +70,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     AuthModule,
     AdminPanelModule,
 
-    EffectsModule.forRoot([]),
+  //  EffectsModule.forRoot([]),
 
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,

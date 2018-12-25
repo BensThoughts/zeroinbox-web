@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 
-import { GmailLabel } from './models/gmail-label.model';
+//import { GmailLabel } from './models/gmail-label.model';
 
 import { IGmailLabel } from '../../state/models/gmail-label.model';
 

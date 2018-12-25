@@ -47,7 +47,7 @@ import { environment } from '@env/environment';
 
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
-  //  EffectsModule.forRoot([]),    // ngrx effects
+    EffectsModule.forRoot([]),    // ngrx effects
     // ngrx store devtools
     environment.production? []: StoreDevtoolsModule.instrument({
           name: 'Gmail Starter'

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
 
 import { GmailLabelService } from '../services/gmail-label/gmail-label.service';
-import { AppState } from '@app/core/state/core.state';
+//import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
 import { GmailLabelsRequested, GmailLabelActionTypes, GmailLabelsLoaded } from './gmail-label.actions';
 import { map, mergeMap } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class GmailLabelEffects {
     );
 
   constructor(private actions$ :Actions, private gmailLabelsService: GmailLabelService,
-              private store: Store<AppState>, private userService: UserService) {
+              /*private store: Store<AppState>,*/ private userService: UserService) {
 
   }
 }

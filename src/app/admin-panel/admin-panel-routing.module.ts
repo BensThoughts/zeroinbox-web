@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NavigationComponent } from './navigation/navigation.component';
+//import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 
-import { LabelsComponent } from './labels/components/labels/labels.component';
+//import { LabelsComponent } from './labels/components/labels/labels.component';
 
 
 const routes: Routes = [
