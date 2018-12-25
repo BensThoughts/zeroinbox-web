@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LabelsRoutingModule } from './labels-routing.module';
-import { LabelsComponent } from './store-components/labels/labels.component';
+import { LabelsComponent } from './components/labels/labels.component';
 
 import { SharedModule } from '@app/shared';
 //import { DropListComponent } from './components/drop-list/drop-list.component';

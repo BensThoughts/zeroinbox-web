@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LabelsComponent } from './store-components/labels/labels.component';
+import { LabelsComponent } from './components/labels/labels.component';
 
 const routes: Routes = [
   {
