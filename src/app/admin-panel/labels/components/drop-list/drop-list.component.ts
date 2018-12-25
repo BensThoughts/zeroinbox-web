@@ -50,7 +50,7 @@ export class DropListComponent {
          if (label['name'] == myLabel['name']) {
            //console.log('true');
            exists = true;
-           this.openSnackBar(`The "${label['name']}" label already exists!`);
+           this.openSnackBar(`The ${label['name']} label already exists...`);
        }
       }
     );

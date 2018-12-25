@@ -15,7 +15,7 @@ import { SharedModule } from '@app/shared';
 // in the application as there should only be one instance of each of these
 // services.  All other modules and components that use a service will share
 // the same instance of it.
-//import { CoreModule } from '@app/core';
+import { CoreModule } from '@app/core';
 
 // Handles the welcome screen and authenticating a User (entry into app)
 import { AuthModule } from './auth/auth.module';
@@ -40,6 +40,11 @@ import {
     NG_GAPI_CONFIG,
     GoogleApiConfig
 } from "ng-gapi";
+import { StoreModule } from '@ngrx/store';
+//import { reducers, metaReducers } from '@app/core/state/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '@env/environment';
+//import * as fromLabelState from './label-state.reducer';
 
 // config of ng-gapi 3rd party library
 let gapiClientConfig: NgGapiClientConfig = {
@@ -62,7 +67,7 @@ let gapiClientConfig: NgGapiClientConfig = {
 
     SharedModule,
 
-    //CoreModule,
+    CoreModule,
     AuthModule,
     AdminPanelModule,
 
@@ -71,7 +76,7 @@ let gapiClientConfig: NgGapiClientConfig = {
       useValue: gapiClientConfig
     }),
 
-    AppRoutingModule, // this must always come last
+    AppRoutingModule,
   ],
   providers: [UserService, GmailLabelService],
   bootstrap: [AppComponent]

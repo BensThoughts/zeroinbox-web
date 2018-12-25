@@ -5,6 +5,9 @@
     <mat-card>
       <mat-card-title>
         Suggested Labels
+        <span style="align-right">
+          <button mat-raised-button color="primary">Add All</button>
+        </span>
       </mat-card-title>
       <div
         cdkDropList
@@ -15,18 +18,24 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box-current example-box-suggested" *ngFor="let item of todo" cdkDrag>
           <span style="align-left">
-            <fa-icon icon='tag' size="lg" style="color: #808DE1; padding-right:10px;" rotate="90"></fa-icon>
-            {{item.name}}
+              <fa-icon icon='tag' size="lg" style="color: #808DE1; padding-right:10px;" rotate="90"></fa-icon>
+              {{item.name}}
           </span>
-          <button
-            class="edit-button"
-            color="primary"
-            type="button"
-            aria-label="Toggle nav"
-            mat-icon-button
-            (click)="add(item)">
-            <fa-icon icon='plus' style="color: #808DE1;"></fa-icon>
-          </button>
+          <span style="align-right">
+            <mat-chip *ngIf="item.suggested">
+              {{item.suggestedCount}}
+            </mat-chip>
+
+            <button
+              class="edit-button"
+              color="primary"
+              type="button"
+              aria-label="Toggle nav"
+              mat-icon-button
+              (click)="add(item)">
+              <fa-icon icon='plus' style="color: #808DE1;"></fa-icon>
+            </button>
+          </span>
         </div>
       </div>
     </mat-card>
@@ -36,6 +45,9 @@
     <mat-card>
       <mat-card-title>
         Current Labels
+        <span style="align-right">
+          <button mat-raised-button color="primary">Remove All</button>
+        </span>
       </mat-card-title>
       <div
         cdkDropList
@@ -50,12 +62,15 @@
             {{item.name}}
           </span>
           <span style="align-right">
-          <button class="edit-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="editName(item)" color="primary">
-            <fa-icon icon='edit' style="color: #808DE1;"></fa-icon>
-          </button>
-          <button class="edit-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="remove(item)" color="primary">
-            <fa-icon icon='trash' style="color: #808DE1;"></fa-icon>
-          </button>
+            <mat-chip *ngIf="item.suggested">
+              {{item.suggestedCount}}
+            </mat-chip>
+            <button class="edit-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="editName(item)" color="primary">
+              <fa-icon icon='edit' style="color: #808DE1;"></fa-icon>
+            </button>
+            <button class="edit-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="remove(item)" color="primary">
+              <fa-icon icon='trash' style="color: #808DE1;"></fa-icon>
+            </button>
           </span>
         </div>
       </div>

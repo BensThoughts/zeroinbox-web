@@ -25,15 +25,23 @@ export class LabelsComponent implements OnInit {
                 this.suggested_labels = [
                   new GmailLabel({
                     name: "Josh",
+                    suggested: true,
+                    suggestedCount: 143
                   }),
                   new GmailLabel({
                     name: "Best Buy",
+                    suggested: true,
+                    suggestedCount: 1302
                   }),
                   new GmailLabel({
                     name: "Mailing Lists",
+                    suggested: true,
+                    suggestedCount: 23
                   }),
                   new GmailLabel({
                     name: "Tech Crunch",
+                    suggested: true,
+                    suggestedCount: 540
                   })
                 ];
                 this.suggested_labels.forEach(
