@@ -37,44 +37,40 @@ import { environment } from '@env/environment';
 
 
 /**
- * [NgModule core module (includes all singleton services and main AppState)]
- * @param  {imports [description]
- * @return          [description]
+ * [NgModule core module (includes all singleton services,
+ * & main AppState + AuthState)]
  */
 @NgModule({
   imports: [
-    // angular
-    CommonModule,
+    CommonModule,    // angular
     HttpClientModule,
 
-    // ngrx store
-    StoreModule.forRoot(reducers, { metaReducers }),
-    // ngrx router store
-    StoreRouterConnectingModule.forRoot(),
-    // ngrx effects
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
+    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
+  //  EffectsModule.forRoot([]),    // ngrx effects
     // ngrx store devtools
-    environment.production
-      ? []
-      : StoreDevtoolsModule.instrument({
+    environment.production? []: StoreDevtoolsModule.instrument({
           name: 'Gmail Starter'
         }),
   ],
-
 
   declarations: [],
   providers: [
     NotificationService, // notifications in MatSnackBar
     LocalStorageService, // stores entire ngrx-store state in localStorage
-    //AuthGuardService,    // auth router guard
     httpInterceptorProviders, // http error interceptor
-    //TitleService,
+    /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    /* ngrx router custom router store */
     { provide: RouterStateSerializer, useClass: CustomSerializer }
   ],
 })
 
-
+/**
+ * [constructor for CoreModule]
+ * @param @Optional @SkipSelf [insure the core module, which contains all
+ * singleton services and the AppState + AuthState is only injected once]
+ */
 export class CoreModule {
   constructor(
     @Optional()

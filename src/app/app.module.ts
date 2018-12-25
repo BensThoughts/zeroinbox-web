@@ -1,20 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// Angular components and modules
+/* Angular components and modules */
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-// All dumb components are maintained in the shred module.
+/* All dumb reusable modules are maintained in the shared module. */
 import { SharedModule } from '@app/shared';
 
-// All services [prividors] that are used app wide are kept in the core module
-// they should only need to be imported once here in app.module and nowhere else
-// in the application as there should only be one instance of each of these
-// services.  All other modules and components that use a service will share
-// the same instance of it.
+/**
+ * [CoreModule All singleton services [prividors] that are used app wide are kept in the
+ * core module they should only need to be imported once here in app.module
+ * and nowhere else. All other modules and components that use a service will
+ * share the same instance of it.]
+ */
 import { CoreModule } from '@app/core';
 
 // Handles the welcome screen and authenticating a User (entry into app)
@@ -28,7 +29,7 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
 import { UserService } from '@app/core/services/auth-user/user.service';
 
 // Handles all calls to get or set the labels of the users gmail
-import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
+//import { GmailLabelService } from '@app/core/services/gmail-label/gmail-label.service';
 
 // 3rd party library (ng-gapi) to initialize google api's, handle auth, and
 // assist in the use of the google api's
@@ -40,17 +41,15 @@ import {
     NG_GAPI_CONFIG,
     GoogleApiConfig
 } from "ng-gapi";
-import { StoreModule } from '@ngrx/store';
-//import { reducers, metaReducers } from '@app/core/state/reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { environment } from '@env/environment';
-//import * as fromLabelState from './label-state.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 // config of ng-gapi 3rd party library
 let gapiClientConfig: NgGapiClientConfig = {
-    client_id: "443118366030-p6fpakqmn0ngjes70eigkegpvva96agm.apps.googleusercontent.com",
-    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
-    scope: 'https://www.googleapis.com/auth/gmail.readonly',
+    client_id: environment.googleApi.client_id,
+    discoveryDocs: environment.googleApi.discoveryDocs,
+    scope: environment.googleApi.scope,
 //    ux_mode: "redirect",
 //    redirect_uri: "http://localhost:4200/",
 };
@@ -71,6 +70,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     AuthModule,
     AdminPanelModule,
 
+    EffectsModule.forRoot([]),
+
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
@@ -78,7 +79,7 @@ let gapiClientConfig: NgGapiClientConfig = {
 
     AppRoutingModule,
   ],
-  providers: [UserService, GmailLabelService],
+  providers: [UserService,], //GmailLabelService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

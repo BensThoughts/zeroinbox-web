@@ -2,19 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LabelsRoutingModule } from './labels-routing.module';
-import { LabelsComponent } from './components/labels/labels.component';
-import { LabelsListComponent } from './components/labels-list/labels-list.component';
-import { LabelInputComponent } from './components/label-input/label-input.component';
+import { LabelsComponent } from './store-components/labels/labels.component';
 
 import { SharedModule } from '@app/shared';
-import { DropListComponent } from './components/drop-list/drop-list.component';
+//import { DropListComponent } from './components/drop-list/drop-list.component';
+
+
+import { StoreModule } from '@ngrx/store';
+import { gmailLabelReducer } from './state/gmail-label.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { GmailLabelEffects } from './state/gmail-label.effects';
+
+import { GmailLabelService } from './services/gmail-label/gmail-label.service';
 
 @NgModule({
-  declarations: [LabelsComponent, LabelsListComponent, LabelInputComponent, DropListComponent],
+  declarations: [LabelsComponent],
   imports: [
     CommonModule,
     SharedModule,
+    StoreModule.forFeature('gmail-labels', gmailLabelReducer),
+    EffectsModule.forFeature([GmailLabelEffects]),
     LabelsRoutingModule
-  ]
+  ],
+  providers: [GmailLabelService]
 })
 export class LabelsModule { }
