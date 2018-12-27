@@ -3,10 +3,14 @@ import { Actions, ofType, Effect } from '@ngrx/effects';
 
 import { GmailLabelService } from '../services/gmail-label/gmail-label.service';
 //import { AppState } from '@app/core/state/core.state';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { GmailLabelsRequested, GmailLabelActionTypes, GmailLabelsLoaded } from './gmail-label.actions';
-import { map, mergeMap } from 'rxjs/operators';
-import { UserService } from '@app/core/services/auth-user/user.service';
+import { map, mergeMap, withLatestFrom, filter } from 'rxjs/operators';
+
+import { allGmailLabelsLoaded } from './gmail-label.selectors';
+
+import { AuthUserService } from '@app/core/services/auth-user/auth-user.service';
+import { AppState } from '@app/core';
 
 
 @Injectable()
@@ -16,14 +20,14 @@ export class GmailLabelEffects {
   loadAllGmailLabels$ = this.actions$
     .pipe(
       ofType<GmailLabelsRequested>(GmailLabelActionTypes.GmailLabelsRequested),
-//      withLatestFrom(this.store.pipe(select(allCoursesLoaded))),
-//      filter(([action, allCoursesLoaded]) => !allCoursesLoaded),
+      withLatestFrom(this.store.pipe(select(allGmailLabelsLoaded))),
+      filter(([action, allLabelsLoaded]) => !allLabelsLoaded), // UNSURE
       mergeMap(() => this.gmailLabelsService.getAllGmailLabels(this.userService.getToken())),
       map(gmailLabels => new GmailLabelsLoaded({gmailLabels}))
     );
 
   constructor(private actions$ :Actions, private gmailLabelsService: GmailLabelService,
-              /*private store: Store<AppState>,*/ private userService: UserService) {
+              private store: Store<AppState>, private userService: AuthUserService) {
 
   }
 }

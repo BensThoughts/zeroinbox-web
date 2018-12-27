@@ -6,7 +6,7 @@
 
 <mat-sidenav-container class="go-sidenav-container">
 
-  <mat-sidenav [@openCloseSidenav]="isOpen ? 'open' : 'closed'" *ngIf="isLoggedIn() | async" #nav mode="side" opened class="go-sidenav" role="navigation">
+  <mat-sidenav [@openCloseSidenav]="isOpen ? 'open' : 'closed'" *ngIf="isLoggedIn$ | async" #nav mode="side" opened class="go-sidenav" role="navigation">
     <mat-nav-list  class="dashboard" class="mat-sidenav-keep">
 
       <a mat-list-item *ngFor="let menu_item of menu_items" routerLink='{{ menu_item.link }}'>

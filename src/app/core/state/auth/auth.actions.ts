@@ -2,19 +2,58 @@ import { Action } from '@ngrx/store';
 import {User} from './user.models';
 
 export enum AuthActionTypes {
-  LoginAction = '[Login Page] Login Action',
-  LogoutAction = '[Sidenav Logout] Logout Action',
+  LoginRequested = '[Login Page] Login Requested',
+  LoginComplete = '[Login Page] Login Complete',
+  LoginSuccess = '[Auth API] Login Success',
+  LoginFailure = '[Auth API] Login Failure',
+  CheckLogin = '[Auth] Check Login',
+  Logout = '[Sidenav Auth] Confirm Logout',
+  LogoutCancelled = '[Auth] Logout Cancelled',
+  LogoutConfirmed = '[Auth] Logout Confirmed'
 }
 
-export class AuthLoginAction implements Action {
-  readonly type = AuthActionTypes.LoginAction;
-  constructor(public payload: {user: User}) {
-  }
+export class LoginRequestedAction implements Action {
+  readonly type = AuthActionTypes.LoginRequested;
 }
 
-
-export class AuthLogoutAction implements Action {
-  readonly type = AuthActionTypes.LogoutAction;
+export class LoginCompleteAction implements Action {
+  readonly type = AuthActionTypes.LoginComplete;
 }
 
-export type AuthActions = AuthLoginAction | AuthLogoutAction;
+export class LoginSuccessAction implements Action {
+  readonly type = AuthActionTypes.LoginSuccess;
+
+  constructor(public payload: any) {}
+}
+
+export class LoginFailureAction implements Action {
+  readonly type = AuthActionTypes.LoginFailure;
+
+  constructor(public payload: any) {}
+}
+
+export class CheckLoginAction implements Action {
+  readonly type = AuthActionTypes.CheckLogin;
+}
+
+export class LogoutAction implements Action {
+  readonly type = AuthActionTypes.Logout;
+}
+
+export class LogoutConfirmedAction implements Action {
+  readonly type = AuthActionTypes.LogoutConfirmed;
+}
+
+export class LogoutCancelledAction implements Action {
+  readonly type = AuthActionTypes.LogoutCancelled;
+}
+
+export type AuthActions =
+  | LoginRequestedAction
+  | LoginCompleteAction
+  | LoginSuccessAction
+  | LoginFailureAction
+  | CheckLoginAction
+  | LogoutAction
+  | LogoutCancelledAction
+  | LogoutConfirmedAction;

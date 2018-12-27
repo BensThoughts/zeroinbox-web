@@ -8,13 +8,14 @@ import { MenuItem, menu_items } from './menuitems.data';
 import { GoogleApiService } from 'ng-gapi';
 import { GoogleAuthService } from 'ng-gapi';
 
-import { UserService } from '@app/core/services/auth-user/user.service';
-
 import {
   sideNavAnimation,
   sideNavContentAnimation,
   sideNavChevronAnimation
 } from './sidenav.animations';
+import { Store, select } from '@ngrx/store';
+import { AppState, LogoutAction } from '@app/core';
+import { selectIsAuthenticated } from '@app/core'
 
 
 @Component({
@@ -41,29 +42,29 @@ export class AppComponent {
   // track the state of the sidenav
   isOpen = true;
 
+  isLoggedIn$: Observable<boolean>;
+
    toggle() {
      this.isOpen = !this.isOpen;
    }
 
   constructor(
-    private userService: UserService,
-    private authService: GoogleAuthService,
     private gapiService: GoogleApiService,
+    private store: Store<AppState>,
   ) { this.gapiService.onLoad().subscribe(); }
 
 
   ngOnInit(): void {
+      // used to check if mat-sidenav should be displayed
+      this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
   }
 
-  // used to check if mat-sidenav should be displayed
-  public isLoggedIn(): Observable<boolean> {
-    return of(this.userService.isUserSignedIn);
-  }
+
 
   // used to sign the google user out of the app
   //  signIn() in implemented in auth/components/login-page.component.ts
   public signOut(): void {
-    this.userService.signOut();
+    this.store.dispatch(new LogoutAction());
   }
 
 }

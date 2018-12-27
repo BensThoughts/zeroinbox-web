@@ -7,16 +7,16 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
-  {
-    path: 'scope',
-    redirectTo: '/home'
-  }
+//  {
+//    path: 'scope',
+//    redirectTo: '/home'
+//  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
-    { useHash: true }
+    { useHash: false }
   )],
   exports: [RouterModule]
 })

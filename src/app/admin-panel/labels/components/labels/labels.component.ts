@@ -31,22 +31,8 @@ export class LabelsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GmailLabelsRequested());
-
     this.gmail_labels$ = this.store.pipe(select(selectUserGmailLabels));
   }
 
-  public getLabels() {
-
-//
-  //  this.gmailService.getLabels(this.userService.getToken())
-  //    .subscribe( (results: GmailLabel[]) => {
-  //      this.gmail_labels = results.filter( label => label.type == 'user');
-
-        // fill label_names with the names of all of our results
-        //results.forEach((label) => {this.label_names.push(label.name);});
-        //console.log(this.gmail_labels);
-        ///console.log(results);
-    //  });
-    }
 
 }

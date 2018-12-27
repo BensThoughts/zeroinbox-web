@@ -10,6 +10,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // AppState reducers and metaReducers
 import { reducers, metaReducers } from './state/core.state';
+// Auth Effects registered EffectsModule.forRoot([])
+import { AuthEffects } from './state/auth/auth.effects';
 // used for the cutom router state
 import {
   StoreRouterConnectingModule,
@@ -23,6 +25,9 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
 /**
  * [app wide singleton services]
  */
+ // Service to authorize a google user, store their token and some minor details
+ // about their google profile
+ import { AuthUserService } from './services/auth-user/auth-user.service';
 // http error interceptor
 import { httpInterceptorProviders } from './services/http-interceptors';
 // notifications service
@@ -31,9 +36,9 @@ import { NotificationService } from './services/notifications/notification.servi
 import { AppErrorHandler } from './services/error-handler/app-error-handler.service';
 
 
-
-// environment variables
+/* environment variables */
 import { environment } from '@env/environment';
+
 
 
 /**
@@ -47,15 +52,16 @@ import { environment } from '@env/environment';
 
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
-    EffectsModule.forRoot([]),    // ngrx effects
+    EffectsModule.forRoot([AuthEffects]),    // ngrx effects
     // ngrx store devtools
     environment.production? []: StoreDevtoolsModule.instrument({
           name: 'Gmail Starter'
-        }),
+        })
   ],
 
   declarations: [],
   providers: [
+    AuthUserService,
     NotificationService, // notifications in MatSnackBar
     LocalStorageService, // stores entire ngrx-store state in localStorage
     httpInterceptorProviders, // http error interceptor

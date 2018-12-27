@@ -10,10 +10,14 @@ import { environment } from '@env/environment';
 
 import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
 //import { debug } from './meta-reducers/debug.reducer';
-import { AuthState } from './auth/auth.models';
+import { AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
+import { authReducer } from './auth/auth.reducer';
+import { debug } from './meta-reducers/debug.reducer';
+
 export const reducers: ActionReducerMap<AppState> = {
+  auth: authReducer,
   router: routerReducer
 };
 
@@ -22,14 +26,14 @@ export const metaReducers: MetaReducer<AppState>[] = [
 ];
 if (!environment.production) {
   metaReducers.unshift(storeFreeze);
-  //if (!environment.test) {
-  //  metaReducers.unshift(debug);
-  //}
+  if (!environment.test) {
+    metaReducers.unshift(debug);
+  }
 }
 
-//export const selectAuthState = createFeatureSelector<AppState, AuthState>(
-//  'auth'
-//);
+export const selectAuthState = createFeatureSelector<AppState, AuthState>(
+  'auth'
+);
 
 export const selectRouterState = createFeatureSelector<
   AppState,
@@ -37,6 +41,6 @@ export const selectRouterState = createFeatureSelector<
 >('router');
 
 export interface AppState {
-  //auth: AuthState;
+  auth: AuthState;
   router: RouterReducerState<RouterStateUrl>;
 }

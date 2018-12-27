@@ -5,6 +5,8 @@ import {Update} from '@ngrx/entity';
 export enum GmailLabelActionTypes {
   GmailLabelsRequested = '[Labels Page] All Gmail Labels Requested',
   GmailLabelsLoaded = '[Gmail Labels API] Gmail Labels Loaded',
+  GmailLabelsAdded = '[Labels Input Component] Gmail Labels Added',
+  GmailLabelRemoved = '[Labels List Component] Gmail Label Removed',
   GmailLabelRequested = '[Labels Page] Gmail Label Requested',
   GmailLabelSaved = '[Edit Label Dialog] Gmail Label Saved',
 }
@@ -24,6 +26,29 @@ export class GmailLabelsRequested implements Action {
 export class GmailLabelsLoaded implements Action {
   readonly type = GmailLabelActionTypes.GmailLabelsLoaded;
   constructor(public payload: { gmailLabels: IGmailLabel[] }) {
+
+  }
+}
+
+/**
+ * [return all gmail labels from the Gmail Label API as IGmailLabel[]]
+ * @param payload: { gmailLabel: IGmailLabel[] } [array of all gmail labels]
+ */
+export class GmailLabelsAdded implements Action {
+  readonly type = GmailLabelActionTypes.GmailLabelsAdded;
+  constructor(public payload: { gmailLabels: IGmailLabel[] }) {
+
+  }
+}
+
+/**
+ * [delete a gmail label from the state]
+ * @param payload: { name: string } [the name of the label to delete]
+ */
+export class GmailLabelRemoved implements Action {
+  readonly type = GmailLabelActionTypes.GmailLabelRemoved;
+  constructor(public payload: { name: string }) {
+
   }
 }
 
@@ -33,7 +58,9 @@ export class GmailLabelsLoaded implements Action {
  */
 export class GmailLabelRequested implements Action {
   readonly type = GmailLabelActionTypes.GmailLabelRequested;
-  constructor(public payload: { name: string }) {}
+  constructor(public payload: { name: string }) {
+
+  }
 }
 
 /**
@@ -43,11 +70,14 @@ export class GmailLabelRequested implements Action {
 export class GmailLabelSaved implements Action {
   readonly type = GmailLabelActionTypes.GmailLabelSaved;
   constructor(public payload: { gmailLabel: Update<IGmailLabel> }) {
+
   }
 }
 
 export type GmailLabelActions =
   GmailLabelsRequested
   | GmailLabelsLoaded
+  | GmailLabelsAdded
+  | GmailLabelRemoved
   | GmailLabelRequested
   | GmailLabelSaved;

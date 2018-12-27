@@ -31,7 +31,8 @@ export const environment = {
     messagingSenderId: "268592066050"
   },
   googleApi: {
-    client_id: "443118366030-p6fpakqmn0ngjes70eigkegpvva96agm.apps.googleusercontent.com",
+    apiKey: 'AIzaSyDVqUhDKRHUWuaCCOZDuqMwMWape3VNaGM',
+    clientId: '443118366030-p6fpakqmn0ngjes70eigkegpvva96agm.apps.googleusercontent.com',
     discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
     scope: 'https://www.googleapis.com/auth/gmail.readonly',
   }

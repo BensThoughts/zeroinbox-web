@@ -1,5 +1,5 @@
 export interface IGmailLabel {
-  id: string;
+  id?: string;
   labelListVisibility: string;
   messageListVisibility: string;
   name: string;

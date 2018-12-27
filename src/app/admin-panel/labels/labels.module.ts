@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { LabelsRoutingModule } from './labels-routing.module';
 import { LabelsComponent } from './components/labels/labels.component';
+import { LabelsListComponent } from './components/labels-list/labels-list.component';
+import { LabelsInputComponent } from './components/labels-input/labels-input.component';
 
 import { SharedModule } from '@app/shared';
 //import { DropListComponent } from './components/drop-list/drop-list.component';
@@ -16,7 +18,7 @@ import { GmailLabelEffects } from './state/gmail-label.effects';
 import { GmailLabelService } from './services/gmail-label/gmail-label.service';
 
 @NgModule({
-  declarations: [LabelsComponent],
+  declarations: [LabelsComponent, LabelsListComponent, LabelsInputComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -33,6 +33,12 @@ export function gmailLabelReducer(
       case GmailLabelActionTypes.GmailLabelsLoaded:
         return adapter.addAll(action.payload.gmailLabels, { ...state, allLabelsLoaded: true });
 
+      case GmailLabelActionTypes.GmailLabelsAdded:
+        return adapter.addMany(action.payload.gmailLabels, state);
+
+      case GmailLabelActionTypes.GmailLabelRemoved:
+        return adapter.removeOne(action.payload.name, state);
+
       default:
         return state;
     }
