@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from "@angular/core";
 import {GoogleAuthService} from "ng-gapi/lib/GoogleAuthService";
-import GoogleUser = gapi.auth2.GoogleUser;
+//import GoogleUser = gapi.auth2.GoogleUser;
 //import GoogleAuth = gapi.auth2.GoogleAuth;
 import AuthResponse = gapi.auth2.AuthResponse;
 

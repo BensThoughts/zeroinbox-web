@@ -1,4 +1,4 @@
-import { User } from './user.models';
+//import { User } from './user.models';
 import { UserActions, UserActionTypes } from './user.actions';
 
 export interface UserState {
