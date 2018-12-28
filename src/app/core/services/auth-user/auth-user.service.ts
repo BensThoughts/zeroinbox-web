@@ -25,6 +25,7 @@ export class AuthUserService {
     // Track whether or not to renew token
     private _expiresAt: number;
     private user: GoogleUser = undefined;
+    private _accessToken: string;
 
     gapiAuthService$ = this.googleAuthService.getAuth();
 
@@ -56,6 +57,7 @@ export class AuthUserService {
 
     public getToken(): string {
         let token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
+        //let token = this._accessToken;
         if (!token) {
             throw new Error("no token set , authentication required");
         }
@@ -88,6 +90,7 @@ export class AuthUserService {
             this.user = res;
             // Set flag in local storage stating this app is logged in
             localStorage.setItem(ACCESS_TOKEN_KEY, res.getAuthResponse().access_token)
+            //this._accessToken = res.getAuthResponse().access_token;
         });
     }
 

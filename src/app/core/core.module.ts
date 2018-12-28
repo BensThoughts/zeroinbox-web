@@ -57,8 +57,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     client_id: environment.googleApi.clientId,
     discoveryDocs: environment.googleApi.discoveryDocs,
     scope: environment.googleApi.scope,
-    ux_mode: "redirect",
-    redirect_uri: "http://localhost:4200/loading",
+    ux_mode: 'redirect',
+    redirect_uri: 'http://localhost:4200/loading',
 };
 
 

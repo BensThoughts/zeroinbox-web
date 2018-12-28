@@ -24,7 +24,7 @@ export class GmailLabelEffects {
       ofType<GmailLabelsRequested>(GmailLabelActionTypes.GmailLabelsRequested),
       withLatestFrom(this.store.pipe(select(allGmailLabelsLoaded))),
       filter(([action, allLabelsLoaded]) => !allLabelsLoaded), // UNSURE
-      mergeMap(() => this.gmailLabelsService.getAllGmailLabels(this.userService.getToken())),
+      mergeMap(() => this.gmailLabelsService.getAllGmailLabels()),
       map(gmailLabels => new GmailLabelsLoaded({gmailLabels}))
     );
 
