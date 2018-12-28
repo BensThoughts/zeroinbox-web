@@ -28,6 +28,8 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
  // Service to authorize a google user, store their token and some minor details
  // about their google profile
  import { AuthUserService } from './services/auth-user/auth-user.service';
+ // Guard Service to redirect to login page when not authenticated
+ import { AuthGuardService } from './services/auth-user/auth-guard.service';
 // http error interceptor
 import { httpInterceptorProviders } from './services/http-interceptors';
 // notifications service
@@ -62,6 +64,7 @@ import { environment } from '@env/environment';
   declarations: [],
   providers: [
     AuthUserService,
+    AuthGuardService,
     NotificationService, // notifications in MatSnackBar
     LocalStorageService, // stores entire ngrx-store state in localStorage
     httpInterceptorProviders, // http error interceptor

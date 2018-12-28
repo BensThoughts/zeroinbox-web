@@ -13,13 +13,19 @@ import { HomeComponent } from './home/home.component';
 
 
 import { LabelsModule } from './labels/labels.module';
+import { SuggestionsModule } from './suggestions/suggestions.module';
+import { FiltersModule } from './filters/filters.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [HomeComponent],
   imports: [
     CommonModule,
     SharedModule,
+    SuggestionsModule,
     LabelsModule,
+    FiltersModule,
+    SettingsModule,
     AdminPanelRoutingModule
   ],
   providers: []

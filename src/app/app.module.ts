@@ -1,7 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
 /* Angular components and modules */
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,7 +65,6 @@ let gapiClientConfig: NgGapiClientConfig = {
     AuthModule,
     AdminPanelModule,
 
-  //  EffectsModule.forRoot([]),
 
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,

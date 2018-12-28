@@ -21,7 +21,7 @@ export class AuthUserService {
     // Track whether or not to renew token
     private _authFlag = 'isLoggedIn';
     // Authentication navigation
-    private _onAuthSuccessUrl = '/home';
+    private _onAuthSuccessUrl = '/admin-panel/home';
     private _onAuthFailureUrl = '/login';
     private _logoutUrl = '/login';
     private _expiresAt: number;

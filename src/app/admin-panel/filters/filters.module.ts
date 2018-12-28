@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FiltersRoutingModule } from './filters-routing.module';
 
 import { FiltersComponent } from './components/filters.component';
 
@@ -9,7 +8,6 @@ import { FiltersComponent } from './components/filters.component';
   declarations: [FiltersComponent],
   imports: [
     CommonModule,
-    FiltersRoutingModule
   ]
 })
 export class FiltersModule { }

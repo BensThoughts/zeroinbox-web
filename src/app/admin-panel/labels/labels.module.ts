@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LabelsRoutingModule } from './labels-routing.module';
 import { LabelsComponent } from './components/labels/labels.component';
 import { LabelsListComponent } from './components/labels-list/labels-list.component';
 import { LabelsInputComponent } from './components/labels-input/labels-input.component';
@@ -24,7 +23,6 @@ import { GmailLabelService } from './services/gmail-label/gmail-label.service';
     SharedModule,
     StoreModule.forFeature('gmail-labels', gmailLabelReducer),
     EffectsModule.forFeature([GmailLabelEffects]),
-    LabelsRoutingModule
   ],
   providers: [GmailLabelService]
 })
