@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+
+<!--
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="100%">
+-->
+<div class="go-label-input">
+      <mat-card>
+        <go-label-input [allFruits]="label_names"></go-label-input>
+      </mat-card>
+</div>
+<!--
+    </div>
+  </div>
+-->
+<!--
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <div fxFlex="100%">
+-->
+<div class="go-labels-list">
+      <go-drop-list [done]="gmail_labels" [todo]="suggested_labels"></go-drop-list>
+</div>
+<!--
+  </div>
+</div>
+-->
+
+
+</div>
+
+<!--
+  <go-labels-list [labelsList]="gmail_labels"></go-labels-list>
+<mat-card>
+  <mat-card-title>
+    Your suggested labels
+  </mat-card-title>
+  <go-labels-list [labelsList]="labels"></go-labels-list>
+</mat-card>
+-->

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '@app/core';
-import { LoginComponent } from '../../old/old/auth.component';
 
 const routes: Routes = [
   {
@@ -9,14 +8,18 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   },
+  /**
+   * If user is not authenticated in the auth guard on /admin-panel will
+   * redirect to /login. If they are auth we will go to /admin-panel/home
+   */
   {
     path: '**',
-    component: LoginComponent
+    redirectTo: '/admin-panel/home'
   },
   {
     path: 'admin-panel',
     loadChildren: './admin-panel/admin-panel.module#AdminPanelModule',
-    canActivate: [AuthGuardService]
+    //canActivate: [AuthGuardService]
   }
 ];
 
