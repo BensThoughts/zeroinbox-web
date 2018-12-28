@@ -17,6 +17,9 @@ import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { LocalStorageService } from '@app/core/services/local-storage/local-storage.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../core.state';
+import { LoadNewUserAction, ResetUserAction } from '../user/user.actions';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -45,23 +48,30 @@ export class AuthEffects {
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
     exhaustMap(() => {
       return this.authService.gapiAuthService$.pipe(
-        map((authResult) => {
+        tap((authResult) => {
           if (authResult.isSignedIn) {
             let user = authResult.currentUser.get();
-            this.authService.signInSuccessHandler(user);
+            let basicUserProfile = user.getBasicProfile();
+            this.store.dispatch(new LoadNewUserAction(basicUserProfile))
+          }
+        }),
+        map((authResult) => {
+          if (authResult.isSignedIn) {
             let authResponse = authResult.currentUser.get().getAuthResponse();
+            this.authService.signInSuccessHandler(authResponse);
             this.localStorageService.setItem(AUTH_KEY, {
               isAuthenticated: true,
               accessToken: authResponse.access_token,
               expiresAt: authResponse.expires_at,
-              user: user
+              //user: user
             });
             return new LoginSuccessAction({
-              user: user,
+              //user: user,
               authInfo: authResponse
             });
           }
         }),
+
         catchError(error => of(new LoginFailureAction(error)))
       );
     })
@@ -128,6 +138,7 @@ export class AuthEffects {
     tap( () => {
       this.authService.signOut();
       this.localStorageService.removeItem(AUTH_KEY);
+      this.store.dispatch(new ResetUserAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -138,6 +149,7 @@ constructor(
   private router: Router,
   private dialogService: MatDialog,
   private ngZone: NgZone,
-  private localStorageService: LocalStorageService
+  private localStorageService: LocalStorageService,
+  private store: Store<AppState>
 ) {}
 }

@@ -4,9 +4,6 @@ import GoogleUser = gapi.auth2.GoogleUser;
 //import GoogleAuth = gapi.auth2.GoogleAuth;
 import AuthResponse = gapi.auth2.AuthResponse;
 
-
-import { LocalStorageService } from '../local-storage/local-storage.service';
-
 export const ACCESS_TOKEN_KEY = 'ACCESS.TOKEN.KEY';
 
 @Injectable()
@@ -21,19 +18,18 @@ export class AuthUserService {
 
     // Track whether or not to renew token
     private _expiresAt: number;
-    private user: GoogleUser = undefined;
+    //private user: GoogleUser = undefined;
 
     gapiAuthService$ = this.googleAuthService.getAuth();
 
     constructor(private googleAuthService: GoogleAuthService,
-                private ngZone: NgZone,
-                private localStorageService: LocalStorageService) {
+                private ngZone: NgZone) {
 
     }
 
-    set setUser(user: GoogleUser) {
-        this.user = user;
-    }
+    //set setUser(user: GoogleUser) {
+    //    this.user = user;
+    //}
 
     get authSuccessUrl(): string {
       return this._onAuthSuccessUrl;
@@ -47,9 +43,9 @@ export class AuthUserService {
       return this._logoutUrl;
     }
 
-    get getCurrentUser(): GoogleUser {
-        return this.user;
-    }
+    //get getCurrentUser(): GoogleUser {
+    //    return this.user;
+    //}
 
     public getToken(): string {
         let token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -80,12 +76,12 @@ export class AuthUserService {
         //});
     }
 
-    public signInSuccessHandler(res: GoogleUser) {
+    public signInSuccessHandler(res: AuthResponse) {
         console.log(res);
         this.ngZone.run(() => {
-            this.user = res;
+            //this.user = res;
             // Set flag in local storage stating this app is logged in
-            localStorage.setItem(ACCESS_TOKEN_KEY, res.getAuthResponse().access_token)
+            localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
             //this._accessToken = res.getAuthResponse().access_token;
         });
     }
@@ -107,8 +103,8 @@ export class AuthUserService {
             } catch (e) {
                 console.error(e);
             }
-            this.user = undefined;
-            this.localStorageService.removeItem(ACCESS_TOKEN_KEY);
+            //this.user = undefined;
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
         });
     }
 

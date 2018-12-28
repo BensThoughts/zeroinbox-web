@@ -10,14 +10,16 @@ import { environment } from '@env/environment';
 
 import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
 //import { debug } from './meta-reducers/debug.reducer';
-import { AuthState } from './auth/auth.reducer';
+import { authReducer, AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
-import { authReducer } from './auth/auth.reducer';
+import { userReducer, UserState } from './user/user.reducer';
+
 import { debug } from './meta-reducers/debug.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
+  user: userReducer,
   router: routerReducer
 };
 
@@ -35,12 +37,17 @@ export const selectAuthState = createFeatureSelector<AppState, AuthState>(
   'auth'
 );
 
+export const selectUserState = createFeatureSelector<AppState, UserState>(
+  'user'
+)
+
 export const selectRouterState = createFeatureSelector<
   AppState,
   RouterReducerState<RouterStateUrl>
 >('router');
 
 export interface AppState {
+  user: UserState;
   auth: AuthState;
   router: RouterReducerState<RouterStateUrl>;
 }
