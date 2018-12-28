@@ -4,9 +4,6 @@ import GoogleUser = gapi.auth2.GoogleUser;
 //import GoogleAuth = gapi.auth2.GoogleAuth;
 import AuthResponse = gapi.auth2.AuthResponse;
 
-//import { environment } from '@env/environment';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../state/core.state';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
@@ -25,7 +22,6 @@ export class AuthUserService {
     // Track whether or not to renew token
     private _expiresAt: number;
     private user: GoogleUser = undefined;
-    private _accessToken: string;
 
     gapiAuthService$ = this.googleAuthService.getAuth();
 
@@ -135,7 +131,7 @@ export class AuthUserService {
     }
 
     private resetAuthTokenSuccess(res: AuthResponse) {
-
+      console.log(res);
     }
 
 

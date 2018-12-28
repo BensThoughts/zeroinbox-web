@@ -9,10 +9,10 @@ import { map, mergeMap, withLatestFrom, filter } from 'rxjs/operators';
 
 import { allGmailLabelsLoaded } from './gmail-label.selectors';
 
-import { AuthUserService } from '@app/core/services/auth-user/auth-user.service';
+
 import { AppState } from '@app/core';
 
-import { LocalStorageService } from '@app/core';
+//import { LocalStorageService } from '@app/core';
 
 
 @Injectable()
@@ -29,7 +29,7 @@ export class GmailLabelEffects {
     );
 
   constructor(private actions$ :Actions, private gmailLabelsService: GmailLabelService,
-              private store: Store<AppState>, private userService: AuthUserService) {
+              private store: Store<AppState>) {
 
   }
 }

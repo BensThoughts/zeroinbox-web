@@ -1,21 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError, of} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 
 //import { GmailLabel } from './models/gmail-label.model';
 
 import { IGmailLabel } from '../../state/models/gmail-label.model';
-import { Store, select } from '@ngrx/store';
-import { AppState, selectAccessToken } from '@app/core';
 
 @Injectable()
 export class GmailLabelService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
 
-    constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
-
+    constructor(private httpClient: HttpClient) {}
 
     public getAllGmailLabels(): Observable<IGmailLabel[]> {
         return this.httpClient.get(this.API_URL + '/me/labels').pipe(
