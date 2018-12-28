@@ -5,11 +5,11 @@ import { SharedModule } from '@app/shared';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { CallbackComponent } from './components/callback/callback.component';
 import { LogoutPromptComponent } from './components/logout-prompt/logout-prompt.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [LoginPageComponent, CallbackComponent, LogoutPromptComponent],
+  declarations: [LoginPageComponent, LoadingComponent, LogoutPromptComponent],
   entryComponents: [LogoutPromptComponent],
   imports: [
     CommonModule,

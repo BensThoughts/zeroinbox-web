@@ -4,15 +4,11 @@ import { AppState } from '@app/core';
 import { LoginCompleteAction } from '@app/core/state/auth/auth.actions';
 
 @Component({
-  selector: 'abl-callback',
-  template: `
-    <p>
-      Loading...
-    </p>
-  `,
+  selector: 'go-loading',
+  templateUrl: './loading.component.html',
   styles: []
 })
-export class CallbackComponent implements OnInit {
+export class LoadingComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {

@@ -46,7 +46,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     discoveryDocs: environment.googleApi.discoveryDocs,
     scope: environment.googleApi.scope,
     ux_mode: "redirect",
-    redirect_uri: "http://localhost:4200/callback",
+    redirect_uri: "http://localhost:4200/loading",
 };
 
 

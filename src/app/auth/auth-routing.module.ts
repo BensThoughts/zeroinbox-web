@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { CallbackComponent } from './components/callback/callback.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 const routes: Routes = [
@@ -11,8 +11,8 @@ const routes: Routes = [
     component: LoginPageComponent
   },
   {
-    path: 'callback',
-    component: CallbackComponent
+    path: 'loading',
+    component: LoadingComponent
   }
 ];
 
