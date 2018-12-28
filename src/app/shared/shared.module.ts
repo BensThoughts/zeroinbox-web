@@ -85,7 +85,7 @@ library.add(
 );
 
 @NgModule({
-  imports: [
+  /**imports: [
     CommonModule,
 
     FormsModule,
@@ -113,7 +113,7 @@ library.add(
     DragDropModule,
 
     FlexLayoutModule
-  ],
+  ],**/
   exports: [
     CommonModule,
 
