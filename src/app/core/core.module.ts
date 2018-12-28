@@ -51,6 +51,7 @@ import {
     NG_GAPI_CONFIG,
 //    GoogleApiConfig
 } from "ng-gapi";
+import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
 let gapiClientConfig: NgGapiClientConfig = {
@@ -73,7 +74,7 @@ let gapiClientConfig: NgGapiClientConfig = {
 
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
-    EffectsModule.forRoot([AuthEffects]),    // ngrx effects
+    EffectsModule.forRoot([AuthEffects, UserEffects]),    // ngrx effects
     // ngrx store devtools
 
     GoogleApiModule.forRoot({

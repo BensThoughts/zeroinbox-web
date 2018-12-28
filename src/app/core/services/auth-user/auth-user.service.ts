@@ -77,7 +77,7 @@ export class AuthUserService {
     }
 
     public signInSuccessHandler(res: AuthResponse) {
-        console.log(res);
+        //console.log(res);
         this.ngZone.run(() => {
             //this.user = res;
             // Set flag in local storage stating this app is logged in
