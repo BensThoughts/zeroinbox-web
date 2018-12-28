@@ -1,36 +1,36 @@
 import {Injectable, NgZone} from "@angular/core";
 import {GoogleAuthService} from "ng-gapi/lib/GoogleAuthService";
 import GoogleUser = gapi.auth2.GoogleUser;
-import GoogleAuth = gapi.auth2.GoogleAuth;
+//import GoogleAuth = gapi.auth2.GoogleAuth;
 import AuthResponse = gapi.auth2.AuthResponse;
-import { Observable, of, bindCallback } from 'rxjs';
 
-import { environment } from '@env/environment';
+//import { environment } from '@env/environment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../state/core.state';
-import { LoginCompleteAction, LogoutAction } from '../../state/auth/auth.actions';
-import { tap, catchError } from 'rxjs/operators';
+
+import { LocalStorageService } from '../local-storage/local-storage.service';
+
+export const ACCESS_TOKEN_KEY = 'ACCESS.TOKEN.KEY';
 
 @Injectable()
 export class AuthUserService {
     //public static readonly SESSION_STORAGE_KEY: string = "accessToken";
-    private _accessTokenKey = 'accessToken';
 
-    private user: GoogleUser = undefined;
 
-    // Track whether or not to renew token
-    private _authFlag = 'isLoggedIn';
     // Authentication navigation
     private _onAuthSuccessUrl = '/admin-panel/home';
     private _onAuthFailureUrl = '/login';
     private _logoutUrl = '/login';
+
+    // Track whether or not to renew token
     private _expiresAt: number;
+    private user: GoogleUser = undefined;
 
     gapiAuthService$ = this.googleAuthService.getAuth();
 
     constructor(private googleAuthService: GoogleAuthService,
                 private ngZone: NgZone,
-                private store: Store<AppState>) {
+                private localStorageService: LocalStorageService) {
 
     }
 
@@ -54,17 +54,12 @@ export class AuthUserService {
         return this.user;
     }
 
-    get isUserSignedIn(): boolean {
-        return JSON.parse(localStorage.getItem(this._authFlag));
-        //return !_.isEmpty(sessionStorage.getItem(this._accessTokenKey));
-    }
-
     public getToken(): string {
-        let token: string = sessionStorage.getItem(this._accessTokenKey);
+        let token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
         if (!token) {
             throw new Error("no token set , authentication required");
         }
-        return sessionStorage.getItem(this._accessTokenKey);
+        return token;
     }
 
 
@@ -91,27 +86,16 @@ export class AuthUserService {
         console.log(res);
         this.ngZone.run(() => {
             this.user = res;
-            // set the expiresAt value
-            this._expiresAt = res.getAuthResponse().expires_at;
             // Set flag in local storage stating this app is logged in
-            localStorage.setItem(this._authFlag, JSON.stringify(true));
-            this.setAccessToken(res.getAuthResponse().access_token);
+            localStorage.setItem(ACCESS_TOKEN_KEY, res.getAuthResponse().access_token)
         });
     }
 
-
-    private setAccessToken(accessToken: string) {
-      sessionStorage.setItem(
-        this._accessTokenKey, accessToken
-      );
-    }
 
     private signInErrorHandler(err) {
         console.warn(err);
         return err;
     }
-
-
 
     /**
      * [signOut description]
@@ -125,8 +109,7 @@ export class AuthUserService {
                 console.error(e);
             }
             this.user = undefined;
-            sessionStorage.removeItem(this._accessTokenKey);
-            localStorage.removeItem(this._authFlag);
+            this.localStorageService.removeItem(ACCESS_TOKEN_KEY);
         });
     }
 

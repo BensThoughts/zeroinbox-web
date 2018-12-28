@@ -16,6 +16,9 @@ import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
+import { LocalStorageService } from '@app/core/services/local-storage/local-storage.service';
+
+export const AUTH_KEY = 'AUTH';
 
 @Injectable()
 export class AuthEffects {
@@ -43,9 +46,21 @@ export class AuthEffects {
     exhaustMap(() => {
       return this.authService.gapiAuthService$.pipe(
         map((authResult) => {
-          if (authResult.isSignedIn)
-            this.authService.signInSuccessHandler(authResult.currentUser.get())
-            return new LoginSuccessAction(authResult.currentUser.get());
+          if (authResult.isSignedIn) {
+            let user = authResult.currentUser.get();
+            this.authService.signInSuccessHandler(user);
+            let authResponse = authResult.currentUser.get().getAuthResponse();
+            this.localStorageService.setItem(AUTH_KEY, {
+              isAuthenticated: true,
+              accessToken: authResponse.access_token,
+              expiresAt: authResponse.expires_at,
+              user: user
+            });
+            return new LoginSuccessAction({
+              user: user,
+              authInfo: authResponse
+            });
+          }
         }),
         catchError(error => of(new LoginFailureAction(error)))
       );
@@ -112,6 +127,7 @@ export class AuthEffects {
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
       this.authService.signOut();
+      this.localStorageService.removeItem(AUTH_KEY);
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -122,5 +138,6 @@ constructor(
   private router: Router,
   private dialogService: MatDialog,
   private ngZone: NgZone,
+  private localStorageService: LocalStorageService
 ) {}
 }

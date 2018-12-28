@@ -41,6 +41,25 @@ import { AppErrorHandler } from './services/error-handler/app-error-handler.serv
 /* environment variables */
 import { environment } from '@env/environment';
 
+// 3rd party library (ng-gapi) to initialize google api's, handle auth, and
+// assist in the use of the google api's
+import {
+    GoogleApiModule,
+//    GoogleApiService,
+//    GoogleAuthService,
+    NgGapiClientConfig,
+    NG_GAPI_CONFIG,
+//    GoogleApiConfig
+} from "ng-gapi";
+
+// config of ng-gapi 3rd party library
+let gapiClientConfig: NgGapiClientConfig = {
+    client_id: environment.googleApi.clientId,
+    discoveryDocs: environment.googleApi.discoveryDocs,
+    scope: environment.googleApi.scope,
+    ux_mode: "redirect",
+    redirect_uri: "http://localhost:4200/loading",
+};
 
 
 /**
@@ -56,9 +75,15 @@ import { environment } from '@env/environment';
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
     EffectsModule.forRoot([AuthEffects]),    // ngrx effects
     // ngrx store devtools
+
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
+    }),
+
     environment.production? []: StoreDevtoolsModule.instrument({
-          name: 'Gmail Starter'
-        })
+      name: 'Gmail Starter'
+    }),
   ],
 
   declarations: [],
