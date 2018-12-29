@@ -19,7 +19,7 @@ import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { LoadNewUserAction, ResetUserAction } from '../user/user.actions';
-import { GmailLabelsRemovedByAuth } from '@app/admin-panel/labels/state/gmail-label.actions';
+import { GmailLabelsRemovedByAuth } from '@app/admin-panel/labels/state/gmail-label/gmail-label.actions';
 
 @Injectable()
 export class AuthEffects {

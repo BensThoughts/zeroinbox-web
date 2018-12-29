@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IGmailLabel } from '../../state/models/gmail-label.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { GmailLabelRemoved } from '../../state/gmail-label.actions';
+import { GmailLabelRemoved } from '../../state/gmail-label/gmail-label.actions';
 
 @Component({
   selector: 'go-labels-list',

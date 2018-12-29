@@ -10,9 +10,9 @@ import { SharedModule } from '@app/shared';
 
 
 import { StoreModule } from '@ngrx/store';
-import { gmailLabelReducer } from './state/gmail-label.reducer';
+import { gmailLabelReducer } from './state/gmail-label/gmail-label.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { GmailLabelEffects } from './state/gmail-label.effects';
+import { GmailLabelEffects } from './state/gmail-label/gmail-label.effects';
 
 import { GmailLabelService } from './services/gmail-label/gmail-label.service';
 

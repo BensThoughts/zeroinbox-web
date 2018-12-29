@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {IGmailLabel} from './models/gmail-label.model';
+import {IGmailLabel} from '../models/gmail-label.model';
 import {Update} from '@ngrx/entity';
 
 export enum GmailLabelActionTypes {

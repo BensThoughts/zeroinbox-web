@@ -1,5 +1,5 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
-import { IGmailLabel } from './models/gmail-label.model';
+import { IGmailLabel } from '../models/gmail-label.model';
 import { GmailLabelActions, GmailLabelActionTypes } from './gmail-label.actions';
 
 export interface GmailLabelState extends EntityState<IGmailLabel> {

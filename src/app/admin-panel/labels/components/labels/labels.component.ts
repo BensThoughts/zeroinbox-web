@@ -11,10 +11,10 @@ import { IGmailLabel } from '../../state/models/gmail-label.model';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 
-import { GmailLabelsRequested } from '../../state/gmail-label.actions';
+import { GmailLabelsRequested } from '../../state/gmail-label/gmail-label.actions';
 import { Observable } from 'rxjs';
 
-import { selectUserGmailLabels } from '../../state/gmail-label.selectors';
+import { selectUserGmailLabels } from '../../state/gmail-label/gmail-label.selectors';
 
 
 @Component({

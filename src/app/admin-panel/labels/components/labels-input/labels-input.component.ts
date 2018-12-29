@@ -7,7 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { GmailLabelsAdded } from '../../state/gmail-label.actions';
+import { GmailLabelsAdded } from '../../state/gmail-label/gmail-label.actions';
 import { IGmailLabel } from '../../state/models/gmail-label.model';
 
 // import {GmailLabel} from '@app/core/services/label/models/gmail-label.model';
@@ -49,6 +49,7 @@ export class LabelsInputComponent {
   addLabelsToStore() {
     this.createLabels(this.labels);
     this.store.dispatch(new GmailLabelsAdded({ gmailLabels : this.gmailLabels }));
+    this.resetGmailLabels();
     this.resetLabels();
   }
 
@@ -61,8 +62,12 @@ export class LabelsInputComponent {
     }));
   }
 
-  resetLabels() {
+  private resetGmailLabels() {
     this.gmailLabels = [];
+  }
+
+  private resetLabels() {
+    this.labels = [];
   }
 
   add(event: MatChipInputEvent): void {
