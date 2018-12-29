@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, features } from './features.data';
 
-import { fadeElementsAnimation } from './elementsAnimations'
+import { fadeElementsAnimation } from './elementsAnimations';
 
 @Component({
   selector: 'app-home',

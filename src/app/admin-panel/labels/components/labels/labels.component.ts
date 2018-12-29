@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 
-//import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
-//import { UserService } from '@app/core/services/auth-user/user.service';
+// import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
+// import { UserService } from '@app/core/services/auth-user/user.service';
 
-//import { filter, map } from 'rxjs/operators';
+// import { filter, map } from 'rxjs/operators';
 
 import { IGmailLabel } from '../../state/models/gmail-label.model';
 

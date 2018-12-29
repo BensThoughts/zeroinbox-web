@@ -1,10 +1,10 @@
 import { CanActivate, Router } from '@angular/router';
-//import { AuthUserService } from './auth-user.service';
+// import { AuthUserService } from './auth-user.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-//import { of } from 'rxjs';
+// import { of } from 'rxjs';
 import { selectIsAuthenticated } from '@app/core/state/auth/auth.selectors';
 
 
@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate {
     return this.checkStoreAuthentication().pipe(
       tap((authenticated) => {
         if (!authenticated) {
-          this.router.navigate(['/login'])
+          this.router.navigate(['/login']);
         }
       })
     );

@@ -23,24 +23,20 @@ export const environment = {
     cypress: packageJson.devDependencies['cypress']
   },
   firebase: {
-    apiKey: "AIzaSyApj72ln0LXGOfDphTmxjm5du142jPe0kw",
-    authDomain: "labelorganizer.firebaseapp.com",
-    databaseURL: "https://labelorganizer.firebaseio.com",
-    projectId: "labelorganizer",
-    storageBucket: "labelorganizer.appspot.com",
-    messagingSenderId: "268592066050"
+    apiKey: 'AIzaSyApj72ln0LXGOfDphTmxjm5du142jPe0kw',
+    authDomain: 'labelorganizer.firebaseapp.com',
+    databaseURL: 'https://labelorganizer.firebaseio.com',
+    projectId: 'labelorganizer',
+    storageBucket: 'labelorganizer.appspot.com',
+    messagingSenderId: '268592066050'
   },
   googleApi: {
     apiKey: 'AIzaSyDVqUhDKRHUWuaCCOZDuqMwMWape3VNaGM',
     clientId: '443118366030-p6fpakqmn0ngjes70eigkegpvva96agm.apps.googleusercontent.com',
-    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
+    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'],
     scope: 'https://www.googleapis.com/auth/gmail.readonly',
   }
 };
-
-//export const environment = {
-//  production: false
-//};
 
 /*
  * For easier debugging in development mode, you can import the following file

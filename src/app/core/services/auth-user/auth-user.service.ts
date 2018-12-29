@@ -1,14 +1,14 @@
-import {Injectable, NgZone} from "@angular/core";
-import {GoogleAuthService} from "ng-gapi/lib/GoogleAuthService";
-//import GoogleUser = gapi.auth2.GoogleUser;
-//import GoogleAuth = gapi.auth2.GoogleAuth;
+import {Injectable, NgZone} from '@angular/core';
+import {GoogleAuthService} from 'ng-gapi/lib/GoogleAuthService';
+// import GoogleUser = gapi.auth2.GoogleUser;
+// import GoogleAuth = gapi.auth2.GoogleAuth;
 import AuthResponse = gapi.auth2.AuthResponse;
 
 export const ACCESS_TOKEN_KEY = 'ACCESS.TOKEN.KEY';
 
 @Injectable()
 export class AuthUserService {
-    //public static readonly SESSION_STORAGE_KEY: string = "accessToken";
+    // public static readonly SESSION_STORAGE_KEY: string = "accessToken";
 
 
     // Authentication navigation
@@ -18,7 +18,7 @@ export class AuthUserService {
 
     // Track whether or not to renew token
     private _expiresAt: number;
-    //private user: GoogleUser = undefined;
+    // private user: GoogleUser = undefined;
 
     gapiAuthService$ = this.googleAuthService.getAuth();
 
@@ -27,9 +27,9 @@ export class AuthUserService {
 
     }
 
-    //set setUser(user: GoogleUser) {
-    //    this.user = user;
-    //}
+    // set setUser(user: GoogleUser) {
+    //     this.user = user;
+    // }
 
     get authSuccessUrl(): string {
       return this._onAuthSuccessUrl;
@@ -43,15 +43,15 @@ export class AuthUserService {
       return this._logoutUrl;
     }
 
-    //get getCurrentUser(): GoogleUser {
-    //    return this.user;
-    //}
+    // get getCurrentUser(): GoogleUser {
+    //     return this.user;
+    // }
 
     public getToken(): string {
-        let token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
-        //let token = this._accessToken;
+        const token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
+        // let token = this._accessToken;
         if (!token) {
-            throw new Error("no token set , authentication required");
+            throw new Error('no token set , authentication required');
         }
         return token;
     }
@@ -70,19 +70,19 @@ export class AuthUserService {
           (err) => {
             this.signInErrorHandler(err);
           }
-        )
-        //.subscribe((auth) => {
-        //   auth.signIn()//.then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
-        //});
+        );
+        // .subscribe((auth) => {
+        //    auth.signIn()//.then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
+        // });
     }
 
     public signInSuccessHandler(res: AuthResponse) {
-        //console.log(res);
+        // console.log(res);
         this.ngZone.run(() => {
-            //this.user = res;
+            // this.user = res;
             // Set flag in local storage stating this app is logged in
             localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
-            //this._accessToken = res.getAuthResponse().access_token;
+            // this._accessToken = res.getAuthResponse().access_token;
         });
     }
 
@@ -95,7 +95,7 @@ export class AuthUserService {
     /**
      * [signOut description]
      */
-    //TODO: Rework
+    // TODO: Rework
     public signOut(): void {
         this.googleAuthService.getAuth().subscribe((auth) => {
             try {
@@ -103,7 +103,7 @@ export class AuthUserService {
             } catch (e) {
                 console.error(e);
             }
-            //this.user = undefined;
+            // this.user = undefined;
             localStorage.removeItem(ACCESS_TOKEN_KEY);
         });
     }
@@ -115,8 +115,9 @@ export class AuthUserService {
      * @return [description]
      */
     public checkAuthenticationRefresh() {
-      if (this._expiresAt < Date.now())
+      if (this._expiresAt < Date.now()) {
         this.refreshAuthToken();
+      }
     }
 
     private refreshAuthToken() {

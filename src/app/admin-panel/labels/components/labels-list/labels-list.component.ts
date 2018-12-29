@@ -13,7 +13,7 @@ export class LabelsListComponent implements OnInit {
 
   @Input() labelsList: IGmailLabel[];
 
-  removable: boolean = true;
+  removable = true;
 
   // store should be public or private? UNSURE
   constructor(private store: Store<AppState>) { }

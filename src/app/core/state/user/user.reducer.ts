@@ -1,13 +1,13 @@
-//import { User } from './user.models';
+// import { User } from './user.models';
 import { UserActions, UserActionTypes } from './user.actions';
 
 export interface UserState {
-    id: string,
-    imageUrl: string,
-    name: string,
-    familyName: string,
-    givenName: string,
-    email: string
+    id: string;
+    imageUrl: string;
+    name: string;
+    familyName: string;
+    givenName: string;
+    email: string;
 }
 
 export const initialState: UserState = {
@@ -35,7 +35,7 @@ export function userReducer(state: UserState = initialState, action: UserActions
         familyName: action.payload.getFamilyName(),
         givenName: action.payload.getGivenName(),
         email: action.payload.getEmail()
-      }
+      };
 
     case UserActionTypes.ResetUser:
       return initialState;

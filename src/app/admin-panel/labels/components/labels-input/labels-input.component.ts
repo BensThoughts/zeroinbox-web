@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild, Input} from '@angular/core';
+import {Component, ElementRef, ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
 import {Observable} from 'rxjs';
@@ -10,7 +10,7 @@ import { AppState } from '@app/core';
 import { GmailLabelsAdded } from '../../state/gmail-label.actions';
 import { IGmailLabel } from '../../state/models/gmail-label.model';
 
-//import {GmailLabel} from '@app/core/services/label/models/gmail-label.model';
+// import {GmailLabel} from '@app/core/services/label/models/gmail-label.model';
 
 /**
  * @title Chips Autocomplete
@@ -21,7 +21,7 @@ import { IGmailLabel } from '../../state/models/gmail-label.model';
   styleUrls: ['labels-input.component.scss'],
 })
 export class LabelsInputComponent {
-  //@Input() allLabels: string[];
+  // @Input() allLabels: string[];
 
   // Suggested Labels Test
   allLabels: string[] = ['John Abrams', 'Josh Lennon', 'Lindsay Essary', 'Best Buy', 'Starbucks'];

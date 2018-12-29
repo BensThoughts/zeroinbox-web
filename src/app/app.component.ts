@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { of, Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 
 import { MenuItem, menu_items } from './menuitems.data';
 
 import { GoogleApiService } from 'ng-gapi';
-import { GoogleAuthService } from 'ng-gapi';
+// import { GoogleAuthService } from 'ng-gapi';
 
 import {
   sideNavAnimation,
@@ -15,7 +15,7 @@ import {
 } from './sidenav.animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, LogoutAction } from '@app/core';
-import { selectIsAuthenticated } from '@app/core'
+import { selectIsAuthenticated } from '@app/core';
 
 
 @Component({
@@ -29,7 +29,7 @@ import { selectIsAuthenticated } from '@app/core'
   ]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'gmail-starter';
   isProd = env.production;
   envName = env.envName;
@@ -59,12 +59,9 @@ export class AppComponent {
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
   }
 
-
-
   // used to sign the google user out of the app
-  //  signIn() in implemented in auth/components/login-page.component.ts
+  //  signIn() is implemented in auth/components/login-page.component.ts
   public signOut(): void {
     this.store.dispatch(new LogoutAction());
   }
-
 }

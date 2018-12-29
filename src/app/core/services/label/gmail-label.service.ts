@@ -21,7 +21,7 @@ export class GmailLabelService {
             retry(3), // retry a failed request up to 3 times
             map(response => {
               return <any>response['labels'].map(labelObject => {
-                //console.log("raw item", labelObject);  // uncomment for debug
+                // console.log("raw item", labelObject);  // uncomment for debug
                 return new GmailLabel({
                   id: labelObject.id,
                   labelListVisibility: labelObject.labelListVisibility,
@@ -49,6 +49,6 @@ export class GmailLabelService {
         // return an observable with a user-facing error message
       return throwError(
         'Something bad happened; please try again later.');
-    };
+    }
 
 }

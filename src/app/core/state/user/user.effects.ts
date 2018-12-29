@@ -23,7 +23,7 @@ export class UserEffects {
           imageUrl: action.payload.getImageUrl(),
           givenName: action.payload.getGivenName(),
           email: action.payload.getEmail()
-        })
+        });
     })
   );
 

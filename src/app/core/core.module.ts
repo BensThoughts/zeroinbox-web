@@ -50,11 +50,11 @@ import {
     NgGapiClientConfig,
     NG_GAPI_CONFIG,
 //    GoogleApiConfig
-} from "ng-gapi";
+} from 'ng-gapi';
 import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
-let gapiClientConfig: NgGapiClientConfig = {
+const gapiClientConfig: NgGapiClientConfig = {
     client_id: environment.googleApi.clientId,
     discoveryDocs: environment.googleApi.discoveryDocs,
     scope: environment.googleApi.scope,
@@ -82,7 +82,7 @@ let gapiClientConfig: NgGapiClientConfig = {
       useValue: gapiClientConfig
     }),
 
-    environment.production? []: StoreDevtoolsModule.instrument({
+    environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
     }),
   ],

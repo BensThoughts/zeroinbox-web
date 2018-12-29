@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService } from '@app/core';
+// import { AuthGuardService } from '@app/core';
 
 const routes: Routes = [
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'admin-panel',
     loadChildren: './admin-panel/admin-panel.module#AdminPanelModule',
-    //canActivate: [AuthGuardService]
+    // canActivate: [AuthGuardService]
   }
 ];
 

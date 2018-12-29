@@ -4,7 +4,7 @@ import { GmailLabelState } from './gmail-label.reducer';
 
 import * as fromGmailLabel from './gmail-label.reducer';
 
-export const selectGmailLabelState = createFeatureSelector<GmailLabelState>("gmail-labels");
+export const selectGmailLabelState = createFeatureSelector<GmailLabelState>('gmail-labels');
 
 export const selectAllGmailLabels = createSelector(
   selectGmailLabelState,
@@ -13,7 +13,7 @@ export const selectAllGmailLabels = createSelector(
 
 export const selectUserGmailLabels = createSelector(
   selectAllGmailLabels,
-  gmailLabels => gmailLabels.filter(label => label.type == 'user')
+  gmailLabels => gmailLabels.filter(label => label.type === 'user')
 );
 
 export const allGmailLabelsLoaded = createSelector(

@@ -34,7 +34,7 @@ export class AuthEffects {
   login$ = this.actions$.pipe(
     ofType<LoginRequestedAction>(AuthActionTypes.LoginRequested),
     tap(() => {
-      this.authService.signIn()
+      this.authService.signIn();
     })
   );
 
@@ -50,23 +50,23 @@ export class AuthEffects {
       return this.authService.gapiAuthService$.pipe(
         tap((authResult) => {
           if (authResult.isSignedIn) {
-            let user = authResult.currentUser.get();
-            let basicUserProfile = user.getBasicProfile();
-            this.store.dispatch(new LoadNewUserAction(basicUserProfile))
+            const user = authResult.currentUser.get();
+            const basicUserProfile = user.getBasicProfile();
+            this.store.dispatch(new LoadNewUserAction(basicUserProfile));
           }
         }),
         map((authResult) => {
           if (authResult.isSignedIn) {
-            let authResponse = authResult.currentUser.get().getAuthResponse();
+            const authResponse = authResult.currentUser.get().getAuthResponse();
             this.authService.signInSuccessHandler(authResponse);
             this.localStorageService.setItem(AUTH_KEY, {
               isAuthenticated: true,
               accessToken: authResponse.access_token,
               expiresAt: authResponse.expires_at,
-              //user: user
+              // user: user
             });
             return new LoginSuccessAction({
-              //user: user,
+              // user: user,
               authInfo: authResponse
             });
           }
@@ -86,8 +86,8 @@ export class AuthEffects {
     ofType<LoginSuccessAction>(AuthActionTypes.LoginSuccess),
     tap(() => {
       this.ngZone.run(() => {
-        this.router.navigate([this.authService.authSuccessUrl])
-      })
+        this.router.navigate([this.authService.authSuccessUrl]);
+      });
     })
   );
 
@@ -101,7 +101,7 @@ export class AuthEffects {
     tap(() => {
       this.ngZone.run(() => {
         this.router.navigate([this.authService.authFailureUrl]);
-      })
+      });
     })
   );
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-//import { NavigationComponent } from './navigation/navigation.component';
+// import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from '@app/core';
 import { LabelsComponent } from './labels/components/labels/labels.component';

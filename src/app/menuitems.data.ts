@@ -38,4 +38,4 @@ export const menu_items: MenuItem[] = [
     link: '/admin-panel/settings',
     icon: 'cog'
   },
-]
+];

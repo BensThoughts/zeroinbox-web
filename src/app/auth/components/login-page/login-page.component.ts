@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
@@ -15,7 +15,7 @@ import { LoginRequestedAction } from '@app/core/state/auth/auth.actions';
 export class LoginPageComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
-    //private userService: UserService) { }
+    // private userService: UserService) { }
 
   ngOnInit() { }
 
@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
   //  signOut() in implemented in app.component.ts
   public signIn() {
     this.store.dispatch(new LoginRequestedAction());
-    //this.userService.signIn();
+    // this.userService.signIn();
   }
 
 }

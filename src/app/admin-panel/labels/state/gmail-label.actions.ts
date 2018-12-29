@@ -5,6 +5,7 @@ import {Update} from '@ngrx/entity';
 export enum GmailLabelActionTypes {
   GmailLabelsRequested = '[Labels Page] All Gmail Labels Requested',
   GmailLabelsLoaded = '[Gmail Labels API] Gmail Labels Loaded',
+  GmailLabelsLoadFailure = '[Gmail Labels API] Gmail Labels Load Failure',
   GmailLabelsAdded = '[Labels Input Component] Gmail Labels Added',
   GmailLabelRemoved = '[Labels List Component] Gmail Label Removed',
   GmailLabelRequested = '[Labels Page] Gmail Label Requested',
@@ -26,6 +27,17 @@ export class GmailLabelsRequested implements Action {
 export class GmailLabelsLoaded implements Action {
   readonly type = GmailLabelActionTypes.GmailLabelsLoaded;
   constructor(public payload: { gmailLabels: IGmailLabel[] }) {
+
+  }
+}
+
+/**
+ * [return all gmail labels from the Gmail Label API as IGmailLabel[]]
+ * @param payload: { gmailLabel: IGmailLabel[] } [array of all gmail labels]
+ */
+export class GmailLabelsLoadFailure implements Action {
+  readonly type = GmailLabelActionTypes.GmailLabelsLoadFailure;
+  constructor(public payload: any) {
 
   }
 }
@@ -77,6 +89,7 @@ export class GmailLabelSaved implements Action {
 export type GmailLabelActions =
   GmailLabelsRequested
   | GmailLabelsLoaded
+  | GmailLabelsLoadFailure
   | GmailLabelsAdded
   | GmailLabelRemoved
   | GmailLabelRequested

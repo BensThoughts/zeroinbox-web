@@ -8,14 +8,13 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 import { environment } from '@env/environment';
 
-import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
-//import { debug } from './meta-reducers/debug.reducer';
 import { authReducer, AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
 import { userReducer, UserState } from './user/user.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';
+import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
@@ -24,7 +23,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
-  initStateFromLocalStorage
+  localStorageSyncReducer
 ];
 if (!environment.production) {
   metaReducers.unshift(storeFreeze);
@@ -39,7 +38,7 @@ export const selectAuthState = createFeatureSelector<AppState, AuthState>(
 
 export const selectUserState = createFeatureSelector<AppState, UserState>(
   'user'
-)
+);
 
 export const selectRouterState = createFeatureSelector<
   AppState,

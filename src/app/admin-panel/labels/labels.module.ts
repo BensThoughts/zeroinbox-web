@@ -6,7 +6,7 @@ import { LabelsListComponent } from './components/labels-list/labels-list.compon
 import { LabelsInputComponent } from './components/labels-input/labels-input.component';
 
 import { SharedModule } from '@app/shared';
-//import { DropListComponent } from './components/drop-list/drop-list.component';
+// import { DropListComponent } from './components/drop-list/drop-list.component';
 
 
 import { StoreModule } from '@ngrx/store';
