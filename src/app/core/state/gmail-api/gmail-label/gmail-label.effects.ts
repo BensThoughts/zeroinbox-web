@@ -30,7 +30,7 @@ import {
   GmailLabelsLoadFailure
 } from './gmail-label.actions';
 
-import { GmailLabelService } from '../../services/gmail-label/gmail-label.service';
+import { GmailLabelService } from '../../../services/gmail-api/gmail-label/gmail-label.service';
 
 @Injectable()
 export class GmailLabelEffects {

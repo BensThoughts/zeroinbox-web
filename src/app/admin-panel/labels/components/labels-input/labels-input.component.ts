@@ -7,8 +7,8 @@ import {map, startWith} from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { GmailLabelsAdded } from '../../state/gmail-label/gmail-label.actions';
-import { IGmailLabel } from '../../state/models/gmail-label.model';
+import { GmailLabelsAdded } from '@app/core';
+import { IGmailLabel } from '@app/core';
 
 // import {GmailLabel} from '@app/core/services/label/models/gmail-label.model';
 

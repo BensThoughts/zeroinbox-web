@@ -5,7 +5,7 @@ import { catchError, retry, map } from 'rxjs/operators';
 
 // import { GmailLabel } from './models/gmail-label.model';
 
-import { IGmailLabel } from '../../state/models/gmail-label.model';
+import { IGmailLabel } from '../../../state/gmail-api/models/gmail-label.model';
 
 @Injectable()
 export class GmailLabelService {
@@ -14,10 +14,10 @@ export class GmailLabelService {
 
     constructor(private httpClient: HttpClient) {}
 
-    public getAllGmailLabels(): Observable<IGmailLabel[]> {
-        return this.httpClient.get(this.API_URL + '/me/labels').pipe(
+    public getAllGmailLabels(): any {
+        return this.httpClient.get(this.API_URL + '/me/messages').pipe(
             retry(0), // retry a failed request up to x times
-            map(response =>  response['labels']),
+            map(response =>  console.log(response)),
             // catchError(this.handleError) // then handle the error
         );
     }

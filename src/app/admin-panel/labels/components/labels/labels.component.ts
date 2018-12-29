@@ -6,15 +6,15 @@ import { Component, OnInit } from '@angular/core';
 
 // import { filter, map } from 'rxjs/operators';
 
-import { IGmailLabel } from '../../state/models/gmail-label.model';
+import { IGmailLabel } from '@app/core';
 
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 
-import { GmailLabelsRequested } from '../../state/gmail-label/gmail-label.actions';
+import { GmailLabelsRequested } from '@app/core';
 import { Observable } from 'rxjs';
 
-import { selectUserGmailLabels } from '../../state/gmail-label/gmail-label.selectors';
+import { selectUserGmailLabels } from '@app/core';
 
 
 @Component({

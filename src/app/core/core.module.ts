@@ -51,6 +51,7 @@ import {
     NG_GAPI_CONFIG,
 //    GoogleApiConfig
 } from 'ng-gapi';
+import { GmailLabelService } from './services/gmail-api/gmail-label/gmail-label.service';
 // import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
@@ -91,6 +92,7 @@ const gapiClientConfig: NgGapiClientConfig = {
   providers: [
     AuthUserService,
     AuthGuardService,
+    GmailLabelService,
     NotificationService, // notifications in MatSnackBar
     // LocalStorageService, // stores entire ngrx-store state in localStorage
     httpInterceptorProviders, // http error interceptor

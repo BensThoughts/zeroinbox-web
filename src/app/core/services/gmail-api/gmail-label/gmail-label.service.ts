@@ -5,7 +5,7 @@ import { retry, map } from 'rxjs/operators';
 
 // import { GmailLabel } from './models/gmail-label.model';
 
-import { IGmailLabel } from '../../state/models/gmail-label.model';
+import { IGmailLabel } from '../../../state/gmail-api/models/gmail-label.model';
 
 @Injectable()
 export class GmailLabelService {
