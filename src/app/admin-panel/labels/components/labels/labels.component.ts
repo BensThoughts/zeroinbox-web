@@ -15,6 +15,7 @@ import { GmailLabelsRequested } from '@app/core';
 import { Observable } from 'rxjs';
 
 import { selectUserGmailLabels } from '@app/core';
+import { CollectInboxMessageIds } from '@app/core';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class LabelsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GmailLabelsRequested());
+    this.store.dispatch(new CollectInboxMessageIds());
     this.gmail_labels$ = this.store.pipe(select(selectUserGmailLabels));
   }
 

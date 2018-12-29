@@ -8,13 +8,13 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { IGmailLabel } from '../../../state/gmail-api/models/gmail-label.model';
 
 @Injectable()
-export class GmailLabelService {
+export class SuggestedService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
 
     constructor(private httpClient: HttpClient) {}
 
-    public getAllGmailLabels(): any {
+    public getAllInboxMessageIds(): any {
         return this.httpClient.get(this.API_URL + '/me/messages').pipe(
             retry(0), // retry a failed request up to x times
             map(response =>  console.log(response)),
