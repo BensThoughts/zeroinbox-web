@@ -16,12 +16,10 @@ import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
-import { LocalStorageService } from '@app/core/services/local-storage/local-storage.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { LoadNewUserAction, ResetUserAction } from '../user/user.actions';
-
-export const AUTH_KEY = 'AUTH';
+import { GmailLabelsRemovedByAuth } from '@app/admin-panel/labels/state/gmail-label.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -59,12 +57,6 @@ export class AuthEffects {
           if (authResult.isSignedIn) {
             const authResponse = authResult.currentUser.get().getAuthResponse();
             this.authService.signInSuccessHandler(authResponse);
-            this.localStorageService.setItem(AUTH_KEY, {
-              isAuthenticated: true,
-              accessToken: authResponse.access_token,
-              expiresAt: authResponse.expires_at,
-              // user: user
-            });
             return new LoginSuccessAction({
               // user: user,
               authInfo: authResponse
@@ -137,8 +129,8 @@ export class AuthEffects {
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
       this.authService.signOut();
-      this.localStorageService.removeItem(AUTH_KEY);
       this.store.dispatch(new ResetUserAction());
+      this.store.dispatch(new GmailLabelsRemovedByAuth)
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -149,7 +141,6 @@ constructor(
   private router: Router,
   private dialogService: MatDialog,
   private ngZone: NgZone,
-  private localStorageService: LocalStorageService,
   private store: Store<AppState>
 ) {}
 }

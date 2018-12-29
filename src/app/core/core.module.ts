@@ -20,7 +20,7 @@ import {
 // router state custom serializer
 import { CustomSerializer } from './state/router/custom-serializer';
 // local storage service for storing the entire contents of ngrx store state
-import { LocalStorageService } from './services/local-storage/local-storage.service';
+// import { LocalStorageService } from './services/local-storage/local-storage.service';
 
 /**
  * [app wide singleton services]
@@ -51,7 +51,7 @@ import {
     NG_GAPI_CONFIG,
 //    GoogleApiConfig
 } from 'ng-gapi';
-import { UserEffects } from './state/user/user.effects';
+// import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
 const gapiClientConfig: NgGapiClientConfig = {
@@ -74,7 +74,7 @@ const gapiClientConfig: NgGapiClientConfig = {
 
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
-    EffectsModule.forRoot([AuthEffects, UserEffects]),    // ngrx effects
+    EffectsModule.forRoot([AuthEffects]),    // ngrx effects
     // ngrx store devtools
 
     GoogleApiModule.forRoot({
@@ -92,7 +92,7 @@ const gapiClientConfig: NgGapiClientConfig = {
     AuthUserService,
     AuthGuardService,
     NotificationService, // notifications in MatSnackBar
-    LocalStorageService, // stores entire ngrx-store state in localStorage
+    // LocalStorageService, // stores entire ngrx-store state in localStorage
     httpInterceptorProviders, // http error interceptor
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },

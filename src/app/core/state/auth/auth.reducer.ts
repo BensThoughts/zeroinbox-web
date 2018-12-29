@@ -20,8 +20,7 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
   switch (action.type) {
 
     /*
-     * Stores the login information, a GoogleUser as in User interface and sets
-     * the isLoggedIn flag to true
+     * Stores the auth information and sets the isLoggedIn flag to true
      */
     case AuthActionTypes.LoginSuccess:
       return {

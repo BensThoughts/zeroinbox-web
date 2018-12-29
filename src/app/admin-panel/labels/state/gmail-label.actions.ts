@@ -6,6 +6,7 @@ export enum GmailLabelActionTypes {
   GmailLabelsRequested = '[Labels Page] All Gmail Labels Requested',
   GmailLabelsLoaded = '[Gmail Labels API] Gmail Labels Loaded',
   GmailLabelsLoadFailure = '[Gmail Labels API] Gmail Labels Load Failure',
+  GmailLabelsRemovedByAuth = '[Auth Effects] Gmail Labels Removed',
   GmailLabelsAdded = '[Labels Input Component] Gmail Labels Added',
   GmailLabelRemoved = '[Labels List Component] Gmail Label Removed',
   GmailLabelRequested = '[Labels Page] Gmail Label Requested',
@@ -43,8 +44,15 @@ export class GmailLabelsLoadFailure implements Action {
 }
 
 /**
- * [return all gmail labels from the Gmail Label API as IGmailLabel[]]
- * @param payload: { gmailLabel: IGmailLabel[] } [array of all gmail labels]
+ * [remove all gmail labels from the store as requested by logout in auth effects]
+ */
+export class GmailLabelsRemovedByAuth implements Action {
+  readonly type = GmailLabelActionTypes.GmailLabelsRemovedByAuth;
+}
+
+/**
+ * [return gmail labels added from label-input component
+ * @param payload: { gmailLabel: IGmailLabel[] } [array of gmail labels]
  */
 export class GmailLabelsAdded implements Action {
   readonly type = GmailLabelActionTypes.GmailLabelsAdded;
@@ -90,6 +98,7 @@ export type GmailLabelActions =
   GmailLabelsRequested
   | GmailLabelsLoaded
   | GmailLabelsLoadFailure
+  | GmailLabelsRemovedByAuth
   | GmailLabelsAdded
   | GmailLabelRemoved
   | GmailLabelRequested

@@ -2,13 +2,13 @@ import { Action } from '@ngrx/store';
 
 export enum AuthActionTypes {
   LoginRequested = '[Login Page] Login Requested',
-  LoginComplete = '[Login Page] Login Complete',
-  LoginSuccess = '[Auth API] Login Success',
-  LoginFailure = '[Auth API] Login Failure',
+  LoginComplete = '[Loading Page] Login Complete',
+  LoginSuccess = '[Auth Effects] Login Success',
+  LoginFailure = '[Auth Effects] Login Failure',
   CheckLogin = '[Auth] Check Login',
   Logout = '[Sidenav Auth] Confirm Logout',
-  LogoutCancelled = '[Auth] Logout Cancelled',
-  LogoutConfirmed = '[Auth] Logout Confirmed'
+  LogoutCancelled = '[Auth Effects] Logout Cancelled',
+  LogoutConfirmed = '[Auth Effects] Logout Confirmed'
 }
 
 export class LoginRequestedAction implements Action {

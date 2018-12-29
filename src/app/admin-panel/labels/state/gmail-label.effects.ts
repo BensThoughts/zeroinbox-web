@@ -6,7 +6,7 @@ import {
   withLatestFrom,
   filter,
   catchError,
-  tap
+  // tap
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -22,7 +22,7 @@ import {
 } from '@ngrx/store';
 
 import { allGmailLabelsLoaded } from './gmail-label.selectors';
-import { AppState, LocalStorageService } from '@app/core';
+import { AppState } from '@app/core';
 import {
   GmailLabelsRequested,
   GmailLabelActionTypes,
@@ -31,10 +31,6 @@ import {
 } from './gmail-label.actions';
 
 import { GmailLabelService } from '../services/gmail-label/gmail-label.service';
-
-// import { LocalStorageService } from '@app/core';
-
-export const GMAIL_LABELS_KEY = 'GMAIL-LABELS';
 
 @Injectable()
 export class GmailLabelEffects {
@@ -52,21 +48,8 @@ export class GmailLabelEffects {
     );
 
 
-    @Effect({dispatch: false})
-    allGmailLabelsLoaded$ = this.actions$
-      .pipe(
-        ofType<GmailLabelsLoaded>(GmailLabelActionTypes.GmailLabelsLoaded),
-        tap((action) => this.localStorageService.setItem(GMAIL_LABELS_KEY,
-          {
-            allLabelsLoaded: true,
-            entities: action.payload.gmailLabels
-          }
-        ))
-      );
-
   constructor(
     private actions$: Actions,
     private gmailLabelsService: GmailLabelService,
-    private store: Store<AppState>,
-    private localStorageService: LocalStorageService) { }
+    private store: Store<AppState>) { }
 }

@@ -35,7 +35,7 @@ export class LabelsInputComponent {
   filteredLabels: Observable<string[]>;
   labels: string[] = [];
 
-  gmailLabels: IGmailLabel[] = [];
+  private gmailLabels: IGmailLabel[] = [];
 
   @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -52,7 +52,7 @@ export class LabelsInputComponent {
     this.resetLabels();
   }
 
-  createLabels(labels: string[]) {
+  private createLabels(labels: string[]) {
     labels.forEach(label => this.gmailLabels.push({
       name: label,
       messageListVisibility: 'show',

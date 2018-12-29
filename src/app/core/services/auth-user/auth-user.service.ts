@@ -97,7 +97,7 @@ export class AuthUserService {
      */
     // TODO: Rework
     public signOut(): void {
-        this.googleAuthService.getAuth().subscribe((auth) => {
+        this.gapiAuthService$.subscribe((auth) => {
             try {
                 auth.signOut();
             } catch (e) {
