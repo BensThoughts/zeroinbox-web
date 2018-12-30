@@ -1,7 +1,7 @@
 export interface ISuggested {
-  id: string;
-  name: string;
-  suggestedLabel: string;
-  suggestedFrom: string;
-  suggestedCount: number;
+  from: string;
+  labelId: string;
+  labelName: string;
+  threadIds: string[];
+  count: number;
 }

@@ -1,27 +1,26 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import { SuggestedActions, SuggestedActionTypes } from './suggested.actions';
 import { ISuggested } from '../models/suggested.model';
+import { Message } from '../../../services/gmail-api/suggested/suggested.service';
 
 export interface SuggestedState extends EntityState<ISuggested> {
-  allInboxIdsLoaded: boolean;
+  threadIds: string[]
+  nextPageTokens: string[]
 }
 
-// export function selectSuggestedId(l: ISuggested) {
-//   return l.id;
-// }
-
-// export function sortByName(l1: IGmailLabel, l2: IGmailLabel) {
-//   return l1.name.localeCompare(l2.name);
-// }
+export function selectSuggestedId(l: ISuggested) {
+  return l.from;
+}
 
 export const adapter: EntityAdapter<ISuggested> =
   createEntityAdapter<ISuggested>({
-      // sortComparer: sortByName,
-      // selectId: selectGmailLabelName
+    selectId: selectSuggestedId
   });
 
+
 const initialSuggestedState = adapter.getInitialState({
-  allInboxIdsLoaded: false
+  threadIds: [],
+  nextPageTokens: []
 });
 
 export function suggestedReducer(
@@ -29,6 +28,19 @@ export function suggestedReducer(
   action: SuggestedActions): SuggestedState {
 
     switch (action.type) {
+      case SuggestedActionTypes.CollectPageToken:
+        return {
+          ...state,
+          nextPageTokens: [...state.nextPageTokens, action.payload]
+        };
+      case SuggestedActionTypes.CollectThreadIds:
+        return {
+          ...state,
+          threadIds: [...state.threadIds, ...action.payload]
+        }
+
+      case SuggestedActionTypes.AddSuggestedMessage:
+        return adapter.addOne(action.payload, state);
 
       default:
         return state;

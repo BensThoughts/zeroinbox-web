@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 
 // import { filter, map } from 'rxjs/operators';
 
-import { IGmailLabel } from '@app/core';
+import { IGmailLabel, BatchTest } from '@app/core';
 
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
@@ -15,7 +15,7 @@ import { GmailLabelsRequested } from '@app/core';
 import { Observable } from 'rxjs';
 
 import { selectUserGmailLabels } from '@app/core';
-import { CollectInboxMessageIds } from '@app/core';
+import { CollectInboxThreadIds } from '@app/core';
 
 
 @Component({
@@ -32,7 +32,8 @@ export class LabelsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GmailLabelsRequested());
-    this.store.dispatch(new CollectInboxMessageIds());
+    this.store.dispatch(new CollectInboxThreadIds());
+    // this.store.dispatch(new BatchTest());
     this.gmail_labels$ = this.store.pipe(select(selectUserGmailLabels));
   }
 

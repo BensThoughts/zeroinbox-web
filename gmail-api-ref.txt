@@ -1,0 +1,112 @@
+
+
+threads.list: ThreadPreview[]
+GET https://www.googleapis.com/gmail/v1/users/userId/threads
+  path: {
+    userId: string (me)
+  }
+  params: {
+    labelIds: string (INBOX)
+    }
+=>
+ThreadPreview[]: [
+ {
+  "id": string,
+  "snippet": string
+  "historyId": string
+ }
+]
+
+take ThreadPreview[] id's and do
+
+threads.get: Thread
+GET https://www.googleapis.com/gmail/v1/users/userId/threads/id
+ path: {
+  userId: string (me),
+  id: string (threadId)
+ }
+ params: {
+  format: string (metadata),
+  metadataHeaders: string (From)
+ }
+ =>
+ Thread: {
+  id: string
+  historyId: string
+  messages: Message[]
+ }
+
+grab first message in messages[0]
+
+ Message {
+  id: string
+  threadId: string
+  labelIds: string[]
+  snippet: string
+  historyId: string
+  internalDate: string
+  sizeEstimate: string
+  payload: Payload
+ }
+
+grab payload.headers
+
+ Payload {
+  mimeType: string
+  headers: Header
+  sizeEstimate: number
+ }
+
+grab
+ Header {
+  name: string (From)
+  value: string
+ }
+
+ grab value
+ store value in state and update total number of messages with value with
+ selectEntity(value, numberOfMessages: Thread.messages.length())
+
+ State:
+  From: string
+  ThreadIds[]: string[]
+  number of messages: number
+
+ then create labels
+ POST https://www.googleapis.com/gmail/v1/users/userId/labels
+ path: {
+  userId: string (me)
+ }
+ params: {
+  labelListVisibility: string (labelShow)
+  messageListVisibility: string (show)
+  name: string (From)
+ }
+ =>
+ {
+ "id": "Label_3",
+ "name": "AAAATEST",
+ "messageListVisibility": "show",
+ "labelListVisibility": "labelShow"
+}
+
+grab label name and id and update store label id's
+State:
+ From: string
+ labelId: string
+ labelName: string
+ ThreadIds[]: string[]
+ number of messages: number
+
+
+ users.threads.modify
+ POST https://www.googleapis.com/gmail/v1/users/userId/threads/id/modify
+ path: {
+  userId: string(me)
+  id: string(Thread.id)
+ }
+
+params: {
+  addLabelIds: string[]
+  removeLabelIds: string[](['INBOX'])
+}

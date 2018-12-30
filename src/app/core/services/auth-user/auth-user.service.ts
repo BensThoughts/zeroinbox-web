@@ -62,8 +62,7 @@ export class AuthUserService {
      * @return [description]
      */
     public signIn() {
-        this.gapiAuthService$.pipe(
-        ).subscribe(
+        this.gapiAuthService$.subscribe(
           (auth) => {
             auth.signIn().catch((err) => this.signInErrorHandler(err));
           },

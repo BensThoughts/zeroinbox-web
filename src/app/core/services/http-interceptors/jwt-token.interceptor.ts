@@ -24,6 +24,7 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json' // All of our API endpoints happen to take json
+          // 'Content-Type': 'multipart/mixed; boundry=batch_foobaz',
         }
       });
     }

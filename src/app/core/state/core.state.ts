@@ -32,7 +32,7 @@ export const metaReducers: MetaReducer<AppState>[] = [
 if (!environment.production) {
   metaReducers.unshift(storeFreeze);
   if (!environment.test) {
-    metaReducers.unshift(debug);
+    // metaReducers.unshift(debug);
   }
 }
 
