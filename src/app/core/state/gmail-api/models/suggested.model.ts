@@ -1,5 +1,7 @@
 export interface ISuggested {
-  from: string;
+  id: string | Int32Array;
+  fromName: string;
+  fromAddress: string;
   labelId: string;
   labelName: string;
   threadIds: string[];

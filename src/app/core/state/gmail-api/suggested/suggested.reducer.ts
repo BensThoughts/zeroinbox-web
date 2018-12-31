@@ -9,7 +9,7 @@ export interface SuggestedState extends EntityState<ISuggested> {
 }
 
 export function selectSuggestedId(l: ISuggested) {
-  return l.from;
+  return l.id.toString();
 }
 
 export const adapter: EntityAdapter<ISuggested> =
@@ -40,7 +40,10 @@ export function suggestedReducer(
         }
 
       case SuggestedActionTypes.AddSuggestedMessage:
-        return adapter.addOne(action.payload, state);
+        return adapter.addOne(action.payload, {...state});
+
+      case SuggestedActionTypes.AddAllSuggestions:
+        return adapter.addAll(action.payload, state);
 
       default:
         return state;

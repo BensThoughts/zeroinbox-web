@@ -13,10 +13,12 @@ import {
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
-import { catchError, map, exhaustMap, tap, concatMap } from 'rxjs/operators';
+import { catchError, map, exhaustMap, tap, concatMap, filter } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { selectSuggestedThreadIds } from './suggested.selectors';
 import { ISuggested } from '../models/suggested.model';
+
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class SuggestedEffects {
@@ -39,21 +41,33 @@ export class SuggestedEffects {
   collectInboxThreadIds$ = this.actions$
     .pipe(
       ofType<CollectInboxThreadIds>(SuggestedActionTypes.CollectInboxThreadIds),
-      exhaustMap(() => {
-        return this.suggestedService.getFirstPageOfThreads().pipe(
-            map((result) => {
-              let _threadIds: string[] = [];
-              result.threads.forEach((thread) => {
-                _threadIds.push(thread.id);
-              });
-              this.store.dispatch(new CollectThreadIds(_threadIds));
-              this.store.dispatch(new CollectPageOfThreads(result.nextPageToken));
-            }),
-            catchError((err) => of(console.log(err)))
-        )
+      map((action) => {
+        this.suggestedService.getFirstPage();
+
+        // .pipe(
+        //    map((result) => {
+        //      let _threadIds: string[] = [];
+        //      result.threads.forEach((thread) => {
+        //        _threadIds.push(thread.id);
+        //      });
+        //      this.store.dispatch(new CollectThreadIds(_threadIds));
+        //      this.store.dispatch(new CollectPageOfThreads(result.nextPageToken));
+        //    }),
+        //    catchError((err) => of(console.log(err)))
+        // )
       })
     );
 
+/*
+    @Effect({dispatch: false})
+    CollectPageOfThreads$ = this.actions$.pipe(
+      ofType<CollectPageOfThreads>(SuggestedActionTypes.CollectPageOfThreads),
+      map((action) => {
+        this.suggestedService.getPageOfThreads2(action.payload);
+      })
+    )
+*/
+/*
   @Effect({dispatch: false})
   collectPageOfThreads$ = this.actions$
     .pipe(
@@ -67,7 +81,7 @@ export class SuggestedEffects {
                result.threads.forEach((thread) => {
                  _threadIds.push(thread.id);
                });
-               this.store.dispatch(new CollectThreadIds(_threadIds));
+               // this.store.dispatch(new CollectThreadIds(_threadIds));
                this.store.dispatch(new CollectPageOfThreads(result.nextPageToken));
              }),
              catchError((err) => of(console.log(err)))
@@ -77,22 +91,45 @@ export class SuggestedEffects {
         }
       })
     );
+*/
 
+/*
+  @Effect({dispatch: false})
+  allPagesCollected$ = this.actions$
+  .pipe(
+    ofType<AllPagesCollected>(SuggestedActionTypes.AllPagesCollected),
+    map((action) => {
+      action.payload.forEach((threadId) => {
+        this.store.dispatch(new CollectMessages(threadId.id));
+      })
+    }),
+    // concatMap(() => {
+      //  let suggestedThreadIds$ = this.store.pipe(select(selectSuggestedThreadIds));
+      //  return suggestedThreadIds$.forEach((threadIds) => {
+      //    threadIds.forEach((id) => {
+      //      return this.store.dispatch(new CollectMessages(id));
+      //    })
+      //  });
+    //  })
+    );
+*/
+
+/*
     @Effect({dispatch: false})
     allPagesCollected$ = this.actions$
     .pipe(
       ofType<AllPagesCollected>(SuggestedActionTypes.AllPagesCollected),
-      map(() => {
+      concatMap(() => {
           let suggestedThreadIds$ = this.store.pipe(select(selectSuggestedThreadIds));
-          suggestedThreadIds$.forEach((threadIds) => {
+          return suggestedThreadIds$.forEach((threadIds) => {
             threadIds.forEach((id) => {
-              this.store.dispatch(new CollectMessages(id));
+              return this.store.dispatch(new CollectMessages(id));
             })
           });
       })
     );
-
-
+*/
+/*
     @Effect({dispatch: false})
     collectMessages$ = this.actions$
     .pipe(
@@ -101,8 +138,17 @@ export class SuggestedEffects {
         return this.suggestedService.getThread(action.payload).pipe(
           map((result) => {
             let message = result.messages[0];
+            let fromSender: string = message.payload.headers[0].value;
+            let fromAddress = fromSender.slice(fromSender.search('<+'));
+            let fromName = fromSender.slice(0, fromSender.search('<+')-1);
+            // console.log(fromName.search('"'));
+            if (fromName.search('"') === 0) {
+              fromName = fromName.slice(1,-1)
+            }
             let iSuggested: ISuggested = {
-                from: message.payload.headers[0].value,
+                id: Md5.hashAsciiStr(fromAddress),
+                fromAddress: fromAddress,
+                fromName: fromName,
                 labelId: undefined,
                 labelName: undefined,
                 threadIds: [message.threadId],
@@ -114,7 +160,7 @@ export class SuggestedEffects {
           )
         })
     );
-
+*/
   constructor(
     private actions$: Actions,
     private suggestedService: SuggestedService,

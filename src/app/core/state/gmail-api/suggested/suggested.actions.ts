@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import { Message } from '@app/core/services/gmail-api/suggested/suggested.service';
+import { Message, ThreadPreview } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { ISuggested } from '../models/suggested.model';
 
 export enum SuggestedActionTypes {
@@ -7,9 +7,10 @@ export enum SuggestedActionTypes {
   CollectPageOfThreads = '[Suggested Effects] Collect Page Of Threads',
   CollectThreadIds = '[Suggested Effects] Collect Thread Ids',
   CollectPageToken = '[Suggested Effects] Collect Page Token',
-  AllPagesCollected = '[Suggested Effects] All Pages Collected',
+  AllPagesCollected = '[Suggested Service] All Pages Collected',
   CollectMessages = '[Suggested Effects] Collect Messages',
   AddSuggestedMessage = '[Suggested Effects] Add Suggested Message',
+  AddAllSuggestions = '[Suggested Service] Add All Suggestions',
   BatchTest = '[Suggested Effects] Batch Test'
 }
 
@@ -17,6 +18,11 @@ export enum SuggestedActionTypes {
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
+
+export class AddAllSuggestions implements Action {
+  readonly type = SuggestedActionTypes.AddAllSuggestions;
+  constructor(public payload: ISuggested[]) {}
+}
 
 export class AddSuggestedMessage implements Action {
   readonly type = SuggestedActionTypes.AddSuggestedMessage;
@@ -56,6 +62,7 @@ export class CollectPageOfThreads implements Action {
 
 export class AllPagesCollected implements Action {
   readonly type = SuggestedActionTypes.AllPagesCollected;
+  constructor() {}
 }
 
 export type SuggestedActions =
@@ -67,3 +74,4 @@ export type SuggestedActions =
   | CollectThreadIds
   | CollectPageOfThreads
   | AllPagesCollected
+  | AddAllSuggestions
