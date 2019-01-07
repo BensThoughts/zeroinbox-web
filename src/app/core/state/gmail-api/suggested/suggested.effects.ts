@@ -6,9 +6,9 @@ import {
   CollectPageOfThreads,
   AllPagesCollected,
   CollectThreadIds,
-  BatchTest,
   AddSuggestedMessage,
-  CollectMessages
+  CollectMessages,
+  ServerTest
 } from './suggested.actions';
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
@@ -26,12 +26,14 @@ export class SuggestedEffects {
 
 
   @Effect({dispatch: false})
-  batchTest$ = this.actions$
+  serverTest$ = this.actions$
     .pipe(
-      ofType<BatchTest>(SuggestedActionTypes.BatchTest),
+      ofType<ServerTest>(SuggestedActionTypes.ServerTest),
       map(() => {
-        this.store.pipe(select(selectToken)).subscribe((res) => {
-            this.suggestedService.serverTest(res).subscribe((res) => {
+        this.store.pipe(select(selectToken)).subscribe((token) => {
+            this.suggestedService.serverTest({
+              token: token
+            }).subscribe((res) => {
               console.log(res);
             });
         })

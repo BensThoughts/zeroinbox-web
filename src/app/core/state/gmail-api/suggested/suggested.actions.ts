@@ -11,7 +11,7 @@ export enum SuggestedActionTypes {
   CollectMessages = '[Suggested Effects] Collect Messages',
   AddSuggestedMessage = '[Suggested Effects] Add Suggested Message',
   AddAllSuggestions = '[Suggested Service] Add All Suggestions',
-  BatchTest = '[Suggested Effects] Batch Test'
+  ServerTest = '[Suggested Effects] Server Test'
 }
 
 /**
@@ -34,8 +34,8 @@ export class CollectMessages implements Action {
   constructor(public payload: string) {}
 }
 
-export class BatchTest implements Action {
-  readonly type = SuggestedActionTypes.BatchTest;
+export class ServerTest implements Action {
+  readonly type = SuggestedActionTypes.ServerTest;
 }
 
 export class CollectInboxThreadIds implements Action {
@@ -66,7 +66,7 @@ export class AllPagesCollected implements Action {
 }
 
 export type SuggestedActions =
-  | BatchTest
+  | ServerTest
   | AddSuggestedMessage
   | CollectMessages
   | CollectInboxThreadIds

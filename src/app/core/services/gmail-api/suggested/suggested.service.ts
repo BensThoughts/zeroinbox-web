@@ -54,6 +54,10 @@ export interface PageOfThreads {
   resultSizeEstimate: number;
 }
 
+export interface GapiRequest {
+  token: GapiToken;
+  body?: Array<String>;
+}
 
 @Injectable()
 export class SuggestedService {
@@ -62,17 +66,6 @@ export class SuggestedService {
     private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1';
 
     constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
-
-    public batchTest() {
-      return this.httpClient.post<any>(this.BATCH_API_URL, {
-        headers: {
-          'Content-Type': 'multipart/mixed'
-        }
-      })
-    }
-
-
-
 
     collectMessage(thread: Observable<Thread>) {
       return thread.pipe(
@@ -101,6 +94,9 @@ export class SuggestedService {
       );
     }
 
+
+    /**
+
     getFirstPage() {
       this.getFirstPageOfThreads().pipe(
         concatMap((result) => {
@@ -117,6 +113,12 @@ export class SuggestedService {
         // console.log(this._iSuggested);
         this.store.dispatch(new AddAllSuggestions(this._iSuggested));
       });
+    }
+
+    **/
+
+    getFirstPage() {
+
     }
 
     private _iSuggested: ISuggested[] = [];
@@ -182,10 +184,10 @@ export class SuggestedService {
     }
 
 
-    private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api/labels';
+    private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api';
 
-    public serverTest(token: GapiToken) {
-      return this.httpClient.post(this.MY_API_URL, token);
+    public serverTest(gapiRequest: GapiRequest) {
+      return this.httpClient.post(this.MY_API_URL + '/threads', gapiRequest);
     }
 
 }

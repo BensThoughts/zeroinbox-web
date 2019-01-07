@@ -33,5 +33,6 @@ export const environment = {
     clientId: '443118366030-p6fpakqmn0ngjes70eigkegpvva96agm.apps.googleusercontent.com',
     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'],
     scope: 'https://www.googleapis.com/auth/gmail.readonly',
+    redirect_uri: 'http://localhost:80/loading',
   }
 };

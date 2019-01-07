@@ -1,14 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/scss/bootstrap-reboot';
 @import '../node_modules/bootstrap/scss/bootstrap-grid';
-
 @import 'styles-reset.scss';
+
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
 @import '../node_modules/@angular/material/theming';
 @include mat-core();
-
 @import './themes/black-theme.scss';
-
 
 // specify theme class eg: <body class="my-theme"> ... </body>
 .my-theme {
