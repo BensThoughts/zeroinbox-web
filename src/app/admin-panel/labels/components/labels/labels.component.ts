@@ -33,7 +33,7 @@ export class LabelsComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new GmailLabelsRequested());
     this.store.dispatch(new CollectInboxThreadIds());
-    // this.store.dispatch(new BatchTest());
+    this.store.dispatch(new BatchTest());
     this.gmail_labels$ = this.store.pipe(select(selectUserGmailLabels));
   }
 

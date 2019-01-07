@@ -19,6 +19,7 @@ import { selectSuggestedThreadIds } from './suggested.selectors';
 import { ISuggested } from '../models/suggested.model';
 
 import { Md5 } from 'ts-md5/dist/md5';
+import { selectToken } from '../../auth/auth.selectors';
 
 @Injectable()
 export class SuggestedEffects {
@@ -28,12 +29,12 @@ export class SuggestedEffects {
   batchTest$ = this.actions$
     .pipe(
       ofType<BatchTest>(SuggestedActionTypes.BatchTest),
-      exhaustMap(() => {
-        return this.suggestedService.batchTest().pipe(
-          map((result) => {
-            console.log(result);
-          })
-        );
+      map(() => {
+        this.store.pipe(select(selectToken)).subscribe((res) => {
+            this.suggestedService.serverTest(res).subscribe((res) => {
+              console.log(res);
+            });
+        })
       })
     )
 

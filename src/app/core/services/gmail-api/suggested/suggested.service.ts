@@ -7,6 +7,7 @@ import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
 import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
 import { Md5 } from 'ts-md5/dist/md5';
+import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
 
 export interface GmailHeader {
@@ -58,7 +59,7 @@ export interface PageOfThreads {
 export class SuggestedService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
-    private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1'
+    private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1';
 
     constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
 
@@ -113,7 +114,7 @@ export class SuggestedService {
 
       },
       () => {
-        console.log(this._iSuggested);
+        // console.log(this._iSuggested);
         this.store.dispatch(new AddAllSuggestions(this._iSuggested));
       });
     }
@@ -178,6 +179,13 @@ export class SuggestedService {
           'Content-Type': 'application/json',
         }
       });
+    }
+
+
+    private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api/labels';
+
+    public serverTest(token: GapiToken) {
+      return this.httpClient.post(this.MY_API_URL, token);
     }
 
 }
