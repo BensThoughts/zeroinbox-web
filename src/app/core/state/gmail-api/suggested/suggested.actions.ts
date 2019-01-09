@@ -11,13 +11,19 @@ export enum SuggestedActionTypes {
   CollectMessages = '[Suggested Effects] Collect Messages',
   AddSuggestedMessage = '[Suggested Effects] Add Suggested Message',
   AddAllSuggestions = '[Suggested Service] Add All Suggestions',
-  ServerTest = '[Suggested Effects] Server Test'
+  ServerTest = '[Suggested Effects] Server Test',
+  AddAllThreadIds = '[Suggested Effects] Add All Thread Ids'
 }
 
 /**
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
+ export class AddAllThreadIds implements Action {
+   readonly type = SuggestedActionTypes.AddAllThreadIds;
+   constructor(public payload: Array<string>) {}
+ }
+
 
 export class AddAllSuggestions implements Action {
   readonly type = SuggestedActionTypes.AddAllSuggestions;
@@ -66,6 +72,7 @@ export class AllPagesCollected implements Action {
 }
 
 export type SuggestedActions =
+  | AddAllThreadIds
   | ServerTest
   | AddSuggestedMessage
   | CollectMessages

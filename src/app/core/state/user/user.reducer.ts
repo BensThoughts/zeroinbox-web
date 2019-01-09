@@ -1,22 +1,15 @@
 // import { User } from './user.models';
 import { UserActions, UserActionTypes } from './user.actions';
+import { BasicProfile, EmailProfile } from './user.model';
 
 export interface UserState {
-    id: string;
-    imageUrl: string;
-    name: string;
-    familyName: string;
-    givenName: string;
-    email: string;
+  basic_profile: BasicProfile;
+  email_profile: EmailProfile;
 }
 
 export const initialState: UserState = {
-  id: undefined,
-  imageUrl: undefined,
-  name: undefined,
-  familyName: undefined,
-  givenName: undefined,
-  email: undefined
+  basic_profile: undefined,
+  email_profile: undefined
 };
 
 export function userReducer(state: UserState = initialState, action: UserActions): UserState {
@@ -26,16 +19,18 @@ export function userReducer(state: UserState = initialState, action: UserActions
      * Stores the login information, a GoogleUser as in User interface and sets
      * the isLoggedIn flag to true
      */
-    case UserActionTypes.LoadNewUser:
+    case UserActionTypes.LoadBasicProfile:
       return {
         ...state,
-        id: action.payload.getId(),
-        imageUrl: action.payload.getImageUrl(),
-        name: action.payload.getName(),
-        familyName: action.payload.getFamilyName(),
-        givenName: action.payload.getGivenName(),
-        email: action.payload.getEmail()
+        basic_profile: action.payload
       };
+
+    case UserActionTypes.LoadEmailProfile:
+      console.log(action.payload);
+      return {
+        ...state,
+        email_profile: action.payload
+      }
 
     case UserActionTypes.ResetUser:
       return initialState;

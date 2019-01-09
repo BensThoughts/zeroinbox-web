@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
 import { LoginRequestedAction } from '@app/core/state/auth/auth.actions';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { LoginRequestedAction } from '@app/core/state/auth/auth.actions';
 
 export class LoginPageComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>,
+              private httpClient: HttpClient) {}
     // private userService: UserService) { }
 
   ngOnInit() { }

@@ -8,7 +8,8 @@ import {
   CollectThreadIds,
   AddSuggestedMessage,
   CollectMessages,
-  ServerTest
+  ServerTest,
+  AddAllThreadIds
 } from './suggested.actions';
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
@@ -30,13 +31,15 @@ export class SuggestedEffects {
     .pipe(
       ofType<ServerTest>(SuggestedActionTypes.ServerTest),
       map(() => {
-        this.store.pipe(select(selectToken)).subscribe((token) => {
+        let serverTest = this.store.pipe(select(selectToken)).subscribe((token) => {
             this.suggestedService.serverTest({
               token: token
             }).subscribe((res) => {
               console.log(res);
+              this.store.dispatch(new AddAllThreadIds(res.threadIds));
             });
-        })
+        });
+        serverTest.unsubscribe();
       })
     )
 

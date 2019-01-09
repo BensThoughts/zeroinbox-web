@@ -18,7 +18,7 @@ import { of } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { LoadNewUserAction, ResetUserAction } from '../user/user.actions';
+import { LoadBasicProfileAction, ResetUserAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
 
 @Injectable()
@@ -41,9 +41,17 @@ export class AuthEffects {
    * [Effect loginComplete$ calls signInSuccessHandler, which stores the
    * access_token in session storage]
    */
-  @Effect()
+  @Effect({ dispatch: false })
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
+    map(() => {
+      this.authService.getBasicProfile();
+      this.authService.getEmailProfile();
+      this.store.dispatch(new LoginSuccessAction());
+    })
+  );
+
+    /**
     exhaustMap(() => {
       return this.authService.gapiAuthService$.pipe(
         tap((authResult) => {
@@ -67,7 +75,7 @@ export class AuthEffects {
         catchError(error => of(new LoginFailureAction(error)))
       );
     })
-  );
+    **/
 
 
   /**
@@ -128,7 +136,6 @@ export class AuthEffects {
   logoutConfirmed$ = this.actions$.pipe(
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
-      this.authService.signOut();
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth)
       this.router.navigate([this.authService.logoutUrl]);

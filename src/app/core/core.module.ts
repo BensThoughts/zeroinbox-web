@@ -43,6 +43,7 @@ import { environment } from '@env/environment';
 
 // 3rd party library (ng-gapi) to initialize google api's, handle auth, and
 // assist in the use of the google api's
+/**
 import {
     GoogleApiModule,
 //    GoogleApiService,
@@ -51,6 +52,8 @@ import {
     NG_GAPI_CONFIG,
 //    GoogleApiConfig
 } from 'ng-gapi';
+**/
+
 import { GmailLabelService } from './services/gmail-api/gmail-label/gmail-label.service';
 import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.effects';
 import { SuggestedService } from './services/gmail-api/suggested/suggested.service';
@@ -58,6 +61,7 @@ import { SuggestedEffects } from './state/gmail-api/suggested/suggested.effects'
 // import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
+/**
 const gapiClientConfig: NgGapiClientConfig = {
     client_id: environment.googleApi.clientId,
     discoveryDocs: environment.googleApi.discoveryDocs,
@@ -65,7 +69,7 @@ const gapiClientConfig: NgGapiClientConfig = {
     ux_mode: 'redirect',
     redirect_uri: environment.googleApi.redirect_uri
 };
-
+**/
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -85,10 +89,10 @@ const gapiClientConfig: NgGapiClientConfig = {
     ]),    // ngrx effects
     // ngrx store devtools
 
-    GoogleApiModule.forRoot({
-      provide: NG_GAPI_CONFIG,
-      useValue: gapiClientConfig
-    }),
+  //  GoogleApiModule.forRoot({
+  //    provide: NG_GAPI_CONFIG,
+  //    useValue: gapiClientConfig
+  //  }),
 
     environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
@@ -103,7 +107,7 @@ const gapiClientConfig: NgGapiClientConfig = {
     SuggestedService,
     NotificationService, // notifications in MatSnackBar
     // LocalStorageService, // stores entire ngrx-store state in localStorage
-    httpInterceptorProviders, // http error interceptor
+    // httpInterceptorProviders, // http error interceptor
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */

@@ -22,7 +22,7 @@ export class LoginCompleteAction implements Action {
 export class LoginSuccessAction implements Action {
   readonly type = AuthActionTypes.LoginSuccess;
 
-  constructor(public payload: any) {}
+  // constructor(public payload: any) {}
 }
 
 export class LoginFailureAction implements Action {

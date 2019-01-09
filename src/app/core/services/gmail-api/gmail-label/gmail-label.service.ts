@@ -11,9 +11,24 @@ import { IGmailLabel } from '../../../state/gmail-api/models/gmail-label.model';
 export class GmailLabelService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
+    private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
 
     constructor(private httpClient: HttpClient) {}
 
+
+    public getAllGmailLabels() {
+      return this.httpClient.get(this.MY_API_URL + '/labels', {
+        withCredentials: true
+      }).pipe(
+        map(response => {
+        console.log(response);
+        return response['labels'];
+        })
+        // this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
+      )
+    }
+
+/**
     public getAllGmailLabels(): Observable<IGmailLabel[]> {
         return this.httpClient.get(this.API_URL + '/me/labels').pipe(
             retry(0), // retry a failed request up to x times
@@ -21,6 +36,8 @@ export class GmailLabelService {
             // catchError(this.handleError) // then handle the error
         );
     }
+**/
+
 }
 /**
     private handleError(error: HttpErrorResponse) {

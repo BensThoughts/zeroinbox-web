@@ -39,6 +39,12 @@ export function suggestedReducer(
           threadIds: [...state.threadIds, ...action.payload]
         }
 
+      case SuggestedActionTypes.AddAllThreadIds:
+        return {
+          ...state,
+          threadIds: action.payload
+        }
+
       case SuggestedActionTypes.AddSuggestedMessage:
         return adapter.addOne(action.payload, {...state});
 

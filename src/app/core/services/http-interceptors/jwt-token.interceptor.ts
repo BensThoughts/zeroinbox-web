@@ -12,6 +12,8 @@ import { AuthUserService } from '../auth-user/auth-user.service';
  * ...someday. But it really does make the rest of the app much easier to build.
  * maybe we can selectively inject for https requests that NEED it somehow?
  */
+
+/**
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private authService: AuthUserService;
@@ -31,3 +33,4 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 }
+**/

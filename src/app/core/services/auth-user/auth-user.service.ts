@@ -1,35 +1,39 @@
 import {Injectable, NgZone} from '@angular/core';
-import {GoogleAuthService} from 'ng-gapi/lib/GoogleAuthService';
-// import GoogleUser = gapi.auth2.GoogleUser;
-// import GoogleAuth = gapi.auth2.GoogleAuth;
-import AuthResponse = gapi.auth2.AuthResponse;
+import { HttpClient } from '@angular/common/http';
 
-export const ACCESS_TOKEN_KEY = 'ACCESS.TOKEN.KEY';
+import { BasicProfile, EmailProfile } from '../../state/user/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/core/state/core.state';
+import { LoadBasicProfileAction, LoadEmailProfileAction } from '@app/core/state/user/user.actions';
+
+
+export interface AuthUrlResponse {
+  authUrl: string;
+}
+
+export interface BasicProfileResponse {
+  basic_profile: BasicProfile
+}
+
+export interface BasicEmailResponse {
+  email_profile: EmailProfile
+}
+
+
 
 @Injectable()
 export class AuthUserService {
-    // public static readonly SESSION_STORAGE_KEY: string = "accessToken";
-
 
     // Authentication navigation
     private _onAuthSuccessUrl = '/admin-panel/home';
     private _onAuthFailureUrl = '/login';
     private _logoutUrl = '/login';
 
-    // Track whether or not to renew token
-    private _expiresAt: number;
-    // private user: GoogleUser = undefined;
-
-    gapiAuthService$ = this.googleAuthService.getAuth();
-
-    constructor(private googleAuthService: GoogleAuthService,
-                private ngZone: NgZone) {
+    constructor(private ngZone: NgZone,
+                private httpClient: HttpClient,
+                private store: Store<AppState>) {
 
     }
-
-    // set setUser(user: GoogleUser) {
-    //     this.user = user;
-    // }
 
     get authSuccessUrl(): string {
       return this._onAuthSuccessUrl;
@@ -43,76 +47,93 @@ export class AuthUserService {
       return this._logoutUrl;
     }
 
-    // get getCurrentUser(): GoogleUser {
-    //     return this.user;
-    // }
-
-    public getToken(): string {
-        const token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
-        // let token = this._accessToken;
-        if (!token) {
-            throw new Error('no token set , authentication required');
-        }
-        return token;
-    }
-
 
     /**
      * [signIn description]
      * @return [description]
      */
+    private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
+
     public signIn() {
-        this.gapiAuthService$.subscribe(
-          (auth) => {
-            auth.signIn().catch((err) => this.signInErrorHandler(err));
-          },
-          (err) => {
-            this.signInErrorHandler(err);
-          }
-        );
-        // .subscribe((auth) => {
-        //    auth.signIn()//.then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
-        // });
-    }
+      this.httpClient.get<AuthUrlResponse>(this.MY_API_URL + '/oauth2init').subscribe((response) => {
+        console.log(response);
+        window.location.href = response.authUrl;
+      })
 
-    public signInSuccessHandler(res: AuthResponse) {
-        // console.log(res);
-        this.ngZone.run(() => {
-            // this.user = res;
-            // Set flag in local storage stating this app is logged in
-            localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
-            // this._accessToken = res.getAuthResponse().access_token;
-        });
-    }
-
-
-    private signInErrorHandler(err) {
-        console.warn(err);
-        return err;
     }
 
     /**
-     * [signOut description]
+     * [getBasicProfile description]
+     * @return [description]
      */
-    // TODO: Rework
-    public signOut(): void {
-        this.gapiAuthService$.subscribe((auth) => {
-            try {
-                auth.signOut();
-            } catch (e) {
-                console.error(e);
-            }
-            // this.user = undefined;
-            localStorage.removeItem(ACCESS_TOKEN_KEY);
-        });
+    public getBasicProfile() {
+      this.httpClient.get<BasicProfileResponse>(this.MY_API_URL + '/profile', {
+        withCredentials: true
+      }).subscribe((response) => {
+        this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
+      });
     }
 
+    /**
+     * [getEmailProfile description]
+     * @return [description]
+     */
+    public getEmailProfile() {
+      this.httpClient.get<BasicEmailResponse>(this.MY_API_URL + '/email', {
+        withCredentials: true
+      }).subscribe((response) => {
+        this.store.dispatch(new LoadEmailProfileAction(response.email_profile));
+      });
+    }
+
+
+}
+
+
+
+/*******************************************************************************
+*******************************************************************************/
+
+
+// export const ACCESS_TOKEN_KEY = 'ACCESS.TOKEN.KEY';
+    // gapiAuthService$ = this.googleAuthService.getAuth();
+
+
+// get getCurrentUser(): GoogleUser {
+//     return this.user;
+// }
+/**
+public getToken(): string {
+    const token: string = localStorage.getItem(ACCESS_TOKEN_KEY);
+    // let token = this._accessToken;
+    if (!token) {
+        throw new Error('no token set , authentication required');
+    }
+    return token;
+}
+**/
+
+/**
+  this.gapiAuthService$.subscribe(
+    (auth) => {
+      auth.signIn().catch((err) => this.signInErrorHandler(err));
+    },
+    (err) => {
+      this.signInErrorHandler(err);
+    }
+  );
+  // .subscribe((auth) => {
+  //    auth.signIn()//.then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
+  // });
+  **/
 
 
     /**
      * [refreshAuthToken refreshes the google]
      * @return [description]
      */
+
+    /**
     public checkAuthenticationRefresh() {
       if (this._expiresAt < Date.now()) {
         this.refreshAuthToken();
@@ -132,3 +153,41 @@ export class AuthUserService {
 
 
 }
+
+
+/**
+    public signInSuccessHandler(res: AuthResponse) {
+        // console.log(res);
+        this.ngZone.run(() => {
+            // this.user = res;
+            // Set flag in local storage stating this app is logged in
+            localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
+            // this._accessToken = res.getAuthResponse().access_token;
+        });
+    }
+**/
+/**
+
+    private signInErrorHandler(err) {
+        console.warn(err);
+        return err;
+    }
+
+    /**
+     * [signOut description]
+     */
+    // TODO: Rework
+/**
+    public signOut(): void {
+        this.gapiAuthService$.subscribe((auth) => {
+            try {
+                auth.signOut();
+            } catch (e) {
+                console.error(e);
+            }
+            // this.user = undefined;
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+        });
+    }
+
+**/

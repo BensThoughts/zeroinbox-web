@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 
 import { MenuItem, menu_items } from './menuitems.data';
 
-import { GoogleApiService } from 'ng-gapi';
-// import { GoogleAuthService } from 'ng-gapi';
 
 import {
   sideNavAnimation,
@@ -26,7 +24,8 @@ import { selectIsAuthenticated } from '@app/core';
     sideNavAnimation,
     sideNavContentAnimation,
     sideNavChevronAnimation
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent implements OnInit {
@@ -42,16 +41,15 @@ export class AppComponent implements OnInit {
   // track the state of the sidenav
   isOpen = true;
 
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn$: Observable<boolean> = of(false);
 
    toggle() {
      this.isOpen = !this.isOpen;
    }
 
   constructor(
-    private gapiService: GoogleApiService,
     private store: Store<AppState>,
-  ) { this.gapiService.onLoad().subscribe(); }
+  ) {} // { this.gapiService.onLoad().subscribe(); }
 
 
   ngOnInit(): void {

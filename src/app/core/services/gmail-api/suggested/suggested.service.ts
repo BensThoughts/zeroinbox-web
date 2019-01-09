@@ -7,7 +7,7 @@ import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
 import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
 import { Md5 } from 'ts-md5/dist/md5';
-import { GapiToken } from '@app/core/state/auth/auth.reducer';
+// import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
 
 export interface GmailHeader {
@@ -57,6 +57,17 @@ export interface PageOfThreads {
 export interface GapiRequest {
   token: GapiToken;
   body?: Array<String>;
+}
+
+export interface GapiToken {
+  access_token: string;
+  expiry_date: number;
+  scope: string;
+  token_type: string;
+}
+
+export interface ThreadIdsResponse {
+  threadIds: Array<string>;
 }
 
 @Injectable()
@@ -184,10 +195,22 @@ export class SuggestedService {
     }
 
 
-    private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api';
+    // private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api';
+    private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
 
-    public serverTest(gapiRequest: GapiRequest) {
-      return this.httpClient.post(this.MY_API_URL + '/threads', gapiRequest);
+    public serverTest(gapiRequest: GapiRequest): Observable<ThreadIdsResponse>  {
+      // return this.httpClient.post(this.MY_API_URL + '/threads', gapiRequest);
+      return this.httpClient.get<ThreadIdsResponse>(this.MY_API_URL + '/threads', {
+        // headers: {
+        //  'Authorization': 'Bearer' + gapiRequest.token
+        //}
+        withCredentials: true
+      });
     }
 
+    public batchRequest(gapiRequest: GapiRequest) {
+      return this.httpClient.post(this.MY_API_URL + '/batch', gapiRequest, {
+        withCredentials: true
+      });
+    }
 }
