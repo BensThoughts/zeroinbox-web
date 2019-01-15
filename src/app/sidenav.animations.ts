@@ -23,7 +23,7 @@ export const sideNavAnimation = trigger('openCloseSidenav', [
       'width': '63px',
     })),
     transition('open <=> closed', [
-      animate('0.0s')
+      animate('0.2s')
     ]),
   ]);
 
@@ -42,7 +42,7 @@ export const sideNavContentAnimation = trigger('openCloseSidenavContent', [
       'margin-left': '64px',
     })),
     transition('open <=> closed', [
-      animate('0.0s')
+      animate('0.2s')
     ]),
   ]);
 

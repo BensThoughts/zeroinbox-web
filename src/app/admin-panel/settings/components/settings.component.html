@@ -1,3 +1,26 @@
-<p>
-  settings works!
-</p>
+<div class="container">
+
+  <div class="row">
+    <div><h1>Settings</h1></div>
+  </div>
+  <br>
+  <ng-container *ngIf="settings$ | async as settings">
+    <div>
+      <h2>Theme</h2>
+      <div class="icon-form-field">
+        <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
+        <mat-form-field>
+          <mat-select placeholder="Color Theme"
+                      [ngModel]="settings.theme"
+                      (selectionChange)="onThemeSelect($event)"
+                      name="themes">
+            <mat-option *ngFor="let t of themes" [value]="t.value">
+              {{ t.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

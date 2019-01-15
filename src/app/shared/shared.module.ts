@@ -25,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material';
@@ -40,6 +41,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faBars,
   faBook,
   faCog,
   faChevronCircleLeft,
@@ -47,6 +49,7 @@ import {
   faFilter,
   faHome,
   faLightbulb,
+  faPaintBrush,
   faPlus,
   faSignOutAlt,
   faStream,
@@ -63,6 +66,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faBars,
   faBook,
   faCog,
   faChevronCircleLeft,
@@ -70,6 +74,7 @@ library.add(
   faFilter,
   faHome,
   faLightbulb,
+  faPaintBrush,
   faPlus,
   faSignOutAlt,
   faStream,
@@ -133,6 +138,7 @@ library.add(
     MatListModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,

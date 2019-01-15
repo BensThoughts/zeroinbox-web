@@ -16,6 +16,7 @@ import { AppState, LogoutAction } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
 import { AuthUserService } from './core/services/auth-user/auth-user.service';
 import { map, tap } from 'rxjs/operators';
+import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 
 
 @Component({
@@ -23,9 +24,9 @@ import { map, tap } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
+    sideNavChevronAnimation,
     sideNavAnimation,
     sideNavContentAnimation,
-    sideNavChevronAnimation
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -37,6 +38,8 @@ export class AppComponent implements OnInit {
   version = env.versions.app;
   year = new Date().getFullYear();
   logo = require('../assets/logo.png');
+
+  theme$: Observable<string>;
 
   menu_items: MenuItem[] = menu_items;
 
@@ -60,6 +63,7 @@ export class AppComponent implements OnInit {
       // used to check if mat-sidenav should be displayed
       // this.authService.checkLogin();
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
+      this.theme$ = this.store.pipe(select(selectTheme));
   }
 
   // used to sign the google user out of the app

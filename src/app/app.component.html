@@ -1,5 +1,10 @@
+<div [class]="'theme-wrapper ' + (theme$ | async)">
+
 <mat-toolbar class="go-header">
   <mat-toolbar-row>
+    <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
+      <fa-icon icon="bars"></fa-icon>
+    </button>
     <span><img src="./assets/logo.png"></span>
     <span fxLayout="row" fxLayoutAlign="end">
     <button mat-stroked-button>About</button>
@@ -11,7 +16,9 @@
 
 <mat-sidenav-container class="go-sidenav-container">
 
-  <mat-sidenav [@openCloseSidenav]="isOpen ? 'open' : 'closed'" #nav mode="side" opened class="go-sidenav" role="navigation">
+
+
+  <mat-sidenav #sidenav mode="side" opened [@openCloseSidenav]="isOpen ? 'open' : 'closed'" class="go-sidenav" role="navigation">
     <mat-nav-list  class="dashboard" class="mat-sidenav-keep">
 
       <div *ngIf="isLoggedIn$ | async">
@@ -55,7 +62,7 @@
 
 </mat-sidenav-container>
 
-
+</div>
   <!--
     <div [@slideAnimation]="o.isActivated ? o.activatedRoute : ''">
       <router-outlet #o="outlet"></router-outlet>

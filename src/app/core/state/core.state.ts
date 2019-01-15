@@ -23,7 +23,7 @@ export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
   user: userReducer,
   gmailLabel: gmailLabelReducer,
-  suggested: suggestedReducer
+  suggested: suggestedReducer,
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
