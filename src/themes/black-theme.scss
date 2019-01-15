@@ -1,3 +1,4 @@
+
 $anms-black-primary: mat-palette($mat-grey, 700, 300, 900);
 $anms-black-accent: mat-palette($mat-blue-grey, 400);
 $anms-black-warn: mat-palette($mat-red, 500);
@@ -7,3 +8,16 @@ $anms-black-theme: mat-dark-theme(
   $anms-black-accent,
   $anms-black-warn
 );
+
+
+/**
+$anms-nature-primary: mat-palette($mat-brown, 700, 300, 900);
+$anms-nature-accent: mat-palette($mat-deep-purple, 300);
+$anms-nature-warn: mat-palette($mat-red, 600);
+
+$anms-nature-theme: mat-light-theme(
+  $anms-nature-primary,
+  $anms-nature-accent,
+  $anms-nature-warn
+);
+**/

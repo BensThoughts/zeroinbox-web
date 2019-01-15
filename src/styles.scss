@@ -6,7 +6,7 @@
 @import '../node_modules/bootstrap/scss/bootstrap-grid';
 @import 'styles-reset';
 
-@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+// @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 // @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
 @import '../node_modules/@angular/material/theming';
@@ -46,18 +46,6 @@
   @include angular-material-theme($anms-nature-theme);
   @include custom-components-theme($anms-nature-theme);
 }
-// Define the default theme (same as the example above).
-//$go-app-primary: mat-palette($mat-grey, 700, 300, 900);
-//$go-app-accent:  mat-palette($mat-blue-grey, 400);
-//$go-app-theme:   mat-light-theme($go-app-primary, $go-app-accent);
-
-// Include the default theme styles.
-//@include angular-material-theme($go-app-theme);
-
-//.mat-sidenav-content {
-//  display: flex !important;
-//  flex-direction: column !important;
-//}
 
 .center-snackbar {
   margin: auto;

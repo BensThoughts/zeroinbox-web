@@ -1,14 +1,14 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
-<mat-toolbar class="go-header">
+<mat-toolbar class="go-header" color="primary">
   <mat-toolbar-row>
     <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
       <fa-icon icon="bars"></fa-icon>
     </button>
     <span><img src="./assets/logo.png"></span>
     <span fxLayout="row" fxLayoutAlign="end">
-    <button mat-stroked-button>About</button>
-    <button mat-stroked-button>FAQ</button>
+    <button mat-flat-button>About</button>
+    <button mat-flat-button>FAQ</button>
     </span>
   </mat-toolbar-row>
 </mat-toolbar>
