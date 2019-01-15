@@ -14,6 +14,8 @@ import {
 import { Store, select } from '@ngrx/store';
 import { AppState, LogoutAction } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
+import { AuthUserService } from './core/services/auth-user/auth-user.service';
+import { map, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -41,7 +43,8 @@ export class AppComponent implements OnInit {
   // track the state of the sidenav
   isOpen = true;
 
-  isLoggedIn$: Observable<boolean> = of(false);
+//  isLoggedIn$: Observable<boolean> = of(false);
+  isLoggedIn$: Observable<boolean>;
 
    toggle() {
      this.isOpen = !this.isOpen;
@@ -49,11 +52,13 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private authService: AuthUserService
   ) {} // { this.gapiService.onLoad().subscribe(); }
 
 
   ngOnInit(): void {
       // used to check if mat-sidenav should be displayed
+      // this.authService.checkLogin();
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
   }
 

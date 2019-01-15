@@ -8,7 +8,14 @@ export enum AuthActionTypes {
   CheckLogin = '[Auth] Check Login',
   Logout = '[Sidenav Auth] Confirm Logout',
   LogoutCancelled = '[Auth Effects] Logout Cancelled',
-  LogoutConfirmed = '[Auth Effects] Logout Confirmed'
+  LogoutConfirmed = '[Auth Effects] Logout Confirmed',
+  LogoutConfirmedFromOtherWindow = '[Auth Effects] Logout Confirmed From Other Window',
+  UpdateAuthState = 'UPDATE_AUTH_STATE'
+}
+
+export class UpdateAuthState implements Action {
+  readonly type = AuthActionTypes.UpdateAuthState;
+  constructor(public payload: any) {}
 }
 
 export class LoginRequestedAction implements Action {
@@ -47,6 +54,10 @@ export class LogoutCancelledAction implements Action {
   readonly type = AuthActionTypes.LogoutCancelled;
 }
 
+export class LogoutConfirmedFromOtherWindowAction implements Action {
+  readonly type = AuthActionTypes.LogoutConfirmedFromOtherWindow;
+}
+
 export type AuthActions =
   | LoginRequestedAction
   | LoginCompleteAction
@@ -55,4 +66,6 @@ export type AuthActions =
   | CheckLoginAction
   | LogoutAction
   | LogoutCancelledAction
-  | LogoutConfirmedAction;
+  | LogoutConfirmedAction
+  | LogoutConfirmedFromOtherWindowAction
+  | UpdateAuthState;

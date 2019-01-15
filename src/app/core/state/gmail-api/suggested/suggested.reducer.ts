@@ -1,26 +1,30 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import { SuggestedActions, SuggestedActionTypes } from './suggested.actions';
 import { ISuggested } from '../models/suggested.model';
-import { Message } from '../../../services/gmail-api/suggested/suggested.service';
 
 export interface SuggestedState extends EntityState<ISuggested> {
-  threadIds: string[]
-  nextPageTokens: string[]
+  threadIds: string[],
+  allSuggestionsLoaded: boolean
 }
 
 export function selectSuggestedId(l: ISuggested) {
-  return l.id.toString();
+  return l.fromAddress;
+}
+
+export function sortByCount(l1: ISuggested, l2: ISuggested) {
+  return l2.count - l1.count;
 }
 
 export const adapter: EntityAdapter<ISuggested> =
   createEntityAdapter<ISuggested>({
-    selectId: selectSuggestedId
+    selectId: selectSuggestedId,
+    sortComparer: sortByCount
   });
 
 
 const initialSuggestedState = adapter.getInitialState({
   threadIds: [],
-  nextPageTokens: []
+  allSuggestionsLoaded: false
 });
 
 export function suggestedReducer(
@@ -28,28 +32,21 @@ export function suggestedReducer(
   action: SuggestedActions): SuggestedState {
 
     switch (action.type) {
-      case SuggestedActionTypes.CollectPageToken:
-        return {
-          ...state,
-          nextPageTokens: [...state.nextPageTokens, action.payload]
-        };
-      case SuggestedActionTypes.CollectThreadIds:
-        return {
-          ...state,
-          threadIds: [...state.threadIds, ...action.payload]
-        }
 
       case SuggestedActionTypes.AddAllThreadIds:
         return {
           ...state,
           threadIds: action.payload
-        }
-
-      case SuggestedActionTypes.AddSuggestedMessage:
-        return adapter.addOne(action.payload, {...state});
+        };
 
       case SuggestedActionTypes.AddAllSuggestions:
-        return adapter.addAll(action.payload, state);
+        return adapter.addAll(action.payload, { ...state, allSuggestionsLoaded: true });
+
+      case SuggestedActionTypes.ResetSuggestedState:
+        return initialSuggestedState;
+
+      case SuggestedActionTypes.UpdateSuggestedState:
+        return action.payload;
 
       default:
         return state;

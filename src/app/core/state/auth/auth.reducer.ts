@@ -55,6 +55,13 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
     case AuthActionTypes.LogoutConfirmed:
       return initialState;
 
+    case AuthActionTypes.LogoutConfirmedFromOtherWindow:
+      return initialState;
+
+    case AuthActionTypes.UpdateAuthState:
+      
+      return action.payload;
+
     default:
       return state;
   }

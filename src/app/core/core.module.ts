@@ -30,6 +30,8 @@ import { CustomSerializer } from './state/router/custom-serializer';
  import { AuthUserService } from './services/auth-user/auth-user.service';
  // Guard Service to redirect to login page when not authenticated
  import { AuthGuardService } from './services/auth-user/auth-guard.service';
+// Guard Service to redirect to home page when already authenticated
+ import { ReverseAuthGuardService } from './services/auth-user/reverse-auth-guard.service';
 // http error interceptor
 import { httpInterceptorProviders } from './services/http-interceptors';
 // notifications service
@@ -103,6 +105,7 @@ const gapiClientConfig: NgGapiClientConfig = {
   providers: [
     AuthUserService,
     AuthGuardService,
+    ReverseAuthGuardService,
     GmailLabelService,
     SuggestedService,
     NotificationService, // notifications in MatSnackBar

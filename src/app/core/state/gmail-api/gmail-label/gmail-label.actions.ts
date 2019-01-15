@@ -11,6 +11,13 @@ export enum GmailLabelActionTypes {
   GmailLabelRemoved = '[Labels List Component] Gmail Label Removed',
   GmailLabelRequested = '[Labels Page] Gmail Label Requested',
   GmailLabelSaved = '[Edit Label Dialog] Gmail Label Saved',
+  UpdateGmailLabelState = '[Gmail Labels Effects] Update Gmail Label State'
+}
+
+
+export class UpdateGmailLabelStateAction implements Action {
+  readonly type = GmailLabelActionTypes.UpdateGmailLabelState;
+  constructor(public payload: any){}
 }
 
 /**
@@ -102,4 +109,5 @@ export type GmailLabelActions =
   | GmailLabelsAdded
   | GmailLabelRemoved
   | GmailLabelRequested
-  | GmailLabelSaved;
+  | GmailLabelSaved
+  | UpdateGmailLabelStateAction;

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ReverseAuthGuardService } from './core/services/auth-user/reverse-auth-guard.service';
 // import { AuthGuardService } from '@app/core';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   /**
    * If user is not authenticated in the auth guard on /admin-panel will

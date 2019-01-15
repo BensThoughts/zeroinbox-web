@@ -5,13 +5,17 @@ import { retry, map } from 'rxjs/operators';
 
 // import { GmailLabel } from './models/gmail-label.model';
 
+import { MY_API_URL } from '../../myapiurl';
+
 import { IGmailLabel } from '../../../state/gmail-api/models/gmail-label.model';
 
 @Injectable()
 export class GmailLabelService {
+    private MY_API_URL = MY_API_URL;
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
-    private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
+    // private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
+    // private readonly MY_API_URL: string = 'https://us-central1-labelorganizer.cloudfunctions.net/googleApi';
 
     constructor(private httpClient: HttpClient) {}
 

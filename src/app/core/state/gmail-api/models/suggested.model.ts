@@ -1,9 +1,11 @@
 export interface ISuggested {
-  id: string | Int32Array;
-  fromName: string;
-  fromAddress: string;
-  labelId: string;
-  labelName: string;
-  threadIds: string[];
   count: number;
+  fromAddress: string;
+  fromNames: Array<string>;
+  froms: Array<string>;
+  threadIds_internalDate: Array<{
+    threadId: string;
+    internalDate: number;
+  }>
+  totalSizeEstimate: number;
 }

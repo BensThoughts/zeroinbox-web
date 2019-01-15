@@ -25,10 +25,6 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

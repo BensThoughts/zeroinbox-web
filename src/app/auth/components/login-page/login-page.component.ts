@@ -20,7 +20,6 @@ export class LoginPageComponent implements OnInit {
     // private userService: UserService) { }
 
   ngOnInit() { }
-
   // used to sign a google user in
   //  signOut() in implemented in app.component.ts
   public signIn() {

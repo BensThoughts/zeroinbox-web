@@ -32,8 +32,11 @@ export function userReducer(state: UserState = initialState, action: UserActions
         email_profile: action.payload
       }
 
-    case UserActionTypes.ResetUser:
+    case UserActionTypes.ResetUserState:
       return initialState;
+
+    case UserActionTypes.UpdateUserState:
+      return action.payload;
 
     default:
       return state;

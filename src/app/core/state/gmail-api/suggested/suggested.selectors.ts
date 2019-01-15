@@ -11,3 +11,8 @@ export const selectSuggestedThreadIds = createSelector(
   selectSuggested,
   (state: SuggestedState) => state.threadIds
 );
+
+export const selectSuggestionsLoaded = createSelector(
+  selectSuggested,
+  (state: SuggestedState) => state.allSuggestionsLoaded
+)

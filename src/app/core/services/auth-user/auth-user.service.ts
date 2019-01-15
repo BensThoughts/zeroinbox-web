@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 import { LoadBasicProfileAction, LoadEmailProfileAction } from '@app/core/state/user/user.actions';
 
+import { MY_API_URL } from '../myapiurl';
 
 export interface AuthUrlResponse {
   authUrl: string;
@@ -23,6 +24,7 @@ export interface BasicEmailResponse {
 
 @Injectable()
 export class AuthUserService {
+    private MY_API_URL = MY_API_URL;
 
     // Authentication navigation
     private _onAuthSuccessUrl = '/admin-panel/home';
@@ -52,7 +54,8 @@ export class AuthUserService {
      * [signIn description]
      * @return [description]
      */
-    private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
+    // private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
+    // private readonly MY_API_URL: string = 'https://us-central1-labelorganizer.cloudfunctions.net/googleApi';
 
     public signIn() {
       this.httpClient.get<AuthUrlResponse>(this.MY_API_URL + '/oauth2init').subscribe((response) => {
@@ -60,6 +63,15 @@ export class AuthUserService {
         window.location.href = response.authUrl;
       })
 
+    }
+
+    public logout() {
+      // this.deleteCookie('connect.sid');
+      this.httpClient.get(this.MY_API_URL + '/logout', {
+        withCredentials: true
+      }).subscribe((response) => {
+        console.log(response);
+      })
     }
 
     /**

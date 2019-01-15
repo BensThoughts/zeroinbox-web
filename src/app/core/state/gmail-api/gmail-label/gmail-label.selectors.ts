@@ -17,7 +17,7 @@ export const selectUserGmailLabels = createSelector(
   gmailLabels => gmailLabels.filter(label => label.type === 'user')
 );
 
-export const allGmailLabelsLoaded = createSelector(
+export const selectGmailLabelsLoaded = createSelector(
   selectGmailLabelState,
   gmailLabelsState => gmailLabelsState.allLabelsLoaded
 );

@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, features } from './features.data';
 
 import { fadeElementsAnimation } from './elementsAnimations';
+import { SuggestionsRequestedAction, AppState } from '@app/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +16,10 @@ import { fadeElementsAnimation } from './elementsAnimations';
 export class HomeComponent implements OnInit {
   features: Feature[] = features;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new SuggestionsRequestedAction());
   }
 
 }

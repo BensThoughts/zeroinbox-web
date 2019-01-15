@@ -1,172 +1,78 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
-  CollectInboxThreadIds,
   SuggestedActionTypes,
-  CollectPageOfThreads,
-  AllPagesCollected,
-  CollectThreadIds,
-  AddSuggestedMessage,
-  CollectMessages,
-  ServerTest,
-  AddAllThreadIds
+  SuggestionsRequestedAction,
+  InboxThreadIdsRequestedAction,
+  InboxThreadIdsRequestFailureAction,
+  InboxThreadIdsLoadedAction,
+  AddAllThreadIdsAction,
+  AddAllSuggestionsAction,
+  UpdateSuggestedStateAction,
+  SuggestedThreadsRequestFailureAction,
 } from './suggested.actions';
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
-import { catchError, map, exhaustMap, tap, concatMap, filter } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { selectSuggestedThreadIds } from './suggested.selectors';
-import { ISuggested } from '../models/suggested.model';
-
-import { Md5 } from 'ts-md5/dist/md5';
-import { selectToken } from '../../auth/auth.selectors';
+import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom } from 'rxjs/operators';
+import { of, fromEvent } from 'rxjs';
+import { selectSuggestionsLoaded } from './suggested.selectors';
 
 @Injectable()
 export class SuggestedEffects {
 
-
-  @Effect({dispatch: false})
-  serverTest$ = this.actions$
+  @Effect()
+  suggestionsRequested$ = this.actions$
     .pipe(
-      ofType<ServerTest>(SuggestedActionTypes.ServerTest),
+      ofType<SuggestionsRequestedAction>(SuggestedActionTypes.SuggestionsRequested),
+      withLatestFrom(this.store.pipe(select(selectSuggestionsLoaded))),
+      filter(([action, allSuggestionsLoaded]) => !allSuggestionsLoaded),
       map(() => {
-        let serverTest = this.store.pipe(select(selectToken)).subscribe((token) => {
-            this.suggestedService.serverTest({
-              token: token
-            }).subscribe((res) => {
-              console.log(res);
-              this.store.dispatch(new AddAllThreadIds(res.threadIds));
-            });
-        });
-        serverTest.unsubscribe();
+        return new InboxThreadIdsRequestedAction();
       })
     )
 
-  @Effect({dispatch: false})
-  collectInboxThreadIds$ = this.actions$
+  @Effect({ dispatch: false })
+  inboxThreadIdsRequested$ = this.actions$
     .pipe(
-      ofType<CollectInboxThreadIds>(SuggestedActionTypes.CollectInboxThreadIds),
-      map((action) => {
-        this.suggestedService.getFirstPage();
-
-        // .pipe(
-        //    map((result) => {
-        //      let _threadIds: string[] = [];
-        //      result.threads.forEach((thread) => {
-        //        _threadIds.push(thread.id);
-        //      });
-        //      this.store.dispatch(new CollectThreadIds(_threadIds));
-        //      this.store.dispatch(new CollectPageOfThreads(result.nextPageToken));
-        //    }),
-        //    catchError((err) => of(console.log(err)))
-        // )
-      })
-    );
-
-/*
-    @Effect({dispatch: false})
-    CollectPageOfThreads$ = this.actions$.pipe(
-      ofType<CollectPageOfThreads>(SuggestedActionTypes.CollectPageOfThreads),
-      map((action) => {
-        this.suggestedService.getPageOfThreads2(action.payload);
+      ofType<InboxThreadIdsRequestedAction>(SuggestedActionTypes.InboxThreadIdsRequested),
+      exhaustMap(() => {
+        return this.suggestedService.getAllThreadIds({}).pipe(
+          map((threadIds) => {
+            this.store.dispatch(new AddAllThreadIdsAction(threadIds.threadIds));
+            this.store.dispatch(new InboxThreadIdsLoadedAction(threadIds.threadIds));
+          }),
+          catchError((err) => of(new InboxThreadIdsRequestFailureAction(err)))
+        )
       })
     )
-*/
-/*
-  @Effect({dispatch: false})
-  collectPageOfThreads$ = this.actions$
-    .pipe(
-      ofType<CollectPageOfThreads>(SuggestedActionTypes.CollectPageOfThreads),
-      map((action) => {
-        if (action.payload !== undefined) {
-           this.suggestedService.getPageOfThreads(action.payload).pipe(
-             map((result) => {
-               // this.store.dispatch(new CollectPageToken(result.nextPageToken));
-               let _threadIds: string[] = [];
-               result.threads.forEach((thread) => {
-                 _threadIds.push(thread.id);
-               });
-               // this.store.dispatch(new CollectThreadIds(_threadIds));
-               this.store.dispatch(new CollectPageOfThreads(result.nextPageToken));
-             }),
-             catchError((err) => of(console.log(err)))
-           ).subscribe();
-        } else {
-          this.store.dispatch(new AllPagesCollected())
-        }
-      })
-    );
-*/
 
-/*
-  @Effect({dispatch: false})
-  allPagesCollected$ = this.actions$
-  .pipe(
-    ofType<AllPagesCollected>(SuggestedActionTypes.AllPagesCollected),
-    map((action) => {
-      action.payload.forEach((threadId) => {
-        this.store.dispatch(new CollectMessages(threadId.id));
-      })
-    }),
-    // concatMap(() => {
-      //  let suggestedThreadIds$ = this.store.pipe(select(selectSuggestedThreadIds));
-      //  return suggestedThreadIds$.forEach((threadIds) => {
-      //    threadIds.forEach((id) => {
-      //      return this.store.dispatch(new CollectMessages(id));
-      //    })
-      //  });
-    //  })
-    );
-*/
-
-/*
-    @Effect({dispatch: false})
-    allPagesCollected$ = this.actions$
-    .pipe(
-      ofType<AllPagesCollected>(SuggestedActionTypes.AllPagesCollected),
-      concatMap(() => {
-          let suggestedThreadIds$ = this.store.pipe(select(selectSuggestedThreadIds));
-          return suggestedThreadIds$.forEach((threadIds) => {
-            threadIds.forEach((id) => {
-              return this.store.dispatch(new CollectMessages(id));
-            })
+  @Effect({ dispatch: false })
+  suggestedThreadsRequested$ = this.actions$
+      .pipe(
+        ofType<InboxThreadIdsLoadedAction>(SuggestedActionTypes.InboxThreadIdsLoaded),
+        map((action) => {
+          this.suggestedService.batchRequest({ body: action.payload }).subscribe((result) => {
+            this.store.dispatch(new AddAllSuggestionsAction(result));
           });
+        }),
+        catchError((err) => of(new SuggestedThreadsRequestFailureAction(err)))
+      );
+
+  @Effect({dispatch: false})
+    onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+    // listen to our storage key
+      filter((evt) => {
+        return evt.key === 'go-app-suggested';
+      }),
+      filter(evt => evt.newValue !== null),
+      map(evt => {
+        let suggestedState = JSON.parse(evt.newValue);
+        this.store.dispatch(new UpdateSuggestedStateAction(suggestedState));
       })
     );
-*/
-/*
-    @Effect({dispatch: false})
-    collectMessages$ = this.actions$
-    .pipe(
-      ofType<CollectMessages>(SuggestedActionTypes.CollectMessages),
-      concatMap((action) => {
-        return this.suggestedService.getThread(action.payload).pipe(
-          map((result) => {
-            let message = result.messages[0];
-            let fromSender: string = message.payload.headers[0].value;
-            let fromAddress = fromSender.slice(fromSender.search('<+'));
-            let fromName = fromSender.slice(0, fromSender.search('<+')-1);
-            // console.log(fromName.search('"'));
-            if (fromName.search('"') === 0) {
-              fromName = fromName.slice(1,-1)
-            }
-            let iSuggested: ISuggested = {
-                id: Md5.hashAsciiStr(fromAddress),
-                fromAddress: fromAddress,
-                fromName: fromName,
-                labelId: undefined,
-                labelName: undefined,
-                threadIds: [message.threadId],
-                count: result.messages.length
-              };
-              // console.log(message);
-              this.store.dispatch(new AddSuggestedMessage(iSuggested));
-            })
-          )
-        })
-    );
-*/
+
+
   constructor(
     private actions$: Actions,
     private suggestedService: SuggestedService,

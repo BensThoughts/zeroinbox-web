@@ -1,4 +1,4 @@
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 // import { AuthUserService } from './auth-user.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
@@ -16,7 +16,20 @@ export class AuthGuardService implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate() {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+/**
+    let authenticated = JSON.parse(localStorage.getItem('go-app-auth')).isAuthenticated;
+    console.log(authenticated);
+    console.log(state.url);
+
+    if (!authenticated) {
+      this.router.navigate(['/login']);
+      return false;
+    } else {
+      return true;
+    }
+**/
+
     return this.checkStoreAuthentication().pipe(
       tap((authenticated) => {
         if (!authenticated) {
@@ -24,31 +37,17 @@ export class AuthGuardService implements CanActivate {
         }
       })
     );
-    /**  mergeMap(storeAuth => {
-        if (storeAuth) {
-          return of(true);
-        }
 
-        return this.checkApiAuthentication();
-      }),
-
-      map(apiAuth => {
-        if (!ApiAuth) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-
-        return true;
-      })
-    );
-    **/
   }
 
+  
   checkStoreAuthentication() {
     return this.store.select(selectIsAuthenticated);
   }
 
-//  checkApiAuthentication() {
-//    return of(this.authService.isUserSignedIn);
-//  }
 }
+  /**
+  checkApiAuthentication() {
+    return of(this.authService.isUserSignedIn);
+  }
+  **/

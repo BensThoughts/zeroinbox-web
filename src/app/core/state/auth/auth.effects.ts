@@ -8,22 +8,47 @@ import {
   LoginSuccessAction,
   LoginFailureAction,
   LogoutConfirmedAction,
-  LogoutCancelledAction
+  LogoutCancelledAction,
+  LogoutConfirmedFromOtherWindowAction,
+  UpdateAuthState
 } from './auth.actions';
 import { Injectable, NgZone } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import { tap, map, exhaustMap, catchError } from 'rxjs/operators';
+import { tap, map, exhaustMap, catchError, filter } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
-import { of } from 'rxjs';
+import { of, fromEvent } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { LoadBasicProfileAction, ResetUserAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
+import { ResetSuggestedStateAction } from '../gmail-api/suggested/suggested.actions';
 
 @Injectable()
 export class AuthEffects {
 
+
+  @Effect({dispatch: false})
+  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+    // listen to our storage key
+    filter((evt) => {
+      // console.log(evt);
+      return evt.key === 'go-app-auth';
+    }),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      // console.log(evt);
+      // console.log(JSON.parse(evt.newValue));
+      let authenticated = JSON.parse(evt.newValue).isAuthenticated;
+      // console.log(authenticated);
+      // this.store.dispatch(new UpdateAuthState(authState));
+      if (authenticated) {
+        this.store.dispatch(new LoginSuccessAction());
+      } else {
+        this.store.dispatch(new LogoutConfirmedFromOtherWindowAction());
+      }
+    })
+  );
 
   /**
    * [Effect login$ activates the signIn() flow from the authService]
@@ -136,8 +161,25 @@ export class AuthEffects {
   logoutConfirmed$ = this.actions$.pipe(
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
+      this.authService.logout();
       this.store.dispatch(new ResetUserAction());
-      this.store.dispatch(new GmailLabelsRemovedByAuth)
+      this.store.dispatch(new GmailLabelsRemovedByAuth());
+      this.store.dispatch(new ResetSuggestedStateAction());
+      this.router.navigate([this.authService.logoutUrl]);
+    })
+  );
+
+  /**
+   * [Effect logoutConfirmed$ removes the access_token from session storage]
+   */
+  @Effect({ dispatch: false })
+  logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
+    ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
+    tap( () => {
+      // this.authService.logout();
+      this.store.dispatch(new ResetUserAction());
+      this.store.dispatch(new GmailLabelsRemovedByAuth());
+      this.store.dispatch(new ResetSuggestedStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );

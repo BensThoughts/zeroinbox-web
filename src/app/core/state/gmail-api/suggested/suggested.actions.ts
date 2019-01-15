@@ -1,84 +1,97 @@
 import {Action} from '@ngrx/store';
-import { Message, ThreadPreview } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { ISuggested } from '../models/suggested.model';
 
 export enum SuggestedActionTypes {
-  CollectInboxThreadIds = '[Labels] Collect Inbox Message Ids',
-  CollectPageOfThreads = '[Suggested Effects] Collect Page Of Threads',
-  CollectThreadIds = '[Suggested Effects] Collect Thread Ids',
-  CollectPageToken = '[Suggested Effects] Collect Page Token',
-  AllPagesCollected = '[Suggested Service] All Pages Collected',
-  CollectMessages = '[Suggested Effects] Collect Messages',
-  AddSuggestedMessage = '[Suggested Effects] Add Suggested Message',
-  AddAllSuggestions = '[Suggested Service] Add All Suggestions',
-  ServerTest = '[Suggested Effects] Server Test',
-  AddAllThreadIds = '[Suggested Effects] Add All Thread Ids'
+
+  SuggestionsRequested = '[Home Component] Suggestions Requested',
+
+  InboxThreadIdsRequested = '[Suggested Effects] Inbox Thread Ids Requested',
+  InboxThreadIdsRequestFailure = '[Suggested Effects] Inbox Thread Ids Request Failure',
+  InboxThreadIdsLoaded = '[Suggested Effects] Inbox Thread Ids Loaded',
+  AddAllThreadIds = '[Suggested Effects] Add All threadIds',
+
+  SuggestedThreadsRequested = '[Suggested Effects] Suggested Messages Requested',
+  SuggestedThreadsRequestFailure = '[Suggested Effects] Suggested Threads Request Failure',
+  // SuggestedThreadsLoaded = '[Suggested Effects] Suggested Messages Loaded',
+  AddAllSuggestions = '[Suggested Effects] Add All Suggestions',
+
+  UpdateSuggestedState = '[Suggested Effects] Update Suggested State From Another Tab/Window',
+  ResetSuggestedState = '[Auth Effects] Reset Suggested State'
 }
 
 /**
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
- export class AddAllThreadIds implements Action {
-   readonly type = SuggestedActionTypes.AddAllThreadIds;
-   constructor(public payload: Array<string>) {}
- }
+
+export class SuggestionsRequestedAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestionsRequested;
+}
+
+export class InboxThreadIdsRequestedAction implements Action {
+  readonly type = SuggestedActionTypes.InboxThreadIdsRequested;
+}
+
+export class InboxThreadIdsRequestFailureAction implements Action {
+  readonly type = SuggestedActionTypes.InboxThreadIdsRequestFailure;
+  constructor(public payload: any) {}
+}
+
+export class AddAllThreadIdsAction implements Action {
+  readonly type = SuggestedActionTypes.AddAllThreadIds;
+  constructor(public payload: Array<string>) {}
+}
+
+export class InboxThreadIdsLoadedAction implements Action {
+  readonly type = SuggestedActionTypes.InboxThreadIdsLoaded;
+  constructor(public payload: Array<string>) {}
+}
 
 
-export class AddAllSuggestions implements Action {
+export class SuggestedThreadsRequestedAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestionsRequested;
+}
+
+export class SuggestedThreadsRequestFailureAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestedThreadsRequestFailure;
+  constructor(public payload: any) {}
+}
+
+export class AddAllSuggestionsAction implements Action {
   readonly type = SuggestedActionTypes.AddAllSuggestions;
   constructor(public payload: ISuggested[]) {}
 }
 
-export class AddSuggestedMessage implements Action {
-  readonly type = SuggestedActionTypes.AddSuggestedMessage;
-  constructor(public payload: ISuggested) {}
+/**
+export class SuggestedMessagesLoadedAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestedMessagesLoaded;
+}
+**/
+
+export class UpdateSuggestedStateAction implements Action {
+  readonly type = SuggestedActionTypes.UpdateSuggestedState;
+  constructor(public payload: any){}
 }
 
-export class CollectMessages implements Action {
-  readonly type = SuggestedActionTypes.CollectMessages;
-  constructor(public payload: string) {}
+export class ResetSuggestedStateAction implements Action {
+  readonly type = SuggestedActionTypes.ResetSuggestedState;
 }
 
-export class ServerTest implements Action {
-  readonly type = SuggestedActionTypes.ServerTest;
-}
-
-export class CollectInboxThreadIds implements Action {
-  readonly type = SuggestedActionTypes.CollectInboxThreadIds;
-}
-
-export class CollectPageToken implements Action {
-  readonly type = SuggestedActionTypes.CollectPageToken;
-
-  constructor(public payload: string) {}
-}
-
-export class CollectThreadIds implements Action {
-  readonly type = SuggestedActionTypes.CollectThreadIds;
-
-  constructor(public payload: string[]) {}
-}
-
-export class CollectPageOfThreads implements Action {
-  readonly type = SuggestedActionTypes.CollectPageOfThreads;
-
-  constructor(public payload: string) {} // The page token to use
-}
-
-export class AllPagesCollected implements Action {
-  readonly type = SuggestedActionTypes.AllPagesCollected;
-  constructor() {}
-}
 
 export type SuggestedActions =
-  | AddAllThreadIds
-  | ServerTest
-  | AddSuggestedMessage
-  | CollectMessages
-  | CollectInboxThreadIds
-  | CollectPageToken
-  | CollectThreadIds
-  | CollectPageOfThreads
-  | AllPagesCollected
-  | AddAllSuggestions
+  | SuggestionsRequestedAction
+
+  | InboxThreadIdsRequestedAction
+  | InboxThreadIdsRequestFailureAction
+  | AddAllThreadIdsAction
+  | InboxThreadIdsLoadedAction
+
+
+  | SuggestedThreadsRequestedAction
+  | SuggestedThreadsRequestFailureAction
+  | AddAllSuggestionsAction
+
+  // | SuggestedMessagesLoadedAction
+
+  | ResetSuggestedStateAction
+  | UpdateSuggestedStateAction;
