@@ -21,3 +21,8 @@ export const selectGmailLabelsLoaded = createSelector(
   selectGmailLabelState,
   gmailLabelsState => gmailLabelsState.allLabelsLoaded
 );
+
+export const selectLabelsLength = createSelector(
+  selectUserGmailLabels,
+  gmailUserLabels => gmailUserLabels.length
+)

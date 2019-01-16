@@ -18,8 +18,10 @@
 -->
 <div class="go-labels-list">
   <mat-card>
-    <go-labels-list [labelsList]="gmail_labels$ | async">
+    <span *ngIf="gmail_labels$ | async as gmail_labels">
+    <go-labels-list [labelsList]="gmail_labels">
     </go-labels-list>
+    </span>
   </mat-card>
 </div>
 <!--

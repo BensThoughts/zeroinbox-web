@@ -20,31 +20,34 @@
 
 @import 'styles-reset.scss-theme';
 
-@import 'app/app.component.scss-theme';
+@import './app/app.component.scss-theme.scss';
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);
   @include anms-app-component-theme($theme);
 }
 // specify theme class eg: <body class="my-theme"> ... </body>
+
+
+
 .default-theme {
-  @include angular-material-theme($anms-theme);
-  @include custom-components-theme($anms-theme);
+  @include angular-material-theme($go-theme);
+  @include custom-components-theme($go-theme);
 }
 
 .light-theme {
-  @include angular-material-theme($anms-light-theme);
-  @include custom-components-theme($anms-light-theme);
+  @include angular-material-theme($go-light-theme);
+  @include custom-components-theme($go-light-theme);
 }
 
 .black-theme {
-  @include angular-material-theme($anms-black-theme);
-  @include custom-components-theme($anms-black-theme);
+  @include angular-material-theme($go-black-theme);
+  @include custom-components-theme($go-black-theme);
 }
 
 .nature-theme {
-  @include angular-material-theme($anms-nature-theme);
-  @include custom-components-theme($anms-nature-theme);
+  @include angular-material-theme($go-nature-theme);
+  @include custom-components-theme($go-nature-theme);
 }
 
 .center-snackbar {

@@ -5,22 +5,31 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
 
-  mat-sidenav-container {
-    mat-toolbar {
-      button {
-        &.active {
-          color: mat-color($accent, default-contrast);
-          background-color: mat-color($accent);
-        }
-      }
 
-      .link {
-        color: mat-color($primary, default-contrast);
-      }
-    }
+  .go-header {
+    color: mat-color($primary) !important;
+  }
+
+  mat-toolbar {
+
+  }
+
+  mat-sidenav-container {
 
     mat-sidenav {
+
+      // background-color: #90a4ae !important;
+
+      .menu-chevron {
+        color: mat-color($primary, lighter);
+      }
+
+      .mat-icon {
+        color: mat-color($primary, lighter);
+      }
+
       .mat-list-item {
+        color: mat-color($primary, lighter);
         &.active {
           color: mat-color($accent, default-contrast);
           background-color: mat-color($accent) !important;
@@ -30,6 +39,7 @@
           }
         }
       }
+
     }
 
     .footer {

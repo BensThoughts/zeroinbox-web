@@ -12,29 +12,19 @@ export interface Feature {
 export const features: Feature[] = [
   {
     name: 'Angular',
-    version: env.versions.angular,
-    description: 'go.features.angular',
+    description: 'Modern powerful framework',
     github: 'https://github.com/angular/angular',
     documentation: 'https://angular.io/docs/ts/latest/'
   },
   {
     name: 'Angular Material',
-    version: env.versions.material,
-    description: 'go.features.angular-material',
+    description: 'Material design component library',
     github: 'https://github.com/angular/material2/',
     documentation: 'https://material.angular.io/'
   },
   {
-    name: 'Angular Cli',
-    version: env.versions.angularCli,
-    description: 'go.features.angular-cli',
-    github: 'https://github.com/angular/angular-cli',
-    documentation: 'https://cli.angular.io/'
-  },
-  {
     name: 'NgRx',
-    version: env.versions.ngrx,
-    description: 'go.features.ngrx',
+    description: 'One way data flow powered by RxJS Observables',
     github: 'https://github.com/ngrx/platform',
     documentation: 'http://ngrx.github.io/',
     medium:
@@ -42,61 +32,10 @@ export const features: Feature[] = [
   },
   {
     name: 'RxJS',
-    version: env.versions.rxjs,
-    description: 'go.features.rxjs',
+    description: 'Reactive programming with async collections using Observables',
     github: 'https://github.com/ReactiveX/RxJS',
     documentation: 'http://reactivex.io/rxjs/',
     medium:
       'https://medium.com/@tomastrajan/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293'
   },
-  {
-    name: 'Bootstrap',
-    version: env.versions.bootstrap,
-    description: 'go.features.bootstrap',
-    github: 'https://github.com/twbs/bootstrap',
-    documentation: 'https://getbootstrap.com/docs/4.0/layout/grid/',
-    medium:
-      'https://medium.com/@tomastrajan/how-to-build-responsive-layouts-with-bootstrap-4-and-angular-6-cfbb108d797b'
-  },
-  {
-    name: 'Typescript',
-    version: env.versions.typescript,
-    description: 'go.features.typescript',
-    github: 'https://github.com/Microsoft/TypeScript',
-    documentation: 'https://www.typescriptlang.org/docs/home.html'
-  },
-  {
-    name: 'I18n',
-    version: env.versions.ngxtranslate,
-    description: 'go.features.ngxtranslate',
-    github: 'https://github.com/ngx-translate/core',
-    documentation: 'http://www.ngx-translate.com/'
-  },
-  {
-    name: 'Font Awesome 5',
-    version: env.versions.fontAwesome,
-    description: 'go.features.fontawesome',
-    github: 'https://github.com/FortAwesome/Font-Awesome',
-    documentation: 'https://fontawesome.com/icons'
-  },
-  {
-    name: 'Cypress',
-    version: env.versions.cypress,
-    description: 'go.features.cypress',
-    github: 'https://github.com/cypress-io/cypress',
-    documentation: 'https://www.cypress.io/'
-  },
-  {
-    name: 'go.features.themes.title',
-    description: 'go.features.themes.description',
-    documentation: 'https://material.angular.io/guide/theming',
-    medium:
-      'https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1'
-  },
-  {
-    name: 'go.features.lazyloading.title',
-    description: 'go.features.lazyloading.description',
-    documentation:
-      'https://angular.io/guide/router#lazy-loading-route-configuration'
-  }
 ];

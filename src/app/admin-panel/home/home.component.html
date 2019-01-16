@@ -1,12 +1,92 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="main-heading">Features</h1>
-    </div>
-  </div>
-  <div class="row align-items-end">
 
-    <div *ngFor="let feature of features" class="col-md-6 col-lg-4" [@listAnimation]="features.length">
+
+<div class="container">
+
+    <div class="row">
+      <div class="col-sm">
+      <mat-card>
+        <mat-card-title>
+          Welcome...
+        </mat-card-title>
+        <mat-card-content>
+          <span *ngIf="basic_profile$ | async as basic_profile">
+            <img [src]="basic_profile.picture" width="200" height="200">
+            <div>
+              {{ basic_profile.name }}
+            </div>
+          </span>
+          <span *ngIf="email_profile$ | async as email_profile">
+            <div>
+              {{ email_profile.emailAddress }}
+            </div>
+          </span>
+        </mat-card-content>
+      </mat-card>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm">
+        <mat-card>
+          <mat-card-title>
+            Statistics
+          </mat-card-title>
+
+            <mat-card-content>
+              <div *ngIf="email_profile$ | async as email_profile">
+                Threads: {{ email_profile.threadsTotal }}
+              </div>
+              <div *ngIf="labels_length$ | async as labels_length">
+                Labels: {{ labels_length }}
+              </div>
+            </mat-card-content>
+
+        </mat-card>
+      </div>
+      <div class="col-sm">
+        <mat-card>
+          <mat-card-title>
+            Suggestions
+          </mat-card-title>
+          <mat-card-content>
+            <div *ngIf="unique_senders$ | async as unique_senders; else loadingTmpl">
+              Unique Senders: {{ unique_senders }}
+            </div>
+            <ng-template #loadingTmpl>
+              <div>
+              Loading...
+              </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <mat-card>
+          <mat-card-title>
+            Actions
+          </mat-card-title>
+        </mat-card>
+      </div>
+      <div class="col-sm">
+        <mat-card>
+          <mat-card-title>
+            Settings
+          </mat-card-title>
+        </mat-card>
+      </div>
+    </div>
+
+</div>
+
+    <!--
+  <div *ngFor="let feature of features" class="col-md-4 col-lg-4" [@listAnimation]="features.length">
       <mat-card>
         <mat-card-title>
           <code *ngIf="feature.version">{{ feature.version }}</code>{{ feature.name }}
@@ -28,5 +108,4 @@
       </mat-card>
     </div>
 
-  </div>
-</div>
+  </div>  -->

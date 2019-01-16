@@ -6,6 +6,7 @@
   <br>
   <ng-container *ngIf="settings$ | async as settings">
     <div>
+      <mat-card>
       <h2>Theme</h2>
       <div class="icon-form-field">
         <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
@@ -20,6 +21,7 @@
           </mat-select>
         </mat-form-field>
       </div>
+      </mat-card>
     </div>
   </ng-container>
 

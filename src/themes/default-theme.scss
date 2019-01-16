@@ -1,5 +1,51 @@
-$anms-primary: mat-palette($mat-indigo, 800, 300, 900);
-$anms-accent: mat-palette($mat-light-blue);
-$anms-warn: mat-palette($mat-pink, 600);
+$go-primary: mat-palette($mat-blue, A200, 300, 900);
+$go-accent: mat-palette($mat-light-blue);
+$go-warn: mat-palette($mat-pink, 600);
 
-$anms-theme: mat-light-theme($anms-primary, $anms-accent, $anms-warn);
+$go-default-theme-background: (
+  status-bar: blue,
+  app-bar:    map_get($mat-blue, 500),
+  background: map_get($mat-grey, 300),
+  hover:      rgba(white, 0.04),
+  card:       map_get($mat-blue, A100),
+  dialog:     map_get($mat-grey, 500),
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 300),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+
+$go-default-theme-foreground: (
+  base:              white,
+  divider:           $white-12-opacity,
+  dividers:          $black-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              black,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+@function create-default-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $go-default-theme-foreground,
+    background: $go-default-theme-background,
+  );
+}
+
+$go-theme: create-default-theme($go-primary, $go-accent, $go-warn);

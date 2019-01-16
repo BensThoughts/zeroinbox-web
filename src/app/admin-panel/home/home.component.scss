@@ -1,12 +1,28 @@
 @import '../../../styles-variables';
 
-.container {
+.container-fluid {
   margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.container {
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 400px;
 }
 
 .main-heading {
   text-transform: uppercase;
   margin: 0 0 20px 0;
+  align-self: center;
+}
+
+.badge-card {
+  width: 200px;
 }
 
 mat-card {

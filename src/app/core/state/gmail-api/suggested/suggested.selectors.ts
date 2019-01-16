@@ -15,4 +15,9 @@ export const selectSuggestedThreadIds = createSelector(
 export const selectSuggestionsLoaded = createSelector(
   selectSuggested,
   (state: SuggestedState) => state.allSuggestionsLoaded
-)
+);
+
+export const selectUniqueSenders = createSelector(
+  selectSuggested,
+  (state: SuggestedState) => state.ids.length
+);

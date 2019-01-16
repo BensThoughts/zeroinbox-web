@@ -1,16 +1,19 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
-<mat-toolbar class="go-header" color="primary">
-  <mat-toolbar-row>
+<mat-toolbar>
+
+    <!--
     <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
       <fa-icon icon="bars"></fa-icon>
-    </button>
-    <span><img src="./assets/logo.png"></span>
-    <span fxLayout="row" fxLayoutAlign="end">
-    <button mat-flat-button>About</button>
-    <button mat-flat-button>FAQ</button>
+    </button>    -->
+
+    <img src="./assets/logo.png">
+
+    <span class="container">
+      <button mat-flat-button>About</button>
+      <button mat-flat-button>FAQ</button>
     </span>
-  </mat-toolbar-row>
+
 </mat-toolbar>
 
 
@@ -22,10 +25,10 @@
     <mat-nav-list  class="dashboard" class="mat-sidenav-keep">
 
       <div *ngIf="isLoggedIn$ | async">
-      <a mat-list-item *ngFor="let menu_item of menu_items" routerLink='{{ menu_item.link }}'>
+      <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.link }}">
         <span  class="app-nav-list-icon">
           <mat-icon matListIcon>
-            <fa-icon icon='{{ menu_item.icon }}' style="color: #808DE1;"></fa-icon>
+            <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
           </mat-icon>
         </span>
         <span *ngIf="isOpen" style="padding-left: .5em;">
@@ -34,9 +37,10 @@
       </a>
 
       <a mat-list-item (click)="signOut()">
-        <span  class="app-nav-list-icon">
-          <mat-icon matListIcon class="app-nav-list-icon">
-            <fa-icon icon="sign-out-alt"style="color: #808DE1;"></fa-icon>
+        <!--          <span  class="app-nav-list-icon">         -->
+        <span>
+          <mat-icon matListIcon> <!--class="app-nav-list-icon">-->
+            <fa-icon icon="sign-out-alt"></fa-icon>
           </mat-icon>
         </span>
         <span *ngIf="isOpen" style="padding-left: .5em;">
@@ -48,9 +52,9 @@
     </mat-nav-list>
 
     <div class="menu-chevron">
-      <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()" color="primary">
+      <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
         <!-- maybe wrap this in mat-icon -->
-        <fa-icon size="2x" icon="chevron-circle-left" style="color: #808DE1;"></fa-icon>
+        <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
       </button>
     </div>
 
