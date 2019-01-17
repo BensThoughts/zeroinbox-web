@@ -29,7 +29,7 @@ export class SuggestionsTableComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  pageEvent: PageEvent;
+  // pageEvent: PageEvent;
   selectionDelete = new SelectionModel<string>(true, []);
   selectionLabel = new SelectionModel<string>(true, []);
   collectionViewer: CollectionViewer;
@@ -40,10 +40,6 @@ export class SuggestionsTableComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    let storeHandler = this.store.pipe(select(selectCountCutoff)).subscribe((cutoff) => {
-      this.countCutoff = cutoff
-    });
-    storeHandler.unsubscribe;
     // this.dataSource = new MatTableDataSource(this.suggestedData);
     this.dataSource = new UserDataSource(this.store);
     // this.dataSource.paginator = this.paginator;
@@ -53,46 +49,44 @@ export class SuggestionsTableComponent implements OnInit {
       pageSize: 10
     };
     this.dataSource.loadSuggestions(initialPage);
-    let storeHandler2 = this.store.pipe(
-      select(selectSendersMoreCount(this.countCutoff))
-    ).subscribe((unique_senders) => {
-      this.length = unique_senders
-    });
-    storeHandler2.unsubscribe;
+    let storeHandler = this.store.pipe(
+      select(selectSendersMoreCount),
+      map((unique_senders) => {
+        this.length = unique_senders
+      })
+    ).subscribe() //(unique_senders) => {
+      // this.length = unique_senders
+    // });
+    storeHandler.unsubscribe;
 
     this.mySub = this.dataSource.connect(this.collectionViewer);
-
-
   }
 
   ngAfterViewInit() {
-
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadSuggestionsPage())
-      )
-      .subscribe();
+    this.paginator.page.pipe(
+      tap(() => this.loadSuggestionsPage())
+    ).subscribe();
   }
+
 
   loadSuggestionsPage() {
-  this.selectionDelete.clear();
-  this.selectionLabel.clear();
-  const newPage: PageQuery = {
-    pageIndex: this.paginator.pageIndex,
-    pageSize: this.paginator.pageSize
-    };
-    //console.log(newPage);
+    this.selectionDelete.clear();
+    this.selectionLabel.clear();
 
-  this.dataSource.loadSuggestions(newPage);
+    const newPage: PageQuery = {
+      pageIndex: this.paginator.pageIndex,
+      pageSize: this.paginator.pageSize
+      };
 
+      this.dataSource.loadSuggestions(newPage);
   }
+
 
   onSuggestionDeleteToggle(iSuggested: ISuggested) {
     let diff = !iSuggested.actionDelete;
     if (diff) {
       this.selectionDelete.select(iSuggested.from);
     } else {
-      console.log('deselect');
       this.selectionDelete.deselect(iSuggested.from);
     }
     const changes = {
@@ -108,22 +102,6 @@ export class SuggestionsTableComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
   }
 
-  onSuggestionLabelToggle(iSuggested: ISuggested) {
-    let diff = !iSuggested.actionLabel;
-    if (diff) {
-      this.selectionLabel.select(iSuggested.from);
-    } else {
-      this.selectionLabel.deselect(iSuggested.from);
-    }
-    const changes = {
-      actionLabel: diff,
-    }
-    const newUpdate: Update<ISuggested> = {
-      id: iSuggested.from,
-      changes
-    }
-    this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
-  }
 
   isAllDeleteSelected() {
     const numSelected = this.selectionDelete.selected.length;
@@ -131,8 +109,8 @@ export class SuggestionsTableComponent implements OnInit {
     let handler = this.mySub.subscribe((iSuggested) => {
       numRows = iSuggested.length
     });
-    console.log('numRows: ' + numRows);
-    console.log('numSelected: ' + numSelected);
+    // console.log('numRows Delete: ' + numRows);
+    // console.log('numSelected Delete: ' + numSelected);
     return numSelected == numRows;
   }
 
@@ -174,11 +152,28 @@ export class SuggestionsTableComponent implements OnInit {
         changeArray = changeArray.concat(newUpdate);
       });
       handler.unsubscribe();
-      // console.log(changeArray);
 
     }
     this.store.dispatch(new SuggestedToggleDeleteManyAction({ iSuggesteds: changeArray }));
 
+  }
+
+
+  onSuggestionLabelToggle(iSuggested: ISuggested) {
+    let diff = !iSuggested.actionLabel;
+    if (diff) {
+      this.selectionLabel.select(iSuggested.from);
+    } else {
+      this.selectionLabel.deselect(iSuggested.from);
+    }
+    const changes = {
+      actionLabel: diff,
+    }
+    const newUpdate: Update<ISuggested> = {
+      id: iSuggested.from,
+      changes
+    }
+    this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
   }
 
   isAllLabelSelected() {
@@ -187,13 +182,12 @@ export class SuggestionsTableComponent implements OnInit {
     let handler = this.mySub.subscribe((iSuggested) => {
       numRows = iSuggested.length
     });
-    console.log('numRows: ' + numRows);
-    console.log('numSelected: ' + numSelected);
+    // console.log('numRows Label: ' + numRows);
+    // console.log('numSelected Label: ' + numSelected);
     return numSelected == numRows;
   }
 
   masterToggleLabel() {
-    // console.log(this.isAllDeleteSelected());
     let changeArray = [];
     if (this.isAllLabelSelected()) {
       this.selectionLabel.clear()
@@ -230,7 +224,6 @@ export class SuggestionsTableComponent implements OnInit {
         changeArray = changeArray.concat(newUpdate);
       });
       handler.unsubscribe();
-      // console.log(changeArray);
 
     }
     this.store.dispatch(new SuggestedToggleLabelManyAction({ iSuggesteds: changeArray }));
@@ -240,19 +233,15 @@ export class SuggestionsTableComponent implements OnInit {
 
 export class UserDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggested[]>([]);
-  private countCutoff: number;
   constructor(private store: Store<AppState>) {// private suggestedSource: ISuggested[]) {
     super();
-    let storeHandler = this.store.pipe(select(selectCountCutoff)).subscribe((cutoff) => {
-      this.countCutoff = cutoff
-    });
-    storeHandler.unsubscribe;
+
   }
 
   loadSuggestions(page: PageQuery) {
     console.log(page);
     this.store.pipe(
-      select(selectPageOfSendersMore(this.countCutoff, page)),
+      select(selectPageOfSendersMore(page)),
       tap((suggestions) => {
         // console.log(suggestions);
         this.suggestionsSubject.next(suggestions)

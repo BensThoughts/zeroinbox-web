@@ -3,6 +3,7 @@ import { selectSuggestedState } from '../../core.state';
 import { SuggestedState } from './suggested.reducer';
 import * as fromSuggested from './suggested.reducer';
 import { PageQuery } from './suggested.actions';
+import * as fromSettings from '@app/admin-panel/settings/state/settings.selectors';
 
 export const selectSuggested = createSelector(
   selectSuggestedState,
@@ -43,28 +44,31 @@ export const selectByCount = createSelector(
   sendersMore => sendersMore.sort((a,b) => b.count - a.count)
 );
 
-export const selectSendersMore = (cutoff: number) => createSelector(
+
+export const selectSendersMore = createSelector(
   selectByCount,
-  suggestions => suggestions.filter(suggestion => suggestion.count >= cutoff),
+  fromSettings.selectCountCutoff,
+  (suggestions, cutoff) => suggestions.filter(suggestion => suggestion.count >= cutoff),
 );
 
-export const selectSendersMoreCount = (cutoff: number) => createSelector(
-  selectSendersMore(cutoff),
+
+export const selectSendersMoreCount = createSelector(
+  selectSendersMore,
   sendersMore => sendersMore.length
 )
 
-export const selectPageOfSendersMore = (cutoff: number, page: PageQuery) => createSelector(
-  selectSendersMore(cutoff),
+export const selectPageOfSendersMore = (page: PageQuery) => createSelector(
+  selectSendersMore,
   sendersMore => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
 
     return sendersMore.slice(start, end);
-
   }
 );
 
 export const selectSendersLess = createSelector(
   selectAllSuggested,
-  suggestions => suggestions.filter(suggestion => suggestion.count < 5)
+  fromSettings.selectCountCutoff,
+  (suggestions, cutoff) => suggestions.filter(suggestion => suggestion.count < cutoff)
 )
