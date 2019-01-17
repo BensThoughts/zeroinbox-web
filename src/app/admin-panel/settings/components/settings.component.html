@@ -23,6 +23,25 @@
       </div>
       </mat-card>
     </div>
+
+    <div>
+      <mat-card>
+      <h2>Count Cutoff</h2>
+      <div class="icon-form-field">
+        <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
+        <mat-form-field>
+          <mat-select placeholder="Count Cutoff"
+                      [ngModel]="settings.countCutoff"
+                      (selectionChange)="onCountCutoffSelect($event)"
+                      name="Count Cutoffs">
+            <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
+              {{ t.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      </mat-card>
+    </div>
   </ng-container>
 
 </div>

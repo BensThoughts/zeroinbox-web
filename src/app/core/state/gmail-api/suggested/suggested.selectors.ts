@@ -43,18 +43,18 @@ export const selectByCount = createSelector(
   sendersMore => sendersMore.sort((a,b) => b.count - a.count)
 );
 
-export const selectSendersMore = createSelector(
+export const selectSendersMore = (cutoff: number) => createSelector(
   selectByCount,
-  suggestions => suggestions.filter(suggestion => suggestion.count > 5),
+  suggestions => suggestions.filter(suggestion => suggestion.count >= cutoff),
 );
 
-export const selectSendersMoreCount = createSelector(
-  selectSendersMore,
+export const selectSendersMoreCount = (cutoff: number) => createSelector(
+  selectSendersMore(cutoff),
   sendersMore => sendersMore.length
 )
 
-export const selectPageOfSendersMore = (page: PageQuery) => createSelector(
-  selectSendersMore,
+export const selectPageOfSendersMore = (cutoff: number, page: PageQuery) => createSelector(
+  selectSendersMore(cutoff),
   sendersMore => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;

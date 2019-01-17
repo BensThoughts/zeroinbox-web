@@ -4,10 +4,12 @@
    <ng-container matColumnDef="delete">
      <th mat-header-cell *matHeaderCellDef>
         Delete
+        <div>
         <mat-checkbox (change)="$event ? masterToggleDelete() : null"
                       [checked]="selectionDelete.hasValue() && isAllDeleteSelected()"
                       [indeterminate]="selectionDelete.hasValue() && !isAllDeleteSelected()">
         </mat-checkbox>
+        </div>
      </th>
      <td mat-cell *matCellDef="let suggestion">
 
@@ -30,10 +32,12 @@
    <ng-container matColumnDef="label">
      <th mat-header-cell *matHeaderCellDef>
        Label
+       <div>
        <mat-checkbox (change)="$event ? masterToggleLabel() : null"
                      [checked]="selectionLabel.hasValue() && isAllLabelSelected()"
                      [indeterminate]="selectionLabel.hasValue() && !isAllLabelSelected()">
        </mat-checkbox>
+       </div>
      </th>
      <td mat-cell *matCellDef="let suggestion">
 

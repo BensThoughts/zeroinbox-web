@@ -18,3 +18,8 @@ export const selectTheme = createSelector(
   selectSettings,
   (state: SettingsState) => state.theme.toLowerCase()
 );
+
+export const selectCountCutoff = createSelector(
+  selectSettings,
+  (state: SettingsState) => state.countCutoff
+);

@@ -8,6 +8,7 @@ import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
+import { selectCountCutoff } from '@app/admin-panel/settings/state/settings.selectors';
 
 @Component({
   selector: 'go-suggestions-table',
@@ -34,9 +35,15 @@ export class SuggestionsTableComponent implements OnInit {
   collectionViewer: CollectionViewer;
   mySub: Observable<ISuggested[]>;
 
+  countCutoff: number;
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    let storeHandler = this.store.pipe(select(selectCountCutoff)).subscribe((cutoff) => {
+      this.countCutoff = cutoff
+    });
+    storeHandler.unsubscribe;
     // this.dataSource = new MatTableDataSource(this.suggestedData);
     this.dataSource = new UserDataSource(this.store);
     // this.dataSource.paginator = this.paginator;
@@ -46,11 +53,16 @@ export class SuggestionsTableComponent implements OnInit {
       pageSize: 10
     };
     this.dataSource.loadSuggestions(initialPage);
-    this.store.pipe(select(selectSendersMoreCount)).subscribe((unique_senders) => {
+    let storeHandler2 = this.store.pipe(
+      select(selectSendersMoreCount(this.countCutoff))
+    ).subscribe((unique_senders) => {
       this.length = unique_senders
     });
+    storeHandler2.unsubscribe;
 
     this.mySub = this.dataSource.connect(this.collectionViewer);
+
+
   }
 
   ngAfterViewInit() {
@@ -228,14 +240,19 @@ export class SuggestionsTableComponent implements OnInit {
 
 export class UserDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggested[]>([]);
+  private countCutoff: number;
   constructor(private store: Store<AppState>) {// private suggestedSource: ISuggested[]) {
     super();
+    let storeHandler = this.store.pipe(select(selectCountCutoff)).subscribe((cutoff) => {
+      this.countCutoff = cutoff
+    });
+    storeHandler.unsubscribe;
   }
 
   loadSuggestions(page: PageQuery) {
     console.log(page);
     this.store.pipe(
-      select(selectPageOfSendersMore(page)),
+      select(selectPageOfSendersMore(this.countCutoff, page)),
       tap((suggestions) => {
         // console.log(suggestions);
         this.suggestionsSubject.next(suggestions)
