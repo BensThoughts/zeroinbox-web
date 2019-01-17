@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@a
 import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
 import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
 import { Store, select } from '@ngrx/store';
-import { AppState, SuggestedToggleDeleteAction, selectSendersMore, SuggestedToggleLabelAction, selectPageOfSendersMore, PageQuery, selectTotal, selectUniqueSenders, selectSendersMoreCount } from '@app/core';
+import { AppState, SuggestedToggleDeleteAction, selectSendersMore, SuggestedToggleLabelAction, selectPageOfSendersMore, PageQuery, selectTotal, selectUniqueSenders, selectSendersMoreCount, SuggestedToggleDeleteManyAction, SuggestedToggleLabelManyAction } from '@app/core';
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
-import { tap } from 'rxjs/operators';
-import { CollectionViewer } from '@angular/cdk/collections';
+import { tap, map } from 'rxjs/operators';
+import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'go-suggestions-table',
@@ -29,6 +29,10 @@ export class SuggestionsTableComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   pageEvent: PageEvent;
+  selectionDelete = new SelectionModel<string>(true, []);
+  selectionLabel = new SelectionModel<string>(true, []);
+  collectionViewer: CollectionViewer;
+  mySub: Observable<ISuggested[]>;
 
   constructor(private store: Store<AppState>) { }
 
@@ -44,7 +48,9 @@ export class SuggestionsTableComponent implements OnInit {
     this.dataSource.loadSuggestions(initialPage);
     this.store.pipe(select(selectSendersMoreCount)).subscribe((unique_senders) => {
       this.length = unique_senders
-    })
+    });
+
+    this.mySub = this.dataSource.connect(this.collectionViewer);
   }
 
   ngAfterViewInit() {
@@ -57,7 +63,8 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
   loadSuggestionsPage() {
-
+  this.selectionDelete.clear();
+  this.selectionLabel.clear();
   const newPage: PageQuery = {
     pageIndex: this.paginator.pageIndex,
     pageSize: this.paginator.pageSize
@@ -70,6 +77,12 @@ export class SuggestionsTableComponent implements OnInit {
 
   onSuggestionDeleteToggle(iSuggested: ISuggested) {
     let diff = !iSuggested.actionDelete;
+    if (diff) {
+      this.selectionDelete.select(iSuggested.from);
+    } else {
+      console.log('deselect');
+      this.selectionDelete.deselect(iSuggested.from);
+    }
     const changes = {
       actionDelete: diff,
       // actionLabel: !iSuggested.actionLabel
@@ -85,6 +98,11 @@ export class SuggestionsTableComponent implements OnInit {
 
   onSuggestionLabelToggle(iSuggested: ISuggested) {
     let diff = !iSuggested.actionLabel;
+    if (diff) {
+      this.selectionLabel.select(iSuggested.from);
+    } else {
+      this.selectionLabel.deselect(iSuggested.from);
+    }
     const changes = {
       actionLabel: diff,
     }
@@ -95,7 +113,117 @@ export class SuggestionsTableComponent implements OnInit {
     this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
   }
 
+  isAllDeleteSelected() {
+    const numSelected = this.selectionDelete.selected.length;
+    let numRows;
+    let handler = this.mySub.subscribe((iSuggested) => {
+      numRows = iSuggested.length
+    });
+    console.log('numRows: ' + numRows);
+    console.log('numSelected: ' + numSelected);
+    return numSelected == numRows;
+  }
 
+  masterToggleDelete() {
+    // console.log(this.isAllDeleteSelected());
+    let changeArray = [];
+    if (this.isAllDeleteSelected()) {
+      this.selectionDelete.clear()
+      const changes = {
+        actionDelete: false
+      };
+      let handler = this.mySub.subscribe((iSuggesteds) => {
+        iSuggesteds.forEach((iSuggested) => {
+          let newUpdate: Update<ISuggested> = {
+            id: iSuggested.from,
+            changes
+          }
+          changeArray = changeArray.concat(newUpdate);
+        });
+      });
+      handler.unsubscribe();
+    } else {
+      this.selectionLabel.clear();
+      const changes = {
+        actionDelete: true,
+        actionLabel: false
+      };
+
+      let handler = this.mySub.subscribe((isuggested) => {
+        isuggested.forEach((isuggested) => {
+          this.selectionDelete.select(isuggested.from);
+        });
+      });
+      this.selectionDelete.selected.forEach((iSuggested) => {
+        let newUpdate: Update<ISuggested> = {
+          id: iSuggested,
+          changes
+        };
+        changeArray = changeArray.concat(newUpdate);
+      });
+      handler.unsubscribe();
+      // console.log(changeArray);
+
+    }
+    this.store.dispatch(new SuggestedToggleDeleteManyAction({ iSuggesteds: changeArray }));
+
+  }
+
+  isAllLabelSelected() {
+    const numSelected = this.selectionLabel.selected.length;
+    let numRows;
+    let handler = this.mySub.subscribe((iSuggested) => {
+      numRows = iSuggested.length
+    });
+    console.log('numRows: ' + numRows);
+    console.log('numSelected: ' + numSelected);
+    return numSelected == numRows;
+  }
+
+  masterToggleLabel() {
+    // console.log(this.isAllDeleteSelected());
+    let changeArray = [];
+    if (this.isAllLabelSelected()) {
+      this.selectionLabel.clear()
+      const changes = {
+        actionLabel: false
+      };
+      let handler = this.mySub.subscribe((iSuggesteds) => {
+        iSuggesteds.forEach((iSuggested) => {
+          let newUpdate: Update<ISuggested> = {
+            id: iSuggested.from,
+            changes
+          }
+          changeArray = changeArray.concat(newUpdate);
+        });
+      });
+      handler.unsubscribe();
+    } else {
+      this.selectionDelete.clear();
+      const changes = {
+        actionLabel: true,
+        actionDelete: false
+      };
+
+      let handler = this.mySub.subscribe((isuggested) => {
+        isuggested.forEach((isuggested) => {
+          this.selectionLabel.select(isuggested.from);
+        });
+      });
+      this.selectionLabel.selected.forEach((iSuggested) => {
+        let newUpdate: Update<ISuggested> = {
+          id: iSuggested,
+          changes
+        };
+        changeArray = changeArray.concat(newUpdate);
+      });
+      handler.unsubscribe();
+      // console.log(changeArray);
+
+    }
+    this.store.dispatch(new SuggestedToggleLabelManyAction({ iSuggesteds: changeArray }));
+
+  }
 }
 
 export class UserDataSource extends DataSource<any> {

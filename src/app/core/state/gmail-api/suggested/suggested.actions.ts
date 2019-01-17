@@ -19,6 +19,9 @@ export enum SuggestedActionTypes {
   SuggestedToggleDelete = '[Suggestions Table Component] Suggested Toggle Delete',
   SuggestedToggleLabel = '[Suggestions Table Component] Suggested Toggle Label',
 
+  SuggestedToggleDeleteMany = '[Suggestions Table Component] Suggested Toggle Delete Many',
+  SuggestedToggleLabelMany = '[Suggestions Table Component] Suggested Toggle Label Many',
+
   UpdateSuggestedState = '[Suggested Effects] Update Suggested State From Another Tab/Window',
   ResetSuggestedState = '[Auth Effects] Reset Suggested State'
 }
@@ -35,9 +38,21 @@ export interface PageQuery {
  */
 
 
+ export class SuggestedToggleDeleteManyAction implements Action {
+   readonly type = SuggestedActionTypes.SuggestedToggleDeleteMany;
+
+   constructor(public payload: { iSuggesteds: Update<ISuggested>[] }) {}
+ }
+
+ export class SuggestedToggleLabelManyAction implements Action {
+   readonly type = SuggestedActionTypes.SuggestedToggleLabelMany;
+
+   constructor(public payload: { iSuggesteds: Update<ISuggested>[] }) {}
+ }
+
 
 export class SuggestedToggleDeleteAction implements Action {
-  readonly type =SuggestedActionTypes.SuggestedToggleDelete;
+  readonly type = SuggestedActionTypes.SuggestedToggleDelete;
   constructor(public payload: { iSuggested: Update<ISuggested> }) {}
 }
 
@@ -118,6 +133,8 @@ export type SuggestedActions =
   // | SuggestedMessagesLoadedAction
   | SuggestedToggleDeleteAction
   | SuggestedToggleLabelAction
+  | SuggestedToggleDeleteManyAction
+  | SuggestedToggleLabelManyAction
 
 
   | ResetSuggestedStateAction

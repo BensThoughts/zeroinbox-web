@@ -54,6 +54,12 @@ export function suggestedReducer(
       case SuggestedActionTypes.SuggestedToggleLabel:
         return adapter.updateOne(action.payload.iSuggested, state);
 
+      case SuggestedActionTypes.SuggestedToggleDeleteMany:
+        return adapter.updateMany(action.payload.iSuggesteds, state);
+
+      case SuggestedActionTypes.SuggestedToggleLabelMany:
+        return adapter.updateMany(action.payload.iSuggesteds, state);
+
       default:
         return state;
     }
