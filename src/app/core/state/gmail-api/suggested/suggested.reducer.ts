@@ -8,7 +8,7 @@ export interface SuggestedState extends EntityState<ISuggested> {
 }
 
 export function selectSuggestedId(l: ISuggested) {
-  return l.froms[0];
+  return l.from;
 }
 
 export function sortByCount(l1: ISuggested, l2: ISuggested) {

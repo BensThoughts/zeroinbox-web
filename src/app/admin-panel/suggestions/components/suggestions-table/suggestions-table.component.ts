@@ -75,7 +75,7 @@ export class SuggestionsTableComponent implements OnInit {
       // actionLabel: !iSuggested.actionLabel
     }
     const newUpdate: Update<ISuggested> = {
-      id: iSuggested.froms[0],
+      id: iSuggested.from,
       changes
     };
     this.store.dispatch(new SuggestedToggleDeleteAction({iSuggested: newUpdate}));
@@ -89,7 +89,7 @@ export class SuggestionsTableComponent implements OnInit {
       actionLabel: diff,
     }
     const newUpdate: Update<ISuggested> = {
-      id: iSuggested.froms[0],
+      id: iSuggested.from,
       changes
     }
     this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
