@@ -8,7 +8,7 @@ export interface SuggestedState extends EntityState<ISuggested> {
 }
 
 export function selectSuggestedId(l: ISuggested) {
-  return l.fromAddress;
+  return l.froms[0];
 }
 
 export function sortByCount(l1: ISuggested, l2: ISuggested) {
@@ -18,7 +18,7 @@ export function sortByCount(l1: ISuggested, l2: ISuggested) {
 export const adapter: EntityAdapter<ISuggested> =
   createEntityAdapter<ISuggested>({
     selectId: selectSuggestedId,
-    sortComparer: sortByCount
+    // sortComparer: sortByCount
   });
 
 
@@ -47,6 +47,12 @@ export function suggestedReducer(
 
       case SuggestedActionTypes.UpdateSuggestedState:
         return action.payload;
+
+      case SuggestedActionTypes.SuggestedToggleDelete:
+        return adapter.updateOne(action.payload.iSuggested, state);
+
+      case SuggestedActionTypes.SuggestedToggleLabel:
+        return adapter.updateOne(action.payload.iSuggested, state);
 
       default:
         return state;

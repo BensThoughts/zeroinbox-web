@@ -25,10 +25,35 @@
   width: 200px;
 }
 
+.user {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  // border-width: 10px;
+  // border-color: black;
+  border-radius: 50%;
+
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
 mat-card {
   margin: 0 0 20px 0;
+  // max-width: 300px;
+
+  img {
+    margin: 10px;
+  }
+
+  mat-divider {
+    position: relative;
+    align-self: center;
+  }
 
   mat-card-title {
+
     position: relative;
 
     code {
@@ -39,9 +64,40 @@ mat-card {
       font-size: 10px;
     }
   }
-  mat-card-subtitle {
-    min-height: 60px;
+
+
+  mat-card-actions {
+    button {
+      margin: 5px;
+    }
   }
+
+  .welcome-card {
+    text-align: center;
+  }
+
+
+  .content {
+    text-align: center;
+  }
+
+  .stats {
+    width: 100%;
+    position: relative;
+    text-align: center;
+  }
+
+  mat-card-content {
+    mat-chip-list {
+      text-align: center;
+      position: relative;
+    }
+  }
+
+  mat-card-footer {
+    vertical-align: middle;
+  }
+
 
   @media (max-width: map-get($grid-breakpoints, sm)) {
     mat-card-subtitle {

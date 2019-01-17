@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   menu_items: MenuItem[] = menu_items;
 
   // track the state of the sidenav
-  isOpen = true;
+  isOpen = false;
 
 //  isLoggedIn$: Observable<boolean> = of(false);
   isLoggedIn$: Observable<boolean>;

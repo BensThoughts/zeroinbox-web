@@ -1,0 +1,53 @@
+<table mat-table [dataSource]="dataSource">
+
+   <!-- Position Column -->
+   <!--
+   <ng-container matColumnDef="position">
+     <th mat-header-cell *matHeaderCellDef> No. </th>
+     <td mat-cell *matCellDef="let suggestions"> {{suggestion.position}} </td>
+   </ng-container>   -->
+
+
+
+   <!-- Name Column -->
+   <ng-container matColumnDef="delete">
+     <th mat-header-cell *matHeaderCellDef> Delete </th>
+     <td mat-cell *matCellDef="let suggestion"><mat-checkbox [checked]="suggestion.actionDelete" [disabled]="suggestion.actionLabel" (change)="onSuggestionDeleteToggle(suggestion)"></mat-checkbox></td>
+     <!--
+     <th mat-header-cell *matHeaderCellDef> Name </th>
+     <td mat-cell *matCellDef="let suggestion"> {{suggestion.fromNames[0]}} </td>     -->
+
+
+   </ng-container>
+   <ng-container matColumnDef="label">
+     <th mat-header-cell *matHeaderCellDef> Label </th>
+     <td mat-cell *matCellDef="let suggestion"><mat-checkbox [checked]="suggestion.actionLabel" [disabled]="suggestion.actionDelete" (change)="onSuggestionLabelToggle(suggestion)"></mat-checkbox></td>
+     <!--
+     <th mat-header-cell *matHeaderCellDef> Name </th>
+     <td mat-cell *matCellDef="let suggestion"> {{suggestion.fromNames[0]}} </td>     -->
+
+
+   </ng-container>
+
+   <!-- Weight Column -->
+   <ng-container matColumnDef="address">
+     <th mat-header-cell *matHeaderCellDef> Address </th>
+     <td mat-cell *matCellDef="let suggestion"> {{suggestion.fromAddress}} </td>
+   </ng-container>
+
+   <!-- Symbol Column -->
+   <ng-container matColumnDef="count">
+     <th mat-header-cell *matHeaderCellDef> Count </th>
+     <td mat-cell *matCellDef="let suggestion"> {{suggestion.count}} </td>
+   </ng-container>
+
+
+   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ </table>
+
+<mat-paginator [pageSize]="pageSize"
+                [length]="length"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="pageEvent = $event">
+</mat-paginator>

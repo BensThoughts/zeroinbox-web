@@ -53,6 +53,10 @@ export class SuggestedEffects {
         ofType<InboxThreadIdsLoadedAction>(SuggestedActionTypes.InboxThreadIdsLoaded),
         map((action) => {
           this.suggestedService.batchRequest({ body: action.payload }).subscribe((result) => {
+            result.forEach((result) => {
+              result.actionDelete = false;
+              result.actionLabel = false;
+            })
             this.store.dispatch(new AddAllSuggestionsAction(result));
           });
         }),

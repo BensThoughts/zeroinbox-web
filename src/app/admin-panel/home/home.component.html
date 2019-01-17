@@ -8,9 +8,16 @@
         <mat-card-title>
           Welcome...
         </mat-card-title>
-        <mat-card-content>
+        <span *ngIf="basic_profile$ | async as basic_profile">
+          <img [src]="basic_profile.picture" class="user">
+        </span>
+        <!--          <img mat-card-lg-image [src]="basic_profile.picture">         -->
+
+
+
+        <mat-divider></mat-divider>
+        <mat-card-content class="welcome-card">
           <span *ngIf="basic_profile$ | async as basic_profile">
-            <img [src]="basic_profile.picture" width="200" height="200">
             <div>
               {{ basic_profile.name }}
             </div>
@@ -21,6 +28,7 @@
             </div>
           </span>
         </mat-card-content>
+
       </mat-card>
       </div>
     </div>
@@ -36,15 +44,39 @@
           <mat-card-title>
             Statistics
           </mat-card-title>
+          <mat-divider></mat-divider>
 
             <mat-card-content>
-              <div *ngIf="email_profile$ | async as email_profile">
+              <div class="content">
+              Get stats on your inbox. Find out who sends you the most emails.
+              Who sends you the largests emails. See a list of every mailing list you
+              are subscribed to.
+              </div>
+              <div class="stats">
+              <mat-chip-list>
+
+              <mat-chip *ngIf="email_profile$ | async as email_profile">
                 Threads: {{ email_profile.threadsTotal }}
-              </div>
-              <div *ngIf="labels_length$ | async as labels_length">
+              </mat-chip>
+
+              <mat-chip *ngIf="labels_length$ | async as labels_length">
                 Labels: {{ labels_length }}
+              </mat-chip>
+              </mat-chip-list>
               </div>
+
             </mat-card-content>
+                          <mat-divider></mat-divider>
+            <mat-card-actions>
+
+              <button mat-stroked-button>
+                Goto
+              </button>
+              <button mat-stroked-button>
+                About
+              </button>
+            </mat-card-actions>
+
 
         </mat-card>
       </div>
@@ -53,9 +85,18 @@
           <mat-card-title>
             Suggestions
           </mat-card-title>
+          <mat-divider></mat-divider>
           <mat-card-content>
+            Get suggestions for actions you can take to clean up your inbox.
+            Select the ones you would like to take or just select all of them.
+            You can also create new actions that have not been suggested. Then
+            head over to the actions section to review the requested actions.
             <div *ngIf="unique_senders$ | async as unique_senders; else loadingTmpl">
-              Unique Senders: {{ unique_senders }}
+              <mat-chip-list>
+                <mat-chip>
+                  Unique Senders: {{ unique_senders }}
+                </mat-chip>
+              </mat-chip-list>
             </div>
             <ng-template #loadingTmpl>
               <div>
@@ -63,6 +104,16 @@
               </div>
             </ng-template>
           </mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-actions>
+
+            <button mat-stroked-button>
+              Goto
+            </button>
+            <button mat-stroked-button>
+              About
+            </button>
+          </mat-card-actions>
         </mat-card>
       </div>
     </div>
@@ -72,6 +123,20 @@
           <mat-card-title>
             Actions
           </mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            Review the actions you have selected to take on your inbox. Then have Zero Inbox go
+            to work to take those actions immediately with the single click of a button.
+          </mat-card-content>
+                    <mat-divider></mat-divider>
+          <mat-card-actions>
+            <button mat-stroked-button>
+              Goto
+            </button>
+            <button mat-stroked-button>
+              About
+            </button>
+          </mat-card-actions>
         </mat-card>
       </div>
       <div class="col-sm">
@@ -79,6 +144,19 @@
           <mat-card-title>
             Settings
           </mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            Customize the look and feel of Zero Inbox.
+          </mat-card-content>
+                    <mat-divider></mat-divider>
+          <mat-card-actions>
+            <button mat-stroked-button>
+              Goto
+            </button>
+            <button mat-stroked-button>
+              About
+            </button>
+          </mat-card-actions>
         </mat-card>
       </div>
     </div>

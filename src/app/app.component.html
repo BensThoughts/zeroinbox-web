@@ -1,6 +1,6 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
-<mat-toolbar>
+<mat-toolbar color="primary">
 
     <!--
     <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
@@ -47,17 +47,18 @@
           Logout
         </span>
       </a>
+
+
+      <div class="menu-chevron">
+        <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
+          <!-- maybe wrap this in mat-icon -->
+          <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
+        </button>
       </div>
 
-    </mat-nav-list>
-
-    <div class="menu-chevron">
-      <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
-        <!-- maybe wrap this in mat-icon -->
-        <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
-      </button>
     </div>
 
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'">

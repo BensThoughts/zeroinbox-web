@@ -10,9 +10,11 @@
     color: mat-color($primary) !important;
   }
 
-  mat-toolbar {
 
-  }
+  /**app-bar {
+    color: mat-color($primary);
+  }**/
+
 
   mat-sidenav-container {
 

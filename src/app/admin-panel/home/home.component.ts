@@ -2,9 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, features } from './features.data';
 
 import { fadeElementsAnimation } from './elementsAnimations';
-import { SuggestionsRequestedAction, AppState, selectBasicProfile, selectEmailProfile, selectUniqueSenders, GmailLabelsRequested, selectLabelsLength } from '@app/core';
+import { SuggestionsRequestedAction, AppState, selectBasicProfile, selectEmailProfile, selectUniqueSenders, GmailLabelsRequested, selectLabelsLength, selectImageUrl } from '@app/core';
+import { selectTotal } from '@app/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +20,9 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   features: Feature[] = features;
 
-  basic_profile$: any;
-  email_profile$: any;
+  basic_profile$: Observable<BasicProfile>;
+  email_profile$: Observable<EmailProfile>;
+  imageUrl$: Observable<string>;
   unique_senders$: Observable<number>;
   labels_length$: Observable<number>;
 
@@ -31,6 +35,16 @@ export class HomeComponent implements OnInit {
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
     this.labels_length$ = this.store.pipe(select(selectLabelsLength));
+/**
+    this.imageUrl$ = this.store.pipe(
+      select(selectImageUrl),
+      map((imageUrl) => {
+        // imageUrl = `background-image:url('${imageUrl}')`;
+        console.log(imageUrl);
+        return imageUrl;
+      })
+    );
+    **/
   }
 
 }

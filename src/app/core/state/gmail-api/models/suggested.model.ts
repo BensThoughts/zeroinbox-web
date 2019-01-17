@@ -8,4 +8,6 @@ export interface ISuggested {
     internalDate: number;
   }>
   totalSizeEstimate: number;
+  actionDelete: boolean;
+  actionLabel: boolean;
 }

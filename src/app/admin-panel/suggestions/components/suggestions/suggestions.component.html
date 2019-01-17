@@ -1,0 +1,30 @@
+<div class="container">
+
+<div *ngIf="suggestionsLoaded$ | async; else loading">
+  <mat-card>
+    <mat-card-title>
+      Sort By
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Address">
+        <go-suggestions-table></go-suggestions-table>
+      </mat-tab>
+      <mat-tab label="Size">
+        <go-suggestions-table></go-suggestions-table>
+      </mat-tab>
+      <mat-tab label="Mailing Lists">
+        <go-suggestions-table></go-suggestions-table>
+      </mat-tab>
+    </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container" fxLayoutAlign="center center">
+    <mat-spinner [strokeWidth]="7"></mat-spinner>
+  </div>
+</ng-template>
+</div>

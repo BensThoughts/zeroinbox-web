@@ -1,4 +1,4 @@
-$go-primary: mat-palette($mat-blue, A200, 300, 900);
+$go-primary: mat-palette($mat-blue, 500, 300, 900);
 $go-accent: mat-palette($mat-light-blue);
 $go-warn: mat-palette($mat-pink, 600);
 
@@ -22,8 +22,8 @@ $go-default-theme-background: (
 
 $go-default-theme-foreground: (
   base:              white,
-  divider:           $white-12-opacity,
-  dividers:          $black-12-opacity,
+  divider:           map_get($mat-grey, 800),// $black-12-opacity,
+  dividers:          $white-12-opacity,
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
   disabled-text:     rgba(white, 0.3),
@@ -48,4 +48,4 @@ $go-default-theme-foreground: (
   );
 }
 
-$go-theme: create-default-theme($go-primary, $go-accent, $go-warn);
+$go-theme: mat-light-theme($go-primary, $go-accent, $go-warn);

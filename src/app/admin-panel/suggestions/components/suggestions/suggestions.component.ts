@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
-import { selectSuggestedThreadIds, selectSuggestionsLoaded } from '@app/core/state/gmail-api/suggested/suggested.selectors';
+import { selectSuggestedThreadIds, selectSuggestionsLoaded, selectSendersMore, selectSendersLess } from '@app/core';
 // import { selectToken } from '@app/core';
-import { HttpClient } from '@angular/common/http';
+
 import { Observable, of } from 'rxjs';
+import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
+
 
 @Component({
   selector: 'app-suggestions',
@@ -14,12 +16,18 @@ import { Observable, of } from 'rxjs';
 })
 export class SuggestionsComponent implements OnInit {
 
-  private suggestionsLoaded$: Observable<boolean>;
+
+  sendersMoreThan$: Observable<ISuggested[]>;
+  sendersLessThan$: Observable<ISuggested[]>;
+
+  suggestionsLoaded$: Observable<boolean>;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
+      this.sendersMoreThan$ = this.store.pipe(select(selectSendersMore));
+      this.sendersLessThan$ = this.store.pipe(select(selectSendersLess));
   }
 
 }

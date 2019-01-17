@@ -17,6 +17,7 @@ import {
 import { MatAutocompleteModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -24,11 +25,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -44,6 +48,7 @@ import {
   faBars,
   faBook,
   faCog,
+  faChartPie,
   faChevronCircleLeft,
   faEdit,
   faFilter,
@@ -54,6 +59,7 @@ import {
   faSignOutAlt,
   faStream,
   faTag,
+  faTasks,
   faTrash,
   faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +75,7 @@ library.add(
   faBars,
   faBook,
   faCog,
+  faChartPie,
   faChevronCircleLeft,
   faEdit,
   faFilter,
@@ -79,6 +86,7 @@ library.add(
   faSignOutAlt,
   faStream,
   faTag,
+  faTasks,
   faTrash,
   faWindowMaximize,
 
@@ -130,6 +138,7 @@ library.add(
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatChipsModule,
     MatDialogModule,
     MatDividerModule,
@@ -137,11 +146,14 @@ library.add(
     MatInputModule,
     MatListModule,
     MatNativeDateModule,
+    MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
 
     DragDropModule,

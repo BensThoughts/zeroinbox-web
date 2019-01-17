@@ -1,9 +1,0 @@
-<div *ngIf="suggestionsLoaded$ | async; else loading">
-  LOADED
-</div>
-
-<ng-template #loading>
-  <div class="loading-container" fxLayoutAlign="center center">
-    <mat-spinner [strokeWidth]="7"></mat-spinner>
-  </div>
-</ng-template>

@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import { ISuggested } from '../models/suggested.model';
+import { Update } from '@ngrx/entity';
 
 export enum SuggestedActionTypes {
 
@@ -15,14 +16,37 @@ export enum SuggestedActionTypes {
   // SuggestedThreadsLoaded = '[Suggested Effects] Suggested Messages Loaded',
   AddAllSuggestions = '[Suggested Effects] Add All Suggestions',
 
+  SuggestedToggleDelete = '[Suggestions Table Component] Suggested Toggle Delete',
+  SuggestedToggleLabel = '[Suggestions Table Component] Suggested Toggle Label',
+
   UpdateSuggestedState = '[Suggested Effects] Update Suggested State From Another Tab/Window',
   ResetSuggestedState = '[Auth Effects] Reset Suggested State'
+}
+
+
+export interface PageQuery {
+  pageIndex: number;
+  pageSize:number;
 }
 
 /**
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
+
+
+
+export class SuggestedToggleDeleteAction implements Action {
+  readonly type =SuggestedActionTypes.SuggestedToggleDelete;
+  constructor(public payload: { iSuggested: Update<ISuggested> }) {}
+}
+
+export class SuggestedToggleLabelAction implements Action {
+  readonly type =SuggestedActionTypes.SuggestedToggleLabel;
+  constructor(public payload: { iSuggested: Update<ISuggested> }) {}
+}
+
+
 
 export class SuggestionsRequestedAction implements Action {
   readonly type = SuggestedActionTypes.SuggestionsRequested;
@@ -92,6 +116,9 @@ export type SuggestedActions =
   | AddAllSuggestionsAction
 
   // | SuggestedMessagesLoadedAction
+  | SuggestedToggleDeleteAction
+  | SuggestedToggleLabelAction
+
 
   | ResetSuggestedStateAction
   | UpdateSuggestedStateAction;

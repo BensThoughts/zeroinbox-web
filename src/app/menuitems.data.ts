@@ -19,19 +19,19 @@ export const menu_items: MenuItem[] = [
     icon: 'home'
   },
   {
+    name: 'Stats',
+    link: '/admin-panel/labels',
+    icon: 'chart-pie'
+  },
+  {
     name: 'Suggestions',
     link: '/admin-panel/suggestions',
     icon: 'lightbulb',
   },
   {
-    name: 'Labels',
-    link: '/admin-panel/labels',
-    icon: 'tag'
-  },
-  {
-    name: 'Filters',
+    name: 'Actions',
     link: '/admin-panel/filters',
-    icon: 'filter'
+    icon: 'tasks'
   },
   {
     name: 'Settings',

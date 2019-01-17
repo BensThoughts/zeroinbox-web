@@ -6,6 +6,7 @@ export * from './state/gmail-api/models/gmail-label.model';
 export * from './state/gmail-api/gmail-label/gmail-label.selectors';
 export * from './state/gmail-api/gmail-label/gmail-label.actions';
 export * from './state/gmail-api/suggested/suggested.actions';
+export * from './state/gmail-api/suggested/suggested.reducer';
 export * from './state/gmail-api/suggested/suggested.selectors';
 export * from './state/auth/auth.reducer';
 export * from './state/auth/auth.actions';

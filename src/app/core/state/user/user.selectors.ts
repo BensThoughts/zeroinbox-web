@@ -16,3 +16,8 @@ export const selectBasicProfile = createSelector(
   selectUser,
   (state: UserState) => state.basic_profile
 )
+
+export const selectImageUrl = createSelector(
+  selectUser,
+  (state: UserState) => state.basic_profile.picture
+)
