@@ -14,7 +14,7 @@
      <td mat-cell *matCellDef="let suggestion">
 
        <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? onSuggestionToggle('delete', suggestion) : null"
+                     (change)="$event ? suggestionToggle('delete', suggestion) : null"
                      [checked]="suggestion.actionDelete"
                      [disabled]="suggestion.actionLabel">
        </mat-checkbox>
@@ -42,7 +42,7 @@
      <td mat-cell *matCellDef="let suggestion">
 
        <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? onSuggestionToggle('label', suggestion) : null"
+                     (change)="$event ? suggestionToggle('label', suggestion) : null"
                      [checked]="suggestion.actionLabel"
                      [disabled]="suggestion.actionDelete">
 

@@ -33,7 +33,7 @@ export class SuggestionsTableComponent implements OnInit {
   dataSource: UserDataSource;
 
   length;
-  pageSize = 10;
+  pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   selectionDelete = new SelectionModel<string>(true, []);
@@ -53,7 +53,7 @@ export class SuggestionsTableComponent implements OnInit {
     // this.length = this.suggestedData.length;
     const initialPage: PageQuery = {
       pageIndex: 0,
-      pageSize: 10
+      pageSize: this.pageSize
     };
     this.dataSource.loadSuggestions(initialPage);
     let storeHandler = this.store.pipe(
@@ -149,10 +149,9 @@ export class SuggestionsTableComponent implements OnInit {
     }
   }
 
-  onSuggestionToggle(action: string, iSuggested: ISuggested) {
+  suggestionToggle(action: string, iSuggested: ISuggested) {
 
     let selectionModel = this.selectSelectionModel(action);
-
 
     let diff = !this.selectActionValue(action, iSuggested);
     let changes = this.selectChanges(action, diff);
@@ -193,7 +192,6 @@ export class SuggestionsTableComponent implements OnInit {
     const selectionModel = this.selectSelectionModel(action);
 
     if (this.isAllSelected(action)) {
-      changes = this.selectChanges(action, true);
       selectionModel.clear();
       changes = this.selectChanges(action, false);
       this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
@@ -207,14 +205,12 @@ export class SuggestionsTableComponent implements OnInit {
       });
     } else {
       if (action === 'delete') {
-        // selectionModel = this.selectSelectionModel('delete');
         oppositeSelectionModel = this.selectSelectionModel('label');
         changes = {
           actionDelete: true,
           actionLabel: false
         }
       } else {
-        // selectionModel = this.selectSelectionModel('label');
         oppositeSelectionModel = this.selectSelectionModel('delete');
         changes = {
           actionDelete: false,
