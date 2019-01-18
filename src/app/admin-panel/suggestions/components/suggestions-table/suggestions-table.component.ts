@@ -15,7 +15,7 @@ import {
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, take } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -29,17 +29,18 @@ export class SuggestionsTableComponent implements OnInit {
 
   // @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @Input() suggestedData: ISuggested[];
 
   displayedColumns: string[] = ['label', 'delete', 'address', 'count'];
+
   dataSource: UserDataSource;
-  length; //this.suggestedData.length;
+
+  length;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  // pageEvent: PageEvent;
   selectionDelete = new SelectionModel<string>(true, []);
   selectionLabel = new SelectionModel<string>(true, []);
+
   collectionViewer: CollectionViewer;
   mySub: Observable<ISuggested[]>;
 
@@ -59,13 +60,14 @@ export class SuggestionsTableComponent implements OnInit {
     this.dataSource.loadSuggestions(initialPage);
     let storeHandler = this.store.pipe(
       select(selectLengthOfSenders_CountMoreThan),
+      take(1),
       map((unique_senders_length) => {
         this.length = unique_senders_length
       })
     ).subscribe() //(unique_senders) => {
       // this.length = unique_senders
     // });
-    storeHandler.unsubscribe;
+    // storeHandler.unsubscribe;
 
     this.mySub = this.dataSource.connect(this.collectionViewer);
   }
@@ -74,6 +76,10 @@ export class SuggestionsTableComponent implements OnInit {
     this.paginator.page.pipe(
       tap(() => this.loadSuggestionsPage())
     ).subscribe();
+  }
+
+  ngOnDestory() {
+    this.dataSource.disconnect(this.collectionViewer);
   }
 
 
@@ -93,16 +99,16 @@ export class SuggestionsTableComponent implements OnInit {
   onSuggestionDeleteToggle(iSuggested: ISuggested) {
     let diff = !iSuggested.actionDelete;
     if (diff) {
-      this.selectionDelete.select(iSuggested.from);
+      this.selectionDelete.select(iSuggested.id);
     } else {
-      this.selectionDelete.deselect(iSuggested.from);
+      this.selectionDelete.deselect(iSuggested.id);
     }
     const changes = {
       actionDelete: diff,
       // actionLabel: !iSuggested.actionLabel
     }
     const newUpdate: Update<ISuggested> = {
-      id: iSuggested.from,
+      id: iSuggested.id,
       changes
     };
     this.store.dispatch(new SuggestedToggleDeleteAction({iSuggested: newUpdate}));
@@ -114,8 +120,8 @@ export class SuggestionsTableComponent implements OnInit {
   isAllDeleteSelected() {
     const numSelected = this.selectionDelete.selected.length;
     let numRows;
-    let handler = this.mySub.subscribe((iSuggested) => {
-      numRows = iSuggested.length
+    let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
+      numRows = iSuggesteds.length
     });
     // console.log('numRows Delete: ' + numRows);
     // console.log('numSelected Delete: ' + numSelected);
@@ -130,10 +136,10 @@ export class SuggestionsTableComponent implements OnInit {
       const changes = {
         actionDelete: false
       };
-      let handler = this.mySub.subscribe((iSuggesteds) => {
+      let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
         iSuggesteds.forEach((iSuggested) => {
           let newUpdate: Update<ISuggested> = {
-            id: iSuggested.from,
+            id: iSuggested.id,
             changes
           }
           changeArray = changeArray.concat(newUpdate);
@@ -149,12 +155,12 @@ export class SuggestionsTableComponent implements OnInit {
 
       let handler = this.mySub.subscribe((isuggested) => {
         isuggested.forEach((isuggested) => {
-          this.selectionDelete.select(isuggested.from);
+          this.selectionDelete.select(isuggested.id);
         });
       });
-      this.selectionDelete.selected.forEach((iSuggested) => {
+      this.selectionDelete.selected.forEach((iSuggestedId) => {
         let newUpdate: Update<ISuggested> = {
-          id: iSuggested,
+          id: iSuggestedId,
           changes
         };
         changeArray = changeArray.concat(newUpdate);
@@ -170,15 +176,15 @@ export class SuggestionsTableComponent implements OnInit {
   onSuggestionLabelToggle(iSuggested: ISuggested) {
     let diff = !iSuggested.actionLabel;
     if (diff) {
-      this.selectionLabel.select(iSuggested.from);
+      this.selectionLabel.select(iSuggested.id);
     } else {
-      this.selectionLabel.deselect(iSuggested.from);
+      this.selectionLabel.deselect(iSuggested.id);
     }
     const changes = {
       actionLabel: diff,
     }
     const newUpdate: Update<ISuggested> = {
-      id: iSuggested.from,
+      id: iSuggested.id,
       changes
     }
     this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
@@ -202,10 +208,10 @@ export class SuggestionsTableComponent implements OnInit {
       const changes = {
         actionLabel: false
       };
-      let handler = this.mySub.subscribe((iSuggesteds) => {
+      let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
         iSuggesteds.forEach((iSuggested) => {
           let newUpdate: Update<ISuggested> = {
-            id: iSuggested.from,
+            id: iSuggested.id,
             changes
           }
           changeArray = changeArray.concat(newUpdate);
@@ -219,19 +225,20 @@ export class SuggestionsTableComponent implements OnInit {
         actionDelete: false
       };
 
-      let handler = this.mySub.subscribe((isuggested) => {
-        isuggested.forEach((isuggested) => {
-          this.selectionLabel.select(isuggested.from);
+      // let handler =
+      this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
+        iSuggesteds.forEach((iSuggested: ISuggested) => {
+          this.selectionLabel.select(iSuggested.id);
         });
       });
-      this.selectionLabel.selected.forEach((iSuggested) => {
+      this.selectionLabel.selected.forEach((iSuggestedId: string) => {
         let newUpdate: Update<ISuggested> = {
-          id: iSuggested,
+          id: iSuggestedId,
           changes
         };
         changeArray = changeArray.concat(newUpdate);
       });
-      handler.unsubscribe();
+      // handler.unsubscribe();
 
     }
     this.store.dispatch(new SuggestedToggleLabelManyAction({ iSuggesteds: changeArray }));
@@ -241,7 +248,7 @@ export class SuggestionsTableComponent implements OnInit {
 
 export class UserDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggested[]>([]);
-  constructor(private store: Store<AppState>) {// private suggestedSource: ISuggested[]) {
+  constructor(private store: Store<AppState>) {
     super();
 
   }
