@@ -4,14 +4,11 @@ import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
-  SuggestedToggleDeleteAction,
-  SuggestedToggleLabelAction,
-  SuggestedToggleDeleteManyAction,
-  SuggestedToggleLabelManyAction,
   PageQuery,
   selectPageOfSenders_CountMoreThan,
   selectLengthOfSenders_CountMoreThan,
-  SuggestedToggleAction,
+  SuggestedToggleUpdateManyAction,
+  SuggestedToggleUpdateAction,
 } from '@app/core';
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
@@ -97,149 +94,150 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
 
-  onSuggestionToggle(iSuggested: ISuggested, actionDelete: boolean) {
-    let changes = {}
-    if (actionDelete) {
-      let diff = !iSuggested.actionDelete;
-      changes = {
-        actionDelete: diff
-      }
-      if (diff) {
-        this.selectionDelete.select(iSuggested.id);
-      } else {
-        this.selectionDelete.deselect(iSuggested.id);
-      }
-    } else {
-      let diff = !iSuggested.actionLabel;
-      changes = {
-        actionLabel: diff
-      }
-      if (diff) {
-        this.selectionLabel.select(iSuggested.id);
-      } else {
-        this.selectionLabel.deselect(iSuggested.id);
+  selectSelectionModel(action: string) {
+    try {
+      switch (action) {
+        case 'label':
+          return this.selectionLabel;
+        case 'delete':
+          return this.selectionDelete;
+
+        default:
+          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
       }
     }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
+  selectActionValue(action: string, iSuggested: ISuggested) {
+    try {
+      switch (action) {
+        case 'label':
+          return iSuggested.actionLabel;
+        case 'delete':
+          return iSuggested.actionDelete;
+
+        default:
+          throw new Error('Error: ' + select + ' is not one of "label" or "delete"');
+        }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
+  selectChanges(action: string, diff: boolean) {
+    try {
+      switch (action) {
+        case 'label':
+          return {
+            actionLabel: diff
+          };
+        case 'delete':
+          return {
+            actionDelete: diff
+          };
+
+        default:
+          throw new Error('Error: ' + select + ' is not one of "label" or "delete"');
+      }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
+  onSuggestionToggle(action: string, iSuggested: ISuggested) {
+
+    let selectionModel = this.selectSelectionModel(action);
+
+
+    let diff = !this.selectActionValue(action, iSuggested);
+    let changes = this.selectChanges(action, diff);
+
+    if (diff) {
+      selectionModel.select(iSuggested.id);
+    } else {
+      selectionModel.deselect(iSuggested.id);
+    }
+
     const newUpdate: Update<ISuggested> = {
       id: iSuggested.id,
       changes
     };
-    this.store.dispatch(new SuggestedToggleAction({iSuggested: newUpdate}));
-    // this.dataSource = new MatTableDataSource(this.suggestedData);
-    // this.dataSource.paginator = this.paginator;
+
+    this.store.dispatch(new SuggestedToggleUpdateAction({ iSuggested: newUpdate }));
   }
 
 
-  isAllDeleteSelected() {
-    const numSelected = this.selectionDelete.selected.length;
+  isAllSelected(action: string) {
+
+    let selectionModel = this.selectSelectionModel(action);
+    const numSelected = selectionModel.selected.length;
     let numRows;
-    let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
+    this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
       numRows = iSuggesteds.length
     });
-    // console.log('numRows Delete: ' + numRows);
-    // console.log('numSelected Delete: ' + numSelected);
+
     return numSelected == numRows;
-  }
-
-  masterToggleDelete() {
-    // console.log(this.isAllDeleteSelected());
-    let changeArray = [];
-    if (this.isAllDeleteSelected()) {
-      this.selectionDelete.clear()
-      const changes = {
-        actionDelete: false
-      };
-      let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
-        iSuggesteds.forEach((iSuggested) => {
-          let newUpdate: Update<ISuggested> = {
-            id: iSuggested.id,
-            changes
-          }
-          changeArray = changeArray.concat(newUpdate);
-        });
-      });
-      handler.unsubscribe();
-    } else {
-      this.selectionLabel.clear();
-      const changes = {
-        actionDelete: true,
-        actionLabel: false
-      };
-
-      let handler = this.mySub.subscribe((isuggested) => {
-        isuggested.forEach((isuggested) => {
-          this.selectionDelete.select(isuggested.id);
-        });
-      });
-      this.selectionDelete.selected.forEach((iSuggestedId) => {
-        let newUpdate: Update<ISuggested> = {
-          id: iSuggestedId,
-          changes
-        };
-        changeArray = changeArray.concat(newUpdate);
-      });
-      handler.unsubscribe();
-
-    }
-    this.store.dispatch(new SuggestedToggleDeleteManyAction({ iSuggesteds: changeArray }));
 
   }
 
+  masterToggle(action: string) {
+    let changes = {};
+    let changeArray: Update<ISuggested>[] = [];
 
-  isAllLabelSelected() {
-    const numSelected = this.selectionLabel.selected.length;
-    let numRows;
-    let handler = this.mySub.subscribe((iSuggested) => {
-      numRows = iSuggested.length
-    });
-    // console.log('numRows Label: ' + numRows);
-    // console.log('numSelected Label: ' + numSelected);
-    return numSelected == numRows;
-  }
+    let oppositeSelectionModel: SelectionModel<string>;
+    const selectionModel = this.selectSelectionModel(action);
 
-  masterToggleLabel() {
-    let changeArray = [];
-    if (this.isAllLabelSelected()) {
-      this.selectionLabel.clear()
-      const changes = {
-        actionLabel: false
-      };
-      let handler = this.mySub.subscribe((iSuggesteds: ISuggested[]) => {
-        iSuggesteds.forEach((iSuggested) => {
-          let newUpdate: Update<ISuggested> = {
-            id: iSuggested.id,
-            changes
-          }
-          changeArray = changeArray.concat(newUpdate);
-        });
-      });
-      handler.unsubscribe();
-    } else {
-      this.selectionDelete.clear();
-      const changes = {
-        actionLabel: true,
-        actionDelete: false
-      };
-
-      // let handler =
+    if (this.isAllSelected(action)) {
+      changes = this.selectChanges(action, true);
+      selectionModel.clear();
+      changes = this.selectChanges(action, false);
       this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
-        iSuggesteds.forEach((iSuggested: ISuggested) => {
-          this.selectionLabel.select(iSuggested.id);
+        iSuggesteds.forEach((iSuggested) => {
+          let newUpdate: Update<ISuggested> = {
+            id: iSuggested.id,
+            changes
+          }
+          changeArray = changeArray.concat(newUpdate);
         });
       });
-      this.selectionLabel.selected.forEach((iSuggestedId: string) => {
-        let newUpdate: Update<ISuggested> = {
-          id: iSuggestedId,
-          changes
-        };
-        changeArray = changeArray.concat(newUpdate);
+    } else {
+      if (action === 'delete') {
+        // selectionModel = this.selectSelectionModel('delete');
+        oppositeSelectionModel = this.selectSelectionModel('label');
+        changes = {
+          actionDelete: true,
+          actionLabel: false
+        }
+      } else {
+        // selectionModel = this.selectSelectionModel('label');
+        oppositeSelectionModel = this.selectSelectionModel('delete');
+        changes = {
+          actionDelete: false,
+          actionLabel: true
+        }
+      }
+      oppositeSelectionModel.clear();
+      this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
+        iSuggesteds.forEach((isuggested) => {
+          selectionModel.select(isuggested.id);
+          let newUpdate: Update<ISuggested> = {
+            id: isuggested.id,
+            changes
+          }
+          changeArray = changeArray.concat(newUpdate);
+        });
       });
-      // handler.unsubscribe();
-
     }
-    this.store.dispatch(new SuggestedToggleLabelManyAction({ iSuggesteds: changeArray }));
 
+  this.store.dispatch(new SuggestedToggleUpdateManyAction({ iSuggesteds: changeArray }));
   }
+
+
 }
 
 export class UserDataSource extends DataSource<any> {

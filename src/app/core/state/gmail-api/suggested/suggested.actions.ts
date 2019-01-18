@@ -16,12 +16,13 @@ export enum SuggestedActionTypes {
   // SuggestedThreadsLoaded = '[Suggested Effects] Suggested Messages Loaded',
   AddAllSuggestions = '[Suggested Effects] Add All Suggestions',
 
-  SuggestedToggle = '[Suggestions Table Component] Toggle actionDelete or actionLabel true/false',
-  SuggestedToggleDelete = '[Suggestions Table Component] Suggested Toggle Delete',
-  SuggestedToggleLabel = '[Suggestions Table Component] Suggested Toggle Label',
+  SuggestedToggleUpdate = '[Suggestions Table Component] Toggle actionDelete or actionLabel true/false',
+  // SuggestedToggleDelete = '[Suggestions Table Component] Suggested Toggle Delete',
+  // SuggestedToggleLabel = '[Suggestions Table Component] Suggested Toggle Label',
 
-  SuggestedToggleDeleteMany = '[Suggestions Table Component] Suggested Toggle Delete Many',
-  SuggestedToggleLabelMany = '[Suggestions Table Component] Suggested Toggle Label Many',
+  SuggestedToggleUpdateMany = '[Suggestions Table Component] Toggle Many actionDelete or actionLabel true/false',
+  // SuggestedToggleDeleteMany = '[Suggestions Table Component] Suggested Toggle Delete Many',
+  // SuggestedToggleLabelMany = '[Suggestions Table Component] Suggested Toggle Label Many',
 
   UpdateSuggestedState = '[Suggested Effects] Update Suggested State From Another Tab/Window',
   ResetSuggestedState = '[Auth Effects] Reset Suggested State'
@@ -37,17 +38,31 @@ export interface PageQuery {
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
- export class SuggestedToggleAction implements Action {
-   readonly type = SuggestedActionTypes.SuggestedToggle;
+ export class SuggestedToggleUpdateAction implements Action {
+   readonly type = SuggestedActionTypes.SuggestedToggleUpdate;
 
    constructor(public payload: { iSuggested: Update<ISuggested> }) {}
  }
 
- export class SuggestedToggleDeleteManyAction implements Action {
-   readonly type = SuggestedActionTypes.SuggestedToggleDeleteMany;
+ export class SuggestedToggleUpdateManyAction implements Action {
+   readonly type = SuggestedActionTypes.SuggestedToggleUpdateMany;
 
    constructor(public payload: { iSuggesteds: Update<ISuggested>[] }) {}
  }
+
+/**
+export class SuggestedToggleManyAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestedToggleMany;
+
+  constructor(public payload: { iSuggesteds: Update<ISuggested>[] }) {}
+}
+**/
+/**
+export class SuggestedToggleDeleteManyAction implements Action {
+  readonly type = SuggestedActionTypes.SuggestedToggleDeleteMany;
+
+  constructor(public payload: { iSuggesteds: Update<ISuggested>[] }) {}
+}
 
  export class SuggestedToggleLabelManyAction implements Action {
    readonly type = SuggestedActionTypes.SuggestedToggleLabelMany;
@@ -66,7 +81,7 @@ export class SuggestedToggleLabelAction implements Action {
   constructor(public payload: { iSuggested: Update<ISuggested> }) {}
 }
 
-
+**/
 
 export class SuggestionsRequestedAction implements Action {
   readonly type = SuggestedActionTypes.SuggestionsRequested;
@@ -135,13 +150,8 @@ export type SuggestedActions =
   | SuggestedThreadsRequestFailureAction
   | AddAllSuggestionsAction
 
-  // | SuggestedMessagesLoadedAction
-  | SuggestedToggleAction
-
-  | SuggestedToggleDeleteAction
-  | SuggestedToggleLabelAction
-  | SuggestedToggleDeleteManyAction
-  | SuggestedToggleLabelManyAction
+  | SuggestedToggleUpdateAction
+  | SuggestedToggleUpdateManyAction
 
 
   | ResetSuggestedStateAction
