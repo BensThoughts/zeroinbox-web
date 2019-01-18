@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
-import { selectSuggestedThreadIds, selectSuggestionsLoaded, selectSendersMore, selectSendersLess } from '@app/core';
+import { selectSuggestedThreadIds, selectSuggestionsLoaded, selectSendersLess, selectSenders_CountMoreThan } from '@app/core';
 // import { selectToken } from '@app/core';
 
 import { Observable, of } from 'rxjs';
@@ -26,7 +26,7 @@ export class SuggestionsComponent implements OnInit {
 
   ngOnInit() {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
-      this.sendersMoreThan$ = this.store.pipe(select(selectSendersMore));
+      this.sendersMoreThan$ = this.store.pipe(select(selectSenders_CountMoreThan));
       this.sendersLessThan$ = this.store.pipe(select(selectSendersLess));
   }
 

@@ -2,13 +2,21 @@ import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@a
 import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
 import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
 import { Store, select } from '@ngrx/store';
-import { AppState, SuggestedToggleDeleteAction, selectSendersMore, SuggestedToggleLabelAction, selectPageOfSendersMore, PageQuery, selectTotal, selectUniqueSenders, selectSendersMoreCount, SuggestedToggleDeleteManyAction, SuggestedToggleLabelManyAction } from '@app/core';
+import {
+  AppState,
+  SuggestedToggleDeleteAction,
+  SuggestedToggleLabelAction,
+  SuggestedToggleDeleteManyAction,
+  SuggestedToggleLabelManyAction,
+  PageQuery,
+  selectPageOfSenders_CountMoreThan,
+  selectLengthOfSenders_CountMoreThan,
+} from '@app/core';
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { selectCountCutoff } from '@app/admin-panel/settings/state/settings.selectors';
 
 @Component({
   selector: 'go-suggestions-table',
@@ -50,9 +58,9 @@ export class SuggestionsTableComponent implements OnInit {
     };
     this.dataSource.loadSuggestions(initialPage);
     let storeHandler = this.store.pipe(
-      select(selectSendersMoreCount),
-      map((unique_senders) => {
-        this.length = unique_senders
+      select(selectLengthOfSenders_CountMoreThan),
+      map((unique_senders_length) => {
+        this.length = unique_senders_length
       })
     ).subscribe() //(unique_senders) => {
       // this.length = unique_senders
@@ -241,7 +249,7 @@ export class UserDataSource extends DataSource<any> {
   loadSuggestions(page: PageQuery) {
     console.log(page);
     this.store.pipe(
-      select(selectPageOfSendersMore(page)),
+      select(selectPageOfSenders_CountMoreThan(page)),
       tap((suggestions) => {
         // console.log(suggestions);
         this.suggestionsSubject.next(suggestions)
