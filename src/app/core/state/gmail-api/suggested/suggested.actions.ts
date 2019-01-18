@@ -16,6 +16,7 @@ export enum SuggestedActionTypes {
   // SuggestedThreadsLoaded = '[Suggested Effects] Suggested Messages Loaded',
   AddAllSuggestions = '[Suggested Effects] Add All Suggestions',
 
+  SuggestedToggle = '[Suggestions Table Component] Toggle actionDelete or actionLabel true/false',
   SuggestedToggleDelete = '[Suggestions Table Component] Suggested Toggle Delete',
   SuggestedToggleLabel = '[Suggestions Table Component] Suggested Toggle Label',
 
@@ -36,7 +37,11 @@ export interface PageQuery {
  * [request all gmail labels from store IGmailLabel[]]
  * @param payload: [no payload]
  */
+ export class SuggestedToggleAction implements Action {
+   readonly type = SuggestedActionTypes.SuggestedToggle;
 
+   constructor(public payload: { iSuggested: Update<ISuggested> }) {}
+ }
 
  export class SuggestedToggleDeleteManyAction implements Action {
    readonly type = SuggestedActionTypes.SuggestedToggleDeleteMany;
@@ -131,6 +136,8 @@ export type SuggestedActions =
   | AddAllSuggestionsAction
 
   // | SuggestedMessagesLoadedAction
+  | SuggestedToggleAction
+
   | SuggestedToggleDeleteAction
   | SuggestedToggleLabelAction
   | SuggestedToggleDeleteManyAction

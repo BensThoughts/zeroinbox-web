@@ -11,6 +11,7 @@ import {
   PageQuery,
   selectPageOfSenders_CountMoreThan,
   selectLengthOfSenders_CountMoreThan,
+  SuggestedToggleAction,
 } from '@app/core';
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
@@ -96,22 +97,34 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
 
-  onSuggestionDeleteToggle(iSuggested: ISuggested) {
-    let diff = !iSuggested.actionDelete;
-    if (diff) {
-      this.selectionDelete.select(iSuggested.id);
+  onSuggestionToggle(iSuggested: ISuggested, actionDelete: boolean) {
+    let changes = {}
+    if (actionDelete) {
+      let diff = !iSuggested.actionDelete;
+      changes = {
+        actionDelete: diff
+      }
+      if (diff) {
+        this.selectionDelete.select(iSuggested.id);
+      } else {
+        this.selectionDelete.deselect(iSuggested.id);
+      }
     } else {
-      this.selectionDelete.deselect(iSuggested.id);
-    }
-    const changes = {
-      actionDelete: diff,
-      // actionLabel: !iSuggested.actionLabel
+      let diff = !iSuggested.actionLabel;
+      changes = {
+        actionLabel: diff
+      }
+      if (diff) {
+        this.selectionLabel.select(iSuggested.id);
+      } else {
+        this.selectionLabel.deselect(iSuggested.id);
+      }
     }
     const newUpdate: Update<ISuggested> = {
       id: iSuggested.id,
       changes
     };
-    this.store.dispatch(new SuggestedToggleDeleteAction({iSuggested: newUpdate}));
+    this.store.dispatch(new SuggestedToggleAction({iSuggested: newUpdate}));
     // this.dataSource = new MatTableDataSource(this.suggestedData);
     // this.dataSource.paginator = this.paginator;
   }
@@ -172,23 +185,6 @@ export class SuggestionsTableComponent implements OnInit {
 
   }
 
-
-  onSuggestionLabelToggle(iSuggested: ISuggested) {
-    let diff = !iSuggested.actionLabel;
-    if (diff) {
-      this.selectionLabel.select(iSuggested.id);
-    } else {
-      this.selectionLabel.deselect(iSuggested.id);
-    }
-    const changes = {
-      actionLabel: diff,
-    }
-    const newUpdate: Update<ISuggested> = {
-      id: iSuggested.id,
-      changes
-    }
-    this.store.dispatch(new SuggestedToggleLabelAction({iSuggested: newUpdate}))
-  }
 
   isAllLabelSelected() {
     const numSelected = this.selectionLabel.selected.length;
