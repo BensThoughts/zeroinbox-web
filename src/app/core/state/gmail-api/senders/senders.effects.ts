@@ -14,9 +14,11 @@ import {
 import { SendersService } from '@app/core/services/gmail-api/senders/senders.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
-import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom, take } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
 import { selectSendersLoaded } from './senders.selectors';
+import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
+import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 
 @Injectable()
 export class SendersEffects {
@@ -52,15 +54,41 @@ export class SendersEffects {
       .pipe(
         ofType<InboxThreadIdsLoadedAction>(SendersActionTypes.InboxThreadIdsLoaded),
         map((action) => {
-          this.sendersService.batchRequest({ body: action.payload }).subscribe((result) => {
+          this.sendersService.batchRequest({ body: action.payload }).pipe(
+            tap((iSenders) => {
+              let suggestions = iSenders.map<ISuggestion>((iSender) => {
+                return {
+                  id: iSender.id,
+                  fromAddress: iSender.fromAddress,
+                  count: iSender.count,
+                  label: false,
+                  delete: false
+                };
+              });
+              this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
+            }),
+            map((iSenders) => {
+              console.log('dispatch');
+              this.store.dispatch(new AddAllSendersAction(iSenders));
+            })
+          ).subscribe();
+        }),
+
+/**
+          .subscribe((result) => {
             result.forEach((result) => {
               result.actionDelete = false;
               result.actionLabel = false;
-            })
+            });
             this.store.dispatch(new AddAllSendersAction(result));
           });
         }),
-        catchError((err) => of(new SendersRequestFailureAction(err)))
+        tap((test) => {
+
+        }),
+**/
+        catchError((err) => of(new SendersRequestFailureAction(err))),
+
       );
 
   @Effect({dispatch: false})

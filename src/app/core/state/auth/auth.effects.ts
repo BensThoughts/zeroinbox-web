@@ -24,6 +24,7 @@ import { LoadBasicProfileAction, ResetUserAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
 import { ResetSendersStateAction } from '../gmail-api/senders/senders.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
+import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -166,6 +167,8 @@ export class AuthEffects {
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth());
       this.store.dispatch(new ResetSendersStateAction());
+      this.store.dispatch(new ResetTasksStateAction());
+      this.store.dispatch(new ResetSuggestionsStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -177,11 +180,12 @@ export class AuthEffects {
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
     ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
     tap( () => {
-      // this.authService.logout();
+      this.authService.logout();
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth());
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetTasksStateAction());
+      this.store.dispatch(new ResetSuggestionsStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );

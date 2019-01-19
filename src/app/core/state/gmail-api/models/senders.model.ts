@@ -1,4 +1,4 @@
-export interface ISenders {
+export interface ISender {
   id: string;
   count: number;
   fromAddress: string;
@@ -8,6 +8,4 @@ export interface ISenders {
     internalDate: number;
   }>
   totalSizeEstimate: number;
-  actionDelete: boolean;
-  actionLabel: boolean;
 }

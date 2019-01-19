@@ -1,22 +1,22 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import { SendersActions, SendersActionTypes } from './senders.actions';
-import { ISenders } from '../models/senders.model';
+import { ISender } from '../models/senders.model';
 
-export interface SendersState extends EntityState<ISenders> {
+export interface SendersState extends EntityState<ISender> {
   threadIds: string[],
-  allSuggestionsLoaded: boolean,
+  allSendersLoaded: boolean,
 }
 
-export function selectSendersId(l: ISenders) {
+export function selectSendersId(l: ISender) {
   return l.id;
 }
 
-export function sortByCount(l1: ISenders, l2: ISenders) {
+export function sortByCount(l1: ISender, l2: ISender) {
   return l2.count - l1.count;
 }
 
-export const adapter: EntityAdapter<ISenders> =
-  createEntityAdapter<ISenders>({
+export const adapter: EntityAdapter<ISender> =
+  createEntityAdapter<ISender>({
     selectId: selectSendersId,
     // sortComparer: sortByCount
   });
@@ -24,7 +24,7 @@ export const adapter: EntityAdapter<ISenders> =
 
 const initialSendersState = adapter.getInitialState({
   threadIds: [],
-  allSuggestionsLoaded: false
+  allSendersLoaded: false
 });
 
 export function sendersReducer(
@@ -40,22 +40,17 @@ export function sendersReducer(
         };
 
       case SendersActionTypes.AddAllSenders:
-        return adapter.addAll(action.payload, { ...state, allSuggestionsLoaded: true });
+        return adapter.addAll(action.payload, { ...state, allSendersLoaded: true });
 
-      case SendersActionTypes.ResetSendersState:
-        return initialSendersState;
 
       case SendersActionTypes.UpdateSendersState:
         return action.payload;
 
-      case SendersActionTypes.SendersToggleUpdate:
-        return adapter.updateOne(action.payload.iSenders, state);
-
-      case SendersActionTypes.SendersToggleUpdateMany:
-        return adapter.updateMany(action.payload.iSenderss, state);
-
       case SendersActionTypes.SendersRemoveMany:
         return adapter.removeMany(action.payload.ids, state);
+
+      case SendersActionTypes.ResetSendersState:
+        return initialSendersState;
 
       default:
         return state;

@@ -1,4 +1,4 @@
-// import { ISendersTasks } from './senders-light.model';
+// import { ISenderTasks } from './senders-light.model';
 
 export interface ITask {
   id: string;

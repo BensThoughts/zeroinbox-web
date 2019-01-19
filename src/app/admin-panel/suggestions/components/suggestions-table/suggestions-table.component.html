@@ -15,8 +15,8 @@
 
        <mat-checkbox (click)="$event.stopPropagation()"
                      (change)="$event ? suggestionToggle('delete', suggestion) : null"
-                     [checked]="suggestion.actionDelete"
-                     [disabled]="suggestion.actionLabel">
+                     [checked]="suggestion.delete"
+                     [disabled]="suggestion.label">
        </mat-checkbox>
                      <!--(change)="$event ? selection.toggle(suggestion) : null"
                      (change)="$event ? onSuggestionDeleteToggle(suggestion) : null"-->
@@ -43,8 +43,8 @@
 
        <mat-checkbox (click)="$event.stopPropagation()"
                      (change)="$event ? suggestionToggle('label', suggestion) : null"
-                     [checked]="suggestion.actionLabel"
-                     [disabled]="suggestion.actionDelete">
+                     [checked]="suggestion.label"
+                     [disabled]="suggestion.delete">
 
        </mat-checkbox>
                            <!-- (change)="onSuggestionLabelToggle(suggestion)">-->

@@ -1,0 +1,66 @@
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { SuggestionsState, State } from './suggestions.reducer';
+import * as fromSuggestions from './suggestions.reducer';
+import * as fromSettings from '@app/admin-panel/settings/state/settings.selectors';
+import { PageQuery } from '../components/suggestions-table/suggestions-table.component';
+import { AppState } from '@app/core';
+
+export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
+  'suggestions'
+);
+
+export const selectUniqueSenders = createSelector(
+  fromSuggestions.selectTotal
+);
+
+export const selectAllSuggestions = createSelector(
+  selectSuggestionsState,
+  fromSuggestions.selectAll
+);
+
+export const selectCutoff = createSelector(
+  selectSuggestionsState,
+  (state: SuggestionsState) => state.cutoff
+)
+
+/**
+ * Select senders senders (email addresses) in decending
+ * count (number of emails from sender) order                                 [description]
+ */
+export const selectByCount = createSelector(
+  selectAllSuggestions,
+  sendersMore => sendersMore.sort((a,b) => b.count - a.count)
+);
+
+/**
+ * Select Senders with count (number of emails from sender) more
+ * than cutoff (a number set by user in settings)
+ * @return:
+ */
+export const selectSuggestions_CountMoreThan  = createSelector(
+  selectByCount,
+  selectCutoff,
+  (suggestions, cutoff) => suggestions.filter(suggestion => suggestion.count >= cutoff),
+);
+
+/**
+ * Select the length of the array of senders with count more
+ * than cutoff
+ * @return: number
+ */
+export const selectLengthOfSuggestions_CountMoreThan = createSelector(
+  selectSuggestions_CountMoreThan,
+  senders => senders.length
+);
+
+
+
+export const selectPageOfSuggestions_CountMoreThan = (page: PageQuery) => createSelector(
+  selectSuggestions_CountMoreThan,
+  (sendersMore) => {
+    const start = page.pageIndex * page.pageSize,
+          end = start + page.pageSize;
+
+    return sendersMore.slice(start, end);
+  }
+);

@@ -7,12 +7,10 @@ export interface State extends AppState {
 
 export interface SettingsState {
   theme: string;
-  countCutoff: number;
 }
 
 export const initialState: SettingsState = {
   theme: 'DEFAULT_THEME',
-  countCutoff: 10
 }
 
 export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {

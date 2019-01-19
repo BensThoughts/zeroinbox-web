@@ -1,21 +1,35 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
-import { ISenders } from '@app/core/state/gmail-api/models/senders.model';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
-  PageQuery,
-  selectPageOfSenders_CountMoreThan,
-  selectLengthOfSenders_CountMoreThan,
-  SendersToggleUpdateManyAction,
-  SendersToggleUpdateAction,
 } from '@app/core';
+
+import {
+  selectPageOfSuggestions_CountMoreThan,
+  selectLengthOfSuggestions_CountMoreThan,
+} from '../../state/suggestions.selectors';
+
+import {
+  SuggestionsToggleUpdateManyAction,
+  SuggestionsToggleUpdateAction,
+  SetCutoffAction,
+} from '../../state/suggestions.actions';
+
+
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { SettingsChangeCountCutoffAction } from '@app/admin-panel/settings/state/settings.actions';
+import { ISuggestion } from '../../state/suggestions.model';
+
+export interface PageQuery {
+  pageIndex: number;
+  pageSize:number;
+}
+
 
 @Component({
   selector: 'go-suggestions-table',
@@ -26,12 +40,12 @@ import { SettingsChangeCountCutoffAction } from '@app/admin-panel/settings/state
 export class SuggestionsTableComponent implements OnInit {
 
 
-  @ViewChild(MatTable) table: MatTable<any>;
+  // @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns: string[] = ['label', 'delete', 'address', 'count'];
 
-  dataSource: UserDataSource;
+  dataSource: SuggestionsDataSource;
 
   length;
   pageSize = 5;
@@ -41,7 +55,7 @@ export class SuggestionsTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISenders[]>;
+  mySub: Observable<ISuggestion[]>;
 
   countCutoff: number;
   countCutoffs = [
@@ -56,7 +70,7 @@ export class SuggestionsTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataSource = new UserDataSource(this.store);
+    this.dataSource = new SuggestionsDataSource(this.store);
 
     const initialPage: PageQuery = {
       pageIndex: 0,
@@ -65,7 +79,7 @@ export class SuggestionsTableComponent implements OnInit {
 
     this.dataSource.loadSuggestions(initialPage);
     this.store.pipe(
-      select(selectLengthOfSenders_CountMoreThan),
+      select(selectLengthOfSuggestions_CountMoreThan),
       take(1),
       map((unique_senders_length) => {
         this.length = unique_senders_length
@@ -86,10 +100,10 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
 
-  onCountCutoffSelect({ value: countCutoff }) {
-    this.store.dispatch(new SettingsChangeCountCutoffAction({ countCutoff }));
+  onCountCutoffSelect({ value: cutoff }) {
+    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
     this.store.pipe(
-      select(selectLengthOfSenders_CountMoreThan),
+      select(selectLengthOfSuggestions_CountMoreThan),
       take(1),
       map((unique_senders_length) => {
         this.length = unique_senders_length
@@ -112,31 +126,31 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
 
-  suggestionToggle(action: string, iSenders: ISenders) {
+  suggestionToggle(action: string, iSuggestions: ISuggestion) {
 
     let selectionModel = this.selectSelectionModel(action);
 
-    let diff = !this.selectActionValue(action, iSenders);
+    let diff = !this.selectActionValue(action, iSuggestions);
     let changes = this.selectChanges(action, diff);
 
     if (diff) {
-      selectionModel.select(iSenders.id);
+      selectionModel.select(iSuggestions.id);
     } else {
-      selectionModel.deselect(iSenders.id);
+      selectionModel.deselect(iSuggestions.id);
     }
 
-    const newUpdate: Update<ISenders> = {
-      id: iSenders.id,
+    const newUpdate: Update<ISuggestion> = {
+      id: iSuggestions.id,
       changes
     };
 
-    this.store.dispatch(new SendersToggleUpdateAction({ iSenders: newUpdate }));
+    this.store.dispatch(new SuggestionsToggleUpdateAction({ suggestion: newUpdate }));
   }
 
 
   masterToggle(action: string) {
     let changes = {};
-    let changeArray: Update<ISenders>[] = [];
+    let changeArray: Update<ISuggestion>[] = [];
 
     let oppositeSelectionModel: SelectionModel<string>;
     const selectionModel = this.selectSelectionModel(action);
@@ -144,43 +158,43 @@ export class SuggestionsTableComponent implements OnInit {
     if (this.isAllSelected(action)) {
       selectionModel.clear();
       changes = this.selectChanges(action, false);
-      this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
-        iSenderss.forEach((iSenders) => {
-          let newUpdate: Update<ISenders> = {
-            id: iSenders.id,
+      this.mySub.pipe(take(1)).subscribe((iSuggestions: ISuggestion[]) => {
+
+        changeArray = iSuggestions.map((iSuggestion) => {
+          return {
+            id: iSuggestion.id,
             changes
-          }
-          changeArray = changeArray.concat(newUpdate);
+          };
         });
+
       });
     } else {
       if (action === 'delete') {
         oppositeSelectionModel = this.selectSelectionModel('label');
         changes = {
-          actionDelete: true,
-          actionLabel: false
+          delete: true,
+          label: false
         }
       } else {
         oppositeSelectionModel = this.selectSelectionModel('delete');
         changes = {
-          actionDelete: false,
-          actionLabel: true
+          delete: false,
+          label: true
         }
       }
       oppositeSelectionModel.clear();
-      this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
-        iSenderss.forEach((isenders) => {
-          selectionModel.select(isenders.id);
-          let newUpdate: Update<ISenders> = {
-            id: isenders.id,
+      this.mySub.pipe(take(1)).subscribe((iSuggestions: ISuggestion[]) => {
+        changeArray = iSuggestions.map((iSuggestion) => {
+          selectionModel.select(iSuggestion.id);
+          return {
+            id: iSuggestion.id,
             changes
-          }
-          changeArray = changeArray.concat(newUpdate);
-        });
+          };
+        })
       });
     }
 
-  this.store.dispatch(new SendersToggleUpdateManyAction({ iSenderss: changeArray }));
+  this.store.dispatch(new SuggestionsToggleUpdateManyAction({ suggestions: changeArray }));
   }
 
 
@@ -189,8 +203,8 @@ export class SuggestionsTableComponent implements OnInit {
     let selectionModel = this.selectSelectionModel(action);
     const numSelected = selectionModel.selected.length;
     let numRows;
-    this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
-      numRows = iSenderss.length
+    this.mySub.pipe(take(1)).subscribe((iSuggestionss: ISuggestion[]) => {
+      numRows = iSuggestionss.length
     });
 
     return numSelected == numRows;
@@ -214,13 +228,13 @@ export class SuggestionsTableComponent implements OnInit {
     }
   }
 
-  selectActionValue(action: string, iSenders: ISenders) {
+  selectActionValue(action: string, iSuggestion: ISuggestion) {
     try {
       switch (action) {
         case 'label':
-          return iSenders.actionLabel;
+          return iSuggestion.label;
         case 'delete':
-          return iSenders.actionDelete;
+          return iSuggestion.delete;
 
         default:
           throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
@@ -236,11 +250,11 @@ export class SuggestionsTableComponent implements OnInit {
       switch (action) {
         case 'label':
           return {
-            actionLabel: diff
+            label: diff
           };
         case 'delete':
           return {
-            actionDelete: diff
+            delete: diff
           };
 
         default:
@@ -254,8 +268,8 @@ export class SuggestionsTableComponent implements OnInit {
 
 }
 
-export class UserDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISenders[]>([]);
+export class SuggestionsDataSource extends DataSource<any> {
+  private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
   constructor(private store: Store<AppState>) {
     super();
 
@@ -264,7 +278,7 @@ export class UserDataSource extends DataSource<any> {
   loadSuggestions(page: PageQuery) {
     console.log(page);
     this.store.pipe(
-      select(selectPageOfSenders_CountMoreThan(page)),
+      select(selectPageOfSuggestions_CountMoreThan(page)),
       tap((suggestions) => {
         // console.log(suggestions);
         this.suggestionsSubject.next(suggestions)
@@ -272,7 +286,7 @@ export class UserDataSource extends DataSource<any> {
     ).subscribe();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<ISenders[]> {
+  connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {
     // return of(this.sendersSource);
     return this.suggestionsSubject.asObservable();
   }

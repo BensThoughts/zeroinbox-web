@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import { ISenders } from '../models/senders.model';
+import { ISender } from '../models/senders.model';
 import { Update } from '@ngrx/entity';
 
 export enum SendersActionTypes {
@@ -13,11 +13,7 @@ export enum SendersActionTypes {
 
   AllSendersRequested = '[Senders Effects] Senders Messages Requested',
   SendersRequestFailure = '[Senders Effects] Senders Threads Request Failure',
-  AddAllSenders = '[Senders Effects] Add All Suggestions',
-
-  SendersToggleUpdate = '[Suggestions Table Component] Toggle actionDelete or actionLabel true/false',
-  SendersToggleUpdateMany = '[Suggestions Table Component] Toggle Many actionDelete or actionLabel true/false',
-
+  AddAllSenders = '[Senders Effects] Add All Senders',
 
   SendersRemoveMany = '[Suggestions Component] Senders Remove Many',
 
@@ -77,26 +73,8 @@ export interface PageQuery {
 
  export class AddAllSendersAction implements Action {
    readonly type = SendersActionTypes.AddAllSenders;
-   constructor(public payload: ISenders[]) {}
+   constructor(public payload: ISender[]) {}
  }
-
-
-/**
- * [constructor description]
- * @param payload [description]
- */
- export class SendersToggleUpdateAction implements Action {
-   readonly type = SendersActionTypes.SendersToggleUpdate;
-
-   constructor(public payload: { iSenders: Update<ISenders> }) {}
- }
-
- export class SendersToggleUpdateManyAction implements Action {
-   readonly type = SendersActionTypes.SendersToggleUpdateMany;
-
-   constructor(public payload: { iSenderss: Update<ISenders>[] }) {}
- }
-
 
  /**
   * [constructor description]
@@ -133,9 +111,6 @@ export type SendersActions =
   | AllSendersRequestedAction
   | SendersRequestFailureAction
   | AddAllSendersAction
-
-  | SendersToggleUpdateAction
-  | SendersToggleUpdateManyAction
 
   | SendersRemoveManyAction
 

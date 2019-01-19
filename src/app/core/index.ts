@@ -3,6 +3,7 @@ export * from './services/notifications/notification.service';
 export * from './services/auth-user/auth-guard.service';
 export * from './services/gmail-api/gmail-label/gmail-label.service';
 export * from './state/gmail-api/models/gmail-label.model';
+export * from './state/gmail-api/models/senders-light.model';
 export * from './state/gmail-api/gmail-label/gmail-label.selectors';
 export * from './state/gmail-api/gmail-label/gmail-label.actions';
 export * from './state/gmail-api/senders/senders.actions';

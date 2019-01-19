@@ -1,13 +1,13 @@
 <div class="container">
 
-<div *ngIf="suggestionsLoaded$ | async; else loading">
+<div *ngIf="sendersLoaded$ | async; else loading">
 
   <mat-card>
     <mat-card-title>
       Sort By
     </mat-card-title>
     <mat-divider></mat-divider>
-    <mat-card-content [@listAnimation]>
+    <mat-card-content>
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Address">
         <go-suggestions-table></go-suggestions-table>

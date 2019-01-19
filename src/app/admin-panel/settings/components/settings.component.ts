@@ -22,13 +22,6 @@ export class SettingsComponent implements OnInit {
     { value: 'BLACK-THEME', label: 'dark' }
   ];
 
-  countCutoffs = [
-    { value: 1, label: '1' },
-    { value: 5, label: '5' },
-    { value: 10, label: '10' },
-    { value: 20, label: '20' },
-    { value: 50, label: '50' },
-  ]
 
 
   constructor(private store: Store<AppState>) { }
@@ -39,10 +32,6 @@ export class SettingsComponent implements OnInit {
 
   onThemeSelect({ value: theme }) {
     this.store.dispatch(new SettingsChangeThemeAction({ theme }));
-  }
-
-  onCountCutoffSelect({ value: countCutoff }) {
-    this.store.dispatch(new SettingsChangeCountCutoffAction({ countCutoff }));
   }
 
 }
