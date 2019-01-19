@@ -4,7 +4,7 @@ import { Observable, throwError, of, from, pipe } from 'rxjs';
 import { map, catchError, concatMap, tap } from 'rxjs/operators';
 import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
-import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
+import { ISenders } from '@app/core/state/gmail-api/models/senders.model';
 import { Md5 } from 'ts-md5/dist/md5';
 // import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
@@ -19,7 +19,7 @@ export interface ThreadIdsResponse {
 }
 
 @Injectable()
-export class SuggestedService {
+export class SendersService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
     private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1';
@@ -43,7 +43,7 @@ export class SuggestedService {
     }
 
     public batchRequest(gapiRequest: GapiRequest) {
-      return this.httpClient.post<ISuggested[]>(this.MY_API_URL + '/batch', gapiRequest, {
+      return this.httpClient.post<ISenders[]>(this.MY_API_URL + '/batch', gapiRequest, {
         withCredentials: true
       });
     }

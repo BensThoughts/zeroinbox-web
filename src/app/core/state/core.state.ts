@@ -12,18 +12,20 @@ import { authReducer, AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
 import { userReducer, UserState } from './user/user.reducer';
+import { tasksReducer, TasksState } from './tasks/tasks.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
 import { gmailLabelReducer, GmailLabelState } from './gmail-api/gmail-label/gmail-label.reducer';
-import { SuggestedState, suggestedReducer } from './gmail-api/suggested/suggested.reducer';
+import { SendersState, sendersReducer } from './gmail-api/senders/senders.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   auth: authReducer,
   user: userReducer,
   gmailLabel: gmailLabelReducer,
-  suggested: suggestedReducer,
+  senders: sendersReducer,
+  tasks: tasksReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
@@ -48,8 +50,12 @@ export const selectGmailLabelState = createFeatureSelector<AppState, GmailLabelS
   'gmailLabel'
 );
 
-export const selectSuggestedState = createFeatureSelector<AppState, SuggestedState>(
-  'suggested'
+export const selectSendersState = createFeatureSelector<AppState, SendersState>(
+  'senders'
+);
+
+export const selectTasksState = createFeatureSelector<AppState, TasksState>(
+  'tasks'
 );
 
 export const selectRouterState = createFeatureSelector<
@@ -57,10 +63,13 @@ export const selectRouterState = createFeatureSelector<
   RouterReducerState<RouterStateUrl>
 >('router');
 
+
+
 export interface AppState {
   router: RouterReducerState<RouterStateUrl>;
   user: UserState;
   auth: AuthState;
   gmailLabel: GmailLabelState;
-  suggested: SuggestedState;
+  senders: SendersState;
+  tasks: TasksState;
 }

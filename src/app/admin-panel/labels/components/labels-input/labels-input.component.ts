@@ -23,7 +23,7 @@ import { IGmailLabel } from '@app/core';
 export class LabelsInputComponent {
   // @Input() allLabels: string[];
 
-  // Suggested Labels Test
+  // Senders Labels Test
   allLabels: string[] = ['John Abrams', 'Josh Lennon', 'Lindsay Essary', 'Best Buy', 'Starbucks'];
 
   visible = true;

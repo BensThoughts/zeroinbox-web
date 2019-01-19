@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
-  SuggestedActionTypes,
-  SuggestionsRequestedAction,
+  SendersActionTypes,
+  SendersRequestedAction,
   InboxThreadIdsRequestedAction,
   InboxThreadIdsRequestFailureAction,
   InboxThreadIdsLoadedAction,
   AddAllThreadIdsAction,
-  AddAllSuggestionsAction,
-  UpdateSuggestedStateAction,
-  SuggestedThreadsRequestFailureAction,
-} from './suggested.actions';
-import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
+  AddAllSendersAction,
+  UpdateSendersStateAction,
+  SendersRequestFailureAction,
+} from './senders.actions';
+import { SendersService } from '@app/core/services/gmail-api/senders/senders.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
 import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
-import { selectSuggestionsLoaded } from './suggested.selectors';
+import { selectSendersLoaded } from './senders.selectors';
 
 @Injectable()
-export class SuggestedEffects {
+export class SendersEffects {
 
   @Effect()
   suggestionsRequested$ = this.actions$
     .pipe(
-      ofType<SuggestionsRequestedAction>(SuggestedActionTypes.SuggestionsRequested),
-      withLatestFrom(this.store.pipe(select(selectSuggestionsLoaded))),
+      ofType<SendersRequestedAction>(SendersActionTypes.SendersRequested),
+      withLatestFrom(this.store.pipe(select(selectSendersLoaded))),
       filter(([action, allSuggestionsLoaded]) => !allSuggestionsLoaded),
       map(() => {
         return new InboxThreadIdsRequestedAction();
@@ -35,9 +35,9 @@ export class SuggestedEffects {
   @Effect({ dispatch: false })
   inboxThreadIdsRequested$ = this.actions$
     .pipe(
-      ofType<InboxThreadIdsRequestedAction>(SuggestedActionTypes.InboxThreadIdsRequested),
+      ofType<InboxThreadIdsRequestedAction>(SendersActionTypes.InboxThreadIdsRequested),
       exhaustMap(() => {
-        return this.suggestedService.getAllThreadIds({}).pipe(
+        return this.sendersService.getAllThreadIds({}).pipe(
           map((threadIds) => {
             this.store.dispatch(new AddAllThreadIdsAction(threadIds.threadIds));
             this.store.dispatch(new InboxThreadIdsLoadedAction(threadIds.threadIds));
@@ -48,37 +48,37 @@ export class SuggestedEffects {
     )
 
   @Effect({ dispatch: false })
-  suggestedThreadsRequested$ = this.actions$
+  sendersThreadsRequested$ = this.actions$
       .pipe(
-        ofType<InboxThreadIdsLoadedAction>(SuggestedActionTypes.InboxThreadIdsLoaded),
+        ofType<InboxThreadIdsLoadedAction>(SendersActionTypes.InboxThreadIdsLoaded),
         map((action) => {
-          this.suggestedService.batchRequest({ body: action.payload }).subscribe((result) => {
+          this.sendersService.batchRequest({ body: action.payload }).subscribe((result) => {
             result.forEach((result) => {
               result.actionDelete = false;
               result.actionLabel = false;
             })
-            this.store.dispatch(new AddAllSuggestionsAction(result));
+            this.store.dispatch(new AddAllSendersAction(result));
           });
         }),
-        catchError((err) => of(new SuggestedThreadsRequestFailureAction(err)))
+        catchError((err) => of(new SendersRequestFailureAction(err)))
       );
 
   @Effect({dispatch: false})
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
       filter((evt) => {
-        return evt.key === 'go-app-suggested';
+        return evt.key === 'go-app-senders';
       }),
       filter(evt => evt.newValue !== null),
       map(evt => {
-        let suggestedState = JSON.parse(evt.newValue);
-        this.store.dispatch(new UpdateSuggestedStateAction(suggestedState));
+        let sendersState = JSON.parse(evt.newValue);
+        this.store.dispatch(new UpdateSendersStateAction(sendersState));
       })
     );
 
 
   constructor(
     private actions$: Actions,
-    private suggestedService: SuggestedService,
+    private sendersService: SendersService,
     private store: Store<AppState>) { }
 }

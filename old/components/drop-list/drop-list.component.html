@@ -4,7 +4,7 @@
   <div class="example-container" fxFlex="50%">
     <mat-card>
       <mat-card-title>
-        Suggested Labels
+        Senders Labels
         <span style="align-right">
           <button mat-raised-button color="primary">Add All</button>
         </span>
@@ -16,14 +16,14 @@
         class="example-list"
         [cdkDropListConnectedTo]="[doneList]"
         (cdkDropListDropped)="drop($event)">
-        <div class="example-box-current example-box-suggested" *ngFor="let item of todo" cdkDrag>
+        <div class="example-box-current example-box-senders" *ngFor="let item of todo" cdkDrag>
           <span style="align-left">
               <fa-icon icon='tag' size="lg" style="color: #808DE1; padding-right:10px;" rotate="90"></fa-icon>
               {{item.name}}
           </span>
           <span style="align-right">
-            <mat-chip *ngIf="item.suggested">
-              {{item.suggestedCount}}
+            <mat-chip *ngIf="item.senders">
+              {{item.sendersCount}}
             </mat-chip>
 
             <button
@@ -62,8 +62,8 @@
             {{item.name}}
           </span>
           <span style="align-right">
-            <mat-chip *ngIf="item.suggested">
-              {{item.suggestedCount}}
+            <mat-chip *ngIf="item.senders">
+              {{item.sendersCount}}
             </mat-chip>
             <button class="edit-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="editName(item)" color="primary">
               <fa-icon icon='edit' style="color: #808DE1;"></fa-icon>

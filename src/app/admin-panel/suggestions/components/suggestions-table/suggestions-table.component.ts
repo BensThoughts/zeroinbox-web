@@ -1,31 +1,32 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
-import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
+import { ISenders } from '@app/core/state/gmail-api/models/senders.model';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
   PageQuery,
   selectPageOfSenders_CountMoreThan,
   selectLengthOfSenders_CountMoreThan,
-  SuggestedToggleUpdateManyAction,
-  SuggestedToggleUpdateAction,
+  SendersToggleUpdateManyAction,
+  SendersToggleUpdateAction,
 } from '@app/core';
 import { Update } from '@ngrx/entity';
 import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
+import { SettingsChangeCountCutoffAction } from '@app/admin-panel/settings/state/settings.actions';
 
 @Component({
   selector: 'go-suggestions-table',
   templateUrl: './suggestions-table.component.html',
   styleUrls: ['./suggestions-table.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuggestionsTableComponent implements OnInit {
 
 
-  // @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns: string[] = ['label', 'delete', 'address', 'count'];
@@ -40,32 +41,36 @@ export class SuggestionsTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISuggested[]>;
+  mySub: Observable<ISenders[]>;
 
   countCutoff: number;
+  countCutoffs = [
+    { value: 1, label: '1 thread' },
+    { value: 5, label: '5 threads' },
+    { value: 10, label: '10 threads' },
+    { value: 20, label: '20 threads' },
+    { value: 50, label: '50 threads' }
+  ];
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    // this.dataSource = new MatTableDataSource(this.suggestedData);
+
     this.dataSource = new UserDataSource(this.store);
-    // this.dataSource.paginator = this.paginator;
-    // this.length = this.suggestedData.length;
+
     const initialPage: PageQuery = {
       pageIndex: 0,
       pageSize: this.pageSize
     };
+
     this.dataSource.loadSuggestions(initialPage);
-    let storeHandler = this.store.pipe(
+    this.store.pipe(
       select(selectLengthOfSenders_CountMoreThan),
       take(1),
       map((unique_senders_length) => {
         this.length = unique_senders_length
       })
-    ).subscribe() //(unique_senders) => {
-      // this.length = unique_senders
-    // });
-    // storeHandler.unsubscribe;
+    ).subscribe()
 
     this.mySub = this.dataSource.connect(this.collectionViewer);
   }
@@ -78,6 +83,19 @@ export class SuggestionsTableComponent implements OnInit {
 
   ngOnDestory() {
     this.dataSource.disconnect(this.collectionViewer);
+  }
+
+
+  onCountCutoffSelect({ value: countCutoff }) {
+    this.store.dispatch(new SettingsChangeCountCutoffAction({ countCutoff }));
+    this.store.pipe(
+      select(selectLengthOfSenders_CountMoreThan),
+      take(1),
+      map((unique_senders_length) => {
+        this.length = unique_senders_length
+      })
+    ).subscribe()
+
   }
 
 
@@ -94,99 +112,31 @@ export class SuggestionsTableComponent implements OnInit {
   }
 
 
-  selectSelectionModel(action: string) {
-    try {
-      switch (action) {
-        case 'label':
-          return this.selectionLabel;
-        case 'delete':
-          return this.selectionDelete;
-
-        default:
-          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
-      }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
-
-  selectActionValue(action: string, iSuggested: ISuggested) {
-    try {
-      switch (action) {
-        case 'label':
-          return iSuggested.actionLabel;
-        case 'delete':
-          return iSuggested.actionDelete;
-
-        default:
-          throw new Error('Error: ' + select + ' is not one of "label" or "delete"');
-        }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
-
-  selectChanges(action: string, diff: boolean) {
-    try {
-      switch (action) {
-        case 'label':
-          return {
-            actionLabel: diff
-          };
-        case 'delete':
-          return {
-            actionDelete: diff
-          };
-
-        default:
-          throw new Error('Error: ' + select + ' is not one of "label" or "delete"');
-      }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
-
-  suggestionToggle(action: string, iSuggested: ISuggested) {
+  suggestionToggle(action: string, iSenders: ISenders) {
 
     let selectionModel = this.selectSelectionModel(action);
 
-    let diff = !this.selectActionValue(action, iSuggested);
+    let diff = !this.selectActionValue(action, iSenders);
     let changes = this.selectChanges(action, diff);
 
     if (diff) {
-      selectionModel.select(iSuggested.id);
+      selectionModel.select(iSenders.id);
     } else {
-      selectionModel.deselect(iSuggested.id);
+      selectionModel.deselect(iSenders.id);
     }
 
-    const newUpdate: Update<ISuggested> = {
-      id: iSuggested.id,
+    const newUpdate: Update<ISenders> = {
+      id: iSenders.id,
       changes
     };
 
-    this.store.dispatch(new SuggestedToggleUpdateAction({ iSuggested: newUpdate }));
+    this.store.dispatch(new SendersToggleUpdateAction({ iSenders: newUpdate }));
   }
 
-
-  isAllSelected(action: string) {
-
-    let selectionModel = this.selectSelectionModel(action);
-    const numSelected = selectionModel.selected.length;
-    let numRows;
-    this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
-      numRows = iSuggesteds.length
-    });
-
-    return numSelected == numRows;
-
-  }
 
   masterToggle(action: string) {
     let changes = {};
-    let changeArray: Update<ISuggested>[] = [];
+    let changeArray: Update<ISenders>[] = [];
 
     let oppositeSelectionModel: SelectionModel<string>;
     const selectionModel = this.selectSelectionModel(action);
@@ -194,10 +144,10 @@ export class SuggestionsTableComponent implements OnInit {
     if (this.isAllSelected(action)) {
       selectionModel.clear();
       changes = this.selectChanges(action, false);
-      this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
-        iSuggesteds.forEach((iSuggested) => {
-          let newUpdate: Update<ISuggested> = {
-            id: iSuggested.id,
+      this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
+        iSenderss.forEach((iSenders) => {
+          let newUpdate: Update<ISenders> = {
+            id: iSenders.id,
             changes
           }
           changeArray = changeArray.concat(newUpdate);
@@ -218,11 +168,11 @@ export class SuggestionsTableComponent implements OnInit {
         }
       }
       oppositeSelectionModel.clear();
-      this.mySub.pipe(take(1)).subscribe((iSuggesteds: ISuggested[]) => {
-        iSuggesteds.forEach((isuggested) => {
-          selectionModel.select(isuggested.id);
-          let newUpdate: Update<ISuggested> = {
-            id: isuggested.id,
+      this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
+        iSenderss.forEach((isenders) => {
+          selectionModel.select(isenders.id);
+          let newUpdate: Update<ISenders> = {
+            id: isenders.id,
             changes
           }
           changeArray = changeArray.concat(newUpdate);
@@ -230,14 +180,82 @@ export class SuggestionsTableComponent implements OnInit {
       });
     }
 
-  this.store.dispatch(new SuggestedToggleUpdateManyAction({ iSuggesteds: changeArray }));
+  this.store.dispatch(new SendersToggleUpdateManyAction({ iSenderss: changeArray }));
   }
 
+
+  isAllSelected(action: string) {
+
+    let selectionModel = this.selectSelectionModel(action);
+    const numSelected = selectionModel.selected.length;
+    let numRows;
+    this.mySub.pipe(take(1)).subscribe((iSenderss: ISenders[]) => {
+      numRows = iSenderss.length
+    });
+
+    return numSelected == numRows;
+
+  }
+
+  selectSelectionModel(action: string) {
+    try {
+      switch (action) {
+        case 'label':
+          return this.selectionLabel;
+        case 'delete':
+          return this.selectionDelete;
+
+        default:
+          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
+      }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
+  selectActionValue(action: string, iSenders: ISenders) {
+    try {
+      switch (action) {
+        case 'label':
+          return iSenders.actionLabel;
+        case 'delete':
+          return iSenders.actionDelete;
+
+        default:
+          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
+        }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
+  selectChanges(action: string, diff: boolean) {
+    try {
+      switch (action) {
+        case 'label':
+          return {
+            actionLabel: diff
+          };
+        case 'delete':
+          return {
+            actionDelete: diff
+          };
+
+        default:
+          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
+      }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
 
 }
 
 export class UserDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISuggested[]>([]);
+  private suggestionsSubject = new BehaviorSubject<ISenders[]>([]);
   constructor(private store: Store<AppState>) {
     super();
 
@@ -253,11 +271,14 @@ export class UserDataSource extends DataSource<any> {
       })
     ).subscribe();
   }
-  connect(collectionViewer: CollectionViewer): Observable<ISuggested[]> {
-    // return of(this.suggestedSource);
+
+  connect(collectionViewer: CollectionViewer): Observable<ISenders[]> {
+    // return of(this.sendersSource);
     return this.suggestionsSubject.asObservable();
   }
+
   disconnect(collectionViewer: CollectionViewer): void {
     this.suggestionsSubject.complete();
   }
+
 }

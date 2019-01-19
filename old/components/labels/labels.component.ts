@@ -17,34 +17,34 @@ import { GmailLabel } from '@app/core/services/label/models/gmail-label.model';
 
 export class LabelsComponent implements OnInit {
   gmail_labels: GmailLabel[]; // The list of labels currently in the gmail acc.
-  suggested_labels: GmailLabel[];
+  senders_labels: GmailLabel[];
   label_names: string[] = [];
 
   constructor(private gmailService: GmailLabelService,
               private userService: UserService) {
-                this.suggested_labels = [
+                this.senders_labels = [
                   new GmailLabel({
                     name: "Josh",
-                    suggested: true,
-                    suggestedCount: 143
+                    senders: true,
+                    sendersCount: 143
                   }),
                   new GmailLabel({
                     name: "Best Buy",
-                    suggested: true,
-                    suggestedCount: 1302
+                    senders: true,
+                    sendersCount: 1302
                   }),
                   new GmailLabel({
                     name: "Mailing Lists",
-                    suggested: true,
-                    suggestedCount: 23
+                    senders: true,
+                    sendersCount: 23
                   }),
                   new GmailLabel({
                     name: "Tech Crunch",
-                    suggested: true,
-                    suggestedCount: 540
+                    senders: true,
+                    sendersCount: 540
                   })
                 ];
-                this.suggested_labels.forEach(
+                this.senders_labels.forEach(
                   label => this.label_names.push(label.name));
               }
 

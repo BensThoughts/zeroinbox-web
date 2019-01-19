@@ -18,7 +18,7 @@
   <div fxFlex="100%">
 -->
 <div class="go-labels-list">
-      <go-drop-list [done]="gmail_labels" [todo]="suggested_labels"></go-drop-list>
+      <go-drop-list [done]="gmail_labels" [todo]="senders_labels"></go-drop-list>
 </div>
 <!--
   </div>
@@ -32,7 +32,7 @@
   <go-labels-list [labelsList]="gmail_labels"></go-labels-list>
 <mat-card>
   <mat-card-title>
-    Your suggested labels
+    Your senders labels
   </mat-card-title>
   <go-labels-list [labelsList]="labels"></go-labels-list>
 </mat-card>

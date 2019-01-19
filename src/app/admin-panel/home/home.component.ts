@@ -2,12 +2,22 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, features } from './features.data';
 
 import { fadeElementsAnimation } from './elementsAnimations';
-import { SuggestionsRequestedAction, AppState, selectBasicProfile, selectEmailProfile, selectUniqueSenders, GmailLabelsRequested, selectLabelsLength, selectImageUrl } from '@app/core';
+import {
+  AppState,
+  selectBasicProfile,
+  selectEmailProfile,
+  selectUniqueSenders,
+  GmailLabelsRequested,
+  selectLabelsLength,
+  selectImageUrl
+} from '@app/core';
+
 import { selectTotal } from '@app/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
 import { map } from 'rxjs/operators';
+import { SendersRequestedAction } from '@app/core/state/gmail-api/senders/senders.actions';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +40,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GmailLabelsRequested());
-    this.store.dispatch(new SuggestionsRequestedAction());
+    this.store.dispatch(new SendersRequestedAction());
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));

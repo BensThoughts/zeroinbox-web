@@ -1,4 +1,4 @@
-export interface ISuggested {
+export interface ISenders {
   id: string;
   count: number;
   fromAddress: string;

@@ -5,6 +5,7 @@ import { SuggestionsComponent } from './components/suggestions/suggestions.compo
 import { SuggestionsTableComponent } from './components/suggestions-table/suggestions-table.component';
 import { SharedModule } from '@app/shared';
 
+
 @NgModule({
   declarations: [SuggestionsComponent, SuggestionsTableComponent],
   imports: [

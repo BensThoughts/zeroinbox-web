@@ -22,7 +22,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { LoadBasicProfileAction, ResetUserAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
-import { ResetSuggestedStateAction } from '../gmail-api/suggested/suggested.actions';
+import { ResetSendersStateAction } from '../gmail-api/senders/senders.actions';
+import { ResetTasksStateAction } from '../tasks/tasks.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -164,7 +165,7 @@ export class AuthEffects {
       this.authService.logout();
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth());
-      this.store.dispatch(new ResetSuggestedStateAction());
+      this.store.dispatch(new ResetSendersStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -179,7 +180,8 @@ export class AuthEffects {
       // this.authService.logout();
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth());
-      this.store.dispatch(new ResetSuggestedStateAction());
+      this.store.dispatch(new ResetSendersStateAction());
+      this.store.dispatch(new ResetTasksStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );

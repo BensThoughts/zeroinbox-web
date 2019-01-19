@@ -4,7 +4,7 @@ export interface IGmailLabel {
   messageListVisibility: string;
   name: string;
   type: string;
-  suggested?: boolean;
-  suggestedFor?: string;
-  suggestedCount?: number;
+  senders?: boolean;
+  sendersFor?: string;
+  sendersCount?: number;
 }

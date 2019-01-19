@@ -1,33 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { SuggestedService } from '@app/core/services/gmail-api/suggested/suggested.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
-import { selectSuggestedThreadIds, selectSuggestionsLoaded, selectSendersLess, selectSenders_CountMoreThan } from '@app/core';
+import {
+  selectSendersThreadIds,
+  selectSendersLoaded,
+  selectSenders_CountMoreThan
+} from '@app/core';
 // import { selectToken } from '@app/core';
 
 import { Observable, of } from 'rxjs';
-import { ISuggested } from '@app/core/state/gmail-api/models/suggested.model';
+import { ISenders } from '@app/core/state/gmail-api/models/senders.model';
+import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations';
+import { selectCountCutoff } from '@app/admin-panel/settings/state/settings.selectors';
 
 
 @Component({
   selector: 'app-suggestions',
   templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss']
+  styleUrls: ['./suggestions.component.scss'],
+  animations: [fadeElementsAnimation],
 })
 export class SuggestionsComponent implements OnInit {
 
 
-  sendersMoreThan$: Observable<ISuggested[]>;
-  sendersLessThan$: Observable<ISuggested[]>;
-
+  sendersMoreThan$: Observable<ISenders[]>;
+  sendersLessThan$: Observable<ISenders[]>;
+  sendersLessThanCount$: Observable<number>;
+  cutoff$: Observable<number>;
   suggestionsLoaded$: Observable<boolean>;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-      this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
+      this.suggestionsLoaded$ = this.store.pipe(select(selectSendersLoaded));
       this.sendersMoreThan$ = this.store.pipe(select(selectSenders_CountMoreThan));
-      this.sendersLessThan$ = this.store.pipe(select(selectSendersLess));
+      // this.sendersLessThanCount$ = this.store.pipe(select(selectSenders_CountLessThan_Count));
+            this.cutoff$ = this.store.pipe(select(selectCountCutoff));
+      // this.sendersLessThan$ = this.store.pipe(select(selectSendersLess));
   }
 
 }
