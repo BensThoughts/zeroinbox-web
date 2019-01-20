@@ -60,6 +60,7 @@ import { GmailLabelService } from './services/gmail-api/gmail-label/gmail-label.
 import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.effects';
 import { SendersService } from './services/gmail-api/senders/senders.service';
 import { SendersEffects } from './state/gmail-api/senders/senders.effects';
+import { TasksEffects } from './state/tasks/tasks.effects';
 // import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
@@ -87,7 +88,8 @@ const gapiClientConfig: NgGapiClientConfig = {
     EffectsModule.forRoot([
       AuthEffects,
       GmailLabelEffects,
-      SendersEffects
+      SendersEffects,
+      TasksEffects
     ]),    // ngrx effects
     // ngrx store devtools
 

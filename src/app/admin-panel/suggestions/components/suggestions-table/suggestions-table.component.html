@@ -66,13 +66,14 @@
 
 
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+   <tr mat-row [@removeRow]="isRemoved ? 'add' : 'remove'" *matRowDef="let row; columns: displayedColumns;"></tr>
  </table>
 
 Only show senders with more than
 <mat-form-field>
-<mat-select placeholder="Count Cutoff"
-            (selectionChange)="onCountCutoffSelect($event)"
+<mat-select [placeholder]=""
+            [ngModel]="cutoff$ | async"
+            (selectionChange)="onCutoffSelect($event)"
             name="Count Cutoffs">
   <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
     {{ t.label }}
@@ -80,9 +81,8 @@ Only show senders with more than
 </mat-select>
 </mat-form-field>
 <div>
-<button mat-raised-button>Create Actions</button>
+<button mat-raised-button (click)="createActions()" >Create Actions</button>
 <mat-paginator [pageSize]="pageSize"
-                [length]="length"
                [pageSizeOptions]="pageSizeOptions"
                (page)="pageEvent = $event">
 </mat-paginator>

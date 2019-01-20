@@ -34,6 +34,12 @@ export function suggestionsReducer(
       case SuggestionsActionTypes.LoadSuggestions:
         return adapter.addAll(action.payload.suggestions, state);
 
+      case SuggestionsActionTypes.DeleteSuggestions:
+        return adapter.removeMany(action.payload.ids, state);
+
+      case SuggestionsActionTypes.UpdateSuggestions:
+        return adapter.updateMany(action.payload.suggestions, state);
+
       case SuggestionsActionTypes.SetCutoff:
         return { ...state, cutoff: action.payload.cutoff };
 

@@ -3,14 +3,21 @@ import { ITask } from './tasks.model';
 import { Update } from '@ngrx/entity';
 
 export enum TaskActionTypes {
+  CreateTasks = '[Suggestions Component] Create Tasks',
   UpsertTasks = '[Suggestions Datatable Component] Upsert Senders Action',
   ResetTasks = '[Auth Effects] Reset Tasks'
+}
+
+export class CreateTasksAction implements Action {
+  readonly type = TaskActionTypes.CreateTasks;
+
+  constructor(public payload: { tasks: ITask[] }) {}
 }
 
 export class UpsertTasksAction implements Action {
   readonly type = TaskActionTypes.UpsertTasks;
 
-  constructor(public payload: ITask[]) {}
+  constructor(public payload: { tasks: ITask[] }) {}
 }
 
 export class ResetTasksStateAction implements Action {
@@ -19,5 +26,6 @@ export class ResetTasksStateAction implements Action {
 }
 
 export type TaskActions =
+  | CreateTasksAction
   | ResetTasksStateAction
   | UpsertTasksAction;

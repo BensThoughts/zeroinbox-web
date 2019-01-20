@@ -15,7 +15,6 @@ import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations'
   selector: 'app-suggestions',
   templateUrl: './suggestions.component.html',
   styleUrls: ['./suggestions.component.scss'],
-  animations: [fadeElementsAnimation],
 })
 export class SuggestionsComponent implements OnInit {
 

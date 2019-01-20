@@ -18,6 +18,10 @@
 
   mat-sidenav-container {
 
+    .app-sidenav {
+      background-color: mat-color($primary, darker);
+    }
+
     mat-sidenav {
 
       // background-color: #90a4ae !important;

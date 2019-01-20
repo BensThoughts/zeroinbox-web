@@ -66,6 +66,8 @@ export class AppComponent implements OnInit {
       this.theme$ = this.store.pipe(select(selectTheme));
   }
 
+  
+
   // used to sign the google user out of the app
   //  signIn() is implemented in auth/components/login-page.component.ts
   public signOut(): void {

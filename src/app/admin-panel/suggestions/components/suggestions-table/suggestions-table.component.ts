@@ -8,34 +8,38 @@ import {
 import {
   selectPageOfSuggestions_CountMoreThan,
   selectLengthOfSuggestions_CountMoreThan,
+  selectCutoff,
 } from '../../state/suggestions.selectors';
 
 import {
   SuggestionsToggleUpdateManyAction,
   SuggestionsToggleUpdateAction,
   SetCutoffAction,
+  CreateSuggestedActionsByNameAction,
 } from '../../state/suggestions.actions';
 
 
 import { Update } from '@ngrx/entity';
-import { Observable, from, of, BehaviorSubject } from 'rxjs';
+import { Observable, from, of, BehaviorSubject, Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
-import { tap, map, take } from 'rxjs/operators';
+import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { SettingsChangeCountCutoffAction } from '@app/admin-panel/settings/state/settings.actions';
 import { ISuggestion } from '../../state/suggestions.model';
+import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations';
+import { rowAnimations } from './rowAnimations';
 
 export interface PageQuery {
   pageIndex: number;
   pageSize:number;
 }
 
-
 @Component({
   selector: 'go-suggestions-table',
   templateUrl: './suggestions-table.component.html',
   styleUrls: ['./suggestions-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  animations: [rowAnimations],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class SuggestionsTableComponent implements OnInit {
 
@@ -57,7 +61,7 @@ export class SuggestionsTableComponent implements OnInit {
   collectionViewer: CollectionViewer;
   mySub: Observable<ISuggestion[]>;
 
-  countCutoff: number;
+  cutoff$: Observable<number>;
   countCutoffs = [
     { value: 1, label: '1 thread' },
     { value: 5, label: '5 threads' },
@@ -66,9 +70,19 @@ export class SuggestionsTableComponent implements OnInit {
     { value: 50, label: '50 threads' }
   ];
 
+  handler: Subscription;
+
+  isRemoved = true;
+
+   toggle() {
+     this.isRemoved = !this.isRemoved;
+   }
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+
+    this.cutoff$ = this.store.pipe(select(selectCutoff));
 
     this.dataSource = new SuggestionsDataSource(this.store);
 
@@ -78,13 +92,15 @@ export class SuggestionsTableComponent implements OnInit {
     };
 
     this.dataSource.loadSuggestions(initialPage);
-    this.store.pipe(
+    this.updatePaginatorLength();
+/**
+    this.handler = this.store.pipe(
       select(selectLengthOfSuggestions_CountMoreThan),
-      take(1),
-      map((unique_senders_length) => {
-        this.length = unique_senders_length
+      tap((unique_senders_length) => {
+        this.paginator.length = unique_senders_length
       })
     ).subscribe()
+**/
 
     this.mySub = this.dataSource.connect(this.collectionViewer);
   }
@@ -93,29 +109,45 @@ export class SuggestionsTableComponent implements OnInit {
     this.paginator.page.pipe(
       tap(() => this.loadSuggestionsPage())
     ).subscribe();
+
+/**
+    this.store.pipe(
+      select(selectLengthOfSuggestions_CountMoreThan),
+      tap((unique_senders_length) => {
+        this.length = unique_senders_length
+      })
+    ).subscribe();
+**/
+
   }
+
+
 
   ngOnDestory() {
     this.dataSource.disconnect(this.collectionViewer);
+    // this.handler.unsubscribe();
   }
 
 
-  onCountCutoffSelect({ value: cutoff }) {
-    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
+  updatePaginatorLength() {
+
     this.store.pipe(
       select(selectLengthOfSuggestions_CountMoreThan),
       take(1),
       map((unique_senders_length) => {
-        this.length = unique_senders_length
+        this.paginator.length = unique_senders_length;
       })
-    ).subscribe()
+    ).subscribe();
 
   }
 
-
-  loadSuggestionsPage() {
+  clearSelections() {
     this.selectionDelete.clear();
     this.selectionLabel.clear();
+  }
+
+  loadSuggestionsPage() {
+    this.clearSelections();
 
     const newPage: PageQuery = {
       pageIndex: this.paginator.pageIndex,
@@ -124,6 +156,68 @@ export class SuggestionsTableComponent implements OnInit {
 
       this.dataSource.loadSuggestions(newPage);
   }
+
+  onCutoffSelect({ value: cutoff }) {
+    this.clearSelections();
+    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
+    this.updatePaginatorLength();
+
+/**
+    this.store.pipe(
+      select(selectLengthOfSuggestions_CountMoreThan),
+      take(1),
+      map((unique_senders_length) => {
+        this.length = unique_senders_length
+      })
+    ).subscribe()
+**/
+  }
+
+  createActions() {
+    this.clearSelections();
+    this.toggle();
+    this.mySub.pipe(
+      take(1),
+      delay(200),
+      map((suggestions) => {
+        this.toggle();
+        this.store.dispatch(new CreateSuggestedActionsByNameAction({ suggestions: suggestions }));
+      })
+    ).subscribe();
+
+    this.updatePaginatorLength();
+
+    if (!this.paginator.hasNextPage()) {
+      if (this.isAllSelected('label') || this.isAllSelected('delete')) {
+        this.paginator.previousPage();
+      }
+    }
+
+    // this.toggle();
+  }
+/**
+      if (this.isAllSelected('label') || this.isAllSelected('delete')) {
+
+        const newPage: PageQuery = {
+          pageIndex: this.paginator.pageIndex,
+          pageSize: this.paginator.pageSize
+          };
+
+          this.dataSource.loadSuggestions(newPage);
+        // this.paginator.previousPage();
+      }
+**/
+/**
+    this.store.pipe(
+      select(selectLengthOfSuggestions_CountMoreThan),
+      take(1),
+      map((unique_senders_length) => {
+        this.length = unique_senders_length
+      })
+    ).subscribe()
+**/
+
+
 
 
   suggestionToggle(action: string, iSuggestions: ISuggestion) {

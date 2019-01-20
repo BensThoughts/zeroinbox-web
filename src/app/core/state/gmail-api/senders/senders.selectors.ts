@@ -44,3 +44,13 @@ export const selectAllSenders = createSelector(
   selectSendersState,
   fromSenders.selectAll
 );
+
+export const selectSendersAddress = (id: string) => createSelector(
+  fromSenders.selectEntities,
+  (senders) => senders[id].fromAddress
+);
+
+export const selectSendersCount = (id: string) => createSelector(
+  fromSenders.selectEntities,
+  (senders) => senders[id].count
+);

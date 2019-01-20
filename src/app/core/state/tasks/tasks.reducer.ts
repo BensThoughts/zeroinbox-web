@@ -23,7 +23,8 @@ export function tasksReducer(
 
     switch (action.type) {
       case TaskActionTypes.UpsertTasks:
-        return adapter.addAll(action.payload, state);
+        console.log('pong');
+        return adapter.upsertMany(action.payload.tasks, state);
 
       case TaskActionTypes.ResetTasks:
         return initialTasksState;
@@ -34,3 +35,10 @@ export function tasksReducer(
     }
 
   }
+
+  export const {
+    selectAll,
+    selectEntities,
+    selectIds,
+    selectTotal
+  } = adapter.getSelectors();

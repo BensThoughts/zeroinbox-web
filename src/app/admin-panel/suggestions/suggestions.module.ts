@@ -6,6 +6,8 @@ import { SuggestionsTableComponent } from './components/suggestions-table/sugges
 import { SharedModule } from '@app/shared';
 import { StoreModule } from '@ngrx/store';
 import { suggestionsReducer } from './state/suggestions.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { SuggestionsEffects } from './state/suggestions.effects';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { suggestionsReducer } from './state/suggestions.reducer';
     CommonModule,
     SharedModule,
     StoreModule.forFeature('suggestions', suggestionsReducer),
+    EffectsModule.forFeature([SuggestionsEffects])
   ]
 })
 export class SuggestionsModule { }

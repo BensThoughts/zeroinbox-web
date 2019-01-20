@@ -32,13 +32,22 @@ export const selectByCount = createSelector(
   sendersMore => sendersMore.sort((a,b) => b.count - a.count)
 );
 
+
+export const selectNotLabeledByName = createSelector(
+  selectByCount,
+  suggestions => suggestions.filter((suggestion) => {
+    // console.log(suggestion.labelByName);
+    // return suggestion;
+    return suggestion.labelByName === undefined;
+  })
+);
 /**
  * Select Senders with count (number of emails from sender) more
  * than cutoff (a number set by user in settings)
  * @return:
  */
 export const selectSuggestions_CountMoreThan  = createSelector(
-  selectByCount,
+  selectNotLabeledByName,
   selectCutoff,
   (suggestions, cutoff) => suggestions.filter(suggestion => suggestion.count >= cutoff),
 );
