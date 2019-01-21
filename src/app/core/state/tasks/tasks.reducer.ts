@@ -23,7 +23,7 @@ export function tasksReducer(
 
     switch (action.type) {
       case TaskActionTypes.UpsertTasks:
-        console.log('pong');
+      console.log('upsert');
         return adapter.upsertMany(action.payload.tasks, state);
 
       case TaskActionTypes.ResetTasks:

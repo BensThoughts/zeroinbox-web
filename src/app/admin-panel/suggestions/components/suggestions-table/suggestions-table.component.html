@@ -1,72 +1,93 @@
-<table mat-table [dataSource]="dataSource">
 
-   <!-- Delete Column -->
-   <ng-container matColumnDef="delete">
-     <th mat-header-cell *matHeaderCellDef>
-        Delete
-        <div>
-        <mat-checkbox (change)="$event ? masterToggle('delete') : null"
-                      [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
-                      [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
-        </mat-checkbox>
-        </div>
-     </th>
-     <td mat-cell *matCellDef="let suggestion">
 
-       <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? suggestionToggle('delete', suggestion) : null"
-                     [checked]="suggestion.delete"
-                     [disabled]="suggestion.label">
-       </mat-checkbox>
-                     <!--(change)="$event ? selection.toggle(suggestion) : null"
-                     (change)="$event ? onSuggestionDeleteToggle(suggestion) : null"-->
-       <!--<mat-checkbox [checked]="suggestion.actionDelete"
-                     [disabled]="suggestion.actionLabel"
-                     (change)="onSuggestionDeleteToggle(suggestion)">
-       </mat-checkbox>-->
+<table mat-table [dataSource]="dataSource" class="mat-table">
 
-     </td>
-   </ng-container>
 
-   <!-- Label Column -->
-   <ng-container matColumnDef="label">
-     <th mat-header-cell *matHeaderCellDef>
-       Label
-       <div>
-       <mat-checkbox (change)="$event ? masterToggle('label') : null"
-                     [checked]="selectionLabel.hasValue() && isAllSelected('label')"
-                     [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
-       </mat-checkbox>
-       </div>
-     </th>
-     <td mat-cell *matCellDef="let suggestion">
 
-       <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? suggestionToggle('label', suggestion) : null"
-                     [checked]="suggestion.label"
-                     [disabled]="suggestion.delete">
-
-       </mat-checkbox>
-                           <!-- (change)="onSuggestionLabelToggle(suggestion)">-->
-
-     </td>
-   </ng-container>
 
    <!-- Address Column -->
    <ng-container matColumnDef="address">
-     <th mat-header-cell *matHeaderCellDef> Address </th>
-     <td mat-cell *matCellDef="let suggestion"> {{suggestion.fromAddress}} </td>
+     <th mat-header-cell *matHeaderCellDef>
+
+       <div>
+       <span class="icon-handler">
+       <mat-checkbox (change)="$event ? masterToggle('delete') : null"
+                     [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
+                     [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
+                     <span class="icon-handler-2">
+                     <fa-icon icon="trash-alt"></fa-icon>
+                     </span>
+       </mat-checkbox>
+       </span>
+
+       <span class="icon-handler">
+       <mat-checkbox (change)="$event ? masterToggle('label') : null"
+                     [checked]="selectionLabel.hasValue() && isAllSelected('label')"
+                     [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
+                     <span class="icon-handler-2">
+                     <fa-icon icon="tag"></fa-icon>
+                     </span>
+       </mat-checkbox>
+       </span>
+
+       </div>
+     </th>
+
+     <td mat-cell *matCellDef="let suggestion">
+
+     <div class="table-data">
+       {{suggestion.fromAddress}}
+       <div class="count-text">
+        <span class="count-text2">
+         <span class="icon-handler">
+
+           <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? suggestionToggle('delete', suggestion.id) : null"
+                [checked]="isSelected('delete',suggestion.id)">
+                <span class="icon-handler-2">
+                  <fa-icon size="1x" icon="trash-alt"></fa-icon>
+                </span>
+          </mat-checkbox>
+
+
+       </span>
+
+       <span class="icon-handler">
+         <mat-checkbox (click)="$event.stopPropagation()"
+                     (change)="$event ? suggestionToggle('label', suggestion.id) : null"
+                     [checked]="isSelected('label', suggestion.id)">
+
+                     <span class="icon-handler-2">
+                     <fa-icon size="1x" icon="tag"></fa-icon>
+                     </span>
+
+       </mat-checkbox>
+       </span>
+
+       <span class="count-text3">
+       Threads: {{suggestion.count}}
+       </span>
+
+       </span>
+       </div>
+        </div>
+     </td>
+
    </ng-container>
 
    <!-- Count Column -->
+   <!--
    <ng-container matColumnDef="count">
      <th mat-header-cell *matHeaderCellDef> Count </th>
      <td mat-cell *matCellDef="let suggestion"> {{suggestion.count}} </td>
-   </ng-container>
+   </ng-container>   -->
+
+
 
 
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-row [@removeRow]="isRemoved ? 'add' : 'remove'" *matRowDef="let row; columns: displayedColumns;"></tr>
+   <tr mat-row [@removeRow]="myRemoved ? 'add' : 'remove'" *matRowDef="let row; columns: displayedColumns;"></tr>
  </table>
 
 Only show senders with more than
@@ -83,7 +104,9 @@ Only show senders with more than
 <div>
 <button mat-raised-button (click)="createActions()" >Create Actions</button>
 <mat-paginator [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageEvent = $event">
+               [pageSizeOptions]="pageSizeOptions">
+
 </mat-paginator>
 </div>
+
+               <!--                 (page)="pageEvent = $event">                -->

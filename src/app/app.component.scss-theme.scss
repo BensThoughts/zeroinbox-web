@@ -16,6 +16,17 @@
   }**/
 
 
+  mat-toolbar {
+    mat-icon {
+      color: mat-color($primary, lighter);
+    }
+
+    .logout-button {
+      background-color: mat-color($primary, darker);
+    }
+  }
+
+
   mat-sidenav-container {
 
     .app-sidenav {
@@ -30,7 +41,7 @@
         color: mat-color($primary, lighter);
       }
 
-      .mat-icon {
+      mat-icon {
         color: mat-color($primary, lighter);
       }
 

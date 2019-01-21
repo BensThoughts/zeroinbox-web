@@ -18,11 +18,11 @@ export const sideNavAnimation = trigger('openCloseSidenav', [
     // ...
     state('open', style({
       'width': '180px',
-      'height': '100%'
+
     })),
     state('closed', style({
       'width': '63px',
-      'height': '100%'
+
     })),
     transition('open <=> closed', [
       animate('0.2s')
@@ -39,11 +39,11 @@ export const sideNavAnimation = trigger('openCloseSidenav', [
 export const sideNavContentAnimation = trigger('openCloseSidenavContent', [
     state('open', style({
       'margin-left': '181px',
-      'height': '100%'
+      // 'height': '100%'
     })),
     state('closed', style({
       'margin-left': '64px',
-      'height': '100%'
+      // 'height': '100%'
     })),
     transition('open <=> closed', [
       animate('0.2s')

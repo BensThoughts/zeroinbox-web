@@ -1,7 +1,24 @@
+@import '../../../../../styles-variables';
+
 .loading-container {
   height: 100%;
 }
 
-.container {
-  margin-top: 20px;
+.wrapper {
+  height: 100%;
+  // width: 100%;
+  justify-content: center;
+  // text-align: center;
+  // margin-top: 20px;
+  // max-width: 400px;
+}
+
+.clear-bottom {
+  padding-bottom: 20px;
+}
+
+@media (max-width: map-get($grid-breakpoints, md)) {
+  .clear-bottom {
+    padding-bottom: 90px;
+  }
 }

@@ -6,3 +6,10 @@ export const selectEntities = createSelector(
   selectTasksState,
   fromTasks.selectEntities
 );
+
+export const selectLabelTasks = createSelector(
+  fromTasks.selectAll,
+  (tasks) => {
+    tasks.filter((task) => task.label === true)
+  }
+);

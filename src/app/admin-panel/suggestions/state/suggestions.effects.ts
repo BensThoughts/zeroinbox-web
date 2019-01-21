@@ -1,55 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState, CreateTasksAction } from '@app/core';
-import { CreateSuggestedActionsByNameAction, SuggestionsActionTypes, DeleteSuggestionsAction, UpdateSuggestionsAction } from './suggestions.actions';
-import { map } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { AppState, CreateTasksAction, DeleteTypeTasksAction, LabelTypeTasksAction } from '@app/core';
+import { CreateSuggestedActionsByNameAction, SuggestionsActionTypes, DeleteSuggestionsAction, UpdateSuggestionsAction, LabelByNameSuggestionsAction } from './suggestions.actions';
+import { map, take } from 'rxjs/operators';
 import { ITask } from '@app/core/state/tasks/tasks.model';
 import { ISuggestion } from './suggestions.model';
 import { Update } from '@ngrx/entity';
+import { selectAllSuggestions, selectEntities } from './suggestions.selectors';
+import {  } from './suggestions.reducer';
 
 @Injectable()
 export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
-  createSuggestedActions$ = this.actions$.pipe(
-    ofType<CreateSuggestedActionsByNameAction>(SuggestionsActionTypes.CreateSuggestedActionsByName),
-
+  labelByNameSuggestedActions$ = this.actions$.pipe(
+    ofType<LabelByNameSuggestionsAction>(SuggestionsActionTypes.LabelByNameSuggestions),
     map((action) => {
-      let change: Update<ISuggestion>;
-      let changesArray: Update<ISuggestion>[] = [];
-      let delete_payload: Array<string> = [];
-      let task_payload: ITask[] =
-        action.payload.suggestions.filter((task) => task.label || task.delete)
-          .map((suggestion) => {
-            if (suggestion.label) {
-              let changes = {
-                labelByName: suggestion.fromName
-              }
-              change = {
-                id: suggestion.id,
-                changes
-              }
-              changesArray.push(change);
+      this.store.pipe(
+        select(selectEntities),
+        take(1),
+        map((suggestions) => {
+          let changes;
+          // let changesArray: Update<ISuggestion>[] = [];
+          let labels: Array<{id: string; label: string}> = [];
+          let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
+            let label = suggestions[id].fromName;
+            changes = {
+              labelByName: label
             }
-            if (suggestion.delete) {
-              delete_payload.push(suggestion.id);
-            }
+            labels.push({
+              id: id,
+              label: label
+            })
             return {
-              id: suggestion.id,
-              label: suggestion.label,
-              labelNames: [suggestion.fromName],
-              delete: suggestion.delete
+              id: id,
+              changes
             }
-      });
-      // let delete_payload = task_payload.filter((task) => task.delete).map((task) => task.id);
-      // task_payload = task_payload.filter((task) => task.label || task.delete);
-      this.store.dispatch(new CreateTasksAction({ tasks: task_payload }));
-
-      this.store.dispatch(new DeleteSuggestionsAction({ ids: delete_payload }));
-      this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
+            // changesArray.push(change);
+          });
+          this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
+          this.store.dispatch(new LabelTypeTasksAction({ ids_labels: labels }));
+        })
+      ).subscribe()
     })
+  );
 
+  @Effect({ dispatch: false })
+  deleteSuggestedActions$ = this.actions$.pipe(
+    ofType<DeleteSuggestionsAction>(SuggestionsActionTypes.DeleteSuggestions),
+    map((action) => {
+      this.store.dispatch(new DeleteTypeTasksAction({ ids: action.payload.ids }));
+    })
   );
 
 

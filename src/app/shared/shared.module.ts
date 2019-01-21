@@ -50,6 +50,7 @@ import {
   faCog,
   faChartPie,
   faChevronCircleLeft,
+  faDoorOpen,
   faEdit,
   faFilter,
   faHome,
@@ -61,6 +62,7 @@ import {
   faTag,
   faTasks,
   faTrash,
+  faTrashAlt,
   faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -77,6 +79,7 @@ library.add(
   faCog,
   faChartPie,
   faChevronCircleLeft,
+  faDoorOpen,
   faEdit,
   faFilter,
   faHome,
@@ -88,6 +91,7 @@ library.add(
   faTag,
   faTasks,
   faTrash,
+  faTrashAlt,
   faWindowMaximize,
 
   faGithub,

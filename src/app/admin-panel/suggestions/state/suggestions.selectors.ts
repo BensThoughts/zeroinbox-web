@@ -9,6 +9,11 @@ export const selectSuggestionsState = createFeatureSelector<State, SuggestionsSt
   'suggestions'
 );
 
+export const selectEntities = createSelector(
+  selectSuggestionsState,
+  fromSuggestions.selectEntities
+);
+
 export const selectUniqueSenders = createSelector(
   fromSuggestions.selectTotal
 );

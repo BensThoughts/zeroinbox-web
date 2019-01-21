@@ -5,7 +5,10 @@ import { Update } from '@ngrx/entity';
 export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
 
-  DeleteSuggestions = '[Suggestions Effects] Delete Suggestions',
+  DeleteSuggestions = '[Suggestions Component] Delete Suggestions',
+  LabelByNameSuggestions = '[Suggestions Component] Label By Name',
+
+
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
 
   SuggestionsToggleUpdate = '[Suggestions Table Component] Toggle delete or label true/false',
@@ -29,6 +32,13 @@ export class DeleteSuggestionsAction implements Action {
 
   constructor(public payload: { ids: string[] }) {}
 }
+
+export class LabelByNameSuggestionsAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelByNameSuggestions;
+
+  constructor(public payload: { ids: string[] }) {}
+}
+
 
 export class UpdateSuggestionsAction implements Action {
   readonly type = SuggestionsActionTypes.UpdateSuggestions;
@@ -73,6 +83,8 @@ export type ByCountActions =
   | LoadSuggestionsAction
 
   | DeleteSuggestionsAction
+
+  | LabelByNameSuggestionsAction
 
   | UpdateSuggestionsAction
 

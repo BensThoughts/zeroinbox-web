@@ -1,7 +1,7 @@
-<div class="container">
+
 
 <div *ngIf="sendersLoaded$ | async; else loading">
-
+  <div class="clear-bottom">
   <mat-card>
     <mat-card-title>
       Sort By
@@ -10,21 +10,20 @@
     <mat-card-content>
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Address">
-        <go-suggestions-table></go-suggestions-table>
+        <div>
+        <go-suggestions-table [myData]="suggestions$ | async"></go-suggestions-table>
+        </div>
       </mat-tab>
       <mat-tab label="Size">
         <!--          <go-suggestions-table></go-suggestions-table>         -->
 
       </mat-tab>
-      <mat-tab label="Mailing Lists">
-        <!--          <go-suggestions-table></go-suggestions-table>         -->
 
-      </mat-tab>
     </mat-tab-group>
     </mat-card-content>
+    <mat-card-footer>
+    </mat-card-footer>
   </mat-card>
-
-
 </div>
 
 <!--

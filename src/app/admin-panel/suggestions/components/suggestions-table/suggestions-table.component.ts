@@ -16,6 +16,9 @@ import {
   SuggestionsToggleUpdateAction,
   SetCutoffAction,
   CreateSuggestedActionsByNameAction,
+  DeleteSuggestionsAction,
+  UpdateSuggestionsAction,
+  LabelByNameSuggestionsAction,
 } from '../../state/suggestions.actions';
 
 
@@ -27,6 +30,7 @@ import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../state/suggestions.model';
 import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations';
 import { rowAnimations } from './rowAnimations';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 export interface PageQuery {
   pageIndex: number;
@@ -44,12 +48,15 @@ export interface PageQuery {
 export class SuggestionsTableComponent implements OnInit {
 
 
-  // @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['label', 'delete', 'address', 'count'];
+  @Input() myData: Array<ISuggestion>;
 
-  dataSource: SuggestionsDataSource;
+  displayedColumns: string[] = ['address'];
+
+  // dataSource: SuggestionsDataSource;
+  dataSource: SuggestionsDataSource;// MatTableDataSource<ISuggestion>;
 
   length;
   pageSize = 5;
@@ -72,10 +79,12 @@ export class SuggestionsTableComponent implements OnInit {
 
   handler: Subscription;
 
-  isRemoved = true;
+  myRemoved = true;
+
 
    toggle() {
-     this.isRemoved = !this.isRemoved;
+     this.myRemoved = !this.myRemoved;
+     // return this.isRemoved;
    }
 
   constructor(private store: Store<AppState>) { }
@@ -84,7 +93,10 @@ export class SuggestionsTableComponent implements OnInit {
 
     this.cutoff$ = this.store.pipe(select(selectCutoff));
 
+    // this.dataSource = new SuggestionsDataSource(this.store);
+    // this.dataSource = new MatTableDataSource(this.myData)
     this.dataSource = new SuggestionsDataSource(this.store);
+
 
     const initialPage: PageQuery = {
       pageIndex: 0,
@@ -92,59 +104,29 @@ export class SuggestionsTableComponent implements OnInit {
     };
 
     this.dataSource.loadSuggestions(initialPage);
+    // this.paginator.length = this.dataSource.getLength();
+    // this.dataSource.paginator = this.paginator;
     this.updatePaginatorLength();
-/**
-    this.handler = this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
-      tap((unique_senders_length) => {
-        this.paginator.length = unique_senders_length
-      })
-    ).subscribe()
-**/
 
-    this.mySub = this.dataSource.connect(this.collectionViewer);
+
+
   }
 
   ngAfterViewInit() {
-    this.paginator.page.pipe(
-      tap(() => this.loadSuggestionsPage())
-    ).subscribe();
-
-/**
-    this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
-      tap((unique_senders_length) => {
-        this.length = unique_senders_length
-      })
-    ).subscribe();
-**/
+  this.paginator.page.pipe(
+    tap(() => this.loadSuggestionsPage())
+  ).subscribe();
 
   }
 
 
-
-  ngOnDestory() {
-    this.dataSource.disconnect(this.collectionViewer);
-    // this.handler.unsubscribe();
+  onCutoffSelect({ value: cutoff }) {
+    // this.clearSelections();
+    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
+    // this.dataSource.reloadSuggestions();
+    this.updatePaginatorLength();
   }
 
-
-  updatePaginatorLength() {
-
-    this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
-      take(1),
-      map((unique_senders_length) => {
-        this.paginator.length = unique_senders_length;
-      })
-    ).subscribe();
-
-  }
-
-  clearSelections() {
-    this.selectionDelete.clear();
-    this.selectionLabel.clear();
-  }
 
   loadSuggestionsPage() {
     this.clearSelections();
@@ -157,161 +139,106 @@ export class SuggestionsTableComponent implements OnInit {
       this.dataSource.loadSuggestions(newPage);
   }
 
-  onCutoffSelect({ value: cutoff }) {
-    this.clearSelections();
-    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
-    this.updatePaginatorLength();
-
-/**
+  updatePaginatorLength() {
     this.store.pipe(
       select(selectLengthOfSuggestions_CountMoreThan),
       take(1),
-      map((unique_senders_length) => {
-        this.length = unique_senders_length
+      map((length) => {
+        this.paginator.length = length;
       })
-    ).subscribe()
-**/
+    ).subscribe();
   }
 
+
+  clearSelections() {
+    this.selectionDelete.clear();
+    this.selectionLabel.clear();
+  }
+
+
   createActions() {
-    this.clearSelections();
+    // console.log(this.selectionDelete.selected);
     this.toggle();
-    this.mySub.pipe(
+    if (this.selectionDelete.hasValue()) {
+      this.store.dispatch(new DeleteSuggestionsAction({ ids: this.selectionDelete.selected }));
+    }
+
+    if (this.selectionLabel.hasValue()) {
+      this.store.dispatch(new LabelByNameSuggestionsAction({ ids: this.selectionLabel.selected }));
+    }
+
+    of(true).pipe(
       take(1),
       delay(200),
-      map((suggestions) => {
+      map(() => {
+        if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage) {
+          if (this.dataSource.getLength() === 0) {
+            this.paginator.previousPage();
+          }
+        }
+        this.clearSelections();
+        this.updatePaginatorLength();
         this.toggle();
-        this.store.dispatch(new CreateSuggestedActionsByNameAction({ suggestions: suggestions }));
       })
     ).subscribe();
 
-    this.updatePaginatorLength();
-
-    if (!this.paginator.hasNextPage()) {
-      if (this.isAllSelected('label') || this.isAllSelected('delete')) {
-        this.paginator.previousPage();
-      }
-    }
-
-    // this.toggle();
   }
-/**
-      if (this.isAllSelected('label') || this.isAllSelected('delete')) {
-
-        const newPage: PageQuery = {
-          pageIndex: this.paginator.pageIndex,
-          pageSize: this.paginator.pageSize
-          };
-
-          this.dataSource.loadSuggestions(newPage);
-        // this.paginator.previousPage();
-      }
-**/
-/**
-    this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
-      take(1),
-      map((unique_senders_length) => {
-        this.length = unique_senders_length
-      })
-    ).subscribe()
-**/
 
 
+  suggestionToggle(action: string, id: string) {
 
-
-  suggestionToggle(action: string, iSuggestions: ISuggestion) {
-
-    let selectionModel = this.selectSelectionModel(action);
-
-    let diff = !this.selectActionValue(action, iSuggestions);
-    let changes = this.selectChanges(action, diff);
-
-    if (diff) {
-      selectionModel.select(iSuggestions.id);
+    let selectionModels = this.selectSelectionModels(action);
+    if (selectionModels[0].isSelected(id)) {
+      selectionModels[0].deselect(id);
     } else {
-      selectionModel.deselect(iSuggestions.id);
+      selectionModels[0].select(id);
+      selectionModels[1].deselect(id);
     }
 
-    const newUpdate: Update<ISuggestion> = {
-      id: iSuggestions.id,
-      changes
-    };
-
-    this.store.dispatch(new SuggestionsToggleUpdateAction({ suggestion: newUpdate }));
   }
-
 
   masterToggle(action: string) {
-    let changes = {};
-    let changeArray: Update<ISuggestion>[] = [];
-
-    let oppositeSelectionModel: SelectionModel<string>;
-    const selectionModel = this.selectSelectionModel(action);
-
-    if (this.isAllSelected(action)) {
-      selectionModel.clear();
-      changes = this.selectChanges(action, false);
-      this.mySub.pipe(take(1)).subscribe((iSuggestions: ISuggestion[]) => {
-
-        changeArray = iSuggestions.map((iSuggestion) => {
-          return {
-            id: iSuggestion.id,
-            changes
-          };
-        });
-
-      });
-    } else {
-      if (action === 'delete') {
-        oppositeSelectionModel = this.selectSelectionModel('label');
-        changes = {
-          delete: true,
-          label: false
-        }
-      } else {
-        oppositeSelectionModel = this.selectSelectionModel('delete');
-        changes = {
-          delete: false,
-          label: true
-        }
-      }
-      oppositeSelectionModel.clear();
-      this.mySub.pipe(take(1)).subscribe((iSuggestions: ISuggestion[]) => {
-        changeArray = iSuggestions.map((iSuggestion) => {
-          selectionModel.select(iSuggestion.id);
-          return {
-            id: iSuggestion.id,
-            changes
-          };
+    let selectionModels = this.selectSelectionModels(action);
+    this.isAllSelected(action) ?
+      selectionModels[0].clear() :
+        this.dataSource.getValues().forEach((suggestion) => {
+          selectionModels[0].select(suggestion.id);
+          selectionModels[1].deselect(suggestion.id);
         })
-      });
     }
 
-  this.store.dispatch(new SuggestionsToggleUpdateManyAction({ suggestions: changeArray }));
+  isTotalPageSelected() {
+    const totalSelectedLength = this.selectionLabel.selected.length + this.selectionDelete.selected.length;
+    const totalLength = this.dataSource.getLength();
+    console.log('Total length: ' + totalLength);
+    if (totalSelectedLength === totalLength) {
+      return true;
+    }
+    return false;
   }
-
 
   isAllSelected(action: string) {
 
-    let selectionModel = this.selectSelectionModel(action);
+    let selectionModel = this.selectSelectionModels(action)[0];
     const numSelected = selectionModel.selected.length;
-    let numRows;
-    this.mySub.pipe(take(1)).subscribe((iSuggestionss: ISuggestion[]) => {
-      numRows = iSuggestionss.length
-    });
+    const numRows = this.dataSource.getLength();
 
     return numSelected == numRows;
 
   }
 
-  selectSelectionModel(action: string) {
+  isSelected(action: string, id: string) {
+    let selectionModels = this.selectSelectionModels(action)[0];
+    return selectionModels.isSelected(id);
+  }
+
+  selectSelectionModels(action: string) {
     try {
       switch (action) {
         case 'label':
-          return this.selectionLabel;
+          return [this.selectionLabel, this.selectionDelete];
         case 'delete':
-          return this.selectionDelete;
+          return [this.selectionDelete, this.selectionLabel];
 
         default:
           throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
@@ -322,54 +249,30 @@ export class SuggestionsTableComponent implements OnInit {
     }
   }
 
-  selectActionValue(action: string, iSuggestion: ISuggestion) {
-    try {
-      switch (action) {
-        case 'label':
-          return iSuggestion.label;
-        case 'delete':
-          return iSuggestion.delete;
 
-        default:
-          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
-        }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
-
-  selectChanges(action: string, diff: boolean) {
-    try {
-      switch (action) {
-        case 'label':
-          return {
-            label: diff
-          };
-        case 'delete':
-          return {
-            delete: diff
-          };
-
-        default:
-          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
-      }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
 
 }
 
+
 export class SuggestionsDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
+  private page: PageQuery;
   constructor(private store: Store<AppState>) {
     super();
 
   }
 
+
+  getLength() {
+    return this.suggestionsSubject.value.length;
+  }
+
+  getValues() {
+    return this.suggestionsSubject.value;
+  }
+
   loadSuggestions(page: PageQuery) {
+    this.page = page;
     console.log(page);
     this.store.pipe(
       select(selectPageOfSuggestions_CountMoreThan(page)),

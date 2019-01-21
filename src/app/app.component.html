@@ -1,5 +1,40 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
+  <div class="wrapper">
+    <div class="toolbar">
+      <mat-toolbar color="primary">
+        <span class="spacer">
+        <button mat-icon-button class="d-md-none" (click)="sidenav.toggle(  )">
+          <fa-icon icon="bars"></fa-icon>
+        </button>
+
+        <img src="./assets/logo.png">
+
+
+                    </span>
+          <button mat-flat-button>About</button>
+
+          <button mat-flat-button>FAQ</button>
+            <span>
+          <a (click)="signOut()">
+
+              <button mat-icon-button class="logout-button">
+                <mat-icon class="logout-icon" matListIcon>
+                <fa-icon icon="sign-out-alt"></fa-icon>
+                </mat-icon>
+              </button>
+
+          </a>
+            </span>
+
+
+
+      </mat-toolbar>
+    </div>
+  </div>
+
+
+
   <mat-sidenav-container>
 
     <mat-sidenav #sidenav class="d-md-none sidenav-sm" mode="over" closed role="navigation" position="start">
@@ -27,9 +62,9 @@
 
 
       <!-- Only displayed on md or larger screens -->
-      <div class="d-none d-md-block app-sidenav" [@openCloseSidenav]="isOpen ? 'open' : 'closed'">
-      <!--<mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >-->
-        <div class="container" >
+      <div class="d-none d-md-block app-sidenav">
+      <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
+
         <mat-nav-list>
         <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.link }}">
           <span  class="app-nav-list-icon">
@@ -53,8 +88,8 @@
           </span>
         </a>
         </mat-nav-list>
-      </div>
-    <!--</mat-sidenav>-->
+
+    </mat-sidenav>
     </div>
         <div class="menu-chevron d-none d-md-block">
           <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
@@ -63,34 +98,9 @@
         </div>
 
 
-      <div class="wrapper">
-        <div class="toolbar">
-          <mat-toolbar color="primary">
 
-            <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
-              <fa-icon icon="bars"></fa-icon>
-            </button>
 
-            <img src="./assets/logo.png">
-
-            <span class="">
-              <button mat-flat-button>About</button>
-              <button mat-flat-button>FAQ</button>
-
-              <a (click)="signOut()">
-                <span>
-                  <mat-icon matListIcon>
-                    <fa-icon icon="sign-out-alt"></fa-icon>
-                  </mat-icon>
-                </span>
-              </a>
-            </span>
-
-          </mat-toolbar>
-        </div>
-      </div>
-
-      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="reset-md" style="margin-top: 75px;">
+      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block reset-md container" style="margin-top: 75px;">
         <router-outlet></router-outlet>
       </div>
 
