@@ -6,6 +6,17 @@
   width: 100%;
 }
 
+.wrapper {
+  position: absolute;
+  // width: 100%;
+  top: 60px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+
+}
+
 
 // .toolbar {
 //   position: fixed;
@@ -63,8 +74,8 @@ mat-toolbar {
 
 
 mat-sidenav-container {
-  height: 100%;
-  width: 100%;
+  // height: 100%;
+  // width: 100%;
 
 
 
@@ -107,7 +118,8 @@ mat-sidenav-container {
 
   .app-sidenav {
     position: fixed;
-    margin-top: 56px;
+    left: 0px;
+    // margin-top: 56px;
 
     // position: sticky;
     // left: 100px;
@@ -119,9 +131,6 @@ mat-sidenav-container {
     // z-index: -10;
   }
 
-  .content {
-    // z-index: 1;
-  }
 
 
   @media (max-width: map-get($grid-breakpoints, md)) {
@@ -136,11 +145,16 @@ mat-sidenav-container {
 
   }
 
-  @media (max-width: $toolbar-breakpoint) {
-    .content {
-      margin-top: 56px !important;
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    .container-fluid {
     }
   }
+
+  // @media (max-width: $toolbar-breakpoint) {
+  //  .content {
+      // margin-top: 56px !important;
+  //  }
+  // }
 }
 
 

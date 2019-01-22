@@ -62,8 +62,6 @@ export class SendersEffects {
                   fromAddress: iSender.fromAddress,
                   fromName: iSender.fromNames[0],
                   count: iSender.count,
-                  label: false,
-                  delete: false,
                 };
               });
               this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));

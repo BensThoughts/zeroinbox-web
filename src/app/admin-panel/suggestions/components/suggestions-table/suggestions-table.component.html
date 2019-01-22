@@ -1,5 +1,5 @@
 
-
+<div>
 <table mat-table [dataSource]="dataSource" class="mat-table">
 
 
@@ -87,10 +87,15 @@
 
 
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-row [@removeRow]="myRemoved ? 'add' : 'remove'" *matRowDef="let row; columns: displayedColumns;"></tr>
+   <tr mat-row
+        *matRowDef="let suggestion; columns: displayedColumns;"
+        (click)="toggleFromRow(suggestion.id)"
+        [@removeRow]="myRemoved ? 'add' : 'remove'">
+   </tr>
  </table>
-
-Only show senders with more than
+ </div>
+<div>
+Only show senders at least
 <mat-form-field>
 <mat-select [placeholder]=""
             [ngModel]="cutoff$ | async"
@@ -101,10 +106,12 @@ Only show senders with more than
   </mat-option>
 </mat-select>
 </mat-form-field>
+</div>
 <div>
 <button mat-raised-button (click)="createActions()" >Create Actions</button>
 <mat-paginator [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions">
+               [pageSizeOptions]="pageSizeOptions"
+               showFirstLastButtons="true">
 
 </mat-paginator>
 </div>

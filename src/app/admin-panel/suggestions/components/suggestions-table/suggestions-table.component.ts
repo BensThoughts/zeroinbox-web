@@ -12,25 +12,18 @@ import {
 } from '../../state/suggestions.selectors';
 
 import {
-  SuggestionsToggleUpdateManyAction,
-  SuggestionsToggleUpdateAction,
   SetCutoffAction,
-  CreateSuggestedActionsByNameAction,
   DeleteSuggestionsAction,
-  UpdateSuggestionsAction,
   LabelByNameSuggestionsAction,
 } from '../../state/suggestions.actions';
 
 
-import { Update } from '@ngrx/entity';
-import { Observable, from, of, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../state/suggestions.model';
-import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations';
 import { rowAnimations } from './rowAnimations';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 export interface PageQuery {
   pageIndex: number;
@@ -124,7 +117,9 @@ export class SuggestionsTableComponent implements OnInit {
     // this.clearSelections();
     this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
     // this.dataSource.reloadSuggestions();
+
     this.updatePaginatorLength();
+    this.paginator.firstPage();
   }
 
 
@@ -171,7 +166,7 @@ export class SuggestionsTableComponent implements OnInit {
       take(1),
       delay(200),
       map(() => {
-        if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage) {
+        if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
           if (this.dataSource.getLength() === 0) {
             this.paginator.previousPage();
           }
@@ -184,6 +179,17 @@ export class SuggestionsTableComponent implements OnInit {
 
   }
 
+
+  toggleFromRow(id: string) {
+    if (!this.isSelected('label', id) && !this.isSelected('delete', id)) {
+        this.selectionLabel.select(id);
+    } else if (this.isSelected('label', id)) {
+        this.selectionLabel.deselect(id);
+        this.selectionDelete.select(id);
+    } else {
+      this.selectionDelete.deselect(id);
+    }
+  }
 
   suggestionToggle(action: string, id: string) {
 
@@ -211,6 +217,7 @@ export class SuggestionsTableComponent implements OnInit {
     const totalSelectedLength = this.selectionLabel.selected.length + this.selectionDelete.selected.length;
     const totalLength = this.dataSource.getLength();
     console.log('Total length: ' + totalLength);
+    console.log('Selected length: ' + totalSelectedLength);
     if (totalSelectedLength === totalLength) {
       return true;
     }

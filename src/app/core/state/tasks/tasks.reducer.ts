@@ -12,7 +12,6 @@ export function selectSendersId(l: ITask) {
 export const adapter: EntityAdapter<ITask> =
   createEntityAdapter<ITask>({
     selectId: selectSendersId,
-    // sortComparer: sortByCount
   });
 
 const initialTasksState = adapter.getInitialState();
@@ -22,11 +21,8 @@ export function tasksReducer(
   action: TaskActions): TasksState {
 
     switch (action.type) {
-      case TaskActionTypes.LabelTestTasks:
-        return adapter.map(action.payload.entityMap, state);
 
       case TaskActionTypes.UpsertTasks:
-      console.log('upsert');
         return adapter.upsertMany(action.payload.tasks, state);
 
       case TaskActionTypes.ResetTasks:

@@ -6,6 +6,4 @@ export interface ISuggestion {
   labelByName?: string;
   labelBySize?: string;
   labelByCount?: string;
-  label: boolean;
-  delete: boolean;
 }

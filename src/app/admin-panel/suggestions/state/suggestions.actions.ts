@@ -5,16 +5,10 @@ import { Update } from '@ngrx/entity';
 export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
 
-  DeleteSuggestions = '[Suggestions Component] Delete Suggestions',
-  LabelByNameSuggestions = '[Suggestions Component] Label By Name',
-
+  DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
+  LabelByNameSuggestions = '[Suggestions Table Component] Label By Name',
 
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
-
-  SuggestionsToggleUpdate = '[Suggestions Table Component] Toggle delete or label true/false',
-  SuggestionsToggleUpdateMany = '[Suggestions Table Component] Toggle delete or label true/false for many',
-
-  CreateSuggestedActionsByName = '[Suggestions Effects] Create Suggested Actions',
 
   SetCutoff = '[Suggestions Table Component] Set Cutoff',
 
@@ -52,28 +46,6 @@ export class SetCutoffAction implements Action {
   constructor(public payload: { cutoff: number }) {}
 }
 
-/**
- * [constructor description]
- * @param payload [description]
- */
- export class SuggestionsToggleUpdateAction implements Action {
-   readonly type = SuggestionsActionTypes.SuggestionsToggleUpdate;
-
-   constructor(public payload: { suggestion: Update<ISuggestion> }) {}
- }
-
- export class SuggestionsToggleUpdateManyAction implements Action {
-   readonly type = SuggestionsActionTypes.SuggestionsToggleUpdateMany;
-
-   constructor(public payload: { suggestions: Update<ISuggestion>[] }) {}
- }
-
-
-export class CreateSuggestedActionsByNameAction implements Action {
-  readonly type = SuggestionsActionTypes.CreateSuggestedActionsByName;
-
-  constructor(public payload: { suggestions: ISuggestion[] }) {}
-}
 
 export class ResetSuggestionsStateAction implements Action {
   readonly type = SuggestionsActionTypes.ResetSuggestions;
@@ -83,16 +55,10 @@ export type ByCountActions =
   | LoadSuggestionsAction
 
   | DeleteSuggestionsAction
-
   | LabelByNameSuggestionsAction
 
   | UpdateSuggestionsAction
 
-  | SuggestionsToggleUpdateAction
-  | SuggestionsToggleUpdateManyAction
-
   | SetCutoffAction
-
-  | CreateSuggestedActionsByNameAction
 
   | ResetSuggestionsStateAction

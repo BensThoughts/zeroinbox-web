@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
-import { AppState, CreateTasksAction, DeleteTypeTasksAction, LabelTypeTasksAction, LabelTestTasksAction, UpsertTasksAction } from '@app/core';
-import { CreateSuggestedActionsByNameAction, SuggestionsActionTypes, DeleteSuggestionsAction, UpdateSuggestionsAction, LabelByNameSuggestionsAction } from './suggestions.actions';
-import { map, take } from 'rxjs/operators';
+import { AppState, UpsertTasksAction } from '@app/core';
+import {
+  SuggestionsActionTypes,
+  DeleteSuggestionsAction,
+  UpdateSuggestionsAction,
+  LabelByNameSuggestionsAction
+} from './suggestions.actions';
+import { map, take, mergeMap, exhaustMap } from 'rxjs/operators';
 import { ITask } from '@app/core/state/tasks/tasks.model';
 import { ISuggestion } from './suggestions.model';
-import { Update, EntityMap } from '@ngrx/entity';
-import { selectAllSuggestions, selectEntities, select_Tasks_Suggestions_Entities } from './suggestions.selectors';
-import {  } from './suggestions.reducer';
+import { Update } from '@ngrx/entity';
+import { select_Tasks_Suggestions_Entities, selectEntities } from './suggestions.selectors';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
 
 @Injectable()
@@ -17,8 +21,8 @@ export class SuggestionsEffects {
   @Effect({ dispatch: false })
   labelByNameSuggestedActions$ = this.actions$.pipe(
     ofType<LabelByNameSuggestionsAction>(SuggestionsActionTypes.LabelByNameSuggestions),
-    map((action) => {
-      this.store.pipe(
+    exhaustMap((action) => {
+      return this.store.pipe(
         select(select_Tasks_Suggestions_Entities),
         take(1),
         map((tasks_suggestions) => {
@@ -60,7 +64,7 @@ export class SuggestionsEffects {
           this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
 
         })
-      ).subscribe();
+      );
     })
   );
 
@@ -79,8 +83,7 @@ export class SuggestionsEffects {
           labelNames: []
         };
       });
-      this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }))
-      // this.store.dispatch(new DeleteTypeTasksAction({ ids: action.payload.ids }));
+      this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
     })
   );
 

@@ -1,10 +1,9 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
-  <div class="wrapper">
     <div class="toolbar">
       <mat-toolbar color="primary">
         <span class="spacer">
-        <button mat-icon-button class="d-md-none" (click)="sidenav.toggle(  )">
+        <button mat-icon-button class="d-md-none" (click)="sidenav.toggle()">
           <fa-icon icon="bars"></fa-icon>
         </button>
 
@@ -31,11 +30,10 @@
 
       </mat-toolbar>
     </div>
-  </div>
 
 
 
-  <mat-sidenav-container>
+  <mat-sidenav-container class="wrapper">
 
     <mat-sidenav #sidenav class="d-md-none sidenav-sm" mode="over" closed role="navigation" position="start">
       <mat-nav-list>
@@ -58,7 +56,7 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content  class="content">
+    <mat-sidenav-content  class="content container-fluid">
 
 
       <!-- Only displayed on md or larger screens -->
@@ -100,7 +98,7 @@
 
 
 
-      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block reset-md container" style="margin-top: 75px;">
+      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block reset-md" style="margin-top: 75px;">
         <router-outlet></router-outlet>
       </div>
 

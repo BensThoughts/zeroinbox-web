@@ -43,14 +43,6 @@ export function suggestionsReducer(
       case SuggestionsActionTypes.SetCutoff:
         return { ...state, cutoff: action.payload.cutoff };
 
-
-      case SuggestionsActionTypes.SuggestionsToggleUpdate:
-        return adapter.updateOne(action.payload.suggestion, state);
-
-      case SuggestionsActionTypes.SuggestionsToggleUpdateMany:
-        return adapter.updateMany(action.payload.suggestions, state);
-
-
       case SuggestionsActionTypes.ResetSuggestions:
         return initialSuggestionsState
 
