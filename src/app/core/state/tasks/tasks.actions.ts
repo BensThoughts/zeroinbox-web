@@ -1,14 +1,22 @@
 import {Action} from '@ngrx/store';
 import { ITask } from './tasks.model';
-import { Update } from '@ngrx/entity';
+import { Update, EntityMap, Dictionary } from '@ngrx/entity';
 
 export enum TaskActionTypes {
   CreateTasks = '[Suggestions Component] Create Tasks',
   LabelTypeTasks = '[Suggestions Effects] Label Type Tasks Action',
+  LabelTestTasks = '[Suggestions Component] Label Test Tasks',
   DeleteTypeTasks = '[Suggestions Effects] Delete Type Tasks Action',
   UpsertTasks = '[Tasks Effects] Upsert Tasks Action',
   ResetTasks = '[Auth Effects] Reset Tasks'
 }
+
+export class LabelTestTasksAction implements Action {
+  readonly type = TaskActionTypes.LabelTestTasks;
+
+  constructor(public payload: { entityMap: EntityMap<ITask> }) {}
+}
+
 
 export class CreateTasksAction implements Action {
   readonly type = TaskActionTypes.CreateTasks;
@@ -19,7 +27,7 @@ export class CreateTasksAction implements Action {
 export class LabelTypeTasksAction implements Action {
   readonly type = TaskActionTypes.LabelTypeTasks;
 
-  constructor(public payload: { ids_labels: { id: string, label: string }[] }) {}
+  constructor(public payload: { labels: Dictionary<{id: { label: string } }> }) {}
 }
 
 export class DeleteTypeTasksAction implements Action {
@@ -41,6 +49,8 @@ export class ResetTasksStateAction implements Action {
 
 export type TaskActions =
   | CreateTasksAction
+
+  | LabelTestTasksAction
 
   | LabelTypeTasksAction
   | DeleteTypeTasksAction

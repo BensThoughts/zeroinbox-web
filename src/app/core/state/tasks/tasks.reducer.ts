@@ -22,6 +22,9 @@ export function tasksReducer(
   action: TaskActions): TasksState {
 
     switch (action.type) {
+      case TaskActionTypes.LabelTestTasks:
+        return adapter.map(action.payload.entityMap, state);
+
       case TaskActionTypes.UpsertTasks:
       console.log('upsert');
         return adapter.upsertMany(action.payload.tasks, state);

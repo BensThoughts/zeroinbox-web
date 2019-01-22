@@ -91,6 +91,12 @@ mat-card {
     mat-chip-list {
       text-align: center;
       position: relative;
+
+      mat-chip {
+        code {
+
+        }
+      }
     }
   }
 
@@ -98,26 +104,6 @@ mat-card {
     vertical-align: middle;
   }
 
-
-  @media (max-width: map-get($grid-breakpoints, sm)) {
-    mat-card-subtitle {
-      min-height: auto;
-    }
-  }
-
-  a {
-    fa-icon {
-      position: relative;
-      bottom: 2px;
-      font-size: 16px;
-      margin: 6px;
-    }
-  }
-
-  a[mat-icon-button] {
-    position: relative;
-    left: 5px;
-  }
 }
 
 .clear-bottom {

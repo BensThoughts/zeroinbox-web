@@ -4,6 +4,9 @@ import * as fromSuggestions from './suggestions.reducer';
 import * as fromSettings from '@app/admin-panel/settings/state/settings.selectors';
 import { PageQuery } from '../components/suggestions-table/suggestions-table.component';
 import { AppState } from '@app/core';
+import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
+
+
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
@@ -76,5 +79,14 @@ export const selectPageOfSuggestions_CountMoreThan = (page: PageQuery) => create
           end = start + page.pageSize;
 
     return sendersMore.slice(start, end);
+  }
+);
+
+
+export const select_Tasks_Suggestions_Entities = createSelector(
+  fromTasks.selectEntities,
+  selectEntities,
+  (tasks, suggestions) => {
+    return { tasks: tasks, suggestions: suggestions };
   }
 );

@@ -6,7 +6,7 @@ export enum AuthActionTypes {
   LoginSuccess = '[Auth Effects] Login Success',
   LoginFailure = '[Auth Effects] Login Failure',
   CheckLogin = '[Auth] Check Login',
-  Logout = '[Sidenav Auth] Confirm Logout',
+  Logout = '[Sidenav Auth] Confirm Logout?',
   LogoutCancelled = '[Auth Effects] Logout Cancelled',
   LogoutConfirmed = '[Auth Effects] Logout Confirmed',
   LogoutConfirmedFromOtherWindow = '[Auth Effects] Logout Confirmed From Other Window',

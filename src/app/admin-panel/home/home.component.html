@@ -56,11 +56,11 @@
               <mat-chip-list>
 
               <mat-chip *ngIf="email_profile$ | async as email_profile">
-                Threads: {{ email_profile.threadsTotal }}
+                <code>Threads: {{ email_profile.threadsTotal }}</code>
               </mat-chip>
 
               <mat-chip *ngIf="labels_length$ | async as labels_length">
-                Labels: {{ labels_length }}
+                <code>Labels: {{ labels_length }}</code>
               </mat-chip>
               </mat-chip-list>
               </div>
@@ -94,7 +94,7 @@
             <div *ngIf="unique_senders$ | async as unique_senders; else loadingTmpl">
               <mat-chip-list>
                 <mat-chip>
-                  Unique Senders: {{ unique_senders }}
+                  <code>Unique Senders: {{ unique_senders }}</code>
                 </mat-chip>
               </mat-chip-list>
             </div>

@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 
 import { LabelsModule } from './labels/labels.module';
 import { SuggestionsModule } from './suggestions/suggestions.module';
-import { FiltersModule } from './filters/filters.module';
+import { TasksModule } from './tasks/tasks.module';
 import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { SettingsModule } from './settings/settings.module';
     SharedModule,
     SuggestionsModule,
     LabelsModule,
-    FiltersModule,
+    TasksModule,
     SettingsModule,
     AdminPanelRoutingModule
   ],
