@@ -1,10 +1,10 @@
 
 
-<div class="wrapper">
+<div class="container">
 
     <div class="row">
       <div class="col-sm">
-      <mat-card>
+      <mat-card class="mat-user-card text-center">
         <mat-card-title>
           Welcome...
         </mat-card-title>
@@ -16,7 +16,7 @@
 
 
         <mat-divider></mat-divider>
-        <mat-card-content class="welcome-card">
+        <mat-card-content>
           <span *ngIf="basic_profile$ | async as basic_profile">
             <div>
               {{ basic_profile.name }}
@@ -35,8 +35,8 @@
 </div>
 
 
-<div class="clear-bottom">
-  <div class="wrapper-fluid">
+<div class="">
+  <div class="container">
 
     <div class="row">
       <div class="col-sm">

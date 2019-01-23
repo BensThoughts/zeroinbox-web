@@ -1,8 +1,25 @@
 .login-card-container {
-  height: 100%;
+  max-width: 400px;
 }
 
 .login-card {
-  width: 400px;
+  max-width: 400px;
   // margin-bottom: 150px;
+}
+
+.mat-login-header {
+  margin-bottom: 12px;
+}
+
+.mat-login-divider {
+  height: 10px;
+}
+
+.mat-login-content {
+  margin-top: 8px;
+}
+
+.mat-login-actions {
+  // align-content: flex-end;
+  justify-content: flex-end;
 }

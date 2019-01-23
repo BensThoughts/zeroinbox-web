@@ -1,21 +1,19 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 
 import { MenuItem, menu_items } from './menuitems.data';
-
 
 import {
   sideNavAnimation,
   sideNavContentAnimation,
   sideNavChevronAnimation
 } from './sidenav.animations';
+
 import { Store, select } from '@ngrx/store';
 import { AppState, LogoutAction } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
-import { AuthUserService } from './core/services/auth-user/auth-user.service';
-import { map, tap } from 'rxjs/operators';
 import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 
 
@@ -32,45 +30,48 @@ import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 })
 
 export class AppComponent implements OnInit {
-  title = 'gmail-starter';
+  title = 'Zero-Inbox';
   isProd = env.production;
   envName = env.envName;
   version = env.versions.app;
   year = new Date().getFullYear();
   logo = require('../assets/logo.png');
 
-  theme$: Observable<string>;
-
+  // A list of each menu item MenuItem: { name, route, icon }
   menu_items: MenuItem[] = menu_items;
+
+  // Determines which menu items should be displayed
+  isLoggedIn$: Observable<boolean>;
+
+  // Sets the color theme app-wide
+  theme$: Observable<string>;
 
   // track the state of the sidenav
   isOpen = false;
 
-//  isLoggedIn$: Observable<boolean> = of(false);
-  isLoggedIn$: Observable<boolean>;
 
-   toggle() {
-     this.isOpen = !this.isOpen;
-   }
-
-  constructor(
-    private store: Store<AppState>,
-    private authService: AuthUserService
-  ) {} // { this.gapiService.onLoad().subscribe(); }
+  constructor(private store: Store<AppState>) {}
 
 
   ngOnInit(): void {
-      // used to check if mat-sidenav should be displayed
-      // this.authService.checkLogin();
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
       this.theme$ = this.store.pipe(select(selectTheme));
   }
 
-  
 
-  // used to sign the google user out of the app
-  //  signIn() is implemented in auth/components/login-page.component.ts
+  /**
+   * used to sign the google user out of the app
+   * signIn() is implemented in auth/components/login-page.component.ts
+   */
   public signOut(): void {
     this.store.dispatch(new LogoutAction());
+  }
+
+  /**
+   * Used to open and close the sidenav displayed on medium and larger screens
+   * @return void
+   */
+  toggle() {
+    this.isOpen = !this.isOpen;
   }
 }

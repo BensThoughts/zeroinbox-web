@@ -1,13 +1,14 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
 
-    <div class="toolbar">
+
       <mat-toolbar color="primary">
         <span class="spacer">
         <button mat-icon-button class="d-md-none" (click)="sidenav.toggle()">
           <fa-icon icon="bars"></fa-icon>
         </button>
 
-        <img src="./assets/logo.png">
+        <!--          <img src="./assets/logo.png">         -->
+
 
 
                     </span>
@@ -29,7 +30,7 @@
 
 
       </mat-toolbar>
-    </div>
+
 
 
 
@@ -40,7 +41,7 @@
 
         <div>
 
-          <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.link }}" (click)="sidenav.toggle()">
+          <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}" (click)="sidenav.toggle()">
             <span>
               <mat-icon matListIcon>
                 <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
@@ -98,7 +99,7 @@
 
 
 
-      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block reset-md" style="margin-top: 75px;">
+      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block h-100 reset-md">
         <router-outlet></router-outlet>
       </div>
 

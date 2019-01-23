@@ -94,8 +94,14 @@
    </tr>
  </table>
  </div>
-<div>
-Only show senders at least
+<span class="d-flex flex-wrap justify-content-center align-items-center">
+  <div class="d-md-none">
+    Only show senders with at least
+    </div>
+  <span class="mx-2 d-none d-lg-flex">
+    Only show senders with at least
+  </span>
+  <span class="mx-2">
 <mat-form-field>
 <mat-select [placeholder]=""
             [ngModel]="cutoff$ | async"
@@ -106,14 +112,18 @@ Only show senders at least
   </mat-option>
 </mat-select>
 </mat-form-field>
-</div>
-<div>
-<button mat-raised-button (click)="createActions()" >Create Actions</button>
+</span>
+</span>
+<div class="d-flex justify-content-end align-items-center flex-nowrap">
+<span>
+  <button mat-raised-button (click)="createActions()" >Create Actions</button>
 <mat-paginator [pageSize]="pageSize"
                [pageSizeOptions]="pageSizeOptions"
                showFirstLastButtons="true">
 
 </mat-paginator>
+
+</span>
 </div>
 
                <!--                 (page)="pageEvent = $event">                -->

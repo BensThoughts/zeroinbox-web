@@ -33,10 +33,12 @@ export class SuggestionsEffects {
           let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
 
             let label = suggestions[id].fromName;
+            let address = suggestions[id].fromAddress;
 
             if (tasks[id]) {
               tasksArray.push({
                 id: id,
+                fromAddress: address,
                 label: true,
                 delete: false,
                 labelNames: tasks[id].labelNames.concat(label)
@@ -44,6 +46,7 @@ export class SuggestionsEffects {
             } else {
               tasksArray.push({
                 id: id,
+                fromAddress: address,
                 label: true,
                 delete: false,
                 labelNames: [label]
@@ -74,16 +77,25 @@ export class SuggestionsEffects {
   deleteSuggestedActions$ = this.actions$.pipe(
     ofType<DeleteSuggestionsAction>(SuggestionsActionTypes.DeleteSuggestions),
     map((action) => {
-      let tasksArray: ITask[];
-      tasksArray = action.payload.ids.map((id) => {
-        return {
-          id: id,
-          delete: true,
-          label: false,
-          labelNames: []
-        };
-      });
-      this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
+      this.store.pipe(
+        select(selectEntities),
+        take(1),
+        map((suggestions) => {
+          let tasksArray: ITask[];
+          tasksArray = action.payload.ids.map((id) => {
+            return {
+              id: id,
+              fromAddress: suggestions[id].fromAddress,
+              delete: true,
+              label: false,
+              labelNames: []
+            };
+          });
+          this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
+
+        })
+      ).subscribe()
+
     })
   );
 

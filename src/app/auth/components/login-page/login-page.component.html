@@ -1,18 +1,24 @@
 
-<div fxLayoutAlign="center center" class="login-card-container">
-<mat-card class="login-card">
-  <mat-card-header>
+<div class="container h-100">
+  <div class="h-100 row align-items-center justify-content-center">
+    <div class="col login-card-container">
+<mat-card>
+  <mat-card-header class="mat-login-header">
     Zero Inbox
   </mat-card-header>
-  <mat-divider></mat-divider>
-    <mat-card-content>
+  <div class="mat-login-divider">
+  <mat-divider inset="true"></mat-divider>
+  </div>
+    <mat-card-content class="mat-login-content">
       Zero Inbox is an attachment to for the Gmail inbox. It will give you
       suggestions for actions that you can select to take on your inbox. You
       can also create and manage new actions and filters that it has yet to
       suggest.
     </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions align="end">
     <button mat-raised-button (click)="signIn()" color="primary">Login</button>
   </mat-card-actions>
 </mat-card>
+  </div>
+  </div>
 </div>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '@app/core';
+import { selectLabelTasks, selectDeleteTasks } from '@app/core/state/tasks/tasks.selectors';
 
 @Component({
   selector: 'zi-tasks-component',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  constructor() { }
+  labelTasks$;
+  deleteTasks$;
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.labelTasks$ = this.store.pipe(select(selectLabelTasks));
+    this.deleteTasks$ = this.store.pipe(select(selectDeleteTasks));
   }
 
 }

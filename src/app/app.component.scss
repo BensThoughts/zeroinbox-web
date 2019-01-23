@@ -9,7 +9,7 @@
 .wrapper {
   position: absolute;
   // width: 100%;
-  top: 60px;
+  top: 64px;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -17,6 +17,11 @@
 
 }
 
+@media (max-width: $toolbar-breakpoint) {
+  .wrapper {
+     top: 56px !important;
+  }
+}
 
 // .toolbar {
 //   position: fixed;
@@ -135,6 +140,7 @@ mat-sidenav-container {
 
   @media (max-width: map-get($grid-breakpoints, md)) {
 
+
     .reset-md {
       margin-left: 0px !important;
       height: 100%;
@@ -146,15 +152,12 @@ mat-sidenav-container {
   }
 
   @media (min-width: map-get($grid-breakpoints, md)) {
+
     .container-fluid {
     }
   }
 
-  // @media (max-width: $toolbar-breakpoint) {
-  //  .content {
-      // margin-top: 56px !important;
-  //  }
-  // }
+
 }
 
 

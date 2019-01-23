@@ -1,3 +1,45 @@
-<p>
-  filters works!
-</p>
+<div class="container-fluid">
+  Actions
+    <mat-divider></mat-divider>
+  <mat-tab-group mat-align-tabs="center">
+
+    <mat-tab label="Label">
+      <mat-accordion>
+        <div class="my-3" *ngIf="labelTasks$ | async as labelTasks">
+          <div class="my-1" *ngFor="let task of labelTasks">
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{ task.fromAddress }}
+          </mat-panel-title>
+
+
+
+          </mat-expansion-panel-header>
+              {{ task.labelNames }}
+          </mat-expansion-panel>
+          </div>
+        </div>
+
+      </mat-accordion>
+
+    </mat-tab>
+    <mat-tab label="Delete">
+
+      <div *ngIf="deleteTasks$ | async as deleteTasks">
+        <div *ngFor="let task of deleteTasks">
+        <mat-card>
+          {{ task.fromAddress }}
+        </mat-card>
+        </div>
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+
+
+</div>

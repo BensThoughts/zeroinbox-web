@@ -263,7 +263,7 @@ export class SuggestionsTableComponent implements OnInit {
 
 export class SuggestionsDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
-  private page: PageQuery;
+
   constructor(private store: Store<AppState>) {
     super();
 
@@ -279,7 +279,7 @@ export class SuggestionsDataSource extends DataSource<any> {
   }
 
   loadSuggestions(page: PageQuery) {
-    this.page = page;
+    // this.page = page;
     console.log(page);
     this.store.pipe(
       select(selectPageOfSuggestions_CountMoreThan(page)),
