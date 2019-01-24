@@ -8,6 +8,8 @@ export interface State extends AppState {
 }
 
 export interface SuggestionsState extends EntityState<ISuggestion> {
+  selectionMode: string;
+  suggestionsLoaded: boolean;
   cutoff: number;
 }
 
@@ -22,6 +24,8 @@ export const adapter: EntityAdapter<ISuggestion> =
 
 
 const initialSuggestionsState = adapter.getInitialState({
+  selectionMode: 'COUNT',
+  suggestionsLoaded: false,
   cutoff: 5
 });
 
@@ -32,7 +36,7 @@ export function suggestionsReducer(
     switch (action.type) {
 
       case SuggestionsActionTypes.LoadSuggestions:
-        return adapter.addAll(action.payload.suggestions, state);
+        return adapter.addAll(action.payload.suggestions, { ...state, suggestionsLoaded: true });
 
       case SuggestionsActionTypes.DeleteSuggestions:
         return adapter.removeMany(action.payload.ids, state);

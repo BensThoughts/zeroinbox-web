@@ -65,7 +65,7 @@
       <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
 
         <mat-nav-list>
-        <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.link }}">
+        <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
           <span  class="app-nav-list-icon">
             <mat-icon matListIcon>
               <fa-icon icon="{{ menu_item.icon }}"></fa-icon>

@@ -9,12 +9,14 @@ import {
   selectPageOfSuggestions_CountMoreThan,
   selectLengthOfSuggestions_CountMoreThan,
   selectCutoff,
+  selectPage,
 } from '../../state/suggestions.selectors';
 
 import {
   SetCutoffAction,
   DeleteSuggestionsAction,
   LabelByNameSuggestionsAction,
+  DeleteSuggestionsMetaAction,
 } from '../../state/suggestions.actions';
 
 
@@ -44,7 +46,7 @@ export class SuggestionsTableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  @Input() myData: Array<ISuggestion>;
+  @Input() myData: Observable<ISuggestion[]>;
 
   displayedColumns: string[] = ['address'];
 
@@ -74,6 +76,8 @@ export class SuggestionsTableComponent implements OnInit {
 
   myRemoved = true;
 
+  lengthOfSuggestions_CountMoreThan$;
+
 
    toggle() {
      this.myRemoved = !this.myRemoved;
@@ -85,7 +89,7 @@ export class SuggestionsTableComponent implements OnInit {
   ngOnInit() {
 
     this.cutoff$ = this.store.pipe(select(selectCutoff));
-
+    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectLengthOfSuggestions_CountMoreThan));
     // this.dataSource = new SuggestionsDataSource(this.store);
     // this.dataSource = new MatTableDataSource(this.myData)
     this.dataSource = new SuggestionsDataSource(this.store);
@@ -155,7 +159,7 @@ export class SuggestionsTableComponent implements OnInit {
     // console.log(this.selectionDelete.selected);
     this.toggle();
     if (this.selectionDelete.hasValue()) {
-      this.store.dispatch(new DeleteSuggestionsAction({ ids: this.selectionDelete.selected }));
+      this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
     }
 
     if (this.selectionLabel.hasValue()) {
@@ -264,7 +268,7 @@ export class SuggestionsTableComponent implements OnInit {
 export class SuggestionsDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
     super();
 
   }
@@ -282,12 +286,22 @@ export class SuggestionsDataSource extends DataSource<any> {
     // this.page = page;
     console.log(page);
     this.store.pipe(
+      select(selectPage(page)),
+      tap((suggestions) => {
+        this.suggestionsSubject.next(suggestions);
+      })
+    ).subscribe();
+
+    /**
+    this.store.pipe(
       select(selectPageOfSuggestions_CountMoreThan(page)),
       tap((suggestions) => {
         // console.log(suggestions);
         this.suggestionsSubject.next(suggestions)
       })
     ).subscribe();
+    **/
+
   }
 
   connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {

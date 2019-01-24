@@ -2,10 +2,6 @@
 <div>
 <table mat-table [dataSource]="dataSource" class="mat-table">
 
-
-
-
-   <!-- Address Column -->
    <ng-container matColumnDef="address">
      <th mat-header-cell *matHeaderCellDef>
 
@@ -76,16 +72,6 @@
 
    </ng-container>
 
-   <!-- Count Column -->
-   <!--
-   <ng-container matColumnDef="count">
-     <th mat-header-cell *matHeaderCellDef> Count </th>
-     <td mat-cell *matCellDef="let suggestion"> {{suggestion.count}} </td>
-   </ng-container>   -->
-
-
-
-
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
@@ -93,37 +79,45 @@
         [@removeRow]="myRemoved ? 'add' : 'remove'">
    </tr>
  </table>
- </div>
+
+
+</div>
+
+<ng-template #noneLeft>
+  <div *ngIf="cutoff$ | async as cutoff">
+    There are no suggestions left with at least {{ cutoff }} threads.
+  </div>
+</ng-template>
+
+
 <span class="d-flex flex-wrap justify-content-center align-items-center">
   <div class="d-md-none">
     Only show senders with at least
-    </div>
+  </div>
   <span class="mx-2 d-none d-lg-flex">
     Only show senders with at least
   </span>
   <span class="mx-2">
-<mat-form-field>
-<mat-select [placeholder]=""
-            [ngModel]="cutoff$ | async"
-            (selectionChange)="onCutoffSelect($event)"
-            name="Count Cutoffs">
-  <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
-    {{ t.label }}
-  </mat-option>
-</mat-select>
-</mat-form-field>
+    <mat-form-field>
+      <mat-select [placeholder]=""
+                  [ngModel]="cutoff$ | async"
+                  (selectionChange)="onCutoffSelect($event)"
+                  name="Count Cutoffs">
+                  <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
+                    {{ t.label }}
+                  </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </span>
 </span>
-</span>
+
 <div class="d-flex justify-content-end align-items-center flex-nowrap">
-<span>
-  <button mat-raised-button (click)="createActions()" >Create Actions</button>
-<mat-paginator [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               showFirstLastButtons="true">
+  <span>
+    <button mat-raised-button (click)="createActions()">Create Actions</button>
+    <mat-paginator [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   showFirstLastButtons="true">
 
-</mat-paginator>
-
-</span>
+    </mat-paginator>
+  </span>
 </div>
-
-               <!--                 (page)="pageEvent = $event">                -->

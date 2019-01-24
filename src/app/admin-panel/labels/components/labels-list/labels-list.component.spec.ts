@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LabelsListComponent } from './labels-list.component';
+import { SharedModule } from '@app/shared';
+import { StoreModule } from '@ngrx/store';
+import * as fromRoot from '@app/core/state/core.state';
 
 describe('LabelsListComponent', () => {
   let component: LabelsListComponent;
@@ -8,7 +11,13 @@ describe('LabelsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LabelsListComponent ]
+      declarations: [ LabelsListComponent ],
+      imports: [
+        SharedModule,
+        StoreModule.forRoot({
+          ...fromRoot.reducers
+        })
+      ]
     })
     .compileComponents();
   }));

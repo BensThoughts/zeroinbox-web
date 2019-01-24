@@ -6,7 +6,8 @@ import {
   SuggestionsActionTypes,
   DeleteSuggestionsAction,
   UpdateSuggestionsAction,
-  LabelByNameSuggestionsAction
+  LabelByNameSuggestionsAction,
+  DeleteSuggestionsMetaAction
 } from './suggestions.actions';
 import { map, take, mergeMap, exhaustMap } from 'rxjs/operators';
 import { ITask } from '@app/core/state/tasks/tasks.model';
@@ -75,26 +76,30 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
   deleteSuggestedActions$ = this.actions$.pipe(
-    ofType<DeleteSuggestionsAction>(SuggestionsActionTypes.DeleteSuggestions),
-    map((action) => {
-      this.store.pipe(
+    ofType<DeleteSuggestionsMetaAction>(SuggestionsActionTypes.DeleteSuggestionsMeta),
+    exhaustMap((action) => {
+      return this.store.pipe(
         select(selectEntities),
         take(1),
         map((suggestions) => {
+          console.log(suggestions);
+          console.log(action.payload.ids);
           let tasksArray: ITask[];
           tasksArray = action.payload.ids.map((id) => {
+            let address = suggestions[id].fromAddress;
             return {
               id: id,
-              fromAddress: suggestions[id].fromAddress,
+              fromAddress: address,
               delete: true,
               label: false,
               labelNames: []
             };
           });
+          this.store.dispatch(new DeleteSuggestionsAction({ ids: action.payload.ids }));
           this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
 
         })
-      ).subscribe()
+      )
 
     })
   );

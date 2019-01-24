@@ -2,11 +2,26 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import * as fromRoot from '@app/core/state/core.state';
+import { StoreModule } from '@ngrx/store';
+import { SharedModule } from './shared';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {} from 'jasmine'; // Importing this in this one module seems to solve
+                          // the issue of finding the jasmine types in every
+                          // other
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot({...fromRoot.reducers}),
+        SharedModule
       ],
       declarations: [
         AppComponent
@@ -20,16 +35,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'gmail-starter'`, () => {
+  it(`should have as title 'Zero-Inbox'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('gmail-starter');
+    expect(app.title).toEqual('Zero-Inbox');
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to gmail-starter!');
-  });
 });

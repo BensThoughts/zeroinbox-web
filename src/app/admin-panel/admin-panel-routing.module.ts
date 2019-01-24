@@ -19,7 +19,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'suggestions', component: SuggestionsComponent},
       {path: 'labels', component: LabelsComponent},
-      {path: 'filters', component: TasksComponent},
+      {path: 'tasks', component: TasksComponent},
       {path: 'settings', component: SettingsComponent}
     ],
     canActivate: [AuthGuardService]

@@ -8,7 +8,6 @@
 
 .wrapper {
   position: absolute;
-  // width: 100%;
   top: 64px;
   left: 0px;
   right: 0px;
@@ -23,71 +22,45 @@
   }
 }
 
-// .toolbar {
-//   position: fixed;
-//   width: 100%;
-//   display: flex;
-//   z-index: 10;
 
 mat-toolbar {
   position: fixed;
   width: 100%;
   z-index: 10;
-  // height: 50px;
 
   .spacer {
     flex: 1 1 auto;
   }
 
 
-    button {
-      height: 40px;
-      // border-radius: 25%;
-      margin-left: 5px;
-    }
-
-    .logout {
-      height: 40px;
-
-      width: 40px;
-      padding-right: 10px;
-    }
-
-      .logout-button{
-
-      /*
+  button {
     height: 40px;
-      width: 40px;
-      min-width: 40px;
-      // padding-right: 30px;
-      padding-bottom: 10px;
-      border-radius: 50%;    */
+    margin-left: 5px;
+  }
 
+  .logout {
+    height: 40px;
+    width: 40px;
+    padding-right: 10px;
+  }
 
-      // margin-left: 20px;
+  .logout-button{
 
-      .logout-icon {
-        padding-bottom: 31px;
-        padding-left: 3px;
+    .logout-icon {
+      padding-bottom: 31px;
+      padding-left: 3px;
 
-      }
-
+    }
 
   }
-}
+
+} // END: mat-toolbar
 
 
 
 mat-sidenav-container {
-  // height: 100%;
-  // width: 100%;
-
-
-
 
   .app-nav-list-icon {
-    // position: absolute;
-    // left: 0px;
     padding-bottom: 7px;
     text-align: center;
   }
@@ -100,7 +73,6 @@ mat-sidenav-container {
     position: fixed;
     height: 100%;
     margin-top: 56px;
-    // z-index: 999;
   }
 
   .menu-item-name {
@@ -117,91 +89,41 @@ mat-sidenav-container {
     left: 9px;
     bottom: 10px;
     z-index: 999;
-    // padding-right: 10px;
-    // margin-right: 10px;
   }
 
   .app-sidenav {
     position: fixed;
     left: 0px;
-    // margin-top: 56px;
-
-    // position: sticky;
-    // left: 100px;
-    // top: 100px;
-    // left: 50px;
-    // background-color: black;
     height: 100%;
-    //bottom: 0px;
-    // z-index: -10;
   }
 
 
 
   @media (max-width: map-get($grid-breakpoints, md)) {
 
-
+    /**
+     *
+     *  Usualy @openCloseSidenavContent animation trigger sets the router-outlet
+     *  div margin-left between 64px and 181px to open and close the mini-icon
+     *  sidenav displayed on larger screens.
+     *
+     *  This places the margin-left back to 0px and resets the height and width
+     *  for medium and smaller screens in which the mini-icon sidenav is not
+     *  displayed.
+     *
+     **/
     .reset-md {
       margin-left: 0px !important;
       height: 100%;
       width: 100%;
-      // z-index: 2000;
-      // clear: left;
+
     }
 
   }
 
-  @media (min-width: map-get($grid-breakpoints, md)) {
-
-    .container-fluid {
-    }
-  }
-
-
-}
-
-
-/**
-  .toolbar {
-    position: fixed;
-    width: 100%;
-    display: flex;
-    z-index: 10;
-
-    .nav-button {
-      margin: 0 10px 0 0;
-    }
-
-    fa-icon {
-      font-size: 24px;
-    }
-
-
-    .wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-
-      .content {
-        flex: 1 0 auto;
-        // margin-top: 64px;
-        overflow: hidden;
-      }
-
-    **/
-
+} // END: mat-sidenav-container
 
 
 .menu-item-name {
   padding-left: 10px;
-}
-
-.container {
-  // justify-content: flex-end;
-  // display: inline-flex;
-  // margin-top: 75px;
 }

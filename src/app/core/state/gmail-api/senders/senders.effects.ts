@@ -34,63 +34,51 @@ export class SendersEffects {
       })
     )
 
-  @Effect({ dispatch: false })
+  @Effect()
   inboxThreadIdsRequested$ = this.actions$
     .pipe(
       ofType<InboxThreadIdsRequestedAction>(SendersActionTypes.InboxThreadIdsRequested),
       exhaustMap(() => {
         return this.sendersService.getAllThreadIds({}).pipe(
           map((threadIds) => {
-            this.store.dispatch(new AddAllThreadIdsAction(threadIds.threadIds));
-            this.store.dispatch(new InboxThreadIdsLoadedAction(threadIds.threadIds));
+            return new AddAllThreadIdsAction(threadIds.threadIds);
+            // this.store.dispatch(new InboxThreadIdsLoadedAction(threadIds.threadIds));
           }),
           catchError((err) => of(new InboxThreadIdsRequestFailureAction(err)))
         )
       })
     )
 
-  @Effect({ dispatch: false })
+  @Effect()
   sendersThreadsRequested$ = this.actions$
       .pipe(
-        ofType<InboxThreadIdsLoadedAction>(SendersActionTypes.InboxThreadIdsLoaded),
-        map((action) => {
-          this.sendersService.batchRequest({ body: action.payload }).pipe(
-            tap((iSenders) => {
+        ofType<AddAllThreadIdsAction>(SendersActionTypes.AddAllThreadIds),
+        exhaustMap((action) => {
+          return this.sendersService.batchRequest({ body: action.payload }).pipe(
+            map((iSenders) => {
               let suggestions = iSenders.map<ISuggestion>((iSender) => {
                 return {
                   id: iSender.id,
                   fromAddress: iSender.fromAddress,
                   fromName: iSender.fromNames[0],
                   count: iSender.count,
+                  totalSizeEstimate: iSender.totalSizeEstimate
                 };
               });
-              this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
+              return new LoadSuggestionsAction({ suggestions: suggestions });
             }),
-            map((iSenders) => {
-              console.log('dispatch');
-              this.store.dispatch(new AddAllSendersAction(iSenders));
-            })
-          ).subscribe();
+            // map((iSenders) => {
+            //  console.log('dispatch');
+            //  this.store.dispatch(new AddAllSendersAction(iSenders));
+            // })
+            catchError((err) => of(new SendersRequestFailureAction(err)))
+          );
         }),
-
-/**
-          .subscribe((result) => {
-            result.forEach((result) => {
-              result.actionDelete = false;
-              result.actionLabel = false;
-            });
-            this.store.dispatch(new AddAllSendersAction(result));
-          });
-        }),
-        tap((test) => {
-
-        }),
-**/
         catchError((err) => of(new SendersRequestFailureAction(err))),
 
       );
 
-  @Effect({dispatch: false})
+  @Effect()
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
       filter((evt) => {
@@ -99,7 +87,7 @@ export class SendersEffects {
       filter(evt => evt.newValue !== null),
       map(evt => {
         let sendersState = JSON.parse(evt.newValue);
-        this.store.dispatch(new UpdateSendersStateAction(sendersState));
+        return new UpdateSendersStateAction(sendersState);
       })
     );
 

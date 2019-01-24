@@ -30,7 +30,7 @@ export const menu_items: MenuItem[] = [
   },
   {
     name: 'Actions',
-    route: '/admin-panel/filters',
+    route: '/admin-panel/tasks',
     icon: 'tasks'
   },
   {

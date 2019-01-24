@@ -8,8 +8,12 @@ import {
 // import { selectToken } from '@app/core';
 
 import { Observable, of } from 'rxjs';
-import { fadeElementsAnimation } from '@app/admin-panel/home/elementsAnimations';
-import { selectAllSuggestions, selectByCount, selectSuggestions_CountMoreThan } from '../../state/suggestions.selectors';
+import {
+  selectSuggestions_CountMoreThan,
+  selectSuggestionsLoaded
+} from '../../state/suggestions.selectors';
+
+import { ISuggestion } from '../../state/suggestions.model';
 
 
 @Component({
@@ -20,13 +24,13 @@ import { selectAllSuggestions, selectByCount, selectSuggestions_CountMoreThan } 
 })
 export class SuggestionsComponent implements OnInit {
 
-  sendersLoaded$: Observable<boolean>;
-  suggestions$;
+  suggestionsLoaded$: Observable<boolean>;
+  suggestions$: Observable<ISuggestion[]>;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-      this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
+      this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
       this.suggestions$ = this.store.pipe(select(selectSuggestions_CountMoreThan));
 
   }

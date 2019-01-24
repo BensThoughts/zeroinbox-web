@@ -6,6 +6,7 @@ export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
 
   DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
+  DeleteSuggestionsMeta = '[Suggestions Table Component] Delete Suggestions Meta',
   LabelByNameSuggestions = '[Suggestions Table Component] Label By Name',
 
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
@@ -23,6 +24,12 @@ export class LoadSuggestionsAction implements Action {
 
 export class DeleteSuggestionsAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSuggestions;
+
+  constructor(public payload: { ids: string[] }) {}
+}
+
+export class DeleteSuggestionsMetaAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteSuggestionsMeta;
 
   constructor(public payload: { ids: string[] }) {}
 }
@@ -55,6 +62,8 @@ export type ByCountActions =
   | LoadSuggestionsAction
 
   | DeleteSuggestionsAction
+
+  | DeleteSuggestionsMetaAction
   | LabelByNameSuggestionsAction
 
   | UpdateSuggestionsAction

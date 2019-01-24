@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { SharedModule } from '@app/shared';
+
+import * as fromRoot from '@app/core/state/core.state';
+
+import { StoreModule } from '@ngrx/store';
+
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +14,13 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ],
+      imports: [
+        SharedModule,
+        StoreModule.forRoot({
+          ...fromRoot.reducers
+        })
+      ]
     })
     .compileComponents();
   }));

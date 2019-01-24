@@ -3,6 +3,7 @@ export interface ISuggestion {
   fromAddress: string;
   fromName: string;
   count: number;
+  totalSizeEstimate: number;
   labelByName?: string;
   labelBySize?: string;
   labelByCount?: string;

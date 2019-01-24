@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import * as fromSettings from '@app/admin-panel/settings/state/settings.selectors';
@@ -26,10 +26,25 @@ export const selectAllSuggestions = createSelector(
   fromSuggestions.selectAll
 );
 
+/**
+ * Select boolean to determine if suggestions are loaded from server
+ */
+export const selectSuggestionsLoaded = createSelector(
+  selectSuggestionsState,
+  (state: SuggestionsState) => state.suggestionsLoaded
+);
+
 export const selectCutoff = createSelector(
   selectSuggestionsState,
   (state: SuggestionsState) => state.cutoff
-)
+);
+
+export const selectMode = createSelector(
+  selectSuggestionsState,
+  (state: SuggestionsState) => state.selectionMode
+);
+
+
 
 /**
  * Select senders senders (email addresses) in decending
@@ -83,6 +98,20 @@ export const selectPageOfSuggestions_CountMoreThan = (page: PageQuery) => create
 );
 
 
+
+export const selectPage = (page: PageQuery) => createSelector(
+  selectMode,
+  selectPageOfSuggestions_CountMoreThan(page),
+  (mode, count) => {
+    switch(mode) {
+      case 'COUNT':
+        return count;
+      default:
+        return count;
+    }
+  },
+);
+
 export const select_Tasks_Suggestions_Entities = createSelector(
   fromTasks.selectEntities,
   selectEntities,
@@ -90,3 +119,22 @@ export const select_Tasks_Suggestions_Entities = createSelector(
     return { tasks: tasks, suggestions: suggestions };
   }
 );
+
+
+
+/**
+export const selectBySize = createSelector(
+  selectAllSuggestions,
+  suggestions => suggestions.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
+);
+
+export const selectBySize_MoreThan = (page: PageQuery) => createSelector(
+  selectBySize,
+  (sendersMore) => {
+    const start = page.pageIndex * page.pageSize,
+          end = start + page.pageSize;
+
+    return sendersMore.slice(start, end);
+  }
+);
+**/
