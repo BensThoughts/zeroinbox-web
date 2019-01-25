@@ -2,12 +2,15 @@
   <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex="100%">
 -->
+<!--
 <div class="go-labels-input">
       <mat-card>
         <go-labels-input>
         </go-labels-input>
       </mat-card>
-</div>
+</div>-->
+
+
 <!--
     </div>
   </div>
@@ -16,6 +19,7 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
   <div fxFlex="100%">
 -->
+<!--
 <div class="go-labels-list">
   <mat-card>
     <span *ngIf="gmail_labels$ | async as gmail_labels">
@@ -23,6 +27,33 @@
     </go-labels-list>
     </span>
   </mat-card>
+</div>
+-->
+
+
+
+<div class="my-2">
+<mat-card>
+<google-chart
+  title="Thread Counts"
+  type="ColumnChart"
+  width="300"
+  [columnNames]="columnNames"
+  [data]="testData">
+</google-chart>
+</mat-card>
+</div>
+
+<div class="my-2">
+<mat-card>
+<google-chart
+  title="Total Size"
+  type="ColumnChart"
+  width="300"
+  [columnNames]="sizeNames"
+  [data]="totalSize">
+</google-chart>
+</mat-card>
 </div>
 <!--
   </div>

@@ -5,6 +5,7 @@ import * as fromSettings from '@app/admin-panel/settings/state/settings.selector
 import { PageQuery } from '../components/suggestions-table/suggestions-table.component';
 import { AppState } from '@app/core';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
+import { ISuggestion } from './suggestions.model';
 
 
 
@@ -18,6 +19,7 @@ export const selectEntities = createSelector(
 );
 
 export const selectUniqueSenders = createSelector(
+  selectSuggestionsState,
   fromSuggestions.selectTotal
 );
 
@@ -122,11 +124,126 @@ export const select_Tasks_Suggestions_Entities = createSelector(
 
 
 
-/**
+
 export const selectBySize = createSelector(
   selectAllSuggestions,
   suggestions => suggestions.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
 );
+
+// 10Mb
+export const selectBySize_MBMoreThan_Xl = createSelector(
+  selectBySize,
+  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 10)
+);
+
+// 5Mb
+export const selectBySize_MBMoreThan_Lg = createSelector(
+  selectBySize,
+  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 5)
+);
+
+// 1Mb
+export const selectBySize_MBMoreThan_Md = createSelector(
+  selectBySize,
+  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB)
+);
+
+// .5Mb
+export const selectBySize_MBMoreThan_Sm = createSelector(
+  selectBySize,
+  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB/2)
+);
+
+// .5Mb
+export const selectBySize_MBMoreThan_Xs = createSelector(
+  selectBySize,
+  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate < MB/2)
+);
+
+
+export const selectBySize_MBMoreThan = createSelector(
+  selectBySize,
+  suggestions => {
+    return {
+        Xl: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 10),
+        Lg: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 5),
+        Md: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB),
+        Sm: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB/2),
+        Xs: suggestions.filter((suggestion) => suggestion.totalSizeEstimate < MB/2),
+    }
+  }
+);
+
+export const MB = 1000000;
+export const DECIMAL = 100;
+
+export const selectBySize_Total = createSelector(
+  selectBySize_MBMoreThan,
+  (suggestions) => {
+
+    let results = {
+        Xl: accum(suggestions.Xl),
+        Lg: accum(suggestions.Lg),
+        Md: accum(suggestions.Md),
+        Sm: accum(suggestions.Sm),
+        Xs: accum(suggestions.Xs)
+      }
+    return results;
+  }
+);
+
+
+
+
+export function accum(suggestions: ISuggestion[]) {
+  let acc = suggestions.map((suggestion) => {
+    return suggestion.totalSizeEstimate;
+  });
+  if (acc.length >= 1) {
+    let temp = acc.reduce((accum, curr) => accum + curr) / MB * DECIMAL;
+    return Math.round(temp)/DECIMAL;
+  } else {
+    return 0;
+  }
+}
+
+
+export const selectByCount_MoreThan = createSelector(
+  selectBySize,
+  suggestions => {
+    return {
+        Xl: suggestions.filter((suggestion) => suggestion.count > 500),
+        Lg: suggestions.filter((suggestion) => suggestion.count > 100),
+        Md: suggestions.filter((suggestion) => suggestion.count > 50),
+        Sm: suggestions.filter((suggestion) => suggestion.count > 15),
+        Xs: suggestions.filter((suggestion) => suggestion.count < 15),
+    }
+  }
+);
+
+export const selectByCount_MoreThanTotal = createSelector(
+  selectByCount_MoreThan,
+  (suggestions) => {
+    return {
+      Xl: accumCount(suggestions.Xl),
+      Lg: accumCount(suggestions.Lg),
+      Md: accumCount(suggestions.Md),
+      Sm: accumCount(suggestions.Sm),
+      Xs: accumCount(suggestions.Xs),
+    }
+  }
+);
+
+export function accumCount(suggestions: ISuggestion[]) {
+  let acc = suggestions.map((suggestion) => {
+    return suggestion.count;
+  })
+  if (acc.length >= 1) {
+    return acc.reduce((accum, curr) => accum + curr);
+  } else {
+    return 0;
+  }
+}
 
 export const selectBySize_MoreThan = (page: PageQuery) => createSelector(
   selectBySize,
@@ -137,4 +254,3 @@ export const selectBySize_MoreThan = (page: PageQuery) => createSelector(
     return sendersMore.slice(start, end);
   }
 );
-**/

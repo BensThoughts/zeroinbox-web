@@ -53,7 +53,6 @@ export class SetCutoffAction implements Action {
   constructor(public payload: { cutoff: number }) {}
 }
 
-
 export class ResetSuggestionsStateAction implements Action {
   readonly type = SuggestionsActionTypes.ResetSuggestions;
 }

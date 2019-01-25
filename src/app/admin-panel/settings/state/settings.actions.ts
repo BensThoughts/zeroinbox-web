@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 
 export enum SettingsActionTypes {
   ChangeTheme = '[Settings] Change Theme',
-  ChangeCountCutoff = '[Settings] Change Count Cutoff'
 }
 
 export class SettingsChangeThemeAction implements Action {
@@ -11,12 +10,6 @@ export class SettingsChangeThemeAction implements Action {
   constructor(public payload: { theme: string }) {}
 }
 
-export class SettingsChangeCountCutoffAction implements Action {
-  readonly type = SettingsActionTypes.ChangeCountCutoff;
-
-  constructor(public payload: { countCutoff: number }) {}
-}
 
 export type SettingsActions =
   | SettingsChangeThemeAction
-  | SettingsChangeCountCutoffAction

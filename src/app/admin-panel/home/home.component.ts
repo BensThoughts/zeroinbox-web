@@ -6,11 +6,15 @@ import {
   AppState,
   selectBasicProfile,
   selectEmailProfile,
-  selectUniqueSenders,
+
   GmailLabelsRequested,
   selectLabelsLength,
   selectImageUrl
 } from '@app/core';
+
+import {
+  selectUniqueSenders
+} from '@app/admin-panel/suggestions/state/suggestions.selectors';
 
 import { selectTotal } from '@app/core';
 import { Store, select } from '@ngrx/store';

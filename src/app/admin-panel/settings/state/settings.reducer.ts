@@ -18,9 +18,6 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
     case SettingsActionTypes.ChangeTheme:
       return { ...state, ...action.payload }
 
-    case SettingsActionTypes.ChangeCountCutoff:
-      return { ...state, ...action.payload }
-
     default:
       return state;
   }

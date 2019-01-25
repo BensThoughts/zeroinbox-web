@@ -10,7 +10,6 @@ import {
   LogoutConfirmedAction,
   LogoutCancelledAction,
   LogoutConfirmedFromOtherWindowAction,
-  UpdateAuthState
 } from './auth.actions';
 import { Injectable, NgZone } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
@@ -75,34 +74,9 @@ export class AuthEffects {
       this.authService.getBasicProfile();
       this.authService.getEmailProfile();
       this.store.dispatch(new LoginSuccessAction());
-    })
+    }),
+    catchError(err => of(console.log(err)))
   );
-
-    /**
-    exhaustMap(() => {
-      return this.authService.gapiAuthService$.pipe(
-        tap((authResult) => {
-          if (authResult.isSignedIn) {
-            const user = authResult.currentUser.get();
-            const basicUserProfile = user.getBasicProfile();
-            this.store.dispatch(new LoadNewUserAction(basicUserProfile));
-          }
-        }),
-        map((authResult) => {
-          if (authResult.isSignedIn) {
-            const authResponse = authResult.currentUser.get().getAuthResponse();
-            this.authService.signInSuccessHandler(authResponse);
-            return new LoginSuccessAction({
-              // user: user,
-              authInfo: authResponse
-            });
-          }
-        }),
-
-        catchError(error => of(new LoginFailureAction(error)))
-      );
-    })
-    **/
 
 
   /**
@@ -180,7 +154,7 @@ export class AuthEffects {
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
     ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
     tap( () => {
-      this.authService.logout();
+      // this.authService.logout();
       this.store.dispatch(new ResetUserAction());
       this.store.dispatch(new GmailLabelsRemovedByAuth());
       this.store.dispatch(new ResetSendersStateAction());

@@ -1,0 +1,120 @@
+<div class="fluid-container">
+
+
+<mat-accordion *ngIf="totalSizes">
+  <div class="my-3" *ngIf="totalSizes.Xl > 0">
+    <div class="my-1">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Extra Large
+      </mat-panel-title>
+      <mat-panel-description>
+        More than 500 threads
+      </mat-panel-description>
+
+
+    </mat-expansion-panel-header>
+    <div>
+      <mat-checkbox>{{ phrase }} {{ totalSizes.Xl }} {{ postPhrase }}</mat-checkbox>
+    </div>
+
+    </mat-expansion-panel>
+    </div>
+  </div>
+
+
+  <div class="my-3" *ngIf="totalSizes.Lg > 0">
+    <div class="my-1">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Large
+      </mat-panel-title>
+      <mat-panel-description>
+        More than 100 threads
+      </mat-panel-description>
+
+
+    </mat-expansion-panel-header>
+    <div>
+      <mat-checkbox>{{ phrase }} {{ totalSizes.Lg }} {{ postPhrase }}</mat-checkbox>
+    </div>
+
+    </mat-expansion-panel>
+    </div>
+  </div>
+
+
+  <div class="my-3" *ngIf="totalSizes.Md > 0">
+    <div class="my-1">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Medium
+      </mat-panel-title>
+      <mat-panel-description>
+        More than 50 threads
+      </mat-panel-description>
+
+
+    </mat-expansion-panel-header>
+    <div>
+      <mat-checkbox> {{ phrase }} {{ totalSizes.Md }} {{ postPhrase }}</mat-checkbox>
+    </div>
+
+    </mat-expansion-panel>
+    </div>
+  </div>
+
+  <div class="my-3" *ngIf="totalSizes.Sm > 0">
+    <div class="my-1">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Small
+      </mat-panel-title>
+      <mat-panel-description>
+        More than 15 threads
+      </mat-panel-description>
+
+
+    </mat-expansion-panel-header>
+    <div>
+      <mat-checkbox>{{ phrase }} {{ totalSizes.Sm }} {{ postPhrase }}</mat-checkbox>
+    </div>
+
+    </mat-expansion-panel>
+    </div>
+  </div>
+
+  <div class="my-3" *ngIf="totalSizes.Xs > 0">
+    <div class="my-1">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+        Extra Small
+      </mat-panel-title>
+      <mat-panel-description>
+        Less than 15 threads
+      </mat-panel-description>
+
+
+    </mat-expansion-panel-header>
+    <div>
+      <mat-checkbox>{{ phrase }} {{ totalSizes.Xs }} {{ postPhrase }}</mat-checkbox>
+    </div>
+
+    </mat-expansion-panel>
+    </div>
+  </div>
+
+</mat-accordion>
+
+
+</div>

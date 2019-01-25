@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 // import { GmailLabelService } from '@app/core/services/label/gmail-label.service';
 
 
-import { LabelsModule } from './labels/labels.module';
+import { StatsModule } from './stats/stats.module';
 import { SuggestionsModule } from './suggestions/suggestions.module';
 import { TasksModule } from './tasks/tasks.module';
 import { SettingsModule } from './settings/settings.module';
@@ -23,7 +23,7 @@ import { SettingsModule } from './settings/settings.module';
     CommonModule,
     SharedModule,
     SuggestionsModule,
-    LabelsModule,
+    StatsModule,
     TasksModule,
     SettingsModule,
     AdminPanelRoutingModule

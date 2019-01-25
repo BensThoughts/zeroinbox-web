@@ -61,6 +61,9 @@ import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.eff
 import { SendersService } from './services/gmail-api/senders/senders.service';
 import { SendersEffects } from './state/gmail-api/senders/senders.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
+
+import { GoogleChartsModule } from 'angular-google-charts';
+
 // import { UserEffects } from './state/user/user.effects';
 
 // config of ng-gapi 3rd party library
@@ -82,6 +85,8 @@ const gapiClientConfig: NgGapiClientConfig = {
   imports: [
     CommonModule,    // angular
     HttpClientModule,
+
+    // GoogleChartsModule.forRoot(),
 
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store

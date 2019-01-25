@@ -1,8 +1,8 @@
 
 
-<div *ngIf="suggestionsLoaded$ | async; else loading">
+<div >
   <div class="container-fluid my-4">
-    <div class="row">
+    <div class="row" *ngIf="suggestionsLoaded$ | async; else loading">
       <div class="col mx-0 px-0">
 
       Label By
@@ -17,23 +17,37 @@
       </mat-tab>
       <mat-tab label="Size">
         <!--          <go-suggestions-table></go-suggestions-table>         -->
+        <h1>Sizes</h1>
+        <div *ngIf="totalSizes$ | async as totalSizes">
+        <iz-suggestions-by-size phrase="Total Size: " postPhrase="MB" [totalSizes]="totalSizes"></iz-suggestions-by-size>
+        </div>
 
       </mat-tab>
+
+      <mat-tab label="Count">
+
+        <div *ngIf="totalCounts$ | async as totalCounts">
+        <iz-suggestions-by-size phrase="Total Threads: " postPhrase="" [totalSizes]="totalCounts"></iz-suggestions-by-size>
+        </div>
+
+      </mat-tab>
+
+
 
     </mat-tab-group>
 
 </div>
+
+
+
+
 </div>
-</div>
-</div>
-
-
-
-
-
 
 <ng-template #loading>
   <div class="loading-container" fxLayoutAlign="center center">
     <mat-spinner [strokeWidth]="7"></mat-spinner>
   </div>
 </ng-template>
+
+</div>
+</div>

@@ -1,12 +1,10 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
-import { APP_BASE_HREF } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
 import * as fromRoot from '@app/core/state/core.state';
-import { StoreModule } from '@ngrx/store';
+import * as fromAuthActions from '@app/core/state/auth/auth.actions';
+import { StoreModule, Store } from '@ngrx/store';
 import { SharedModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,6 +13,10 @@ import {} from 'jasmine'; // Importing this in this one module seems to solve
                           // other
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let store: Store<fromRoot.AppState>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -27,7 +29,9 @@ describe('AppComponent', () => {
         AppComponent
       ],
     }).compileComponents();
-  }));
+
+
+    }));
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -40,5 +44,27 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Zero-Inbox');
   });
+
+/**
+  it('should display hidden menu items when logged in', () => {
+
+    store = TestBed.get(Store);
+
+    spyOn(store, 'dispatch').and.callThrough();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    // fixture.detectChanges();
+
+    const action = new fromAuthActions.LoginCompleteAction();
+
+    store.dispatch(action);
+
+    component.isLoggedIn$.subscribe(loggedIn => {
+      expect(loggedIn).toBe(true);
+    });
+
+  });
+**/
 
 });
