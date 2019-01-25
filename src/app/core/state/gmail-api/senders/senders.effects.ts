@@ -20,6 +20,10 @@ import { selectSendersLoaded } from './senders.selectors';
 import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 
+export const MB = 1000000;
+export const DECIMAL = 100;
+
+
 @Injectable()
 export class SendersEffects {
 
@@ -49,6 +53,17 @@ export class SendersEffects {
       })
     )
 
+
+  accum(totalSizeEstimate: number) {
+      if (totalSizeEstimate === undefined) {
+        return 0;
+      } else {
+        let temp = totalSizeEstimate / MB * DECIMAL;
+        return Math.round(temp)/DECIMAL;
+      }
+    }
+
+
   @Effect()
   sendersThreadsRequested$ = this.actions$
       .pipe(
@@ -57,12 +72,13 @@ export class SendersEffects {
           return this.sendersService.batchRequest({ body: action.payload }).pipe(
             map((iSenders) => {
               let suggestions = iSenders.map<ISuggestion>((iSender) => {
+                let totalSizeEstimate = this.accum(iSender.totalSizeEstimate);
                 return {
                   id: iSender.id,
                   fromAddress: iSender.fromAddress,
                   fromName: iSender.fromNames[0],
                   count: iSender.count,
-                  totalSizeEstimate: iSender.totalSizeEstimate
+                  totalSizeEstimate: totalSizeEstimate
                 };
               });
               return new LoadSuggestionsAction({ suggestions: suggestions });

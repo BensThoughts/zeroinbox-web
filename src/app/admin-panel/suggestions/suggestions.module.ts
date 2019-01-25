@@ -9,10 +9,11 @@ import { suggestionsReducer } from './state/suggestions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionsEffects } from './state/suggestions.effects';
 import { SuggestionsBySizeComponent } from './components/suggestions-by-size/suggestions-by-size.component';
+import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
 
 
 @NgModule({
-  declarations: [SuggestionsComponent, SuggestionsTableComponent, SuggestionsBySizeComponent],
+  declarations: [SuggestionsComponent, SuggestionsTableComponent, SuggestionsBySizeComponent, SuggestionsSizeTableComponent],
   imports: [
     CommonModule,
     SharedModule,

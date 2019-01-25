@@ -13,6 +13,8 @@ export enum SuggestionsActionTypes {
 
   SetCutoff = '[Suggestions Table Component] Set Cutoff',
 
+  SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
+
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
 
@@ -53,6 +55,12 @@ export class SetCutoffAction implements Action {
   constructor(public payload: { cutoff: number }) {}
 }
 
+export class SetSizeCutoffAction implements Action {
+  readonly type = SuggestionsActionTypes.SetSizeCutoff;
+
+  constructor(public payload: { sizeCutoff: number }) {}
+}
+
 export class ResetSuggestionsStateAction implements Action {
   readonly type = SuggestionsActionTypes.ResetSuggestions;
 }
@@ -68,5 +76,7 @@ export type ByCountActions =
   | UpdateSuggestionsAction
 
   | SetCutoffAction
+
+  | SetSizeCutoffAction
 
   | ResetSuggestionsStateAction

@@ -12,16 +12,15 @@
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Name">
         <mat-card class="my-2">
-        <go-suggestions-table [myData]="suggestions$"></go-suggestions-table>
+        <go-suggestions-table></go-suggestions-table>
         </mat-card>
       </mat-tab>
       <mat-tab label="Size">
         <!--          <go-suggestions-table></go-suggestions-table>         -->
-        <h1>Sizes</h1>
-        <div *ngIf="totalSizes$ | async as totalSizes">
-        <iz-suggestions-by-size phrase="Total Size: " postPhrase="MB" [totalSizes]="totalSizes"></iz-suggestions-by-size>
-        </div>
-
+        <mat-card class="my-2">
+        <go-suggestions-size-table></go-suggestions-size-table>
+        </mat-card>
+        
       </mat-tab>
 
       <mat-tab label="Count">

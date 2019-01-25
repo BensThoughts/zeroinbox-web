@@ -106,8 +106,10 @@ export const selectPage = (page: PageQuery) => createSelector(
   selectPageOfSuggestions_CountMoreThan(page),
   (mode, count) => {
     switch(mode) {
+
       case 'COUNT':
         return count;
+
       default:
         return count;
     }
@@ -130,46 +132,63 @@ export const selectBySize = createSelector(
   suggestions => suggestions.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
 );
 
-// 10Mb
-export const selectBySize_MBMoreThan_Xl = createSelector(
-  selectBySize,
-  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 10)
+export const selectSizeCutoff = createSelector(
+  selectSuggestionsState,
+  (state: SuggestionsState) => state.sizeCutoff
 );
 
-// 5Mb
-export const selectBySize_MBMoreThan_Lg = createSelector(
+
+export const EX_LARGE = 1;
+export const LARGE = .5;
+export const MEDIUM = .3;
+export const SMALL = .2;
+
+export const selectBySizeGroup = createSelector(
   selectBySize,
-  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 5)
+  selectSizeCutoff,
+  (suggestions, cutoff) => {
+    switch (cutoff) {
+
+      case 4:
+        return suggestions.filter((suggestion) => {
+          return suggestion.totalSizeEstimate >= EX_LARGE
+        });
+      case 3:
+        return suggestions.filter((suggestion) => {
+          return suggestion.totalSizeEstimate < EX_LARGE && suggestion.totalSizeEstimate >= LARGE;
+        });
+      case 2:
+        return  suggestions.filter((suggestion) => {
+          return suggestion.totalSizeEstimate < LARGE && suggestion.totalSizeEstimate >= MEDIUM;
+        });
+      case 1:
+        return suggestions.filter((suggestion) => {
+          return suggestion.totalSizeEstimate < MEDIUM && suggestion.totalSizeEstimate >= SMALL;
+        });
+      case 0:
+        return suggestions.filter((suggestion) => {
+                return suggestion.totalSizeEstimate < SMALL;
+               })
+
+      default:
+        return suggestions.filter((suggestion) => {
+                  return suggestion.totalSizeEstimate < EX_LARGE && suggestion.totalSizeEstimate >= LARGE;
+                });
+    }
+  }
 );
 
-// 1Mb
-export const selectBySize_MBMoreThan_Md = createSelector(
-  selectBySize,
-  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB)
-);
-
-// .5Mb
-export const selectBySize_MBMoreThan_Sm = createSelector(
-  selectBySize,
-  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB/2)
-);
-
-// .5Mb
-export const selectBySize_MBMoreThan_Xs = createSelector(
-  selectBySize,
-  suggestions => suggestions.filter((suggestion) => suggestion.totalSizeEstimate < MB/2)
-);
 
 
 export const selectBySize_MBMoreThan = createSelector(
   selectBySize,
   suggestions => {
     return {
-        Xl: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 10),
-        Lg: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB * 5),
-        Md: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB),
-        Sm: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > MB/2),
-        Xs: suggestions.filter((suggestion) => suggestion.totalSizeEstimate < MB/2),
+        Xl: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > 10),
+        Lg: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > 5),
+        Md: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > 1),
+        Sm: suggestions.filter((suggestion) => suggestion.totalSizeEstimate > 1/2),
+        Xs: suggestions.filter((suggestion) => suggestion.totalSizeEstimate < 1/2),
     }
   }
 );
@@ -200,8 +219,7 @@ export function accum(suggestions: ISuggestion[]) {
     return suggestion.totalSizeEstimate;
   });
   if (acc.length >= 1) {
-    let temp = acc.reduce((accum, curr) => accum + curr) / MB * DECIMAL;
-    return Math.round(temp)/DECIMAL;
+    return acc.reduce((accum, curr) => accum + curr);
   } else {
     return 0;
   }
@@ -245,8 +263,13 @@ export function accumCount(suggestions: ISuggestion[]) {
   }
 }
 
-export const selectBySize_MoreThan = (page: PageQuery) => createSelector(
-  selectBySize,
+export const selectBySizeLength = createSelector(
+  selectBySizeGroup,
+  (suggestions) => suggestions.length
+);
+
+export const selectBySizePage = (page: PageQuery) => createSelector(
+  selectBySizeGroup,
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;

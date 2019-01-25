@@ -62,7 +62,7 @@
        </span>
 
        <span class="count-text3">
-       Threads: {{suggestion.count}}
+       Size: {{suggestion.totalSizeEstimate}} MB
        </span>
 
        </span>
@@ -92,22 +92,23 @@
 
 <span class="d-flex flex-wrap justify-content-center align-items-center">
   <div class="d-md-none">
-    Only show senders with at least
+    Only show senders with
   </div>
   <span class="mx-2 d-none d-md-flex">
-    Only show senders with at least
+    Only show senders with
   </span>
   <span class="mx-2">
     <mat-form-field>
       <mat-select [placeholder]=""
-                  [ngModel]="cutoff$ | async"
+                  [ngModel]="sizeCutoff$ | async"
                   (selectionChange)="onCutoffSelect($event)"
-                  name="Count Cutoffs">
-                  <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
+                  name="Size Cutoffs">
+                  <mat-option *ngFor="let t of sizeCutoffs" [value]="t.value">
                     {{ t.label }}
                   </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> emails.
+
   </span>
 </span>
 

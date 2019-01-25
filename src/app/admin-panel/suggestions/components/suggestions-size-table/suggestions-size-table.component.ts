@@ -10,6 +10,9 @@ import {
   selectLengthOfSuggestions_CountMoreThan,
   selectCutoff,
   selectPage,
+  selectBySizePage,
+  selectBySizeLength,
+  selectSizeCutoff,
 } from '../../state/suggestions.selectors';
 
 import {
@@ -17,6 +20,7 @@ import {
   DeleteSuggestionsAction,
   LabelByNameSuggestionsAction,
   DeleteSuggestionsMetaAction,
+  SetSizeCutoffAction,
 } from '../../state/suggestions.actions';
 
 
@@ -33,25 +37,25 @@ export interface PageQuery {
 }
 
 @Component({
-  selector: 'go-suggestions-table',
-  templateUrl: './suggestions-table.component.html',
-  styleUrls: ['./suggestions-table.component.scss'],
+  selector: 'go-suggestions-size-table',
+  templateUrl: './suggestions-size-table.component.html',
+  styleUrls: ['./suggestions-size-table.component.scss'],
   animations: [rowAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class SuggestionsTableComponent implements OnInit {
+export class SuggestionsSizeTableComponent implements OnInit {
 
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  // @Input() myData: Observable<ISuggestion[]>;
+  @Input() myData: Observable<ISuggestion[]>;
 
   displayedColumns: string[] = ['address'];
 
   // dataSource: SuggestionsDataSource;
-  dataSource: SuggestionsDataSource;// MatTableDataSource<ISuggestion>;
+  dataSource: SuggestionsBySizeDataSource;// MatTableDataSource<ISuggestion>;
 
   length;
   pageSize = 5;
@@ -63,13 +67,13 @@ export class SuggestionsTableComponent implements OnInit {
   collectionViewer: CollectionViewer;
   mySub: Observable<ISuggestion[]>;
 
-  cutoff$: Observable<number>;
-  countCutoffs = [
-    { value: 1, label: '1 thread' },
-    { value: 5, label: '5 threads' },
-    { value: 10, label: '10 threads' },
-    { value: 20, label: '20 threads' },
-    { value: 50, label: '50 threads' }
+  sizeCutoff$: Observable<number>;
+  sizeCutoffs = [
+    { value: 0, label: 'extra small' },
+    { value: 1, label: 'small' },
+    { value: 2, label: 'medium' },
+    { value: 3, label: 'large' },
+    { value: 4, label: 'extra large' }
   ];
 
   handler: Subscription;
@@ -88,11 +92,11 @@ export class SuggestionsTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.cutoff$ = this.store.pipe(select(selectCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectLengthOfSuggestions_CountMoreThan));
+    this.sizeCutoff$ = this.store.pipe(select(selectSizeCutoff));
+    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectBySizeLength));
     // this.dataSource = new SuggestionsDataSource(this.store);
     // this.dataSource = new MatTableDataSource(this.myData)
-    this.dataSource = new SuggestionsDataSource(this.store);
+    this.dataSource = new SuggestionsBySizeDataSource(this.store);
 
 
     const initialPage: PageQuery = {
@@ -119,7 +123,7 @@ export class SuggestionsTableComponent implements OnInit {
 
   onCutoffSelect({ value: cutoff }) {
     // this.clearSelections();
-    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
+    this.store.dispatch(new SetSizeCutoffAction({ sizeCutoff: cutoff }));
     // this.dataSource.reloadSuggestions();
 
     this.updatePaginatorLength();
@@ -140,7 +144,7 @@ export class SuggestionsTableComponent implements OnInit {
 
   updatePaginatorLength() {
     this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
+      select(selectBySizeLength),
       take(1),
       map((length) => {
         this.paginator.length = length;
@@ -265,7 +269,7 @@ export class SuggestionsTableComponent implements OnInit {
 }
 
 
-export class SuggestionsDataSource extends DataSource<any> {
+export class SuggestionsBySizeDataSource extends DataSource<any> {
   private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
 
   constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
@@ -286,7 +290,7 @@ export class SuggestionsDataSource extends DataSource<any> {
     // this.page = page;
     console.log(page);
     this.store.pipe(
-      select(selectPage(page)),
+      select(selectBySizePage(page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })

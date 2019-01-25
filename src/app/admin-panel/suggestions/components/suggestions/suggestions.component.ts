@@ -27,7 +27,9 @@ import { ISuggestion } from '../../state/suggestions.model';
 export class SuggestionsComponent implements OnInit {
 
   suggestionsLoaded$: Observable<boolean>;
+
   suggestions$: Observable<ISuggestion[]>;
+  sizeSuggestions$;
 
   totalSizes$;
   totalCounts$;
@@ -37,7 +39,8 @@ export class SuggestionsComponent implements OnInit {
 
   ngOnInit() {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
-      this.suggestions$ = this.store.pipe(select(selectSuggestions_CountMoreThan));
+      // this.suggestions$ = this.store.pipe(select(selectSuggestions_CountMoreThan));
+
 
 
 
