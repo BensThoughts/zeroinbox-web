@@ -64,10 +64,10 @@ export class SuggestionsTableComponent implements OnInit {
   cutoff$: Observable<number>;
   countCutoffs = [
     { value: 1, label: '1 thread' },
-    { value: 5, label: '5 threads' },
-    { value: 10, label: '10 threads' },
-    { value: 20, label: '20 threads' },
-    { value: 50, label: '50 threads' }
+    { value: 15, label: '15 threads' },
+    { value: 50, label: '50 threads' },
+    { value: 100, label: '100 threads' },
+    { value: 500, label: '500 threads' }
   ];
 
   handler: Subscription;

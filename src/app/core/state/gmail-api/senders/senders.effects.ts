@@ -105,7 +105,7 @@ export class SendersEffects {
 
     );
 
-    accum(totalSizeEstimate: number) {
+    toMB(totalSizeEstimate: number) {
         if (totalSizeEstimate === undefined) {
           return 0;
         } else {
@@ -123,7 +123,8 @@ export class SendersEffects {
         return this.sendersService.getSuggestions().pipe(
           map((response) => {
             let suggestions: ISuggestion[] = response.suggestions.map((suggestion) => {
-              let totalSizeEstimate = this.accum(suggestion.totalSizeEstimate);
+              // console.log(suggestion);
+              let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
               return {
                 id: suggestion.id,
                 fromAddress: suggestion.fromAddress,
@@ -134,6 +135,9 @@ export class SendersEffects {
             })
             console.log('suggestions response');
             return new LoadSuggestionsAction({ suggestions: suggestions });
+          }),
+          catchError((err) => {
+            return of(console.error(err));
           })
         );
       }),
