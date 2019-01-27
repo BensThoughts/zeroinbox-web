@@ -1,73 +1,67 @@
-<!--
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-    <div fxFlex="100%">
--->
-<!--
-<div class="go-labels-input">
-      <mat-card>
-        <go-labels-input>
-        </go-labels-input>
-      </mat-card>
-</div>-->
 
 
-<!--
-    </div>
-  </div>
--->
-<!--
-<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <div fxFlex="100%">
--->
-<!--
-<div class="go-labels-list">
+<div class="my-2" *ngIf="sg_Ts$ | async as sg_Ts">
   <mat-card>
-    <span *ngIf="gmail_labels$ | async as gmail_labels">
-    <go-labels-list [labelsList]="gmail_labels">
-    </go-labels-list>
-    </span>
+    <app-stats-barchart
+      title="Total Size in MB x Size Count"
+      type="ColumnChart"
+      [sizes]="sg_Ts"
+      [columnNames]="sizesColumnNames">
+    </app-stats-barchart>
   </mat-card>
 </div>
--->
 
-
-
-<div class="my-2">
-<mat-card>
-<google-chart
-  title="Thread Counts"
-  type="ColumnChart"
-  width="300"
-  [columnNames]="columnNames"
-  [data]="testData">
-</google-chart>
-</mat-card>
+<div class="my-2" *ngIf="sg_Tc$ | async as sg_Tc">
+  <mat-card>
+    <app-stats-barchart
+      title="Total Number of Threads x Size Count"
+      type="ColumnChart"
+      [sizes]="sg_Tc"
+      [columnNames]="sizesColumnNames">
+    </app-stats-barchart>
+  </mat-card>
 </div>
 
-<div class="my-2">
-<mat-card>
-<google-chart
-  title="Total Size"
-  type="ColumnChart"
-  width="300"
-  [columnNames]="sizeNames"
-  [data]="totalSize">
-</google-chart>
-</mat-card>
+<div class="my-2" *ngIf="sg_Tl$ | async as sg_Tl">
+  <mat-card>
+    <app-stats-barchart
+      title="Total Number of Senders x Size Count"
+      type="ColumnChart"
+      [sizes]="sg_Tl"
+      [columnNames]="sizesColumnNames">
+    </app-stats-barchart>
+  </mat-card>
 </div>
-<!--
-  </div>
+
+<div class="my-2" *ngIf="cg_Ts$ | async as cg_Ts">
+  <mat-card>
+    <app-stats-barchart
+      title="Total Size in MB x Thread Count"
+      type="ColumnChart"
+      [sizes]="cg_Ts"
+      [columnNames]="countColumnNames">
+    </app-stats-barchart>
+  </mat-card>
 </div>
--->
 
+<div class="my-2" *ngIf="cg_Tc$ | async as cg_Tc">
+  <mat-card>
+    <app-stats-barchart
+      title="Total Number of Threads x Thread Count"
+      type="ColumnChart"
+      [sizes]="cg_Tc"
+      [columnNames]="countColumnNames">
+    </app-stats-barchart>
+  </mat-card>
+</div>
 
-
-<!--
-  <go-labels-list [labelsList]="gmail_labels"></go-labels-list>
-<mat-card>
-  <mat-card-title>
-    Your senders labels
-  </mat-card-title>
-  <go-labels-list [labelsList]="labels"></go-labels-list>
-</mat-card>
--->
+<div class="my-2" *ngIf="cg_Tl$ | async as cg_Tl">
+  <mat-card>
+    <app-stats-barchart
+      title="Total Number of Senders x Thread Count"
+      type="ColumnChart"
+      [sizes]="cg_Tl"
+      [columnNames]="countColumnNames">
+    </app-stats-barchart>
+  </mat-card>
+</div>

@@ -11,9 +11,11 @@ export enum SendersActionTypes {
   InboxThreadIdsLoaded = '[Senders Effects] Inbox Thread Ids Loaded',
   AddAllThreadIds = '[Senders Effects] Add All threadIds',
 
-  AllSendersRequested = '[Senders Effects] Senders Messages Requested',
+  AllSuggestionsRequested = '[Senders Effects] Senders Messages Requested',
   SendersRequestFailure = '[Senders Effects] Senders Threads Request Failure',
   AddAllSenders = '[Senders Effects] Add All Senders',
+
+  RequestLoadingStatus = '[Senders Effects] Get Loading Status',
 
   SendersRemoveMany = '[Suggestions Component] Senders Remove Many',
 
@@ -62,8 +64,8 @@ export interface PageQuery {
  * [constructor description]
  * @param payload [description]
  */
- export class AllSendersRequestedAction implements Action {
-   readonly type = SendersActionTypes.SendersRequested;
+ export class AllSuggestionsRequestedAction implements Action {
+   readonly type = SendersActionTypes.AllSuggestionsRequested;
  }
 
  export class SendersRequestFailureAction implements Action {
@@ -99,6 +101,9 @@ export class ResetSendersStateAction implements Action {
   readonly type = SendersActionTypes.ResetSendersState;
 }
 
+export class RequestLoadingStatusAction implements Action {
+  readonly type = SendersActionTypes.RequestLoadingStatus;
+}
 
 export type SendersActions =
   | SendersRequestedAction
@@ -108,9 +113,11 @@ export type SendersActions =
   | AddAllThreadIdsAction
   | InboxThreadIdsLoadedAction
 
-  | AllSendersRequestedAction
+  | AllSuggestionsRequestedAction
   | SendersRequestFailureAction
   | AddAllSendersAction
+
+  | RequestLoadingStatusAction
 
   | SendersRemoveManyAction
 

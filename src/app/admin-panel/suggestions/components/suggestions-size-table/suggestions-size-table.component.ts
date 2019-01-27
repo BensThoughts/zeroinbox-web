@@ -6,21 +6,15 @@ import {
 } from '@app/core';
 
 import {
-  selectPageOfSuggestions_CountMoreThan,
-  selectLengthOfSuggestions_CountMoreThan,
-  selectCutoff,
-  selectPage,
-  selectBySizePage,
-  selectBySizeLength,
+  selectBySizeGroupPage,
+  selectBySizeGroupLength,
   selectSizeCutoff,
 } from '../../state/suggestions.selectors';
 
 import {
-  SetCutoffAction,
-  DeleteSuggestionsAction,
-  LabelByNameSuggestionsAction,
   DeleteSuggestionsMetaAction,
   SetSizeCutoffAction,
+  LabelBySizeSuggestionsAction,
 } from '../../state/suggestions.actions';
 
 
@@ -93,7 +87,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
   ngOnInit() {
 
     this.sizeCutoff$ = this.store.pipe(select(selectSizeCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectBySizeLength));
+    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectBySizeGroupLength));
     // this.dataSource = new SuggestionsDataSource(this.store);
     // this.dataSource = new MatTableDataSource(this.myData)
     this.dataSource = new SuggestionsBySizeDataSource(this.store);
@@ -144,7 +138,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   updatePaginatorLength() {
     this.store.pipe(
-      select(selectBySizeLength),
+      select(selectBySizeGroupLength),
       take(1),
       map((length) => {
         this.paginator.length = length;
@@ -167,7 +161,14 @@ export class SuggestionsSizeTableComponent implements OnInit {
     }
 
     if (this.selectionLabel.hasValue()) {
-      this.store.dispatch(new LabelByNameSuggestionsAction({ ids: this.selectionLabel.selected }));
+      let sizeCutoff = 0;
+      this.sizeCutoff$.pipe(
+        take(1),
+        map((cutoff) => {
+          sizeCutoff = cutoff;
+        })
+      ).subscribe();
+      this.store.dispatch(new LabelBySizeSuggestionsAction({ ids: this.selectionLabel.selected, size: sizeCutoff }));
     }
 
     of(true).pipe(
@@ -290,7 +291,7 @@ export class SuggestionsBySizeDataSource extends DataSource<any> {
     // this.page = page;
     console.log(page);
     this.store.pipe(
-      select(selectBySizePage(page)),
+      select(selectBySizeGroupPage(page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })

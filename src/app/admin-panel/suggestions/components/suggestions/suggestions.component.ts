@@ -9,13 +9,12 @@ import {
 
 import { Observable, of } from 'rxjs';
 import {
-  selectSuggestions_CountMoreThan,
   selectSuggestionsLoaded,
-  selectBySize_Total,
-  selectByCount_MoreThanTotal
+  selectByCountGroup_TS,
+  selectByCountGroup_TC,
+  selectByCountGroup_TL,
 } from '../../state/suggestions.selectors';
 
-import { ISuggestion } from '../../state/suggestions.model';
 
 
 @Component({
@@ -28,25 +27,20 @@ export class SuggestionsComponent implements OnInit {
 
   suggestionsLoaded$: Observable<boolean>;
 
-  suggestions$: Observable<ISuggestion[]>;
-  sizeSuggestions$;
-
-  totalSizes$;
   totalCounts$;
-
+  totalLengths$;
+  totalSizes$;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
-      // this.suggestions$ = this.store.pipe(select(selectSuggestions_CountMoreThan));
 
 
+      this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
+      this.totalLengths$ = this.store.pipe(select(selectByCountGroup_TL));
+      this.totalSizes$ = this.store.pipe(select(selectByCountGroup_TS));
 
-
-
-      this.totalSizes$ = this.store.pipe(select(selectBySize_Total));
-      this.totalCounts$ = this.store.pipe(select(selectByCount_MoreThanTotal));
   }
 
 }

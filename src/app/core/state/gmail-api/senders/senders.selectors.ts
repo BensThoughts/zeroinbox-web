@@ -39,6 +39,11 @@ export const selectSendersLoaded = createSelector(
   (state: SendersState) => state.allSendersLoaded
 );
 
+export const selectThreadIdsLoaded = createSelector(
+  selectSenders,
+  (state: SendersState) => state.allThreadIdsLoaded
+);
+
 
 export const selectAllSenders = createSelector(
   selectSendersState,

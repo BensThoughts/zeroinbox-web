@@ -9,13 +9,31 @@ import { Md5 } from 'ts-md5/dist/md5';
 // import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
 import { MY_API_URL } from '../../myapiurl';
+import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
 
 export interface GapiRequest {
-  body?: Array<String>;
+  body?: Array<string>;
 }
 
 export interface ThreadIdsResponse {
   threadIds: Array<string>;
+}
+
+export interface LoadingStatus {
+  loading: boolean;
+}
+
+
+export interface ISuggestionResponse {
+  id: string;
+  fromAddress: string;
+  fromNames: Array<string>;
+  count: number;
+  totalSizeEstimate: number;
+}
+
+export interface SuggestionsResponse {
+  suggestions: ISuggestionResponse[]
 }
 
 @Injectable()
@@ -43,7 +61,19 @@ export class SendersService {
     }
 
     public batchRequest(gapiRequest: GapiRequest) {
-      return this.httpClient.post<ISender[]>(this.MY_API_URL + '/batch', gapiRequest, {
+      return this.httpClient.post<LoadingStatus>(this.MY_API_URL + '/batch', gapiRequest, {
+        withCredentials: true
+      });
+    }
+
+    public getLoadingStatus(): Observable<LoadingStatus> {
+      return this.httpClient.get<LoadingStatus>(this.MY_API_URL + '/loadingStatus', {
+        withCredentials: true
+      });
+    }
+
+    public getSuggestions(): Observable<SuggestionsResponse> {
+      return this.httpClient.get<SuggestionsResponse>(this.MY_API_URL + '/suggestions', {
         withCredentials: true
       });
     }

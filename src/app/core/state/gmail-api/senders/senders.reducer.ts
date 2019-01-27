@@ -5,6 +5,7 @@ import { ISender } from '../models/senders.model';
 export interface SendersState extends EntityState<ISender> {
   threadIds: string[],
   allSendersLoaded: boolean,
+  allThreadIdsLoaded: boolean,
 }
 
 export function selectSendersId(l: ISender) {
@@ -24,7 +25,8 @@ export const adapter: EntityAdapter<ISender> =
 
 const initialSendersState = adapter.getInitialState({
   threadIds: [],
-  allSendersLoaded: false
+  allSendersLoaded: false,
+  allThreadIdsLoaded: false,
 });
 
 export function sendersReducer(
@@ -36,7 +38,8 @@ export function sendersReducer(
       case SendersActionTypes.AddAllThreadIds:
         return {
           ...state,
-          threadIds: action.payload
+          threadIds: action.payload,
+          allThreadIdsLoaded: true
         };
 
       case SendersActionTypes.AddAllSenders:

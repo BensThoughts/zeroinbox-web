@@ -8,10 +8,11 @@ export enum SuggestionsActionTypes {
   DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
   DeleteSuggestionsMeta = '[Suggestions Table Component] Delete Suggestions Meta',
   LabelByNameSuggestions = '[Suggestions Table Component] Label By Name',
+  LabelBySizeSuggestions = '[Suggestions Size Table Component] Label By Size',
 
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
 
-  SetCutoff = '[Suggestions Table Component] Set Cutoff',
+  SetCountCutoff = '[Suggestions Table Component] Set Cutoff',
 
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
@@ -42,6 +43,11 @@ export class LabelByNameSuggestionsAction implements Action {
   constructor(public payload: { ids: string[] }) {}
 }
 
+export class LabelBySizeSuggestionsAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelBySizeSuggestions;
+
+  constructor(public payload: { ids: string[], size: number }) {}
+}
 
 export class UpdateSuggestionsAction implements Action {
   readonly type = SuggestionsActionTypes.UpdateSuggestions;
@@ -49,10 +55,10 @@ export class UpdateSuggestionsAction implements Action {
   constructor(public payload: { suggestions: Update<ISuggestion>[] }) {}
 }
 
-export class SetCutoffAction implements Action {
-  readonly type = SuggestionsActionTypes.SetCutoff;
+export class SetCountCutoffAction implements Action {
+  readonly type = SuggestionsActionTypes.SetCountCutoff;
 
-  constructor(public payload: { cutoff: number }) {}
+  constructor(public payload: { countCutoff: number }) {}
 }
 
 export class SetSizeCutoffAction implements Action {
@@ -72,10 +78,11 @@ export type ByCountActions =
 
   | DeleteSuggestionsMetaAction
   | LabelByNameSuggestionsAction
+  | LabelBySizeSuggestionsAction
 
   | UpdateSuggestionsAction
 
-  | SetCutoffAction
+  | SetCountCutoffAction
 
   | SetSizeCutoffAction
 

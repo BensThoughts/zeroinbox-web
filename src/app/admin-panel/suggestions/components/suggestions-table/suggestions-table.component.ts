@@ -6,15 +6,13 @@ import {
 } from '@app/core';
 
 import {
-  selectPageOfSuggestions_CountMoreThan,
-  selectLengthOfSuggestions_CountMoreThan,
-  selectCutoff,
-  selectPage,
+  selectByCountLength,
+  selectCountCutoff,
+  selectByCountPage,
 } from '../../state/suggestions.selectors';
 
 import {
-  SetCutoffAction,
-  DeleteSuggestionsAction,
+  SetCountCutoffAction,
   LabelByNameSuggestionsAction,
   DeleteSuggestionsMetaAction,
 } from '../../state/suggestions.actions';
@@ -88,8 +86,8 @@ export class SuggestionsTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.cutoff$ = this.store.pipe(select(selectCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectLengthOfSuggestions_CountMoreThan));
+    this.cutoff$ = this.store.pipe(select(selectCountCutoff));
+    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength));
     // this.dataSource = new SuggestionsDataSource(this.store);
     // this.dataSource = new MatTableDataSource(this.myData)
     this.dataSource = new SuggestionsDataSource(this.store);
@@ -119,7 +117,7 @@ export class SuggestionsTableComponent implements OnInit {
 
   onCutoffSelect({ value: cutoff }) {
     // this.clearSelections();
-    this.store.dispatch(new SetCutoffAction({ cutoff: cutoff }));
+    this.store.dispatch(new SetCountCutoffAction({ countCutoff: cutoff }));
     // this.dataSource.reloadSuggestions();
 
     this.updatePaginatorLength();
@@ -140,7 +138,7 @@ export class SuggestionsTableComponent implements OnInit {
 
   updatePaginatorLength() {
     this.store.pipe(
-      select(selectLengthOfSuggestions_CountMoreThan),
+      select(selectByCountLength),
       take(1),
       map((length) => {
         this.paginator.length = length;
@@ -156,7 +154,7 @@ export class SuggestionsTableComponent implements OnInit {
 
 
   createActions() {
-    // console.log(this.selectionDelete.selected);
+
     this.toggle();
     if (this.selectionDelete.hasValue()) {
       this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
@@ -283,29 +281,18 @@ export class SuggestionsDataSource extends DataSource<any> {
   }
 
   loadSuggestions(page: PageQuery) {
-    // this.page = page;
+
     console.log(page);
     this.store.pipe(
-      select(selectPage(page)),
+      select(selectByCountPage(page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })
     ).subscribe();
 
-    /**
-    this.store.pipe(
-      select(selectPageOfSuggestions_CountMoreThan(page)),
-      tap((suggestions) => {
-        // console.log(suggestions);
-        this.suggestionsSubject.next(suggestions)
-      })
-    ).subscribe();
-    **/
-
   }
 
   connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {
-    // return of(this.sendersSource);
     return this.suggestionsSubject.asObservable();
   }
 

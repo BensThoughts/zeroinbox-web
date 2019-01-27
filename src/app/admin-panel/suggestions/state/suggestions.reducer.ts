@@ -46,8 +46,8 @@ export function suggestionsReducer(
       case SuggestionsActionTypes.UpdateSuggestions:
         return adapter.updateMany(action.payload.suggestions, state);
 
-      case SuggestionsActionTypes.SetCutoff:
-        return { ...state, cutoff: action.payload.cutoff };
+      case SuggestionsActionTypes.SetCountCutoff:
+        return { ...state, cutoff: action.payload.countCutoff };
 
       case SuggestionsActionTypes.SetSizeCutoff:
         return { ...state, sizeCutoff: action.payload.sizeCutoff };

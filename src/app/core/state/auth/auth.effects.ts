@@ -13,13 +13,13 @@ import {
 } from './auth.actions';
 import { Injectable, NgZone } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import { tap, map, exhaustMap, catchError, filter } from 'rxjs/operators';
+import { tap, map, exhaustMap, catchError, filter, concatMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { of, fromEvent } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { LoadBasicProfileAction, ResetUserAction } from '../user/user.actions';
+import { LoadBasicProfileAction, ResetUserAction, LoadEmailProfileAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
 import { ResetSendersStateAction } from '../gmail-api/senders/senders.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
@@ -70,10 +70,22 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
+    concatMap(() => {
+      return this.authService.getBasicProfile().pipe(
+        map((response) => {
+          this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
+        })
+      );
+    }),
+    concatMap(() => {
+      return this.authService.getEmailProfile().pipe(
+        map((response) => {
+        this.store.dispatch(new LoadEmailProfileAction(response.email_profile));
+        })
+      );
+    }),
     map(() => {
-      this.authService.getBasicProfile();
-      this.authService.getEmailProfile();
-      this.store.dispatch(new LoginSuccessAction());
+      this.store.dispatch(new LoginSuccessAction())
     }),
     catchError(err => of(console.log(err)))
   );

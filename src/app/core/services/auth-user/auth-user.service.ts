@@ -79,11 +79,12 @@ export class AuthUserService {
      * @return [description]
      */
     public getBasicProfile() {
-      this.httpClient.get<BasicProfileResponse>(this.MY_API_URL + '/profile', {
+      return this.httpClient.get<BasicProfileResponse>(this.MY_API_URL + '/profile', {
         withCredentials: true
-      }).subscribe((response) => {
-        this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
       });
+      // .subscribe((response) => {
+
+      // });
     }
 
     /**
@@ -91,11 +92,12 @@ export class AuthUserService {
      * @return [description]
      */
     public getEmailProfile() {
-      this.httpClient.get<BasicEmailResponse>(this.MY_API_URL + '/email', {
+      return this.httpClient.get<BasicEmailResponse>(this.MY_API_URL + '/email', {
         withCredentials: true
-      }).subscribe((response) => {
-        this.store.dispatch(new LoadEmailProfileAction(response.email_profile));
       });
+      // .subscribe((response) => {
+      //   this.store.dispatch(new LoadEmailProfileAction(response.email_profile));
+      // });
     }
 
 

@@ -13,6 +13,7 @@ import { AppState } from '@app/core/state/core.state';
 
 // import { GmailLabelsRequested } from '@app/core';
 import { Observable } from 'rxjs';
+import { selectByCountGroup_TC, selectByCountGroup_TS, selectBySizeGroup_TS, selectBySizeGroup_TC, selectBySizeGroup_TL, selectByCountGroup_TL } from '@app/admin-panel/suggestions/state/suggestions.selectors';
 
 // import { selectUserGmailLabels } from '@app/core';
 
@@ -24,21 +25,33 @@ import { Observable } from 'rxjs';
 
 export class StatsComponent implements OnInit {
   gmail_labels$: Observable<IGmailLabel[]>; // The list of labels currently in the gmail acc.
-  testData: Array<Array<any>>; // = [['Today', 90, 134, 108, 0 ]];
-  columnNames = ['Threads', 'Extra Small', 'Small', 'Medium', 'Large'];
-
-  totalSize = [['Today', 2.651, 10.053, 8.422, 6.048]];
-  sizeNames = ['MB', 'Extra Small', 'Small', 'Medium', 'Large'];
 
 
+  sg_Tl$;
+  // sizesColumnNames = ['Threads', 'Extra Large', 'Large', 'Medium', 'Small', 'Extra Small'];
+  sg_Ts$;
+  sg_Tc$;
+  sizesColumnNames = ['Threads', 'over 1MB', '1MB - 500KB', '500KB - 300KB', '300KB - 200KB', 'under 200KB'];
 
+
+  cg_Tl$;
+  cg_Ts$;
+  cg_Tc$;
+  countColumnNames = ['Threads', 'over 500', '500 - 100', '50 - 100', '15 - 50', 'under 15'];
 
 
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.testData = [['Today', 90, 134, 108, 0 ]];
+
+    this.sg_Tl$ = this.store.pipe(select(selectBySizeGroup_TL));
+    this.sg_Ts$ = this.store.pipe(select(selectBySizeGroup_TS));
+    this.sg_Tc$ = this.store.pipe(select(selectBySizeGroup_TC));
+
+    this.cg_Tl$ = this.store.pipe(select(selectByCountGroup_TL));
+    this.cg_Ts$ = this.store.pipe(select(selectByCountGroup_TS));
+    this.cg_Tc$ = this.store.pipe(select(selectByCountGroup_TC));
     // this.gmail_labels$ = this.store.pipe(select(selectUserGmailLabels));
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { selectBySize_Total } from '../../state/suggestions.selectors';
 
 @Component({
   selector: 'iz-suggestions-by-size',
@@ -11,21 +10,20 @@ import { selectBySize_Total } from '../../state/suggestions.selectors';
 export class SuggestionsBySizeComponent implements OnInit {
 
 
-  @Input() sizes: number[];
 
-
-  @Input() phrase: string;
-  @Input() postPhrase: string;
   @Input() totalSizes;
+  @Input() totalCounts;
+  @Input() totalLengths;
 
 
-  sizeTotals$;
+  // sizeTotals$;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     console.log(this.totalSizes);
-    this.sizeTotals$ = this.store.pipe(select(selectBySize_Total));
+    console.log(this.totalCounts);
+    console.log(this.totalLengths);
   }
 
 }

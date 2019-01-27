@@ -20,13 +20,17 @@
         <mat-card class="my-2">
         <go-suggestions-size-table></go-suggestions-size-table>
         </mat-card>
-        
+
       </mat-tab>
 
       <mat-tab label="Count">
 
         <div *ngIf="totalCounts$ | async as totalCounts">
-        <iz-suggestions-by-size phrase="Total Threads: " postPhrase="" [totalSizes]="totalCounts"></iz-suggestions-by-size>
+        <iz-suggestions-by-size
+                [totalCounts]="totalCounts" 
+                [totalLengths]="totalLengths$ | async"
+                [totalSizes]="totalSizes$ | async">
+        </iz-suggestions-by-size>
         </div>
 
       </mat-tab>

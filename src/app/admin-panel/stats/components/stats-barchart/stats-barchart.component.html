@@ -1,11 +1,8 @@
-<div class="my-2">
-<mat-card>
+
 <google-chart
-  title="Thread Counts"
-  type="ColumnChart"
+  [title]="title"
+  [type]="type"
   width="300"
   [columnNames]="columnNames"
   [data]="testData">
 </google-chart>
-</mat-card>
-</div>

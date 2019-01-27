@@ -1,8 +1,8 @@
 <div class="fluid-container">
 
 
-<mat-accordion *ngIf="totalSizes">
-  <div class="my-3" *ngIf="totalSizes.Xl > 0">
+<mat-accordion *ngIf="totalCounts">
+  <div class="my-3" *ngIf="totalCounts.Xl > 0">
     <div class="my-1">
 
     <mat-expansion-panel>
@@ -17,7 +17,7 @@
 
     </mat-expansion-panel-header>
     <div>
-      <mat-checkbox>{{ phrase }} {{ totalSizes.Xl }} {{ postPhrase }}</mat-checkbox>
+      <mat-checkbox>Senders: {{ totalLengths.Xl }} Threads: {{ totalCounts.Xl }} Size: {{ totalSizes.Xl }} MB</mat-checkbox>
     </div>
 
     </mat-expansion-panel>
@@ -25,7 +25,7 @@
   </div>
 
 
-  <div class="my-3" *ngIf="totalSizes.Lg > 0">
+  <div class="my-3" *ngIf="totalCounts.Lg > 0">
     <div class="my-1">
 
     <mat-expansion-panel>
@@ -40,7 +40,7 @@
 
     </mat-expansion-panel-header>
     <div>
-      <mat-checkbox>{{ phrase }} {{ totalSizes.Lg }} {{ postPhrase }}</mat-checkbox>
+      <mat-checkbox>Senders: {{ totalLengths.Lg }} Threads: {{ totalCounts.Lg }} Size: {{ totalSizes.Lg }} MB</mat-checkbox>
     </div>
 
     </mat-expansion-panel>
@@ -48,7 +48,7 @@
   </div>
 
 
-  <div class="my-3" *ngIf="totalSizes.Md > 0">
+  <div class="my-3" *ngIf="totalCounts.Md > 0">
     <div class="my-1">
 
     <mat-expansion-panel>
@@ -63,14 +63,14 @@
 
     </mat-expansion-panel-header>
     <div>
-      <mat-checkbox> {{ phrase }} {{ totalSizes.Md }} {{ postPhrase }}</mat-checkbox>
+      <mat-checkbox>Senders: {{ totalLengths.Md }} Threads: {{ totalCounts.Md }} Size: {{ totalSizes.Md }} MB</mat-checkbox>
     </div>
 
     </mat-expansion-panel>
     </div>
   </div>
 
-  <div class="my-3" *ngIf="totalSizes.Sm > 0">
+  <div class="my-3" *ngIf="totalCounts.Sm > 0">
     <div class="my-1">
 
     <mat-expansion-panel>
@@ -85,14 +85,14 @@
 
     </mat-expansion-panel-header>
     <div>
-      <mat-checkbox>{{ phrase }} {{ totalSizes.Sm }} {{ postPhrase }}</mat-checkbox>
+      <mat-checkbox>Senders: {{ totalLengths.Sm }} Threads: {{ totalCounts.Sm }} Size: {{ totalSizes.Sm }} MB}</mat-checkbox>
     </div>
 
     </mat-expansion-panel>
     </div>
   </div>
 
-  <div class="my-3" *ngIf="totalSizes.Xs > 0">
+  <div class="my-3" *ngIf="totalCounts.Xs > 0">
     <div class="my-1">
 
     <mat-expansion-panel>
@@ -107,7 +107,7 @@
 
     </mat-expansion-panel-header>
     <div>
-      <mat-checkbox>{{ phrase }} {{ totalSizes.Xs }} {{ postPhrase }}</mat-checkbox>
+      <mat-checkbox>Senders: {{ totalLengths.Xs }} Threads: {{ totalCounts.Xs }} Size: {{ totalSizes.Xs }} MB</mat-checkbox>
     </div>
 
     </mat-expansion-panel>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ISizes } from '@app/admin-panel/suggestions/state/suggestions.model';
 
 @Component({
   selector: 'app-stats-barchart',
@@ -7,14 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatsBarchartComponent implements OnInit {
 
+  @Input() sizes: ISizes;
+  @Input() title: string;
+  @Input() columnNames: string[];
+  @Input() type: string;
 
   testData: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
-  columnNames = ['Threads', 'Extra Small', 'Small', 'Medium', 'Large'];
 
-  
+
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.sizes);
+    this.testData = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
+
   }
 
 }
