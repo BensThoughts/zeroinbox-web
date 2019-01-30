@@ -9,9 +9,10 @@ import {
   AddAllThreadIdsAction,
   AddAllSendersAction,
   UpdateSendersStateAction,
-  SendersRequestFailureAction,
   RequestLoadingStatusAction,
   AllSuggestionsRequestedAction,
+  SuggestionsRequestFailureAction,
+  SendersRequestFailureAction,
 } from './senders.actions';
 import { SendersService } from '@app/core/services/gmail-api/senders/senders.service';
 import { Store, select } from '@ngrx/store';
@@ -122,14 +123,15 @@ export class SendersEffects {
       exhaustMap((action) => {
         return this.sendersService.getSuggestions().pipe(
           map((response) => {
+            console.log(response);
             let suggestions: ISuggestion[] = response.suggestions.map((suggestion) => {
               // console.log(suggestion);
-              let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
+              let totalSizeEstimate = this.toMB(suggestion.sender.totalSizeEstimate);
               return {
-                id: suggestion.id,
-                fromAddress: suggestion.fromAddress,
-                fromName: suggestion.fromNames[0],
-                count: suggestion.count,
+                id: suggestion.sender.id,
+                fromAddress: suggestion.sender.fromAddress,
+                fromName: suggestion.sender.fromNames[0],
+                count: suggestion.sender.count,
                 totalSizeEstimate: totalSizeEstimate
               };
             })
@@ -137,7 +139,8 @@ export class SendersEffects {
             return new LoadSuggestionsAction({ suggestions: suggestions });
           }),
           catchError((err) => {
-            return of(console.error(err));
+            console.error(err);
+            return of(new SuggestionsRequestFailureAction(err));
           })
         );
       }),

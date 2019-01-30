@@ -121,6 +121,7 @@ export class SuggestionsTableComponent implements OnInit {
     // this.dataSource.reloadSuggestions();
 
     this.updatePaginatorLength();
+    this.clearSelections();
     this.paginator.firstPage();
   }
 

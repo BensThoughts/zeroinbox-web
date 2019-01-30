@@ -12,7 +12,8 @@ export enum SendersActionTypes {
   AddAllThreadIds = '[Senders Effects] Add All threadIds',
 
   AllSuggestionsRequested = '[Senders Effects] Senders Messages Requested',
-  SendersRequestFailure = '[Senders Effects] Senders Threads Request Failure',
+  SendersRequestFailure = '[Senders Effects] Senders Request Failure',
+  SuggestionsRequestFailure = '[Senders Effects] Suggestions Request Failure',
   AddAllSenders = '[Senders Effects] Add All Senders',
 
   RequestLoadingStatus = '[Senders Effects] Get Loading Status',
@@ -68,6 +69,11 @@ export interface PageQuery {
    readonly type = SendersActionTypes.AllSuggestionsRequested;
  }
 
+ export class SuggestionsRequestFailureAction implements Action {
+   readonly type = SendersActionTypes.SuggestionsRequestFailure;
+   constructor(public payload: any) {}
+ }
+
  export class SendersRequestFailureAction implements Action {
    readonly type = SendersActionTypes.SendersRequestFailure;
    constructor(public payload: any) {}
@@ -115,6 +121,7 @@ export type SendersActions =
 
   | AllSuggestionsRequestedAction
   | SendersRequestFailureAction
+  | SuggestionsRequestFailureAction
   | AddAllSendersAction
 
   | RequestLoadingStatusAction

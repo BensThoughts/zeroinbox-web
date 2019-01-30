@@ -25,11 +25,13 @@ export interface LoadingStatus {
 
 
 export interface ISuggestionResponse {
-  id: string;
-  fromAddress: string;
-  fromNames: Array<string>;
-  count: number;
-  totalSizeEstimate: number;
+  sender: {
+    id: string;
+    fromAddress: string;
+    fromNames: Array<string>;
+    count: number;
+    totalSizeEstimate: number;
+  }
 }
 
 export interface SuggestionsResponse {

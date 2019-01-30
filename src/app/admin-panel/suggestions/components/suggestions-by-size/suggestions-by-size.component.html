@@ -1,7 +1,7 @@
 <div class="fluid-container">
 
 
-<mat-accordion *ngIf="totalCounts">
+<mat-accordion *ngIf="totalCounts" multi="true">
   <div class="my-3" *ngIf="totalCounts.Xl > 0">
     <div class="my-1">
 
@@ -11,7 +11,7 @@
         Extra Large
       </mat-panel-title>
       <mat-panel-description>
-        More than 500 threads
+        More Than 500 Threads
       </mat-panel-description>
 
 
@@ -34,7 +34,7 @@
         Large
       </mat-panel-title>
       <mat-panel-description>
-        More than 100 threads
+        100 - 500 Threads
       </mat-panel-description>
 
 
@@ -57,7 +57,7 @@
         Medium
       </mat-panel-title>
       <mat-panel-description>
-        More than 50 threads
+        50 - 100 Threads
       </mat-panel-description>
 
 
@@ -79,7 +79,7 @@
         Small
       </mat-panel-title>
       <mat-panel-description>
-        More than 15 threads
+        15 - 50 Threads
       </mat-panel-description>
 
 
@@ -101,7 +101,7 @@
         Extra Small
       </mat-panel-title>
       <mat-panel-description>
-        Less than 15 threads
+        Less Than 15 Threads
       </mat-panel-description>
 
 
