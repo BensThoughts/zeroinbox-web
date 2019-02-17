@@ -170,7 +170,7 @@ export class AuthEffects {
     ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
     tap( () => {
       // this.authService.logout();
-      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
+      this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());

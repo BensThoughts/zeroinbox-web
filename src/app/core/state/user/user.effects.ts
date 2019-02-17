@@ -23,7 +23,9 @@ export class UserEffects {
     filter(evt => evt.newValue !== null),
     map(evt => {
       let userState = JSON.parse(evt.newValue);
-      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
+      //this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
+      //this.store.dispatch(new UpdateUserStateAction(userState));
+      // return new SyncToStorageAction({ syncToStorage: true });
       return new UpdateUserStateAction(userState);
     })
   );
