@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-// import BasicProfile = gapi.auth2.BasicProfile;
 import { BasicProfile, EmailProfile } from './user.model';
 
 export enum UserActionTypes {

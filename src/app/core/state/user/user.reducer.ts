@@ -1,4 +1,3 @@
-// import { User } from './user.models';
 import { UserActions, UserActionTypes } from './user.actions';
 import { BasicProfile, EmailProfile } from './user.model';
 

@@ -12,7 +12,6 @@ import {
   selectUniqueSenders
 } from '@app/admin-panel/suggestions/state/suggestions.selectors';
 
-// import { selectTotal } from '@app/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';

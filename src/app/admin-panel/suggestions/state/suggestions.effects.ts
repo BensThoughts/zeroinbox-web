@@ -15,7 +15,6 @@ import { ITask } from '@app/core/state/tasks/tasks.model';
 import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
 import { select_Tasks_Suggestions_Entities, selectEntities } from './suggestions.selectors';
-import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
 import { UpdateSuggestionsStateAction } from './suggestions.actions';
 import { fromEvent } from 'rxjs';
 
@@ -188,8 +187,6 @@ export class SuggestionsEffects {
 
     })
   );
-
-
 
 
   constructor(

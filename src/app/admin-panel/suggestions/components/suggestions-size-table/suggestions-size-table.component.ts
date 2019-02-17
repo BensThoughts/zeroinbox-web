@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
-import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
+import { MatPaginator, MatTable } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
@@ -48,8 +48,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   displayedColumns: string[] = ['address'];
 
-  // dataSource: SuggestionsDataSource;
-  dataSource: SuggestionsBySizeDataSource;// MatTableDataSource<ISuggestion>;
+  dataSource: SuggestionsBySizeDataSource;
 
   length;
   pageSize = 5;
@@ -79,7 +78,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
    toggle() {
      this.myRemoved = !this.myRemoved;
-     // return this.isRemoved;
    }
 
   constructor(private store: Store<AppState>) { }
@@ -88,8 +86,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
     this.sizeCutoff$ = this.store.pipe(select(selectSizeCutoff));
     this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectBySizeGroupLength));
-    // this.dataSource = new SuggestionsDataSource(this.store);
-    // this.dataSource = new MatTableDataSource(this.myData)
+
     this.dataSource = new SuggestionsBySizeDataSource(this.store);
 
 
@@ -99,8 +96,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
     };
 
     this.dataSource.loadSuggestions(initialPage);
-    // this.paginator.length = this.dataSource.getLength();
-    // this.dataSource.paginator = this.paginator;
+
     this.updatePaginatorLength();
 
 
@@ -116,9 +112,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
   onCutoffSelect({ value: cutoff }) {
-    // this.clearSelections();
     this.store.dispatch(new SetSizeCutoffAction({ sizeCutoff: cutoff }));
-    // this.dataSource.reloadSuggestions();
 
     this.updatePaginatorLength();
     this.clearSelections();
@@ -155,7 +149,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
   createActions() {
-    // console.log(this.selectionDelete.selected);
     this.toggle();
     if (this.selectionDelete.hasValue()) {
       this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
@@ -289,7 +282,6 @@ export class SuggestionsBySizeDataSource extends DataSource<any> {
   }
 
   loadSuggestions(page: PageQuery) {
-    // this.page = page;
     console.log(page);
     this.store.pipe(
       select(selectBySizeGroupPage(page)),
@@ -298,20 +290,9 @@ export class SuggestionsBySizeDataSource extends DataSource<any> {
       })
     ).subscribe();
 
-    /**
-    this.store.pipe(
-      select(selectPageOfSuggestions_CountMoreThan(page)),
-      tap((suggestions) => {
-        // console.log(suggestions);
-        this.suggestionsSubject.next(suggestions)
-      })
-    ).subscribe();
-    **/
-
   }
 
   connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {
-    // return of(this.sendersSource);
     return this.suggestionsSubject.asObservable();
   }
 

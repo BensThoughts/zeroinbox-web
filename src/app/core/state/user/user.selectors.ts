@@ -1,4 +1,4 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import { selectUserState } from '../core.state';
 import { UserState } from './user.reducer';
 

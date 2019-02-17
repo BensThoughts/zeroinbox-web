@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
-import { PageEvent, MatTableDataSource, MatPaginator, MatTable } from '@angular/material';
+import { MatPaginator, MatTable } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
@@ -44,12 +44,9 @@ export class SuggestionsCountTableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  // @Input() myData: Observable<ISuggestion[]>;
-
   displayedColumns: string[] = ['address'];
 
-  // dataSource: SuggestionsDataSource;
-  dataSource: SuggestionsDataSource;// MatTableDataSource<ISuggestion>;
+  dataSource: SuggestionsDataSource;
 
   length;
   pageSize = 5;
@@ -79,7 +76,6 @@ export class SuggestionsCountTableComponent implements OnInit {
 
    toggle() {
      this.myRemoved = !this.myRemoved;
-     // return this.isRemoved;
    }
 
   constructor(private store: Store<AppState>) { }
@@ -88,8 +84,7 @@ export class SuggestionsCountTableComponent implements OnInit {
 
     this.cutoff$ = this.store.pipe(select(selectCountCutoff));
     this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength));
-    // this.dataSource = new SuggestionsDataSource(this.store);
-    // this.dataSource = new MatTableDataSource(this.myData)
+
     this.dataSource = new SuggestionsDataSource(this.store);
 
 
@@ -99,8 +94,7 @@ export class SuggestionsCountTableComponent implements OnInit {
     };
 
     this.dataSource.loadSuggestions(initialPage);
-    // this.paginator.length = this.dataSource.getLength();
-    // this.dataSource.paginator = this.paginator;
+
     this.updatePaginatorLength();
 
 
@@ -116,9 +110,7 @@ export class SuggestionsCountTableComponent implements OnInit {
 
 
   onCutoffSelect({ value: cutoff }) {
-    // this.clearSelections();
     this.store.dispatch(new SetCountCutoffAction({ countCutoff: cutoff }));
-    // this.dataSource.reloadSuggestions();
 
     this.updatePaginatorLength();
     this.clearSelections();

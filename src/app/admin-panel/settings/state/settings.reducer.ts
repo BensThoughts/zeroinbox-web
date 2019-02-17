@@ -1,4 +1,4 @@
-import { SettingsActions, SettingsActionTypes, UpdateSettingsStateAction } from './settings.actions';
+import { SettingsActions, SettingsActionTypes } from './settings.actions';
 import { AppState } from '@app/core';
 
 export interface State extends AppState {

@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
-// import { selectToken } from '@app/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   selectSuggestionsLoaded,
   selectByCountGroup_TS,

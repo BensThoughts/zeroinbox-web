@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-// import { AppState, selectSettings, SettingsChangeThemeAction } from '@app/core';
 import { Store, select } from '@ngrx/store';
 import { SettingsState } from '../state/settings.reducer';
 import { selectSettings } from '../state/settings.selectors';

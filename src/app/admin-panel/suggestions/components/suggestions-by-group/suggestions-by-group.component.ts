@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
 
 @Component({

@@ -1,5 +1,4 @@
-import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
-import { BootstrapActions, BootstrapActionTypes, SyncToStorageAction } from './bootstrap.actions';
+import { BootstrapActions, BootstrapActionTypes } from './bootstrap.actions';
 
 export interface BootstrapState {
   firstRun: boolean,

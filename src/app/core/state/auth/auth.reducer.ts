@@ -1,12 +1,4 @@
-// import { User } from './user.models';
 import { AuthActions, AuthActionTypes } from './auth.actions';
-
-export interface GapiToken {
-  access_token: string;
-  expiry_date: number;
-  scope: string;
-  token_type: string;
-}
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -40,9 +32,6 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
 
     case AuthActionTypes.LogoutConfirmedFromOtherWindow:
       return initialState;
-
-    case AuthActionTypes.UpdateAuthState:
-      return action.payload;
 
     default:
       return state;

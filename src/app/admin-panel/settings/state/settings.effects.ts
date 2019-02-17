@@ -3,7 +3,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import {
   selectTheme,
-  selectSettingsState
 } from './settings.selectors';
 import { SettingsActionTypes, SettingsActions, UpdateSettingsStateAction } from './settings.actions';
 import { INIT, Store, select } from '@ngrx/store';

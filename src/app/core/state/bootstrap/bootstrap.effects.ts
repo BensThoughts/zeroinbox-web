@@ -9,16 +9,22 @@ import {
   LoadingStatusRequestedAction,
   GetAllSuggestionsAction,
   FirstRunStatusRequestFailureAction,
-  SyncToStorageAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom, take, delay } from 'rxjs/operators';
+import { 
+  catchError, 
+  map, 
+  exhaustMap, 
+  concatMap, 
+  filter, 
+  withLatestFrom, 
+  delay 
+} from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { selectSuggestionsLoaded } from '@app/admin-panel/suggestions/state/suggestions.selectors';
 import { selectfirstRun } from './bootstrap.selectors';
 
 export const MB = 1000000;

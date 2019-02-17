@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ReverseAuthGuardService } from './core/services/auth-user/reverse-auth-guard.service';
 // import { AuthGuardService } from '@app/core';
 
 const routes: Routes = [

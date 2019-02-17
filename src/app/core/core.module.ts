@@ -19,21 +19,15 @@ import {
 } from '@ngrx/router-store';
 // router state custom serializer
 import { CustomSerializer } from './state/router/custom-serializer';
-// local storage service for storing the entire contents of ngrx store state
-// import { LocalStorageService } from './services/local-storage/local-storage.service';
 
 /**
  * [app wide singleton services]
  */
- // Service to authorize a google user, store their token and some minor details
- // about their google profile
  import { AuthUserService } from './services/auth-user/auth-user.service';
  // Guard Service to redirect to login page when not authenticated
  import { AuthGuardService } from './services/auth-user/auth-guard.service';
 // Guard Service to redirect to home page when already authenticated
  import { ReverseAuthGuardService } from './services/auth-user/reverse-auth-guard.service';
-// http error interceptor
-import { httpInterceptorProviders } from './services/http-interceptors';
 // notifications service
 import { NotificationService } from './services/notifications/notification.service';
 // error handler service
@@ -67,14 +61,7 @@ import { UserEffects } from './state/user/user.effects';
       BootstrapEffects,
       TasksEffects,
       UserEffects
-    ]),    // ngrx effects
-    // ngrx store devtools
-
-  //  GoogleApiModule.forRoot({
-  //    provide: NG_GAPI_CONFIG,
-  //    useValue: gapiClientConfig
-  //  }),
-
+    ]),
     environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
     }),
@@ -87,8 +74,6 @@ import { UserEffects } from './state/user/user.effects';
     ReverseAuthGuardService,
     BootstrapService,
     NotificationService, // notifications in MatSnackBar
-    // LocalStorageService, // stores entire ngrx-store state in localStorage
-    // httpInterceptorProviders, // http error interceptor
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */

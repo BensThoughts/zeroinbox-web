@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 import * as fromRoot from '@app/core/state/core.state';
-import * as fromAuthActions from '@app/core/state/auth/auth.actions';
 import { StoreModule, Store } from '@ngrx/store';
 import { SharedModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

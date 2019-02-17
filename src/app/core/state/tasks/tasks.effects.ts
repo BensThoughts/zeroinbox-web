@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Effect, ofType, Actions } from '@ngrx/effects';
-import { TaskActionTypes, UpsertTasksAction, UpdateTasksStateAction } from './tasks.actions';
-import { Store, select } from '@ngrx/store';
+import { Effect, Actions } from '@ngrx/effects';
+import { UpdateTasksStateAction } from './tasks.actions';
+import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { map, take, filter } from 'rxjs/operators';
-import { selectEntities } from './tasks.selectors';
-import { Update } from '@ngrx/entity';
-import { ITask } from './tasks.model';
+import { map, filter } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
 

@@ -1,18 +1,14 @@
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-// import { AuthUserService } from './auth-user.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 import { Injectable } from '@angular/core';
 import { tap, map } from 'rxjs/operators';
-// import { of } from 'rxjs';
 import { selectIsAuthenticated } from '@app/core/state/auth/auth.selectors';
-import { of } from 'rxjs';
 
 
 @Injectable()
 export class ReverseAuthGuardService implements CanActivate {
   constructor(
-  //  private authService: AuthUserService,
     private store: Store<AppState>,
     private router: Router
   ) {}
@@ -45,16 +41,3 @@ export class ReverseAuthGuardService implements CanActivate {
   }
 
 }
-/**
-    let authenticated = JSON.parse(localStorage.getItem('go-app-auth')).isAuthenticated;
-    console.log(state.url);
-
-    if (authenticated) {
-      this.router.navigate(['/admin-panel/home']);
-      return false;
-    } else {
-      return true;
-    }
-  }
-}
-**/

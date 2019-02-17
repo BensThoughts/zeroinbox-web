@@ -19,14 +19,19 @@ import { of, fromEvent } from 'rxjs';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { LoadBasicProfileAction, ResetUserStateAction, LoadEmailProfileAction } from '../user/user.actions';
-import { ResetBootstrapStateAction, GetAllSuggestionsAction } from '..//bootstrap/bootstrap.actions';
+import { 
+  LoadBasicProfileAction, 
+  ResetUserStateAction, 
+  LoadEmailProfileAction } 
+from '../user/user.actions';
+import { 
+  ResetBootstrapStateAction, 
+  GetAllSuggestionsAction,
+  SyncToStorageAction 
+} from '../bootstrap/bootstrap.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 
-
-import { UpdateAuthStateAction } from './auth.actions';
-import { SyncToStorageAction } from '../bootstrap/bootstrap.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -35,16 +40,13 @@ export class AuthEffects {
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
     filter((evt) => {
-      // console.log(evt);
       return evt.key === 'go-app-auth';
     }),
     filter(evt => evt.newValue !== null),
     map(evt => {
-      // console.log(evt);
-      // console.log(JSON.parse(evt.newValue));
+
       let authenticated = JSON.parse(evt.newValue).isAuthenticated;
-      // console.log(authenticated);
-      // this.store.dispatch(new UpdateAuthState(authState));
+
       if (authenticated) {
         return new LoginSuccessAction();
       } else {
@@ -73,7 +75,6 @@ export class AuthEffects {
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
     concatMap(() => {
-      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: true }));
       return this.authService.getBasicProfile().pipe(
         map((response) => {
           this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
