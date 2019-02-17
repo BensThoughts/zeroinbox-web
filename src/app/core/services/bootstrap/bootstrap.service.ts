@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, of, from, pipe } from 'rxjs';
-import { map, catchError, concatMap, tap } from 'rxjs/operators';
+import { Observable} from 'rxjs';
 import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
-import { Md5 } from 'ts-md5/dist/md5';
-// import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
 import { MY_API_URL } from '../myapiurl';
-import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 
 export interface GapiRequest {
   body?: Array<string>;
