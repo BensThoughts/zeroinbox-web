@@ -1,4 +1,3 @@
-export * from './services/local-storage/local-storage.service';
 export * from './services/notifications/notification.service';
 export * from './services/auth-user/auth-guard.service';
 export * from './state//bootstrap/bootstrap.actions';

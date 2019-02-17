@@ -1,9 +1,9 @@
-version: '2.3'
+version: '3.3'
 
 services:
   angular:
-    hostname: localhost
-    container_name: angular-container
+    hostname: zero-inbox-web
+    container_name: zero-inbox-web
     build: .
     ports:
       - 80:80
