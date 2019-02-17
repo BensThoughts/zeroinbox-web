@@ -13,6 +13,8 @@ export enum BootstrapActionTypes {
   LoadingStatusRequested = '[Bootstrap Effects] Loading Status Requested',
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
 
+  SyncToStorage = '[Bootstrap Effects] Sync To Storage',
+
   UpdateBootstrapState = '[Bootstrap Effects] Update Bootstrap State From Another Tab/Window',
   ResetBootstrapState = '[Auth Effects] Reset Bootstrap State'
 }
@@ -36,6 +38,12 @@ export class LoadingStatusRequestedAction implements Action {
 
 export class LoadingStatusRequestFailureAction implements Action {
   readonly type = BootstrapActionTypes.LoadingStatusRequestFailure;
+}
+
+export class SyncToStorageAction implements Action {
+  readonly type = BootstrapActionTypes.SyncToStorage;
+
+  constructor(public payload: { syncToStorage: boolean }) {}
 }
 
 
@@ -78,5 +86,6 @@ export type BootstrapActions =
   | AllSuggestionsRequestedAction
   | SuggestionsRequestFailureAction
 
+  | SyncToStorageAction
   | ResetBootstrapStateAction
   | UpdateBootstrapStateAction;

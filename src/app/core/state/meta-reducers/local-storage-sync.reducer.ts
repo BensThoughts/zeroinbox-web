@@ -9,7 +9,11 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
       // keys: ['auth', 'settings'],
       rehydrate: true,
       removeOnUndefined: true,
-      storageKeySerializer: (key) => 'go-app-' + key
+      storageKeySerializer: (key) => 'go-app-' + key,
+      syncCondition: (state: AppState) => {
+        return true;
+        // return state.bootstrap.syncToStorage
+      } 
     }
   )(reducer);
 }

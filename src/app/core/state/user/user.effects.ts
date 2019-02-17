@@ -5,6 +5,7 @@ import { Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { UpdateUserStateAction } from './user.actions';
+import { SyncToStorageAction } from '../bootstrap/bootstrap.actions';
 // import { Effect, ofType, Actions } from '@ngrx/effects';
 // import { LoadNewUserAction, UserActionTypes, ResetUserAction } from './user.actions';
 // import { tap } from 'rxjs/operators';
@@ -22,6 +23,7 @@ export class UserEffects {
     filter(evt => evt.newValue !== null),
     map(evt => {
       let userState = JSON.parse(evt.newValue);
+      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
       return new UpdateUserStateAction(userState);
     })
   );

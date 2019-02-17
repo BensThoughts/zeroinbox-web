@@ -26,6 +26,7 @@ import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/
 
 
 import { UpdateAuthStateAction } from './auth.actions';
+import { SyncToStorageAction } from '../bootstrap/bootstrap.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -72,6 +73,7 @@ export class AuthEffects {
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
     concatMap(() => {
+      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: true }));
       return this.authService.getBasicProfile().pipe(
         map((response) => {
           this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
@@ -153,9 +155,9 @@ export class AuthEffects {
     tap( () => {
       this.authService.logout();
       this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetBootstrapStateAction());
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
+      this.store.dispatch(new ResetBootstrapStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -168,10 +170,11 @@ export class AuthEffects {
     ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
     tap( () => {
       // this.authService.logout();
-      // this.store.dispatch(new ResetUserAction());
-      // this.store.dispatch(new ResetBootstrapStateAction());
-      // this.store.dispatch(new ResetTasksStateAction());
-      // this.store.dispatch(new ResetSuggestionsStateAction());
+      // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
+      this.store.dispatch(new ResetUserStateAction());
+      this.store.dispatch(new ResetTasksStateAction());
+      this.store.dispatch(new ResetSuggestionsStateAction());
+      this.store.dispatch(new ResetBootstrapStateAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );

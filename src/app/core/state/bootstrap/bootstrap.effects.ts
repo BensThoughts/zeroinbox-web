@@ -9,6 +9,7 @@ import {
   LoadingStatusRequestedAction,
   GetAllSuggestionsAction,
   FirstRunStatusRequestFailureAction,
+  SyncToStorageAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -141,6 +142,7 @@ export class BootstrapEffects {
       filter(evt => evt.newValue !== null),
       map(evt => {
         let BootstrapState = JSON.parse(evt.newValue);
+        // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
         return new UpdateBootstrapStateAction(BootstrapState);
       })
     );
