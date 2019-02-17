@@ -2,12 +2,12 @@ import {Action} from '@ngrx/store';
 
 export enum BootstrapActionTypes {
 
-  GetAllSuggestions = '[Home Component] Suggestions Requested',
+  GetAllSuggestions = '[Bootstrap Effects] Get All Suggestions',
 
-  FirstRunStatusRequested = '[Home Component] First Run Status Requested',
+  FirstRunStatusRequested = '[Bootstrap Effects] First Run Status Requested',
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
 
-  AllSuggestionsRequested = '[Bootstrap Effects] Bootstrap Messages Requested',
+  AllSuggestionsRequested = '[Bootstrap Effects] All Suggestions Requested',
   SuggestionsRequestFailure = '[Bootstrap Effects] Suggestions Request Failure',
 
   LoadingStatusRequested = '[Bootstrap Effects] Loading Status Requested',

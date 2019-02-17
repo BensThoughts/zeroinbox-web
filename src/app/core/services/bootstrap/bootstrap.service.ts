@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { Md5 } from 'ts-md5/dist/md5';
 // import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
-import { MY_API_URL } from '../../myapiurl';
+import { MY_API_URL } from '../myapiurl';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 
 export interface GapiRequest {

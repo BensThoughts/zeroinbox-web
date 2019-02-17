@@ -43,40 +43,11 @@ import { AppErrorHandler } from './services/error-handler/app-error-handler.serv
 /* environment variables */
 import { environment } from '@env/environment';
 
-// 3rd party library (ng-gapi) to initialize google api's, handle auth, and
-// assist in the use of the google api's
-/**
-import {
-    GoogleApiModule,
-//    GoogleApiService,
-//    GoogleAuthService,
-    NgGapiClientConfig,
-    NG_GAPI_CONFIG,
-//    GoogleApiConfig
-} from 'ng-gapi';
-**/
-
-import { GmailLabelService } from './services/gmail-api/gmail-label/gmail-label.service';
-import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.effects';
-import { BootstrapService } from './services/gmail-api/bootstrap/bootstrap.service';
-import { BootstrapEffects } from './state/gmail-api/bootstrap/bootstrap.effects';
+import { BootstrapService } from './services/bootstrap/bootstrap.service';
+import { BootstrapEffects } from './state//bootstrap/bootstrap.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
 import { UserEffects } from './state/user/user.effects';
 
-import { GoogleChartsModule } from 'angular-google-charts';
-
-// import { UserEffects } from './state/user/user.effects';
-
-// config of ng-gapi 3rd party library
-/**
-const gapiClientConfig: NgGapiClientConfig = {
-    client_id: environment.googleApi.clientId,
-    discoveryDocs: environment.googleApi.discoveryDocs,
-    scope: environment.googleApi.scope,
-    ux_mode: 'redirect',
-    redirect_uri: environment.googleApi.redirect_uri
-};
-**/
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -93,7 +64,6 @@ const gapiClientConfig: NgGapiClientConfig = {
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
     EffectsModule.forRoot([
       AuthEffects,
-      GmailLabelEffects,
       BootstrapEffects,
       TasksEffects,
       UserEffects
@@ -115,7 +85,6 @@ const gapiClientConfig: NgGapiClientConfig = {
     AuthUserService,
     AuthGuardService,
     ReverseAuthGuardService,
-    GmailLabelService,
     BootstrapService,
     NotificationService, // notifications in MatSnackBar
     // LocalStorageService, // stores entire ngrx-store state in localStorage

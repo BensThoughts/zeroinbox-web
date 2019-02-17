@@ -21,7 +21,7 @@ export class LoadEmailProfileAction implements Action {
   constructor(public payload: EmailProfile) {}
 }
 
-export class ResetUserAction implements Action {
+export class ResetUserStateAction implements Action {
   readonly type = UserActionTypes.ResetUserState;
 }
 
@@ -33,5 +33,5 @@ export class UpdateUserStateAction implements Action {
 export type UserActions =
   | LoadBasicProfileAction
   | LoadEmailProfileAction
-  | ResetUserAction
+  | ResetUserStateAction
   | UpdateUserStateAction;

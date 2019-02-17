@@ -6,11 +6,6 @@ import {
   AppState,
   selectBasicProfile,
   selectEmailProfile,
-
-  GmailLabelsRequested,
-  selectLabelsLength,
-  selectImageUrl,
-  selectEmailProfileLoaded
 } from '@app/core';
 
 import {
@@ -21,9 +16,6 @@ import {
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
-import { map } from 'rxjs/operators';
-import { GetAllSuggestionsAction } from '@app/core/state/gmail-api/bootstrap/bootstrap.actions';
-import { LoginCompleteAction } from '../../core/state/auth/auth.actions';
 
 @Component({
   selector: 'app-home',
@@ -45,19 +37,9 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    // this.store.dispatch(new GmailLabelsRequested());
-    // this.store.pipe(
-    //  select(selectEmailProfileLoaded),
-    // map((loaded) => {
-    //    if (loaded) {
-    //      this.store.dispatch(new GetAllSuggestionsAction());
-    //    }
-    //  })
-    //).subscribe()
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
-    this.labels_length$ = this.store.pipe(select(selectLabelsLength));
   }
 
 }

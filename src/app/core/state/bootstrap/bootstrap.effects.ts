@@ -10,9 +10,9 @@ import {
   GetAllSuggestionsAction,
   FirstRunStatusRequestFailureAction,
 } from './bootstrap.actions';
-import { BootstrapService } from '@app/core/services/gmail-api/bootstrap/bootstrap.service';
+import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '../../core.state';
+import { AppState } from '../core.state';
 import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom, take, delay } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
@@ -136,7 +136,7 @@ export class BootstrapEffects {
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
       filter((evt) => {
-        return evt.key === 'go-app-Bootstrap';
+        return evt.key === 'go-app-bootstrap';
       }),
       filter(evt => evt.newValue !== null),
       map(evt => {

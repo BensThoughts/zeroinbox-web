@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { selectSendersState } from '../../core.state';
+import { selectSendersState } from '../core.state';
 import { BootstrapState } from './bootstrap.reducer';
 
 /**

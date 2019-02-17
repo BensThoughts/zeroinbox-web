@@ -28,8 +28,6 @@ export class LoginSuccessAction implements Action {
 
 export class LoginFailureAction implements Action {
   readonly type = AuthActionTypes.LoginFailure;
-
-  constructor(public payload: any) {}
 }
 
 export class LogoutAction implements Action {

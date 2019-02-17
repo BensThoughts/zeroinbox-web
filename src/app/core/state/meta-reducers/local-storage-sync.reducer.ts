@@ -5,7 +5,7 @@ import { AppState } from '../core.state';
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
   return localStorageSync(
     {
-      keys: ['user', 'auth', 'gmailLabel', 'senders', 'settings', 'tasks', 'suggestions'],
+      keys: ['user', 'auth', 'bootstrap', 'settings', 'tasks', 'suggestions'],
       // keys: ['auth', 'settings'],
       rehydrate: true,
       removeOnUndefined: true,
@@ -13,15 +13,3 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
     }
   )(reducer);
 }
-
-/**
-export function updateStateReducer(reducer: ActionReducer<AppState>) {
-  return (state: AppState | undefined, action: Action) => {
-    if (action.type === 'UPDATE_AUTH_STATE') {
-      // replace the current state with the new state
-      return action.payload.newState;
-    }
-    return reducer(state, action);
-  };
-}
-**/

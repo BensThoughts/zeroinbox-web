@@ -16,20 +16,19 @@ import { tasksReducer, TasksState } from './tasks/tasks.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
-import { gmailLabelReducer, GmailLabelState } from './gmail-api/gmail-label/gmail-label.reducer';
-import { BootstrapState, bootstrapReducer } from './gmail-api/bootstrap/bootstrap.reducer';
+import { BootstrapState, bootstrapReducer } from './bootstrap/bootstrap.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   auth: authReducer,
   user: userReducer,
-  gmailLabel: gmailLabelReducer,
-  senders: bootstrapReducer,
+  bootstrap: bootstrapReducer,
   tasks: tasksReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
-  localStorageSyncReducer
+  localStorageSyncReducer,
+  debug
 ];
 if (!environment.production) {
   metaReducers.unshift(storeFreeze);
@@ -46,12 +45,8 @@ export const selectUserState = createFeatureSelector<AppState, UserState>(
   'user'
 );
 
-export const selectGmailLabelState = createFeatureSelector<AppState, GmailLabelState>(
-  'gmailLabel'
-);
-
 export const selectSendersState = createFeatureSelector<AppState, BootstrapState>(
-  'senders'
+  'bootstrap'
 );
 
 export const selectTasksState = createFeatureSelector<AppState, TasksState>(
@@ -69,7 +64,6 @@ export interface AppState {
   router: RouterReducerState<RouterStateUrl>;
   user: UserState;
   auth: AuthState;
-  gmailLabel: GmailLabelState;
-  senders: SendersState;
+  bootstrap: BootstrapState;
   tasks: TasksState;
 }
