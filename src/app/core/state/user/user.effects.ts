@@ -12,7 +12,7 @@ import { UpdateUserStateAction } from './user.actions';
 @Injectable()
 export class UserEffects {
 
-  @Effect({dispatch: false})
+  @Effect()
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
     filter((evt) => {
@@ -21,17 +21,8 @@ export class UserEffects {
     }),
     filter(evt => evt.newValue !== null),
     map(evt => {
-      // console.log(evt);
-      // console.log(JSON.parse(evt.newValue));
       let userState = JSON.parse(evt.newValue);
-      // console.log(authenticated);
-      this.store.dispatch(new UpdateUserStateAction(userState));
-      // if (authenticated) {
-      // this.store.dispatch(new LoginSuccessAction());
-      // }
-      // if (!authenticated) {
-      //  this.store.dispatch(new LogoutConfirmedFromOtherWindowAction());
-      //}
+      return new UpdateUserStateAction(userState);
     })
   );
 

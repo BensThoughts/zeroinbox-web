@@ -12,7 +12,7 @@
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Name">
         <mat-card class="my-2">
-        <go-suggestions-table></go-suggestions-table>
+        <app-count-suggestions-table></app-count-suggestions-table>
         </mat-card>
       </mat-tab>
       <mat-tab label="Size">
@@ -26,11 +26,11 @@
       <mat-tab label="Count">
 
         <div *ngIf="totalCounts$ | async as totalCounts">
-        <iz-suggestions-by-size
-                [totalCounts]="totalCounts" 
+        <app-suggestions-by-group
+                [totalCounts]="totalCounts"
                 [totalLengths]="totalLengths$ | async"
                 [totalSizes]="totalSizes$ | async">
-        </iz-suggestions-by-size>
+        </app-suggestions-by-group>
         </div>
 
       </mat-tab>

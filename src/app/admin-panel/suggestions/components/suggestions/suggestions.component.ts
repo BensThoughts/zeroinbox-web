@@ -1,10 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
-import {
-  selectSendersThreadIds,
-  selectSendersLoaded,
-} from '@app/core';
 // import { selectToken } from '@app/core';
 
 import { Observable, of } from 'rxjs';

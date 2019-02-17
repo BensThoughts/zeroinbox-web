@@ -4,7 +4,7 @@ import { AppState } from '@app/core';
 import { selectLabelTasks, selectDeleteTasks } from '@app/core/state/tasks/tasks.selectors';
 
 @Component({
-  selector: 'zi-tasks-component',
+  selector: 'app-tasks-component',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })

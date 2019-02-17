@@ -9,7 +9,11 @@ import { LoadBasicProfileAction, LoadEmailProfileAction } from '@app/core/state/
 import { MY_API_URL } from '../myapiurl';
 
 export interface AuthUrlResponse {
-  authUrl: string;
+  status: string;
+  status_message: string;
+  data: {
+    auth_url: string;
+  }
 }
 
 export interface BasicProfileResponse {
@@ -60,7 +64,11 @@ export class AuthUserService {
     public signIn() {
       this.httpClient.get<AuthUrlResponse>(this.MY_API_URL + '/oauth2init').subscribe((response) => {
         console.log(response);
-        window.location.href = response.authUrl;
+        if (response.status === 'error') {
+          console.error('Response status_message: ' + response.status_message);
+        }
+        console.log('Response status_message: ' + response.status_message);
+        window.location.href = response.data.auth_url;
       })
 
     }

@@ -9,6 +9,7 @@ export enum AuthActionTypes {
   LogoutCancelled = '[Auth Effects] Logout Cancelled',
   LogoutConfirmed = '[Auth Effects] Logout Confirmed',
   LogoutConfirmedFromOtherWindow = '[Auth Effects] Logout Confirmed From Other Window',
+  UpdateAuthState = '[Auth Effects] Update Auth State',
 }
 
 export class LoginRequestedAction implements Action {
@@ -47,6 +48,11 @@ export class LogoutConfirmedFromOtherWindowAction implements Action {
   readonly type = AuthActionTypes.LogoutConfirmedFromOtherWindow;
 }
 
+export class UpdateAuthStateAction implements Action {
+  readonly type = AuthActionTypes.UpdateAuthState;
+  constructor(public payload: any) {}
+}
+
 export type AuthActions =
   | LoginRequestedAction
   | LoginCompleteAction
@@ -56,3 +62,5 @@ export type AuthActions =
   | LogoutCancelledAction
   | LogoutConfirmedAction
   | LogoutConfirmedFromOtherWindowAction
+
+  | UpdateAuthStateAction

@@ -3,11 +3,11 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core';
 
 @Component({
-  selector: 'iz-suggestions-by-size',
-  templateUrl: './suggestions-by-size.component.html',
-  styleUrls: ['./suggestions-by-size.component.scss']
+  selector: 'app-suggestions-by-group',
+  templateUrl: './suggestions-by-group.component.html',
+  styleUrls: ['./suggestions-by-group.component.scss']
 })
-export class SuggestionsBySizeComponent implements OnInit {
+export class SuggestionsByGroupComponent implements OnInit {
 
 
 

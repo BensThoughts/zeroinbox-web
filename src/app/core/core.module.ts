@@ -61,6 +61,7 @@ import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.eff
 import { SendersService } from './services/gmail-api/senders/senders.service';
 import { SendersEffects } from './state/gmail-api/senders/senders.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
+import { UserEffects } from './state/user/user.effects';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 
@@ -94,7 +95,8 @@ const gapiClientConfig: NgGapiClientConfig = {
       AuthEffects,
       GmailLabelEffects,
       SendersEffects,
-      TasksEffects
+      TasksEffects,
+      UserEffects
     ]),    // ngrx effects
     // ngrx store devtools
 

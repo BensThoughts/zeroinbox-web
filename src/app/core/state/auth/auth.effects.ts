@@ -21,15 +21,17 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { LoadBasicProfileAction, ResetUserAction, LoadEmailProfileAction } from '../user/user.actions';
 import { GmailLabelsRemovedByAuth } from '../gmail-api/gmail-label/gmail-label.actions';
-import { ResetSendersStateAction } from '../gmail-api/senders/senders.actions';
+import { ResetSendersStateAction, GetAllSuggestionsAction } from '../gmail-api/senders/senders.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
+
+
+import { UpdateAuthStateAction } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
 
-
-  @Effect({dispatch: false})
+  @Effect()
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
     filter((evt) => {
@@ -44,12 +46,26 @@ export class AuthEffects {
       // console.log(authenticated);
       // this.store.dispatch(new UpdateAuthState(authState));
       if (authenticated) {
-        this.store.dispatch(new LoginSuccessAction());
+        return new LoginSuccessAction();
       } else {
-        this.store.dispatch(new LogoutConfirmedFromOtherWindowAction());
+        return new LogoutConfirmedFromOtherWindowAction();
       }
     })
   );
+
+/*   @Effect({dispatch: false})
+  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+    // listen to our storage key
+    filter((evt) => {
+      // console.log(evt);
+      return evt.key === 'go-app-auth';
+    }),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      let authState = JSON.parse(evt.newValue);
+      this.store.dispatch(new UpdateAuthStateAction(authState));
+    })
+  ); */
 
   /**
    * [Effect login$ activates the signIn() flow from the authService]
@@ -85,7 +101,8 @@ export class AuthEffects {
       );
     }),
     map(() => {
-      this.store.dispatch(new LoginSuccessAction())
+      // this.store.dispatch(new LoginSuccessAction())
+      this.store.dispatch(new GetAllSuggestionsAction());
     }),
     catchError(err => of(console.log(err)))
   );

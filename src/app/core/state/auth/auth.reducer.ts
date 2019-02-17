@@ -29,11 +29,20 @@ export function authReducer(state: AuthState = initialState, action: AuthActions
         isAuthenticated: true,
       };
 
+    case AuthActionTypes.LoginComplete:
+      return {
+        ...state,
+        isAuthenticated: true,
+      }
+
     case AuthActionTypes.LogoutConfirmed:
       return initialState;
 
     case AuthActionTypes.LogoutConfirmedFromOtherWindow:
       return initialState;
+
+    case AuthActionTypes.UpdateAuthState:
+      return action.payload;
 
     default:
       return state;

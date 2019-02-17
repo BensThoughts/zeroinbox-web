@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ISuggestion } from './suggestions.model';
 import { Update } from '@ngrx/entity';
+import { ResetSendersStateAction } from '../../../core/state/gmail-api/senders/senders.actions';
 
 export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
@@ -16,6 +17,7 @@ export enum SuggestionsActionTypes {
 
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
+  UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
 
@@ -67,6 +69,12 @@ export class SetSizeCutoffAction implements Action {
   constructor(public payload: { sizeCutoff: number }) {}
 }
 
+export class UpdateSuggestionsStateAction implements Action {
+  readonly type = SuggestionsActionTypes.UpdateSuggestionsState;
+
+  constructor(public payload: any) {}
+}
+
 export class ResetSuggestionsStateAction implements Action {
   readonly type = SuggestionsActionTypes.ResetSuggestions;
 }
@@ -86,4 +94,5 @@ export type ByCountActions =
 
   | SetSizeCutoffAction
 
+  | UpdateSuggestionsStateAction
   | ResetSuggestionsStateAction

@@ -1,4 +1,4 @@
-import { SettingsActions, SettingsActionTypes } from './settings.actions';
+import { SettingsActions, SettingsActionTypes, UpdateSettingsStateAction } from './settings.actions';
 import { AppState } from '@app/core';
 
 export interface State extends AppState {
@@ -17,6 +17,9 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
   switch (action.type) {
     case SettingsActionTypes.ChangeTheme:
       return { ...state, ...action.payload }
+
+    case SettingsActionTypes.UpdateSettingsState:
+      return action.payload;
 
     default:
       return state;

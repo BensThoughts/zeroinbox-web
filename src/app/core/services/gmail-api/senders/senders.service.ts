@@ -20,22 +20,36 @@ export interface ThreadIdsResponse {
 }
 
 export interface LoadingStatus {
-  loading: boolean;
+  status: string,
+  status_message: string,
+  data: {
+    loading_status: boolean;
+  }
+}
+
+export interface FirstRunStatus {
+  status: string,
+  status_message: string,
+  data: {
+    firstRun: boolean;
+  }
 }
 
 
 export interface ISuggestionResponse {
-  sender: {
-    id: string;
-    fromAddress: string;
-    fromNames: Array<string>;
-    count: number;
-    totalSizeEstimate: number;
-  }
+      senderId: string;
+      senderAddress: string;
+      senderNames: Array<string>;
+      count: number;
+      totalSizeEstimate: number;
 }
 
 export interface SuggestionsResponse {
-  suggestions: ISuggestionResponse[]
+  status: string,
+  status_message: string,
+  data: {
+    suggestions: ISuggestionResponse[]
+  }
 }
 
 @Injectable()
@@ -46,24 +60,10 @@ export class SendersService {
 
     constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
 
-
-    // private readonly MY_API_URL: string = '	https://us-central1-labelorganizer.cloudfunctions.net/api';
-    // private readonly MY_API_URL: string = 'http://127.0.0.1:8080';
-    // private readonly MY_API_URL: string = 'https://us-central1-labelorganizer.cloudfunctions.net/googleApi';
     private MY_API_URL = MY_API_URL;
 
-    public getAllThreadIds(gapiRequest: GapiRequest): Observable<ThreadIdsResponse>  {
-      // return this.httpClient.post(this.MY_API_URL + '/threads', gapiRequest);
-      return this.httpClient.get<ThreadIdsResponse>(this.MY_API_URL + '/threads', {
-        // headers: {
-        //  'Authorization': 'Bearer' + gapiRequest.token
-        //}
-        withCredentials: true
-      });
-    }
-
-    public batchRequest(gapiRequest: GapiRequest) {
-      return this.httpClient.post<LoadingStatus>(this.MY_API_URL + '/batch', gapiRequest, {
+    public getFirstRunStatus(): Observable<FirstRunStatus> {
+      return this.httpClient.get<FirstRunStatus>(this.MY_API_URL + '/loadSuggestions', {
         withCredentials: true
       });
     }

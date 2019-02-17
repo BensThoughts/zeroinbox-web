@@ -2,100 +2,83 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
   SendersActionTypes,
-  SendersRequestedAction,
-  InboxThreadIdsRequestedAction,
-  InboxThreadIdsRequestFailureAction,
-  InboxThreadIdsLoadedAction,
-  AddAllThreadIdsAction,
-  AddAllSendersAction,
   UpdateSendersStateAction,
-  RequestLoadingStatusAction,
   AllSuggestionsRequestedAction,
   SuggestionsRequestFailureAction,
-  SendersRequestFailureAction,
+  FirstRunStatusRequestedAction,
+  LoadingStatusRequestedAction,
+  GetAllSuggestionsAction,
+  FirstRunStatusRequestFailureAction,
 } from './senders.actions';
 import { SendersService } from '@app/core/services/gmail-api/senders/senders.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
 import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom, take, delay } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
-import { selectSendersLoaded, selectThreadIdsLoaded } from './senders.selectors';
 import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
+import { selectSuggestionsLoaded } from '@app/admin-panel/suggestions/state/suggestions.selectors';
+import { selectfirstRun } from './senders.selectors';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
 
 
-
-
 @Injectable()
 export class SendersEffects {
 
+
   @Effect()
-  suggestionsRequested$ = this.actions$
+  getAllSuggestions$ = this.actions$
     .pipe(
-      ofType<SendersRequestedAction>(SendersActionTypes.SendersRequested),
-      withLatestFrom(this.store.pipe(select(selectThreadIdsLoaded))),
-      filter(([action, allThreadIdsLoaded]) => !allThreadIdsLoaded),
+      ofType<GetAllSuggestionsAction>(SendersActionTypes.GetAllSuggestions),
+      withLatestFrom(this.store.pipe(select(selectfirstRun))),
+      filter(([action, firstRun]) => {
+          // console.log(firstRun);
+          return firstRun;
+      }),
       map(() => {
-        return new InboxThreadIdsRequestedAction();
-      })
-    )
+        return new FirstRunStatusRequestedAction();
+        }
+      )
+    );
 
   @Effect()
-  inboxThreadIdsRequested$ = this.actions$
+  firstRunStatusRequested$ = this.actions$
     .pipe(
-      ofType<InboxThreadIdsRequestedAction>(SendersActionTypes.InboxThreadIdsRequested),
+      ofType<FirstRunStatusRequestedAction>(SendersActionTypes.FirstRunStatusRequested),
       exhaustMap(() => {
-        return this.sendersService.getAllThreadIds({}).pipe(
-          map((threadIds) => {
-            return new AddAllThreadIdsAction(threadIds.threadIds);
-            // this.store.dispatch(new InboxThreadIdsLoadedAction(threadIds.threadIds));
-          }),
-          catchError((err) => of(new InboxThreadIdsRequestFailureAction(err)))
-        )
+        console.log('FirstRunStatus');
+        return this.sendersService.getFirstRunStatus().pipe(
+          map((response) => {
+            console.log(response);
+            if (response.status === 'error') {
+              return new FirstRunStatusRequestFailureAction();
+            }
+            if (response.data.firstRun) {
+              console.log(response);
+              return new LoadingStatusRequestedAction();
+            } else {
+              return new AllSuggestionsRequestedAction();
+            }
+          })
+        );
       })
-    )
 
+    );
 
-
-
-
-  @Effect()
-  sendersThreadsRequested$ = this.actions$
-      .pipe(
-        ofType<AddAllThreadIdsAction>(SendersActionTypes.AddAllThreadIds),
-        exhaustMap((action) => {
-          return this.sendersService.batchRequest({ body: action.payload }).pipe(
-            map((loadingStatus) => {
-              return new RequestLoadingStatusAction();
-              /**
-              });**/
-              // return new LoadSuggestionsAction({ suggestions: suggestions });
-            }),
-            // map((iSenders) => {
-            //  console.log('dispatch');
-            //  this.store.dispatch(new AddAllSendersAction(iSenders));
-            // })
-            catchError((err) => of(new SendersRequestFailureAction(err)))
-          );
-        }),
-        catchError((err) => of(new SendersRequestFailureAction(err))),
-
-      );
 
   @Effect()
   getLoadingStatus$ = this.actions$
     .pipe(
-      ofType<RequestLoadingStatusAction>(SendersActionTypes.RequestLoadingStatus),
+      ofType<LoadingStatusRequestedAction>(SendersActionTypes.LoadingStatusRequested),
       delay(1000),
       concatMap((action) => {
         return this.sendersService.getLoadingStatus().pipe(
           map((response) => {
-            console.log(response);
-            if (response.loading) {
-              return new RequestLoadingStatusAction();
+            console.log('Loading status: ' + response);
+            if (response.data.loading_status) {
+              return new LoadingStatusRequestedAction();
             } else {
               console.log('senders requested');
               return new AllSuggestionsRequestedAction()
@@ -124,14 +107,14 @@ export class SendersEffects {
         return this.sendersService.getSuggestions().pipe(
           map((response) => {
             console.log(response);
-            let suggestions: ISuggestion[] = response.suggestions.map((suggestion) => {
+            let suggestions: ISuggestion[] = response.data.suggestions.map((suggestion) => {
               // console.log(suggestion);
-              let totalSizeEstimate = this.toMB(suggestion.sender.totalSizeEstimate);
+              let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
               return {
-                id: suggestion.sender.id,
-                fromAddress: suggestion.sender.fromAddress,
-                fromName: suggestion.sender.fromNames[0],
-                count: suggestion.sender.count,
+                id: suggestion.senderId,
+                fromAddress: suggestion.senderAddress,
+                fromName: suggestion.senderNames[0],
+                count: suggestion.count,
                 totalSizeEstimate: totalSizeEstimate
               };
             })
@@ -149,7 +132,7 @@ export class SendersEffects {
       })
     );
 
-  @Effect()
+    @Effect()
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
       filter((evt) => {
@@ -162,7 +145,7 @@ export class SendersEffects {
       })
     );
 
-
+    
   constructor(
     private actions$: Actions,
     private sendersService: SendersService,

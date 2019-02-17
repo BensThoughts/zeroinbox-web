@@ -10,12 +10,15 @@ import {
   DeleteSuggestionsMetaAction,
   LabelBySizeSuggestionsAction
 } from './suggestions.actions';
-import { map, take, mergeMap, exhaustMap } from 'rxjs/operators';
+import { map, filter, take, mergeMap, exhaustMap } from 'rxjs/operators';
 import { ITask } from '@app/core/state/tasks/tasks.model';
 import { ISuggestion } from './suggestions.model';
 import { Update } from '@ngrx/entity';
 import { select_Tasks_Suggestions_Entities, selectEntities } from './suggestions.selectors';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
+import { UpdateSuggestionsStateAction } from './suggestions.actions';
+import { fromEvent } from 'rxjs';
+
 
 @Injectable()
 export class SuggestionsEffects {
@@ -173,6 +176,19 @@ export class SuggestionsEffects {
     })
   );
 
+
+  @Effect()
+  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  // listen to our storage key
+    filter((evt) => {
+      return evt.key === 'go-app-suggestions';
+    }),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      let suggestionsState = JSON.parse(evt.newValue);
+      return new UpdateSuggestionsStateAction(suggestionsState);
+    })
+  );
 
   constructor(
     private actions$: Actions,

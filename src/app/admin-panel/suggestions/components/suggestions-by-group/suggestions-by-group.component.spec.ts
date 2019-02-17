@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuggestionsBySizeComponent } from './suggestions-by-size.component';
+import { SuggestionsByGroupComponent } from './suggestions-by-group.component';
 
-describe('SuggestionsBySizeComponent', () => {
-  let component: SuggestionsBySizeComponent;
-  let fixture: ComponentFixture<SuggestionsBySizeComponent>;
+describe('SuggestionsByGroupComponent', () => {
+  let component: SuggestionsByGroupComponent;
+  let fixture: ComponentFixture<SuggestionsByGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SuggestionsBySizeComponent ]
+      declarations: [ SuggestionsByGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuggestionsBySizeComponent);
+    fixture = TestBed.createComponent(SuggestionsByGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

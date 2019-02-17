@@ -204,11 +204,11 @@ export class SuggestionsSizeTableComponent implements OnInit {
   suggestionToggle(action: string, id: string) {
 
     let selectionModels = this.selectSelectionModels(action);
-    if (selectionModels[0].isSelected(id)) {
-      selectionModels[0].deselect(id);
+    if (selectionModels.currentSelected.isSelected(id)) {
+      selectionModels.currentSelected.deselect(id);
     } else {
-      selectionModels[0].select(id);
-      selectionModels[1].deselect(id);
+      selectionModels.currentSelected.select(id);
+      selectionModels.currentDeselected.deselect(id);
     }
 
   }
@@ -216,10 +216,10 @@ export class SuggestionsSizeTableComponent implements OnInit {
   masterToggle(action: string) {
     let selectionModels = this.selectSelectionModels(action);
     this.isAllSelected(action) ?
-      selectionModels[0].clear() :
+      selectionModels.currentSelected.clear() :
         this.dataSource.getValues().forEach((suggestion) => {
-          selectionModels[0].select(suggestion.id);
-          selectionModels[1].deselect(suggestion.id);
+          selectionModels.currentSelected.select(suggestion.id);
+          selectionModels.currentDeselected.deselect(suggestion.id);
         })
     }
 
@@ -236,8 +236,8 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   isAllSelected(action: string) {
 
-    let selectionModel = this.selectSelectionModels(action)[0];
-    const numSelected = selectionModel.selected.length;
+    let selectionModel = this.selectSelectionModels(action);
+    const numSelected = selectionModel.currentSelected.selected.length;
     const numRows = this.dataSource.getLength();
 
     return numSelected == numRows;
@@ -245,17 +245,17 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
   isSelected(action: string, id: string) {
-    let selectionModels = this.selectSelectionModels(action)[0];
-    return selectionModels.isSelected(id);
+    let selectionModels = this.selectSelectionModels(action);
+    return selectionModels.currentSelected.isSelected(id);
   }
 
   selectSelectionModels(action: string) {
     try {
       switch (action) {
         case 'label':
-          return [this.selectionLabel, this.selectionDelete];
+          return { currentSelected: this.selectionLabel, currentDeselected: this.selectionDelete };
         case 'delete':
-          return [this.selectionDelete, this.selectionLabel];
+          return { currentSelected: this.selectionDelete, currentDeselected: this.selectionLabel };
 
         default:
           throw new Error('Error: ' + action + ' is not one of "label" or "delete"');

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
-import { PageQuery } from '../components/suggestions-table/suggestions-table.component';
+import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
 import { ISuggestion, ISizes } from './suggestions.model';
 

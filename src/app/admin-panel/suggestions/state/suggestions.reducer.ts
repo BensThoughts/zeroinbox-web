@@ -27,7 +27,7 @@ export const adapter: EntityAdapter<ISuggestion> =
 const initialSuggestionsState = adapter.getInitialState({
   selectionMode: 'COUNT',
   suggestionsLoaded: false,
-  cutoff: 5,
+  cutoff: 15,
   sizeCutoff: 2
 });
 
@@ -53,7 +53,10 @@ export function suggestionsReducer(
         return { ...state, sizeCutoff: action.payload.sizeCutoff };
 
       case SuggestionsActionTypes.ResetSuggestions:
-        return initialSuggestionsState
+        return initialSuggestionsState;
+
+      case SuggestionsActionTypes.UpdateSuggestionsState:
+        return action.payload;
 
       default:
         return state;

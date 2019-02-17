@@ -5,10 +5,10 @@ import {
   selectTheme,
   selectSettingsState
 } from './settings.selectors';
-import { SettingsActionTypes, SettingsActions } from './settings.actions';
+import { SettingsActionTypes, SettingsActions, UpdateSettingsStateAction } from './settings.actions';
 import { INIT, Store, select } from '@ngrx/store';
-import { merge } from 'rxjs';
-import { tap, withLatestFrom } from 'rxjs/operators';
+import { merge, fromEvent } from 'rxjs';
+import { tap, withLatestFrom, filter, map } from 'rxjs/operators';
 import { State } from './settings.reducer';
 import { Injectable } from '@angular/core';
 
@@ -31,6 +31,19 @@ export class SettingsEffects {
         classList.remove(...toRemove);
       }
       classList.add(theme);
+    })
+  );
+
+  @Effect()
+  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  // listen to our storage key
+    filter((evt) => {
+      return evt.key === 'go-app-settings';
+    }),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      let settingsState = JSON.parse(evt.newValue);
+      return new UpdateSettingsStateAction(settingsState);
     })
   );
 

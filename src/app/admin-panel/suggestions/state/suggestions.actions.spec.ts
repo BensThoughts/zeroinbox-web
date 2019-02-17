@@ -89,13 +89,25 @@ describe('UpdateSuggestionsAction', () => {
   });
 });
 
-describe('SetCutoffAction', () => {
+describe('SetCountCutoffAction', () => {
   it('should create an action', () => {
-    let payload: { cutoff: number };
-    const action = new fromSuggestionsActions.SetCutoffAction(payload);
+    let payload: { countCutoff: number };
+    const action = new fromSuggestionsActions.SetCountCutoffAction(payload);
 
     expect({...action}).toEqual({
-      type: fromSuggestionsActions.SuggestionsActionTypes.SetCutoff,
+      type: fromSuggestionsActions.SuggestionsActionTypes.SetCountCutoff,
+      payload
+    })
+  });
+});
+
+describe('SetSizeCutoffAction', () => {
+  it('should create an action', () => {
+    let payload: { sizeCutoff: number };
+    const action = new fromSuggestionsActions.SetSizeCutoffAction(payload);
+
+    expect({...action}).toEqual({
+      type: fromSuggestionsActions.SuggestionsActionTypes.SetSizeCutoff,
       payload
     })
   });
