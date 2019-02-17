@@ -22,7 +22,7 @@ import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { ISuggestion } from '../../state/suggestions.model';
+import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
 
 export interface PageQuery {

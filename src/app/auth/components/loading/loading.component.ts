@@ -13,7 +13,6 @@ export class LoadingComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new LoginSuccessAction());
-
+    this.store.dispatch(new LoginCompleteAction());
   }
 }

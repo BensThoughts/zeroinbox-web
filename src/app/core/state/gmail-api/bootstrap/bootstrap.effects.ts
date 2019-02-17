@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
-  SendersActionTypes,
-  UpdateSendersStateAction,
+  BootstrapActionTypes,
+  UpdateBootstrapStateAction,
   AllSuggestionsRequestedAction,
   SuggestionsRequestFailureAction,
   FirstRunStatusRequestedAction,
   LoadingStatusRequestedAction,
   GetAllSuggestionsAction,
   FirstRunStatusRequestFailureAction,
-} from './senders.actions';
-import { SendersService } from '@app/core/services/gmail-api/senders/senders.service';
+} from './bootstrap.actions';
+import { BootstrapService } from '@app/core/services/gmail-api/bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core.state';
 import { catchError, map, exhaustMap, tap, concatMap, filter, withLatestFrom, take, delay } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
-import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
+import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { selectSuggestionsLoaded } from '@app/admin-panel/suggestions/state/suggestions.selectors';
-import { selectfirstRun } from './senders.selectors';
+import { selectfirstRun } from './bootstrap.selectors';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
 
 
 @Injectable()
-export class SendersEffects {
+export class BootstrapEffects {
 
 
   @Effect()
   getAllSuggestions$ = this.actions$
     .pipe(
-      ofType<GetAllSuggestionsAction>(SendersActionTypes.GetAllSuggestions),
+      ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSuggestions),
       withLatestFrom(this.store.pipe(select(selectfirstRun))),
       filter(([action, firstRun]) => {
           // console.log(firstRun);
@@ -46,10 +46,10 @@ export class SendersEffects {
   @Effect()
   firstRunStatusRequested$ = this.actions$
     .pipe(
-      ofType<FirstRunStatusRequestedAction>(SendersActionTypes.FirstRunStatusRequested),
+      ofType<FirstRunStatusRequestedAction>(BootstrapActionTypes.FirstRunStatusRequested),
       exhaustMap(() => {
         console.log('FirstRunStatus');
-        return this.sendersService.getFirstRunStatus().pipe(
+        return this.BootstrapService.getFirstRunStatus().pipe(
           map((response) => {
             console.log(response);
             if (response.status === 'error') {
@@ -71,16 +71,16 @@ export class SendersEffects {
   @Effect()
   getLoadingStatus$ = this.actions$
     .pipe(
-      ofType<LoadingStatusRequestedAction>(SendersActionTypes.LoadingStatusRequested),
+      ofType<LoadingStatusRequestedAction>(BootstrapActionTypes.LoadingStatusRequested),
       delay(1000),
       concatMap((action) => {
-        return this.sendersService.getLoadingStatus().pipe(
+        return this.BootstrapService.getLoadingStatus().pipe(
           map((response) => {
             console.log('Loading status: ' + response);
             if (response.data.loading_status) {
               return new LoadingStatusRequestedAction();
             } else {
-              console.log('senders requested');
+              console.log('Bootstrap requested');
               return new AllSuggestionsRequestedAction()
             }
           })
@@ -100,11 +100,11 @@ export class SendersEffects {
 
 
   @Effect()
-  allSendersRequested$ = this.actions$
+  allSuggestionsRequested$ = this.actions$
     .pipe(
-      ofType<AllSuggestionsRequestedAction>(SendersActionTypes.AllSuggestionsRequested),
+      ofType<AllSuggestionsRequestedAction>(BootstrapActionTypes.AllSuggestionsRequested),
       exhaustMap((action) => {
-        return this.sendersService.getSuggestions().pipe(
+        return this.BootstrapService.getSuggestions().pipe(
           map((response) => {
             console.log(response);
             let suggestions: ISuggestion[] = response.data.suggestions.map((suggestion) => {
@@ -136,18 +136,18 @@ export class SendersEffects {
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
       filter((evt) => {
-        return evt.key === 'go-app-senders';
+        return evt.key === 'go-app-Bootstrap';
       }),
       filter(evt => evt.newValue !== null),
       map(evt => {
-        let sendersState = JSON.parse(evt.newValue);
-        return new UpdateSendersStateAction(sendersState);
+        let BootstrapState = JSON.parse(evt.newValue);
+        return new UpdateBootstrapStateAction(BootstrapState);
       })
     );
 
     
   constructor(
     private actions$: Actions,
-    private sendersService: SendersService,
+    private BootstrapService: BootstrapService,
     private store: Store<AppState>) { }
 }

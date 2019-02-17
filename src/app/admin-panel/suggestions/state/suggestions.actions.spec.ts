@@ -1,5 +1,5 @@
 import * as fromSuggestionsActions from "./suggestions.actions";
-import { ISuggestion } from './suggestions.model';
+import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
 
 describe('LoadSuggestionsAction', () => {

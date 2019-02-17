@@ -22,7 +22,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
 import { map } from 'rxjs/operators';
-import { GetAllSuggestionsAction } from '@app/core/state/gmail-api/senders/senders.actions';
+import { GetAllSuggestionsAction } from '@app/core/state/gmail-api/bootstrap/bootstrap.actions';
 import { LoginCompleteAction } from '../../core/state/auth/auth.actions';
 
 @Component({
@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
     //    }
     //  })
     //).subscribe()
-    this.store.dispatch(new LoginCompleteAction());
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));

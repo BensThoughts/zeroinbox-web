@@ -4,12 +4,11 @@ import { Observable, throwError, of, from, pipe } from 'rxjs';
 import { map, catchError, concatMap, tap } from 'rxjs/operators';
 import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
-import { ISender } from '@app/core/state/gmail-api/models/senders.model';
 import { Md5 } from 'ts-md5/dist/md5';
 // import { GapiToken } from '@app/core/state/auth/auth.reducer';
 
 import { MY_API_URL } from '../../myapiurl';
-import { ISuggestion } from '@app/admin-panel/suggestions/state/suggestions.model';
+import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 
 export interface GapiRequest {
   body?: Array<string>;
@@ -53,7 +52,7 @@ export interface SuggestionsResponse {
 }
 
 @Injectable()
-export class SendersService {
+export class BootstrapService {
 
     private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
     private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1';

@@ -28,6 +28,9 @@ export function tasksReducer(
       case TaskActionTypes.ResetTasks:
         return initialTasksState;
 
+      case TaskActionTypes.UpdateTasks:
+        return action.payload;
+
       default:
         return state;
 

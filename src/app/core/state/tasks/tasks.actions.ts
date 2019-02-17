@@ -4,7 +4,8 @@ import { Update, EntityMap, Dictionary } from '@ngrx/entity';
 
 export enum TaskActionTypes {
   UpsertTasks = '[Suggestions Effects] Upsert Tasks Action',
-  ResetTasks = '[Auth Effects] Reset Tasks'
+  ResetTasks = '[Auth Effects] Reset Tasks',
+  UpdateTasks = '[Tasks Effects] Update Tasks State From Other Window'
 }
 
 
@@ -19,7 +20,14 @@ export class ResetTasksStateAction implements Action {
 
 }
 
+export class UpdateTasksStateAction implements Action {
+  readonly type = TaskActionTypes.UpdateTasks;
+  constructor(public payload: any) {}
+}
+
 export type TaskActions =
 
   | ResetTasksStateAction
-  | UpsertTasksAction;
+  | UpsertTasksAction
+
+  | UpdateTasksStateAction

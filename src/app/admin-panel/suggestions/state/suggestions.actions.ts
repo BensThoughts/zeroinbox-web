@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-import { ISuggestion } from './suggestions.model';
+import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
-import { ResetSendersStateAction } from '../../../core/state/gmail-api/senders/senders.actions';
 
 export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
@@ -17,7 +16,7 @@ export enum SuggestionsActionTypes {
 
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
-  UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State',
+  UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Other Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
 

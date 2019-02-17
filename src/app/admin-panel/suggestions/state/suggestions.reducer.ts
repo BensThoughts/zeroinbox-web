@@ -1,6 +1,6 @@
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { ByCountActions, SuggestionsActionTypes } from './suggestions.actions';
-import { ISuggestion } from './suggestions.model';
+import { ISuggestion } from '../model/suggestions.model';
 import { AppState } from '@app/core';
 
 export interface State extends AppState {
@@ -8,7 +8,6 @@ export interface State extends AppState {
 }
 
 export interface SuggestionsState extends EntityState<ISuggestion> {
-  selectionMode: string;
   suggestionsLoaded: boolean;
   cutoff: number;
   sizeCutoff: number;
@@ -25,7 +24,6 @@ export const adapter: EntityAdapter<ISuggestion> =
 
 
 const initialSuggestionsState = adapter.getInitialState({
-  selectionMode: 'COUNT',
   suggestionsLoaded: false,
   cutoff: 15,
   sizeCutoff: 2

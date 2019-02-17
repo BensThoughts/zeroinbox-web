@@ -3,7 +3,7 @@ import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
-import { ISuggestion, ISizes } from './suggestions.model';
+import { ISuggestion, ISizes } from '../model/suggestions.model';
 
 
 

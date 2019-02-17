@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ISizes } from '@app/admin-panel/suggestions/state/suggestions.model';
+import { ISizes } from '@app/admin-panel/suggestions/model/suggestions.model';
 
 @Component({
   selector: 'app-stats-barchart',

@@ -58,8 +58,8 @@ import {
 
 import { GmailLabelService } from './services/gmail-api/gmail-label/gmail-label.service';
 import { GmailLabelEffects } from './state/gmail-api/gmail-label/gmail-label.effects';
-import { SendersService } from './services/gmail-api/senders/senders.service';
-import { SendersEffects } from './state/gmail-api/senders/senders.effects';
+import { BootstrapService } from './services/gmail-api/bootstrap/bootstrap.service';
+import { BootstrapEffects } from './state/gmail-api/bootstrap/bootstrap.effects';
 import { TasksEffects } from './state/tasks/tasks.effects';
 import { UserEffects } from './state/user/user.effects';
 
@@ -94,7 +94,7 @@ const gapiClientConfig: NgGapiClientConfig = {
     EffectsModule.forRoot([
       AuthEffects,
       GmailLabelEffects,
-      SendersEffects,
+      BootstrapEffects,
       TasksEffects,
       UserEffects
     ]),    // ngrx effects
@@ -116,7 +116,7 @@ const gapiClientConfig: NgGapiClientConfig = {
     AuthGuardService,
     ReverseAuthGuardService,
     GmailLabelService,
-    SendersService,
+    BootstrapService,
     NotificationService, // notifications in MatSnackBar
     // LocalStorageService, // stores entire ngrx-store state in localStorage
     // httpInterceptorProviders, // http error interceptor
