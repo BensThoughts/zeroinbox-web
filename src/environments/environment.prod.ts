@@ -3,7 +3,7 @@ const packageJson = require('../../package.json');
 export const environment = {
   appName: 'Gmail Starter',
   envName: 'PROD',
-  apiHost: '35.235.82.185',
+  apiHost: 'zeroinbox.app',
   apiPort: 3000,
   production: true,
   test: false,
