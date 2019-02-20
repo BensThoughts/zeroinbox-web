@@ -2,39 +2,31 @@
  -->
 <div class="theme-wrapper black-theme">
   
-      <mat-toolbar color="primary">
-        <span class="spacer">
-        <button mat-icon-button class="d-md-none" (click)="sidenav.toggle()">
-          <fa-icon icon="bars"></fa-icon>
-        </button>
+  <mat-toolbar color="primary">
+    <span class="spacer">
+      <button mat-icon-button class="d-md-none" (click)="sidenav.toggle()">
+        <fa-icon icon="bars"></fa-icon>
+      </button>
 
-        <!--          <img src="./assets/logo.png">         -->
+      <!--          <img src="./assets/logo.png">         -->
 
+    </span>
 
+    <button mat-flat-button>About</button>
 
-        </span>
-        <button mat-flat-button>About</button>
-
-        <button mat-flat-button>FAQ</button>
+    <button mat-flat-button>FAQ</button>
             
+    <span *ngIf="isLoggedIn$ | async">
+      <a (click)="signOut()">
+        <button mat-icon-button class="logout-button">
+          <mat-icon class="logout-icon" matListIcon>
+            <fa-icon icon="sign-out-alt"></fa-icon>
+          </mat-icon>
+        </button>
+      </a>
+    </span>
 
-        <span *ngIf="isLoggedIn$ | async">
-          <a (click)="signOut()">
-              <button mat-icon-button class="logout-button">
-                <mat-icon class="logout-icon" matListIcon>
-                <fa-icon icon="sign-out-alt"></fa-icon>
-                </mat-icon>
-              </button>
-
-          </a>
-        </span>
-
-
-
-      </mat-toolbar>
-
-
-
+  </mat-toolbar>
 
   <mat-sidenav-container class="wrapper">
 
@@ -61,45 +53,44 @@
 
     <mat-sidenav-content  class="content container-fluid">
 
-
       <!-- Only displayed on md or larger screens -->
       <div class="d-none d-md-block app-sidenav">
-      <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
+        <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
 
-        <mat-nav-list>
-        <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
-          <span  class="app-nav-list-icon">
-            <mat-icon matListIcon>
-              <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
-            </mat-icon>
-          </span>
-          <span *ngIf="isOpen" class="menu-item-name">
-            {{ menu_item.name }}
-          </span>
-        </a>
+          <mat-nav-list>
+            <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
+              <span  class="app-nav-list-icon">
+                <mat-icon matListIcon>
+                  <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
+                </mat-icon>
+              </span>
+              <span *ngIf="isOpen" class="menu-item-name">
+                {{ menu_item.name }}
+              </span>
+            </a>
 
-        <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
-          <span class="app-nav-list-icon">
-            <mat-icon matListIcon>
-              <fa-icon icon="sign-out-alt"></fa-icon>
-            </mat-icon>
-          </span>
-          <span *ngIf="isOpen" class="menu-item-name">
-            Logout
-          </span>
-        </a>
-        </mat-nav-list>
+            <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
+              <span class="app-nav-list-icon">
+                <mat-icon matListIcon>
+                  <fa-icon icon="sign-out-alt"></fa-icon>
+                </mat-icon>
+              </span>
+              <span *ngIf="isOpen" class="menu-item-name">
+                Logout
+              </span>
+            </a>
+          </mat-nav-list>
 
-    </mat-sidenav>
-    </div>
-        <div class="menu-chevron d-none d-md-block">
-          <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
-            <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
-          </button>
-        </div>
+        </mat-sidenav>
+      </div>
 
-
-
+      <div class="menu-chevron d-none d-md-block">
+      
+        <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
+          <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
+        </button>
+    
+      </div>
 
       <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block h-100 reset-md">
         <router-outlet></router-outlet>
