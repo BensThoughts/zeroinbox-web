@@ -16,7 +16,6 @@ import { AppState, LogoutAction } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
 import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

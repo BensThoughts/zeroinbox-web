@@ -10,7 +10,7 @@ export interface SettingsState {
 }
 
 export const initialState: SettingsState = {
-  theme: 'DEFAULT_THEME',
+  theme: 'BLACK-THEME',
 }
 
 export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {

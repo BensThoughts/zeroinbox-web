@@ -24,9 +24,9 @@ export class SettingsEffects {
     tap(([action, theme]) => {
       const classList = this.overlayContainer.getContainerElement().classList;
       const toRemove = Array.from(classList).filter((item: string) =>
-        item.includes('-theme')
+         item.includes('-theme')
       );
-      if (toRemove.length) {
+      if (toRemove.length > 0) {
         classList.remove(...toRemove);
       }
       classList.add(theme);
