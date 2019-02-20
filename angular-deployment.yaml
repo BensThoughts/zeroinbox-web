@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /home/silente/Apps/Kube/kompose/kompose convert -f docker-compose.yml
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: angular
+  name: angular
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: angular
+    spec:
+      containers:
+      - image: gcr.io/zero-inbox-organizer/zero_inbox_website:latest
+        name: zero-inbox-web
+        ports:
+        - containerPort: 80
+        resources: {}
+      hostname: zero-inbox-web
+      restartPolicy: Always
+status: {}

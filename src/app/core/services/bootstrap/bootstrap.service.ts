@@ -50,9 +50,6 @@ export interface SuggestionsResponse {
 @Injectable()
 export class BootstrapService {
 
-    private readonly API_URL: string = 'https://www.googleapis.com/gmail/v1/users';
-    private readonly BATCH_API_URL: string = 'https://www.googleapis.com/batch/gmail/v1';
-
     constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
 
     private MY_API_URL = MY_API_URL;
