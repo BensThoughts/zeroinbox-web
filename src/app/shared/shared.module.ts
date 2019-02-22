@@ -38,10 +38,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-
-// Flex Layout Module for implementing @angular/flex-layout
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 // Fontawesome library
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -135,7 +131,6 @@ library.add(
 
     DragDropModule,
 
-    FlexLayoutModule
   ],**/
   exports: [
     CommonModule,
@@ -168,8 +163,6 @@ library.add(
     MatToolbarModule,
 
     DragDropModule,
-
-    FlexLayoutModule
   ]
 })
 export class SharedModule {}
