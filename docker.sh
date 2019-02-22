@@ -109,6 +109,7 @@ if [ "$versionBump" != "-" ]; then
         *)
             printf "version bump must be one of patch, minor, or major\n"
             exit 1
+            ;;
     esac
     printf "Rebuilding with new semantic version: $NEW_SEM_VER\n"
     # Rebuild so that new semantic version is included in the image
@@ -116,7 +117,7 @@ if [ "$versionBump" != "-" ]; then
 fi
 
 
-if [ "$p" != "y" ]; then
+if [ "$p" = "y" ]; then
     GIT_VER=$(git rev-parse @)
     SEM_VER=$(cat package.json \
         | grep version \
@@ -124,16 +125,17 @@ if [ "$p" != "y" ]; then
         | awk -F: '{ print $2 }' \
         | sed 's/[",]//g')
 
-    # Push the newest commit, and latest tag
-    printf "Pushing latest to docker repo:"
-    docker push $IMG_NAME:latest
-
-    printf "Pushing git version tag to docker repo: $GIT_VER"
+    # Push the newest commit
+    printf "Pushing new git version to docker repo: $GIT_VER\n"
     docker push $IMG_NAME:$GIT_VER
+    
+    # Push the latest tag
+    printf "Pushing latest tag to docker repo: latest\n"
+    docker push $IMG_NAME:latest
 
     # Create the semantic version tag, push it, then remove it
     # from the local system.
-    printf "Pushing semantic version tag to docker repo: $SEM_VER"
+    printf "Pushing semantic version tag to docker repo: $SEM_VER\n"
     docker tag $IMG_NAME:$GIT_VER $IMG_NAME:$SEM_VER
     docker push $IMG_NAME:$SEM_VER
     docker image rm $IMG_NAME:$SEM_VER
