@@ -3,6 +3,7 @@ version: '3.3'
 services:
   angular:
     hostname: zero-inbox-web
+    image: gcr.io/zero-inbox-organizer/zerinbox-angular:latest
     container_name: zero-inbox-web
     build: .
     ports:
