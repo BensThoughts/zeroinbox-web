@@ -5,7 +5,7 @@ export const environment = {
   appVersion: packageJson.version,
   envName: 'PROD',
   apiHost: 'zeroinbox.app',
-  apiPort: 3000,
+  apiPort: 8080,
   production: true,
   test: false,
   i18nPrefix: '',
