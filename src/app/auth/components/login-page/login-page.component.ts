@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   envName = env.envName;
   version = env.appVersion;
   year = new Date().getFullYear();
-  api_url = 'http://' + env.apiHost + ':' + env.apiPort;
+  api_url = env.apiHost;
   packageVersions = env.packageVersions;
 
   constructor(private store: Store<AppState>, private logService: LogService) {
