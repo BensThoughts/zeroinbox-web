@@ -5,6 +5,5 @@ services:
     hostname: zero-inbox-web
     image: gcr.io/zero-inbox-organizer/zeroinbox-angular:latest
     container_name: zero-inbox-web
-    build: .
     ports:
       - 80:80
