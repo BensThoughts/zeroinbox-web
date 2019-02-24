@@ -1,7 +1,7 @@
 
 
-<div >
-  <div class="container-fluid my-4">
+<div class="h-100">
+  <div class="container-fluid h-100 my-4">
     <div class="row" *ngIf="suggestionsLoaded$ | async; else loading">
       <div class="col mx-0 px-0">
 
@@ -47,8 +47,10 @@
 </div>
 
 <ng-template #loading>
-  <div class="loading-container" fxLayoutAlign="center center">
-    <mat-spinner [strokeWidth]="7"></mat-spinner>
+  <div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+      <mat-spinner [strokeWidth]="7"></mat-spinner>
+    </div>
   </div>
 </ng-template>
 
