@@ -31,6 +31,7 @@ import {
 } from '../bootstrap/bootstrap.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
+import { BasicProfileResponse, EmailProfileResponse } from '../../services/auth-user/auth-user.service';
 
 
 @Injectable()
@@ -76,15 +77,22 @@ export class AuthEffects {
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
     concatMap(() => {
       return this.authService.getBasicProfile().pipe(
-        map((response) => {
-          this.store.dispatch(new LoadBasicProfileAction(response.basic_profile));
+        map((response: BasicProfileResponse) => {
+          if (response.status === 'error') {
+            console.error('Error getting basic profile: ' + response.status_message)
+          } else {
+            this.store.dispatch(new LoadBasicProfileAction(response.data.basic_profile));
+          }
         })
       );
     }),
     concatMap(() => {
       return this.authService.getEmailProfile().pipe(
-        map((response) => {
-        this.store.dispatch(new LoadEmailProfileAction(response.email_profile));
+        map((response: EmailProfileResponse) => {
+          if (response.status === 'error') {
+            console.error('Error getting email profile: ' + response.status_message)
+          }
+        this.store.dispatch(new LoadEmailProfileAction(response.data.email_profile));
         })
       );
     }),

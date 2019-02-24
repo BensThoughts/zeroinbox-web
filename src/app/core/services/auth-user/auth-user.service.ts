@@ -16,11 +16,19 @@ export interface AuthUrlResponse {
 }
 
 export interface BasicProfileResponse {
-  basic_profile: BasicProfile
+  status: string;
+  status_message: string;
+  data: {
+    basic_profile: BasicProfile;
+  }
 }
 
-export interface BasicEmailResponse {
-  email_profile: EmailProfile
+export interface EmailProfileResponse {
+  status: string;
+  status_message: string;
+  data: {
+    email_profile: EmailProfile;
+  }
 }
 
 
@@ -62,9 +70,10 @@ export class AuthUserService {
         console.log(response);
         if (response.status === 'error') {
           console.error('Response status_message: ' + response.status_message);
+        } else {
+          console.log('Response status_message: ' + response.status_message);
+          window.location.href = response.data.auth_url;
         }
-        console.log('Response status_message: ' + response.status_message);
-        window.location.href = response.data.auth_url;
       })
 
     }
@@ -92,7 +101,7 @@ export class AuthUserService {
      * @return [description]
      */
     public getEmailProfile() {
-      return this.httpClient.get<BasicEmailResponse>(this.MY_API_URL + '/email', {
+      return this.httpClient.get<EmailProfileResponse>(this.MY_API_URL + '/email', {
         withCredentials: true
       });
     }
