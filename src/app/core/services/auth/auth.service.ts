@@ -1,4 +1,4 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { API_URL } from '../apiurl';
@@ -38,11 +38,9 @@ export class AuthService {
      */
     public signIn() {
       this.httpClient.get<AuthUrlResponse>(API_URL + '/oauth2init').subscribe((response) => {
-        console.log(response);
         if (response.status === 'error') {
           console.error('Response status_message: ' + response.status_message);
         } else {
-          console.log('Response status_message: ' + response.status_message);
           window.location.href = response.data.auth_url;
         }
       })
@@ -53,7 +51,7 @@ export class AuthService {
       this.httpClient.get(API_URL + '/logout', {
         withCredentials: true
       }).subscribe((response) => {
-        console.log(response);
+
       })
     }
 
