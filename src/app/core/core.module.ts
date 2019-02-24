@@ -23,11 +23,12 @@ import { CustomSerializer } from './state/router/custom-serializer';
 /**
  * [app wide singleton services]
  */
- import { AuthUserService } from './services/auth-user/auth-user.service';
- // Guard Service to redirect to login page when not authenticated
- import { AuthGuardService } from './services/auth-user/auth-guard.service';
+import { UserService } from './services/user/user.service';
+import { AuthService } from './services/auth/auth.service';
+// Guard Service to redirect to login page when not authenticated
+import { AuthGuardService } from './services/auth/auth-guard.service';
 // Guard Service to redirect to home page when already authenticated
- import { ReverseAuthGuardService } from './services/auth-user/reverse-auth-guard.service';
+import { ReverseAuthGuardService } from './services/auth/reverse-auth-guard.service';
 // notifications service
 import { NotificationService } from './services/notifications/notification.service';
 // error handler service
@@ -69,7 +70,8 @@ import { UserEffects } from './state/user/user.effects';
 
   declarations: [],
   providers: [
-    AuthUserService,
+    AuthService,
+    UserService,
     AuthGuardService,
     ReverseAuthGuardService,
     BootstrapService,

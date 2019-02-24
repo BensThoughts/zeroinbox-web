@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { AuthUserService } from '@app/core/services/auth-user/auth-user.service';
+import { AuthService } from '@app/core/services/auth/auth.service';
 import {
   AuthActionTypes,
   LoginRequestedAction,
@@ -31,7 +31,8 @@ import {
 } from '../bootstrap/bootstrap.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { BasicProfileResponse, EmailProfileResponse } from '../../services/auth-user/auth-user.service';
+import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/user.service';
+import { UserService } from '@app/core/services/user/user.service';
 
 
 @Injectable()
@@ -76,7 +77,7 @@ export class AuthEffects {
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
     concatMap(() => {
-      return this.authService.getBasicProfile().pipe(
+      return this.userService.getBasicProfile().pipe(
         map((response: BasicProfileResponse) => {
           if (response.status === 'error') {
             console.error('Error getting basic profile: ' + response.status_message)
@@ -87,7 +88,7 @@ export class AuthEffects {
       );
     }),
     concatMap(() => {
-      return this.authService.getEmailProfile().pipe(
+      return this.userService.getEmailProfile().pipe(
         map((response: EmailProfileResponse) => {
           if (response.status === 'error') {
             console.error('Error getting email profile: ' + response.status_message)
@@ -190,7 +191,8 @@ export class AuthEffects {
 
 constructor(
   private actions$: Actions,
-  private authService: AuthUserService,
+  private authService: AuthService,
+  private userService: UserService,
   private router: Router,
   private dialogService: MatDialog,
   private ngZone: NgZone,

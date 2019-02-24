@@ -1,5 +1,5 @@
 export * from './services/notifications/notification.service';
-export * from './services/auth-user/auth-guard.service';
+export * from './services/auth/auth-guard.service';
 export * from './state//bootstrap/bootstrap.actions';
 export * from './state//bootstrap/bootstrap.reducer';
 export * from './state//bootstrap/bootstrap.selectors';

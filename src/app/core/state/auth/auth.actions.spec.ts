@@ -28,13 +28,10 @@ describe('LoginSuccessAction', () => {
 });
 
 describe('LoginFailureAction', () => {
-  it('should create an action', () => {
-    let payload: any;
-    const action = new fromAuthActions.LoginFailureAction(payload);
+  it('should create an action', () => {    const action = new fromAuthActions.LoginFailureAction();
 
     expect({...action}).toEqual({
       type: fromAuthActions.AuthActionTypes.LoginFailure,
-      payload
      })
 
   });

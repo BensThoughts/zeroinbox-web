@@ -4,11 +4,8 @@ import { Observable} from 'rxjs';
 import { AppState } from '@app/core/state/core.state';
 import { Store } from '@ngrx/store';
 
-import { MY_API_URL } from '../myapiurl';
+import { API_URL } from '../apiurl';
 
-export interface GapiRequest {
-  body?: Array<string>;
-}
 
 export interface ThreadIdsResponse {
   threadIds: Array<string>;
@@ -50,24 +47,22 @@ export interface SuggestionsResponse {
 @Injectable()
 export class BootstrapService {
 
-    constructor(private httpClient: HttpClient, private store: Store<AppState>) {}
-
-    private MY_API_URL = MY_API_URL;
+    constructor(private httpClient: HttpClient) {}
 
     public getFirstRunStatus(): Observable<FirstRunStatus> {
-      return this.httpClient.get<FirstRunStatus>(this.MY_API_URL + '/loadSuggestions', {
+      return this.httpClient.get<FirstRunStatus>(API_URL + '/loadSuggestions', {
         withCredentials: true
       });
     }
 
     public getLoadingStatus(): Observable<LoadingStatus> {
-      return this.httpClient.get<LoadingStatus>(this.MY_API_URL + '/loadingStatus', {
+      return this.httpClient.get<LoadingStatus>(API_URL + '/loadingStatus', {
         withCredentials: true
       });
     }
 
     public getSuggestions(): Observable<SuggestionsResponse> {
-      return this.httpClient.get<SuggestionsResponse>(this.MY_API_URL + '/suggestions', {
+      return this.httpClient.get<SuggestionsResponse>(API_URL + '/suggestions', {
         withCredentials: true
       });
     }
