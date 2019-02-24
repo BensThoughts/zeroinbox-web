@@ -29,11 +29,7 @@ import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 })
 
 export class AppComponent implements OnInit {
-  title = 'Zero-Inbox';
-  isProd = env.production;
-  envName = env.envName;
-  version = env.versions.app;
-  year = new Date().getFullYear();
+  title = env.appName;
   logo = require('../assets/logo.png');
 
   // A list of each menu item MenuItem: { name, route, icon }
@@ -49,8 +45,9 @@ export class AppComponent implements OnInit {
   isOpen = false;
 
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
 
+  }
 
   ngOnInit(): void {
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
