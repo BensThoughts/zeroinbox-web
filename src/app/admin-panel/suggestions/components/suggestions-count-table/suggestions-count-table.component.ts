@@ -211,8 +211,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   isTotalPageSelected() {
     const totalSelectedLength = this.selectionLabel.selected.length + this.selectionDelete.selected.length;
     const totalLength = this.dataSource.getLength();
-    console.log('Total length: ' + totalLength);
-    console.log('Selected length: ' + totalSelectedLength);
     if (totalSelectedLength === totalLength) {
       return true;
     }
@@ -272,15 +270,12 @@ export class SuggestionsDataSource extends DataSource<any> {
   }
 
   loadSuggestions(page: PageQuery) {
-
-    console.log(page);
     this.store.pipe(
       select(selectByCountPage(page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })
     ).subscribe();
-
   }
 
   connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {

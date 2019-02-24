@@ -30,7 +30,6 @@ export function userReducer(state: UserState = initialState, action: UserActions
       };
 
     case UserActionTypes.LoadEmailProfile:
-      console.log(action.payload);
       return {
         ...state,
         email_profile: action.payload,

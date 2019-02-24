@@ -334,7 +334,7 @@ export function filterBySize(suggestions: ISuggestion[], cutoff: number) {
 
     }
   } catch(err) {
-    console.log(err);
+    console.error(err);
   }
 
 }

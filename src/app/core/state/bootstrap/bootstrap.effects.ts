@@ -41,7 +41,6 @@ export class BootstrapEffects {
       ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSuggestions),
       withLatestFrom(this.store.pipe(select(selectfirstRun))),
       filter(([action, firstRun]) => {
-          // console.log(firstRun);
           return firstRun;
       }),
       map(() => {
@@ -55,15 +54,12 @@ export class BootstrapEffects {
     .pipe(
       ofType<FirstRunStatusRequestedAction>(BootstrapActionTypes.FirstRunStatusRequested),
       exhaustMap(() => {
-        console.log('FirstRunStatus');
         return this.BootstrapService.getFirstRunStatus().pipe(
           map((response) => {
-            console.log(response);
             if (response.status === 'error') {
               return new FirstRunStatusRequestFailureAction();
             }
             if (response.data.firstRun) {
-              console.log(response);
               return new LoadingStatusRequestedAction();
             } else {
               return new AllSuggestionsRequestedAction();
@@ -83,11 +79,9 @@ export class BootstrapEffects {
       concatMap((action) => {
         return this.BootstrapService.getLoadingStatus().pipe(
           map((response) => {
-            console.log('Loading status: ' + response);
             if (response.data.loading_status) {
               return new LoadingStatusRequestedAction();
             } else {
-              console.log('Bootstrap requested');
               return new AllSuggestionsRequestedAction()
             }
           })
@@ -113,9 +107,7 @@ export class BootstrapEffects {
       exhaustMap((action) => {
         return this.BootstrapService.getSuggestions().pipe(
           map((response) => {
-            console.log(response);
             let suggestions: ISuggestion[] = response.data.suggestions.map((suggestion) => {
-              // console.log(suggestion);
               let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
               return {
                 id: suggestion.senderId,
@@ -125,7 +117,6 @@ export class BootstrapEffects {
                 totalSizeEstimate: totalSizeEstimate
               };
             })
-            console.log('suggestions response');
             return new LoadSuggestionsAction({ suggestions: suggestions });
           }),
           catchError((err) => {

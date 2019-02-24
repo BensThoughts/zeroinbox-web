@@ -1,3 +1,4 @@
+export * from './services/log/log.service';
 export * from './services/notifications/notification.service';
 export * from './services/auth/auth-guard.service';
 export * from './state//bootstrap/bootstrap.actions';

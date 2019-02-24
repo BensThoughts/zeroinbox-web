@@ -166,8 +166,6 @@ export class SuggestionsEffects {
         select(selectEntities),
         take(1),
         map((suggestions) => {
-          console.log(suggestions);
-          console.log(action.payload.ids);
           let tasksArray: ITask[];
           tasksArray = action.payload.ids.map((id) => {
             let address = suggestions[id].fromAddress;

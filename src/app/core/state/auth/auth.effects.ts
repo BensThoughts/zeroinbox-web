@@ -16,7 +16,6 @@ import { Effect, ofType, Actions } from '@ngrx/effects';
 import { tap, map, exhaustMap, catchError, filter, concatMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { of, fromEvent } from 'rxjs';
-import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { 
@@ -30,9 +29,11 @@ import {
   SyncToStorageAction 
 } from '../bootstrap/bootstrap.actions';
 import { ResetTasksStateAction } from '../tasks/tasks.actions';
-import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/user.service';
-import { UserService } from '@app/core/services/user/user.service';
+import { UserService } from '../../services/user/user.service';
+
+import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
+import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 
 
 @Injectable()
@@ -101,7 +102,7 @@ export class AuthEffects {
       this.store.dispatch(new LoginSuccessAction())
       this.store.dispatch(new GetAllSuggestionsAction());
     }),
-    catchError(err => of(console.log(err)))
+    catchError(err => of(console.error(err)))
   );
 
 

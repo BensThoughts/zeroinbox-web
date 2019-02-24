@@ -20,9 +20,7 @@ export class StatsBarchartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.sizes);
     this.testData = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
-
   }
 
 }
