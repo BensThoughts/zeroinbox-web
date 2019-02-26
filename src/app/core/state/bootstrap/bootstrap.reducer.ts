@@ -22,7 +22,7 @@ export function bootstrapReducer(
       case BootstrapActionTypes.AllSuggestionsRequested:
         return { ...state, firstRun: false }
 
-      case BootstrapActionTypes.SyncToStorage:
+      case BootstrapActionTypes.ToggleSyncToStorage:
         return { ...state, ...action.payload }
 
       case BootstrapActionTypes.UpdateBootstrapState:

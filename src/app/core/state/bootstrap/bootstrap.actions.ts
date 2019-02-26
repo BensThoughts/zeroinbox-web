@@ -13,7 +13,7 @@ export enum BootstrapActionTypes {
   LoadingStatusRequested = '[Bootstrap Effects] Loading Status Requested',
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
 
-  SyncToStorage = '[Bootstrap Effects] Sync To Storage',
+  ToggleSyncToStorage = '[Bootstrap Effects] Sync To Storage',
 
   UpdateBootstrapState = '[Bootstrap Effects] Update Bootstrap State From Another Tab/Window',
   ResetBootstrapState = '[Auth Effects] Reset Bootstrap State'
@@ -40,8 +40,15 @@ export class LoadingStatusRequestFailureAction implements Action {
   readonly type = BootstrapActionTypes.LoadingStatusRequestFailure;
 }
 
-export class SyncToStorageAction implements Action {
-  readonly type = BootstrapActionTypes.SyncToStorage;
+
+/**
+ * Used to temporarily turn sync to storage off, so that when the state
+ * is updated from another tab/window durring the logout process, this 
+ * tab/window does not also sync state to the local storage (which would cause
+ * a looping effect).
+ */
+export class ToggleSyncToStorageAction implements Action {
+  readonly type = BootstrapActionTypes.ToggleSyncToStorage;
 
   constructor(public payload: { syncToStorage: boolean }) {}
 }
@@ -86,6 +93,6 @@ export type BootstrapActions =
   | AllSuggestionsRequestedAction
   | SuggestionsRequestFailureAction
 
-  | SyncToStorageAction
+  | ToggleSyncToStorageAction
   | ResetBootstrapStateAction
   | UpdateBootstrapStateAction;
