@@ -39,6 +39,11 @@ import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/
 @Injectable()
 export class AuthEffects {
 
+  /**
+   * onChange$ listens for changes to the local-storage so that if the app is open in
+   * another tab/window the changes made in the other tab/window will also be reflected in
+   * this tab/window.
+   */
   @Effect()
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
@@ -59,7 +64,8 @@ export class AuthEffects {
   );
 
   /**
-   * [Effect login$ activates the signIn() flow from the authService]
+   * Effect login$ activates the signIn() flow from the authService.
+   * Which pulls in the google auth url from the api and redirects to it.
    */
   @Effect({ dispatch: false })
   login$ = this.actions$.pipe(
@@ -71,8 +77,11 @@ export class AuthEffects {
 
 
   /**
-   * [Effect loginComplete$ calls signInSuccessHandler, which stores the
-   * access_token in session storage]
+   * Effect loginComplete$ is called from the /loading page, after the user has been redirected
+   * back to the app from a successful google login.  It gets the Basic Profile and Email Profile
+   * from the api.  concatMap is needed here so that the EmailProfile is not loaded until the
+   * BasicProfile has been obtained.  Server side, the api depends on the Basic Profile for the
+   * EmailProfile to successfully load.
    */
   @Effect({ dispatch: false })
   loginComplete$ = this.actions$.pipe(
@@ -107,7 +116,8 @@ export class AuthEffects {
 
 
   /**
-   * [Effect loginRedirect$]
+   * loginRedirect$ redirects the user away from /loading and over to /home
+   * after the profiles have been loaded.
    */
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
@@ -121,7 +131,9 @@ export class AuthEffects {
 
 
   /**
-   * [Effect loginFailureRedirect$]
+   * loginFailureRedirect$ This should really never be called because the server handles
+   * login and failures are redirected server side, back to the /login page. However you never
+   * really know if a failure could potentially happen client side, so it is best to keep this
    */
   @Effect({ dispatch: false })
   loginFailureRedirect$ = this.actions$.pipe(
@@ -135,7 +147,7 @@ export class AuthEffects {
 
 
   /**
-   * [Effect description]
+   * logoutConfirmation$ opens the logout dialog to ask the user if they really mean to logout
    */
   @Effect()
   logoutConfirmation$ = this.actions$.pipe(
@@ -158,7 +170,8 @@ export class AuthEffects {
 
 
   /**
-   * [Effect logoutConfirmed$ removes the access_token from session storage]
+   * Effect logoutConfirmed$ resets the state and sends a request to the api
+   * to destroy the current session on the server
    */
   @Effect({ dispatch: false })
   logoutConfirmed$ = this.actions$.pipe(
@@ -174,7 +187,9 @@ export class AuthEffects {
   );
 
   /**
-   * [Effect logoutConfirmed$ removes the access_token from session storage]
+   * [Effect logoutConfirmedFromOtherWindow$ resets the state but does not send the request
+   * to destroy the session because that has already been done from another tab/window if
+   * this is being called.
    */
   @Effect({ dispatch: false })
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
