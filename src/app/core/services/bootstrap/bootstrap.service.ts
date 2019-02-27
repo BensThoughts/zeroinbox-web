@@ -15,7 +15,8 @@ export interface LoadingStatus {
   status: string,
   status_message: string,
   data: {
-    loading_status: boolean;
+    loadingStatus: boolean;
+    percentLoaded: number;
   }
 }
 

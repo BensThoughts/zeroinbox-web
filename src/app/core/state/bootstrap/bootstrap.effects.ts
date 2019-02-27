@@ -79,7 +79,8 @@ export class BootstrapEffects {
       concatMap((action) => {
         return this.BootstrapService.getLoadingStatus().pipe(
           map((response) => {
-            if (response.data.loading_status) {
+            if (response.data.loadingStatus) {
+              console.log(response.data.percentLoaded);
               return new LoadingStatusRequestedAction();
             } else {
               return new AllSuggestionsRequestedAction()
