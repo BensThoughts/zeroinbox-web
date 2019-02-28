@@ -1,12 +1,12 @@
 import { createSelector } from '@ngrx/store';
-import { selectSendersState } from '../core.state';
+import { selectBootstrapState } from '../core.state';
 import { BootstrapState } from './bootstrap.reducer';
 
 /**
  * Select the totality of the senders state
  */
 export const selectBootstrap = createSelector(
-  selectSendersState,
+  selectBootstrapState,
   (state: BootstrapState) => state
 );
 
@@ -16,4 +16,9 @@ export const selectBootstrap = createSelector(
 export const selectfirstRun = createSelector(
   selectBootstrap,
   (state: BootstrapState) => state.firstRun
+);
+
+export const selectSuggestionsLoaded = createSelector(
+  selectBootstrap,
+  (state: BootstrapState) => state.suggestionsLoaded
 );

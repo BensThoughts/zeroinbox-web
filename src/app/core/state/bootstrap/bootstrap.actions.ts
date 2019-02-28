@@ -4,14 +4,17 @@ export enum BootstrapActionTypes {
 
   GetAllSuggestions = '[Bootstrap Effects] Get All Suggestions',
 
-  FirstRunStatusRequested = '[Bootstrap Effects] First Run Status Requested',
+  FirstRunStatusRequest = '[Bootstrap Effects] First Run Status Request',
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
 
-  AllSuggestionsRequested = '[Bootstrap Effects] All Suggestions Requested',
-  SuggestionsRequestFailure = '[Bootstrap Effects] Suggestions Request Failure',
+  LoadSuggestionsRequest = '[Bootstrap Effects] Load Suggestions Request',
+  LoadSuggestionsRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
 
-  LoadingStatusRequested = '[Bootstrap Effects] Loading Status Requested',
+  LoadingStatusRequest = '[Bootstrap Effects] Loading Status Request',
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
+
+  SuggestionsRequest = '[Bootstrap Effects] Suggestions Request',
+  SuggestionsRequestFailure = '[Bootstrap Effects] Suggestions Request Failure',
 
   ToggleSyncToStorage = '[Bootstrap Effects] Sync To Storage',
 
@@ -23,17 +26,24 @@ export class GetAllSuggestionsAction implements Action {
   readonly type = BootstrapActionTypes.GetAllSuggestions;
 }
 
-export class FirstRunStatusRequestedAction implements Action {
-  readonly type = BootstrapActionTypes.FirstRunStatusRequested;
+export class FirstRunStatusRequestAction implements Action {
+  readonly type = BootstrapActionTypes.FirstRunStatusRequest;
 }
 
 export class FirstRunStatusRequestFailureAction implements Action {
   readonly type = BootstrapActionTypes.FirstRunStatusRequestFailure;
 }
 
+export class LoadSuggestionsRequestAction implements Action {
+  readonly type = BootstrapActionTypes.LoadSuggestionsRequest;
+}
 
-export class LoadingStatusRequestedAction implements Action {
-  readonly type = BootstrapActionTypes.LoadingStatusRequested;
+export class LoadSuggestionsRequestFailureAction implements Action {
+  readonly type = BootstrapActionTypes.LoadSuggestionsRequestFailure;
+}
+
+export class LoadingStatusRequestAction implements Action {
+  readonly type = BootstrapActionTypes.LoadingStatusRequest;
 }
 
 export class LoadingStatusRequestFailureAction implements Action {
@@ -58,8 +68,8 @@ export class ToggleSyncToStorageAction implements Action {
  * [constructor description]
  * @param payload [description]
  */
- export class AllSuggestionsRequestedAction implements Action {
-   readonly type = BootstrapActionTypes.AllSuggestionsRequested;
+ export class SuggestionsRequestAction implements Action {
+   readonly type = BootstrapActionTypes.SuggestionsRequest;
  }
 
  export class SuggestionsRequestFailureAction implements Action {
@@ -84,13 +94,16 @@ export class ResetBootstrapStateAction implements Action {
 export type BootstrapActions =
   | GetAllSuggestionsAction
 
-  | FirstRunStatusRequestedAction
+  | FirstRunStatusRequestAction
   | FirstRunStatusRequestFailureAction
 
-  | LoadingStatusRequestedAction
+  | LoadSuggestionsRequestAction
+  | LoadSuggestionsRequestFailureAction
+
+  | LoadingStatusRequestAction
   | LoadingStatusRequestFailureAction
 
-  | AllSuggestionsRequestedAction
+  | SuggestionsRequestAction
   | SuggestionsRequestFailureAction
 
   | ToggleSyncToStorageAction

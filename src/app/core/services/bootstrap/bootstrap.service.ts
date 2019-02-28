@@ -6,23 +6,23 @@ import { Store } from '@ngrx/store';
 
 import { API_URL } from '../apiurl';
 
-
-export interface ThreadIdsResponse {
-  threadIds: Array<string>;
-}
-
-export interface LoadingStatus {
-  status: string,
-  status_message: string,
+export interface LoadingStatusResponse {
+  status: string;
+  status_message: string;
   data: {
     loadingStatus: boolean;
     percentLoaded: number;
   }
 }
 
-export interface FirstRunStatus {
-  status: string,
-  status_message: string,
+export interface LoadSuggestionsResponse {
+  status: string;
+  status_message: string;
+}
+
+export interface FirstRunStatusResponse {
+  status: string;
+  status_message: string;
   data: {
     firstRun: boolean;
   }
@@ -30,11 +30,11 @@ export interface FirstRunStatus {
 
 
 export interface ISuggestionResponse {
-      senderId: string;
-      senderAddress: string;
-      senderNames: Array<string>;
-      count: number;
-      totalSizeEstimate: number;
+  senderId: string;
+  senderAddress: string;
+  senderNames: Array<string>;
+  count: number;
+  totalSizeEstimate: number;
 }
 
 export interface SuggestionsResponse {
@@ -50,14 +50,20 @@ export class BootstrapService {
 
     constructor(private httpClient: HttpClient) {}
 
-    public getFirstRunStatus(): Observable<FirstRunStatus> {
-      return this.httpClient.get<FirstRunStatus>(API_URL + '/loadSuggestions', {
+    public getFirstRunStatus(): Observable<FirstRunStatusResponse> {
+      return this.httpClient.get<FirstRunStatusResponse>(API_URL + '/firstRunStatus', {
         withCredentials: true
       });
     }
 
-    public getLoadingStatus(): Observable<LoadingStatus> {
-      return this.httpClient.get<LoadingStatus>(API_URL + '/loadingStatus', {
+    public getLoadSuggestions(): Observable<LoadSuggestionsResponse> {
+      return this.httpClient.get<LoadSuggestionsResponse>(API_URL + '/loadSuggestions', {
+        withCredentials: true
+      });
+    }
+
+    public getLoadingStatus(): Observable<LoadingStatusResponse> {
+      return this.httpClient.get<LoadingStatusResponse>(API_URL + '/loadingStatus', {
         withCredentials: true
       });
     }

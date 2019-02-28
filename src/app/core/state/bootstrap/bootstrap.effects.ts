@@ -2,13 +2,22 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
   BootstrapActionTypes,
-  UpdateBootstrapStateAction,
-  AllSuggestionsRequestedAction,
-  SuggestionsRequestFailureAction,
-  FirstRunStatusRequestedAction,
-  LoadingStatusRequestedAction,
   GetAllSuggestionsAction,
+
+  FirstRunStatusRequestAction,
   FirstRunStatusRequestFailureAction,
+
+  LoadSuggestionsRequestAction,
+  LoadSuggestionsRequestFailureAction,
+
+  LoadingStatusRequestAction,
+  LoadingStatusRequestFailureAction,
+
+  SuggestionsRequestAction,
+  SuggestionsRequestFailureAction,
+
+
+  UpdateBootstrapStateAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -25,7 +34,7 @@ import {
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { selectfirstRun } from './bootstrap.selectors';
+import { selectSuggestionsLoaded } from './bootstrap.selectors';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -39,12 +48,8 @@ export class BootstrapEffects {
   getAllSuggestions$ = this.actions$
     .pipe(
       ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSuggestions),
-      withLatestFrom(this.store.pipe(select(selectfirstRun))),
-      filter(([action, firstRun]) => {
-          return firstRun;
-      }),
       map(() => {
-        return new FirstRunStatusRequestedAction();
+        return new FirstRunStatusRequestAction();
         }
       )
     );
@@ -52,38 +57,57 @@ export class BootstrapEffects {
   @Effect()
   firstRunStatusRequested$ = this.actions$
     .pipe(
-      ofType<FirstRunStatusRequestedAction>(BootstrapActionTypes.FirstRunStatusRequested),
+      ofType<FirstRunStatusRequestAction>(BootstrapActionTypes.FirstRunStatusRequest),
       exhaustMap(() => {
-        return this.BootstrapService.getFirstRunStatus().pipe(
+        return this.bootstrapService.getFirstRunStatus().pipe(
           map((response) => {
             if (response.status === 'error') {
               return new FirstRunStatusRequestFailureAction();
             }
             if (response.data.firstRun) {
-              return new LoadingStatusRequestedAction();
+              return new LoadSuggestionsRequestAction();
             } else {
-              return new AllSuggestionsRequestedAction();
+              return new SuggestionsRequestAction();
             }
           })
         );
       })
+    );
 
+  @Effect()
+  loadSuggestionsRequest$ = this.actions$
+    .pipe(
+      ofType<LoadSuggestionsRequestAction>(BootstrapActionTypes.LoadSuggestionsRequest),
+      exhaustMap(() => {
+        return this.bootstrapService.getLoadSuggestions().pipe(
+          map((response) => {
+            if (response.status === 'error') {
+              return new LoadSuggestionsRequestFailureAction();
+            } else {
+              return new LoadingStatusRequestAction();
+            }
+          })
+        )
+      })
     );
 
 
   @Effect()
   getLoadingStatus$ = this.actions$
     .pipe(
-      ofType<LoadingStatusRequestedAction>(BootstrapActionTypes.LoadingStatusRequested),
+      ofType<LoadingStatusRequestAction>(BootstrapActionTypes.LoadingStatusRequest),
       delay(1000),
       concatMap((action) => {
-        return this.BootstrapService.getLoadingStatus().pipe(
+        return this.bootstrapService.getLoadingStatus().pipe(
           map((response) => {
+            if (response.status === 'error') {
+              return new LoadingStatusRequestFailureAction();
+            }
             if (response.data.loadingStatus) {
               console.log(response.data.percentLoaded);
-              return new LoadingStatusRequestedAction();
+              return new LoadingStatusRequestAction();
             } else {
-              return new AllSuggestionsRequestedAction()
+              return new SuggestionsRequestAction()
             }
           })
         )
@@ -104,9 +128,9 @@ export class BootstrapEffects {
   @Effect()
   allSuggestionsRequested$ = this.actions$
     .pipe(
-      ofType<AllSuggestionsRequestedAction>(BootstrapActionTypes.AllSuggestionsRequested),
+      ofType<SuggestionsRequestAction>(BootstrapActionTypes.SuggestionsRequest),
       exhaustMap((action) => {
-        return this.BootstrapService.getSuggestions().pipe(
+        return this.bootstrapService.getSuggestions().pipe(
           map((response) => {
             let suggestions: ISuggestion[] = response.data.suggestions.map((suggestion) => {
               let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
@@ -148,6 +172,6 @@ export class BootstrapEffects {
     
   constructor(
     private actions$: Actions,
-    private BootstrapService: BootstrapService,
+    private bootstrapService: BootstrapService,
     private store: Store<AppState>) { }
 }

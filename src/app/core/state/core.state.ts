@@ -45,7 +45,7 @@ export const selectUserState = createFeatureSelector<AppState, UserState>(
   'user'
 );
 
-export const selectSendersState = createFeatureSelector<AppState, BootstrapState>(
+export const selectBootstrapState = createFeatureSelector<AppState, BootstrapState>(
   'bootstrap'
 );
 
