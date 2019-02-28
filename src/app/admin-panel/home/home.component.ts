@@ -29,9 +29,7 @@ export class HomeComponent implements OnInit {
 
   basic_profile$: Observable<BasicProfile>;
   email_profile$: Observable<EmailProfile>;
-  imageUrl$: Observable<string>;
   unique_senders$: Observable<number>;
-  labels_length$: Observable<number>;
 
   constructor(private store: Store<AppState>) { }
 
