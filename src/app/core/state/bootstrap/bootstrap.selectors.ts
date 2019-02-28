@@ -12,5 +12,10 @@ export const selectBootstrap = createSelector(
 
 export const selectLoadingSuggestions = createSelector(
   selectBootstrap,
-  (stat: BootstrapState) => stat.loadingStatus
+  (state: BootstrapState) => state.loadingStatus
+)
+
+export const selectPercentLoaded = createSelector(
+  selectBootstrap,
+  (state: BootstrapState) => state.percentLoaded
 )
