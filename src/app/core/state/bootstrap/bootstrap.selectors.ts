@@ -10,15 +10,12 @@ export const selectBootstrap = createSelector(
   (state: BootstrapState) => state
 );
 
-/**
- * Select boolean to determine if suggestions are loaded from server
- */
-export const selectfirstRun = createSelector(
-  selectBootstrap,
-  (state: BootstrapState) => state.firstRun
-);
-
 export const selectSuggestionsLoaded = createSelector(
   selectBootstrap,
   (state: BootstrapState) => state.suggestionsLoaded
 );
+
+export const selectLoadingSuggestions = createSelector(
+  selectBootstrap,
+  (stat: BootstrapState) => stat.loadingSuggestions
+)

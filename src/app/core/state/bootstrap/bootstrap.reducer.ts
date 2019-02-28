@@ -1,16 +1,16 @@
 import { BootstrapActions, BootstrapActionTypes } from './bootstrap.actions';
 
 export interface BootstrapState {
-  firstRun: boolean;
   loadingSuggestions: boolean;
   suggestionsLoaded: boolean;
+  percentLoaded: number;
   syncToStorage: boolean;
 }
 
 const initialBootstrapState = {
-  firstRun: true,
   loadingSuggestions: false,
   suggestionsLoaded: false,
+  percentLoaded: 0,
   syncToStorage: true
 };
 
@@ -19,12 +19,6 @@ export function bootstrapReducer(
   action: BootstrapActions): BootstrapState {
 
     switch (action.type) {
-
-      case BootstrapActionTypes.LoadingStatusRequest:
-        return { ...state, firstRun: false }
-
-      case BootstrapActionTypes.SuggestionsRequest:
-        return { ...state, firstRun: false }
 
       case BootstrapActionTypes.ToggleSyncToStorage:
         return { ...state, ...action.payload }
