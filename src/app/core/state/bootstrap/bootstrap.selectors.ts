@@ -10,12 +10,7 @@ export const selectBootstrap = createSelector(
   (state: BootstrapState) => state
 );
 
-export const selectSuggestionsLoaded = createSelector(
-  selectBootstrap,
-  (state: BootstrapState) => state.suggestionsLoaded
-);
-
 export const selectLoadingSuggestions = createSelector(
   selectBootstrap,
-  (stat: BootstrapState) => stat.loadingSuggestions
+  (stat: BootstrapState) => stat.loadingStatus
 )

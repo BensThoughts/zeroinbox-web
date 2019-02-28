@@ -34,7 +34,7 @@ import {
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { selectSuggestionsLoaded } from './bootstrap.selectors';
+import { UpdatePercentLoadedAction } from './bootstrap.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -105,6 +105,8 @@ export class BootstrapEffects {
             }
             if (response.data.loadingStatus) {
               console.log(response.data.percentLoaded);
+              let percentLoaded = response.data.percentLoaded;
+              this.store.dispatch(new UpdatePercentLoadedAction({ percentLoaded: percentLoaded }))
               return new LoadingStatusRequestAction();
             } else {
               return new SuggestionsRequestAction()

@@ -9,6 +9,7 @@ export enum BootstrapActionTypes {
 
   LoadSuggestionsRequest = '[Bootstrap Effects] Load Suggestions Request',
   LoadSuggestionsRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
+  UpdateLoadingStatus = '[BootstrapEffects] Update Loading Status',
 
   LoadingStatusRequest = '[Bootstrap Effects] Loading Status Request',
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
@@ -41,6 +42,11 @@ export class LoadSuggestionsRequestAction implements Action {
 
 export class LoadSuggestionsRequestFailureAction implements Action {
   readonly type = BootstrapActionTypes.LoadSuggestionsRequestFailure;
+}
+
+export class UpdateLoadingStatusAction implements Action {
+  readonly type = BootstrapActionTypes.UpdateLoadingStatus;
+  constructor(public payload: { loadingStatus: boolean }) {}
 }
 
 export class LoadingStatusRequestAction implements Action {
@@ -105,6 +111,7 @@ export type BootstrapActions =
 
   | LoadSuggestionsRequestAction
   | LoadSuggestionsRequestFailureAction
+  | UpdateLoadingStatusAction
 
   | LoadingStatusRequestAction
   | LoadingStatusRequestFailureAction
