@@ -108,8 +108,10 @@ export class AuthEffects {
       );
     }),
     map(() => {
-      this.store.dispatch(new LoginSuccessAction())
       this.store.dispatch(new GetAllSuggestionsAction());
+      // this.store.dispatch(new LoginSuccessAction()) is dispatched from
+      // bootstrap effects so that we can get the firstRun status before showing
+      // the homepage
     }),
     catchError(err => of(console.error(err)))
   );
