@@ -42,15 +42,14 @@
 .mat-user-card {
   max-width: 500px;
   margin-top: 20px;
-}
-
-mat-card {
-  margin: 20px 0;
-  // max-width: 300px;
-
   img {
     margin: 10px;
   }
+}
+
+
+mat-card {
+  // max-width: 300px;
 
   mat-divider {
     position: relative;
@@ -60,14 +59,6 @@ mat-card {
   mat-card-title {
 
     position: relative;
-
-    code {
-      position: absolute;
-      top: 11px;
-      right: 0;
-      float: right;
-      font-size: 10px;
-    }
   }
 
 
@@ -96,12 +87,6 @@ mat-card {
     mat-chip-list {
       text-align: center;
       position: relative;
-
-      mat-chip {
-        code {
-
-        }
-      }
     }
   }
 
@@ -110,14 +95,3 @@ mat-card {
   }
 
 }
-
-/*
-.clear-bottom {
-  padding-bottom: 20px;
-}
-
-@media (max-width: map-get($grid-breakpoints, md)) {
-  .clear-bottom {
-    padding-bottom: 90px;
-  }
-}*/
