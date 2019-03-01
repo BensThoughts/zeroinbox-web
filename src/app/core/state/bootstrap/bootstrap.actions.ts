@@ -6,6 +6,7 @@ export enum BootstrapActionTypes {
 
   FirstRunStatusRequest = '[Bootstrap Effects] First Run Status Request',
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
+  UpdateFirstRun = '[Bootstrap Effects] Update First Run',
 
   LoadSuggestionsRequest = '[Bootstrap Effects] Load Suggestions Request',
   LoadSuggestionsRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
@@ -34,6 +35,11 @@ export class FirstRunStatusRequestAction implements Action {
 
 export class FirstRunStatusRequestFailureAction implements Action {
   readonly type = BootstrapActionTypes.FirstRunStatusRequestFailure;
+}
+
+export class UpdateFirstRunAction implements Action {
+  readonly type = BootstrapActionTypes.UpdateFirstRun;
+  constructor(public payload: { firstRun: boolean }) {}
 }
 
 export class LoadSuggestionsRequestAction implements Action {
@@ -108,6 +114,7 @@ export type BootstrapActions =
 
   | FirstRunStatusRequestAction
   | FirstRunStatusRequestFailureAction
+  | UpdateFirstRunAction
 
   | LoadSuggestionsRequestAction
   | LoadSuggestionsRequestFailureAction

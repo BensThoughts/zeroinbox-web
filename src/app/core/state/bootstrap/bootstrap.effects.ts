@@ -18,6 +18,7 @@ import {
 
 
   UpdateBootstrapStateAction,
+  UpdateFirstRunAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -35,6 +36,7 @@ import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { UpdatePercentLoadedAction } from './bootstrap.actions';
+import { LoginSuccessAction } from '../auth/auth.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -64,6 +66,8 @@ export class BootstrapEffects {
             if (response.status === 'error') {
               return new FirstRunStatusRequestFailureAction();
             }
+            this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
+            this.store.dispatch(new LoginSuccessAction())
             if (response.data.firstRun) {
               return new LoadSuggestionsRequestAction();
             } else {
