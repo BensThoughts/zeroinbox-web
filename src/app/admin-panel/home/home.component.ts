@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
     this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
     this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-
   }
 
 }
