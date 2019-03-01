@@ -7,6 +7,7 @@ import {
   selectBasicProfile,
   selectEmailProfile,
   selectPercentLoaded,
+  selectFirstRun,
 } from '@app/core';
 
 import {
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
   unique_senders$: Observable<number>;
   percentLoaded$;
   suggestionsLoaded$;
+  firstRun$;
 
   constructor(private store: Store<AppState>) { }
 
@@ -43,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
     this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
     this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
+    this.firstRun$ = this.store.pipe(select(selectFirstRun));
   }
 
 }

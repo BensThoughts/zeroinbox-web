@@ -36,132 +36,10 @@
 
 
 
-  <div class="container">
-  <div  *ngIf="suggestionsLoaded$ | async; else loading">
+  <div class="container text-center">
+  <div  *ngIf="!(suggestionsLoaded$ | async) && (firstRun$ | async); else loaded">
 
-    <div class="row">
-      <div class="col-sm">
-        <mat-card>
-          <mat-card-title>
-            Statistics
-          </mat-card-title>
-          <mat-divider></mat-divider>
-
-            <mat-card-content>
-              <div class="content">
-              Get stats on your inbox. Find out who sends you the most emails.
-              Who sends you the largests emails. See a list of every mailing list you
-              are subscribed to.
-              </div>
-              <div class="stats">
-              <mat-chip-list>
-
-              <mat-chip *ngIf="email_profile$ | async as email_profile">
-                <code>Threads: {{ email_profile.threadsTotal }}</code>
-              </mat-chip>
-
-              </mat-chip-list>
-              </div>
-
-            </mat-card-content>
-                          <mat-divider></mat-divider>
-            <mat-card-actions>
-
-              <button mat-stroked-button>
-                Goto
-              </button>
-              <button mat-stroked-button>
-                About
-              </button>
-            </mat-card-actions>
-
-
-        </mat-card>
-      </div>
-      <div class="col-sm">
-        <mat-card>
-          <mat-card-title>
-            Suggestions
-          </mat-card-title>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            Get suggestions for actions you can take to clean up your inbox.
-            Select the ones you would like to take or just select all of them.
-            You can also create new actions that have not been senders. Then
-            head over to the actions section to review the requested actions.
-            <div *ngIf="unique_senders$ | async as unique_senders; else loadingTmpl">
-              <mat-chip-list>
-                <mat-chip>
-                  <code>Unique Senders: {{ unique_senders }}</code>
-                </mat-chip>
-              </mat-chip-list>
-            </div>
-            <ng-template #loadingTmpl>
-              <div>
-              Loading...
-              </div>
-            </ng-template>
-          </mat-card-content>
-          <mat-divider></mat-divider>
-          <mat-card-actions>
-
-            <button mat-stroked-button>
-              Goto
-            </button>
-            <button mat-stroked-button>
-              About
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm">
-        <mat-card>
-          <mat-card-title>
-            Actions
-          </mat-card-title>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            Review the actions you have selected to take on your inbox. Then have Zero Inbox go
-            to work to take those actions immediately with the single click of a button.
-          </mat-card-content>
-                    <mat-divider></mat-divider>
-          <mat-card-actions>
-            <button mat-stroked-button>
-              Goto
-            </button>
-            <button mat-stroked-button>
-              About
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-      <div class="col-sm">
-        <mat-card>
-          <mat-card-title>
-            Settings
-          </mat-card-title>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            Customize the look and feel of Zero Inbox.
-          </mat-card-content>
-                    <mat-divider></mat-divider>
-          <mat-card-actions>
-            <button mat-stroked-button>
-              Goto
-            </button>
-            <button mat-stroked-button>
-              About
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
-  </div>
-
-    <ng-template #loading>
-        <div class="row justify-content-center align-items-center">
+      <div class="row justify-content-center align-items-center">
           <div class="col-sm">
               <mat-card class="w-100">
                   <mat-card-title>
@@ -173,6 +51,132 @@
                 </mat-card>
           </div>
         </div>
+  </div>
+
+
+
+
+    <ng-template #loaded>
+        <div class="row">
+            <div class="col-sm">
+              <mat-card class="my-2">
+                <mat-card-title>
+                  Statistics
+                </mat-card-title>
+                <mat-divider></mat-divider>
+      
+                  <mat-card-content>
+                    <div class="content">
+                    Get stats on your inbox. Find out who sends you the most emails.
+                    Who sends you the largests emails. See a list of every mailing list you
+                    are subscribed to.
+                    </div>
+                    <div class="stats">
+                    <mat-chip-list>
+      
+                    <mat-chip *ngIf="email_profile$ | async as email_profile">
+                      <code>Threads: {{ email_profile.threadsTotal }}</code>
+                    </mat-chip>
+      
+                    </mat-chip-list>
+                    </div>
+      
+                  </mat-card-content>
+                                <mat-divider></mat-divider>
+                  <mat-card-actions>
+      
+                    <button mat-stroked-button>
+                      Goto
+                    </button>
+                    <button mat-stroked-button>
+                      About
+                    </button>
+                  </mat-card-actions>
+      
+      
+              </mat-card>
+            </div>
+            <div class="col-sm">
+              <mat-card class="my-2">
+                <mat-card-title>
+                  Suggestions
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                  Get suggestions for actions you can take to clean up your inbox.
+                  Select the ones you would like to take or just select all of them.
+                  You can also create new actions that have not been senders. Then
+                  head over to the actions section to review the requested actions.
+                  <div *ngIf="unique_senders$ | async as unique_senders; else loadingTmpl">
+                    <mat-chip-list>
+                      <mat-chip>
+                        <code>Unique Senders: {{ unique_senders }}</code>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                  <ng-template #loadingTmpl>
+                    <div>
+                    Loading...
+                    </div>
+                  </ng-template>
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+      
+                  <button mat-stroked-button>
+                    Goto
+                  </button>
+                  <button mat-stroked-button>
+                    About
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <mat-card class="my-2">
+                <mat-card-title>
+                  Actions
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                  Review the actions you have selected to take on your inbox. Then have Zero Inbox go
+                  to work to take those actions immediately with the single click of a button.
+                </mat-card-content>
+                          <mat-divider></mat-divider>
+                <mat-card-actions>
+                  <button mat-stroked-button>
+                    Goto
+                  </button>
+                  <button mat-stroked-button>
+                    About
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+            <div class="col-sm">
+              <mat-card class="my-2">
+                <mat-card-title>
+                  Settings
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                  Customize the look and feel of Zero Inbox.
+                </mat-card-content>
+                          <mat-divider></mat-divider>
+                <mat-card-actions>
+                  <button mat-stroked-button>
+                    Goto
+                  </button>
+                  <button mat-stroked-button>
+                    About
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+
     </ng-template>
 
   </div>
