@@ -30,7 +30,7 @@ export class UserService {
    * @return [description]
    */
   public getBasicProfile() {
-    return this.httpClient.get<BasicProfileResponse>(API_URL + '/profile', {
+    return this.httpClient.get<BasicProfileResponse>(API_URL + '/basicProfile', {
       withCredentials: true
     });
   }
@@ -40,7 +40,7 @@ export class UserService {
    * @return [description]
    */
   public getEmailProfile() {
-    return this.httpClient.get<EmailProfileResponse>(API_URL + '/email', {
+    return this.httpClient.get<EmailProfileResponse>(API_URL + '/emailProfile', {
       withCredentials: true
     });
   }
