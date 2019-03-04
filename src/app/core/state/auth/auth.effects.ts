@@ -79,6 +79,9 @@ export class AuthEffects {
           } else {
             window.location.href = response.data.auth_url;
           }
+        }),
+        catchError((err) => {
+          return of(console.error(err));
         })
       );
     }),
@@ -106,6 +109,9 @@ export class AuthEffects {
           } else {
             this.store.dispatch(new LoadBasicProfileAction(response.data.basic_profile));
           }
+        }),
+        catchError((err) => {
+          return of(console.error(err));
         })
       );
     }),
@@ -116,6 +122,9 @@ export class AuthEffects {
             console.error('Error getting email profile: ' + response.status_message)
           }
         this.store.dispatch(new LoadEmailProfileAction(response.data.email_profile));
+        }),
+        catchError((err) => {
+          return of(console.error(err));
         })
       );
     }),
