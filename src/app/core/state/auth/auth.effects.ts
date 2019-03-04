@@ -81,6 +81,9 @@ export class AuthEffects {
           }
         })
       );
+    }),
+    catchError((err) => {
+      return of(console.error(err));
     })
   );
 

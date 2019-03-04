@@ -75,6 +75,10 @@ export class BootstrapEffects {
             }
           })
         );
+      }),
+      catchError((err) => {
+        console.error(err);
+        return of(new FirstRunStatusRequestAction());
       })
     );
 
@@ -92,6 +96,10 @@ export class BootstrapEffects {
             }
           })
         )
+      }),
+      catchError((err) => {
+        console.error(err);
+        return of(new LoadSuggestionsRequestFailureAction());
       })
     );
 
@@ -117,6 +125,10 @@ export class BootstrapEffects {
             }
           })
         )
+      }),
+      catchError((err) => {
+        console.error(err);
+        return of(new LoadingStatusRequestFailureAction());
       })
 
     );
@@ -157,7 +169,8 @@ export class BootstrapEffects {
         );
       }),
       catchError((err) => {
-        return of(console.error(err));
+        console.error(err);
+        return of(new SuggestionsRequestFailureAction(err));
       })
     );
 
