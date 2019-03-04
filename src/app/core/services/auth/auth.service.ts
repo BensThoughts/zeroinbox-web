@@ -37,14 +37,7 @@ export class AuthService {
      * @return [description]
      */
     public signIn() {
-      this.httpClient.get<AuthUrlResponse>(API_URL + '/oauth2init').subscribe((response) => {
-        if (response.status === 'error') {
-          console.error('Response status_message: ' + response.status_message);
-        } else {
-          window.location.href = response.data.auth_url;
-        }
-      })
-
+      return this.httpClient.get<AuthUrlResponse>(API_URL + '/oauth2init');
     }
 
     public logout() {
