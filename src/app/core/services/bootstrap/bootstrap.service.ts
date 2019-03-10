@@ -69,7 +69,7 @@ export class BootstrapService {
     }
 
     public getSuggestions(): Observable<SuggestionsResponse> {
-      return this.httpClient.get<SuggestionsResponse>(API_URL + '/suggestions', {
+      return this.httpClient.get<SuggestionsResponse>(API_URL + '/senders', {
         withCredentials: true
       });
     }
