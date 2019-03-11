@@ -215,7 +215,8 @@ export class AuthEffects {
   /**
    * [Effect logoutConfirmedFromOtherWindow$ resets the state but does not send the request
    * to destroy the session because that has already been done from another tab/window if
-   * this is being called.
+   * this is being called. ToggleSyncToStorage is used so that we don't end up in a loop between
+   * two or more windows/tabs, all tabs confirmed from "other window" will not write to localStorage.
    */
   @Effect({ dispatch: false })
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
