@@ -24,6 +24,10 @@ import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
+import { selectSuggestionIds } from '../../state/suggestions.selectors';
+import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
+import { ISender } from '../../../../core/state/senders/model/senders.model';
+import { UpsertTasksAction, AddTasksAction } from '../../../../core/state/tasks/tasks.actions';
 
 export interface PageQuery {
   pageIndex: number;
@@ -46,7 +50,7 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   displayedColumns: string[] = ['address'];
 
-  dataSource: SuggestionsDataSource;
+  dataSource: SuggestionsByCountDataSource;
 
   length;
   pageSize = 5;
@@ -56,7 +60,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISuggestion[]>;
+  mySub: Observable<ISender[]>;
 
   cutoff$: Observable<number>;
   countCutoffs = [
@@ -85,7 +89,7 @@ export class SuggestionsCountTableComponent implements OnInit {
     this.cutoff$ = this.store.pipe(select(selectCountCutoff));
     this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength));
 
-    this.dataSource = new SuggestionsDataSource(this.store);
+    this.dataSource = new SuggestionsByCountDataSource(this.store);
 
 
     const initialPage: PageQuery = {
@@ -149,13 +153,22 @@ export class SuggestionsCountTableComponent implements OnInit {
   createActions() {
 
     this.toggle();
-    if (this.selectionDelete.hasValue()) {
-      this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
-    }
+    let deleteTasks = this.selectionDelete.selected;
+    let labelTasks = this.selectionLabel.selected;
+    let tasks = {
+      deleteTasks: deleteTasks,
+      labelByNameTasks: labelTasks
+    };
 
-    if (this.selectionLabel.hasValue()) {
-      this.store.dispatch(new LabelByNameSuggestionsAction({ ids: this.selectionLabel.selected }));
-    }
+    this.store.dispatch(new AddTasksAction({ tasks: tasks }))
+
+    // if (this.selectionDelete.hasValue()) {
+      // this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
+    // }
+
+    // if (this.selectionLabel.hasValue()) {
+      // this.store.dispatch(new LabelByNameSuggestionsAction({ ids: this.selectionLabel.selected }));
+    // }
 
     of(true).pipe(
       take(1),
@@ -252,14 +265,13 @@ export class SuggestionsCountTableComponent implements OnInit {
 }
 
 
-export class SuggestionsDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
+export class SuggestionsByCountDataSource extends DataSource<any> {
+  private suggestionsSubject = new BehaviorSubject<ISender[]>([]);
 
   constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
     super();
 
   }
-
 
   getLength() {
     return this.suggestionsSubject.value.length;
@@ -278,7 +290,7 @@ export class SuggestionsDataSource extends DataSource<any> {
     ).subscribe();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {
+  connect(collectionViewer: CollectionViewer): Observable<ISender[]> {
     return this.suggestionsSubject.asObservable();
   }
 

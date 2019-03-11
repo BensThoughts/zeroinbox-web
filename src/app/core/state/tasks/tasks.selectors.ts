@@ -20,7 +20,7 @@ export const selectAllTasks = createSelector(
 
 export const selectLabelTasks = createSelector(
   selectAllTasks,
-  (tasks) => tasks.filter((task) => task.label === true)
+  (tasks) => tasks.filter((task) => task.labelByName === true || task.labelBySize === true)
 );
 
 export const selectDeleteTasks = createSelector(

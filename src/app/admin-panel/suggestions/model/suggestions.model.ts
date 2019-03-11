@@ -1,12 +1,13 @@
 export interface ISuggestion {
   id: string;
-  fromAddress: string;
-  fromName: string;
-  count: number;
-  totalSizeEstimate: number;
-  labelByName?: string;
-  labelBySize?: string;
-  labelByCount?: string;
+  // fromAddress?: string;
+  // fromName?: string;
+  // count?: number;
+  // totalSizeEstimate?: number;
+  labelByName?: boolean;
+  labelBySize?: boolean;
+  labelByCount?: boolean;
+  delete?: boolean;
 }
 
 export interface ISizes {
@@ -16,3 +17,5 @@ export interface ISizes {
   Sm: number;
   Xs: number;
 }
+
+

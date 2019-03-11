@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
-import { AppState, UpsertTasksAction } from '@app/core';
+import { AppState, UpsertTasksAction, AddTasksAction } from '@app/core';
 import {
   SuggestionsActionTypes,
+  SuggestionsRequestAction,
+  SuggestionsRequestFailureAction,
+  LoadSuggestionsAction,
   DeleteSuggestionsAction,
   UpdateSuggestionsAction,
   LabelByNameSuggestionsAction,
   DeleteSuggestionsMetaAction,
   LabelBySizeSuggestionsAction
 } from './suggestions.actions';
-import { map, filter, take, mergeMap, exhaustMap } from 'rxjs/operators';
+import { map, filter, take, mergeMap, exhaustMap, catchError } from 'rxjs/operators';
 import { ITask } from '@app/core/state/tasks/tasks.model';
 import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
 import { select_Tasks_Suggestions_Entities, selectEntities } from './suggestions.selectors';
 import { UpdateSuggestionsStateAction } from './suggestions.actions';
-import { fromEvent } from 'rxjs';
+import { fromEvent, of } from 'rxjs';
+import { selectSendersById } from '@app/core';
+import { SuggestionsService } from '@app/core/services/suggestions/suggestions.service';
+import { TaskActionTypes } from '../../../core/state/tasks/tasks.actions';
 
 
 @Injectable()
@@ -36,144 +42,80 @@ export class SuggestionsEffects {
   );
 
   @Effect({ dispatch: false })
-  labelByNameSuggestedActions$ = this.actions$.pipe(
-    ofType<LabelByNameSuggestionsAction>(SuggestionsActionTypes.LabelByNameSuggestions),
-    exhaustMap((action) => {
-      return this.store.pipe(
-        select(select_Tasks_Suggestions_Entities),
-        take(1),
-        map((tasks_suggestions) => {
-          let tasks = tasks_suggestions.tasks;
-          let suggestions = tasks_suggestions.suggestions;
-          let tasksArray: ITask[] = [];
-          let changes;
-          let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
-
-            let label = suggestions[id].fromName;
-            let address = suggestions[id].fromAddress;
-
-            if (tasks[id]) {
-              tasksArray.push({
-                id: id,
-                fromAddress: address,
-                label: true,
-                delete: false,
-                labelNames: tasks[id].labelNames.concat(label)
-              });
-            } else {
-              tasksArray.push({
-                id: id,
-                fromAddress: address,
-                label: true,
-                delete: false,
-                labelNames: [label]
-              });
-            }
-
-            changes = {
-              labelByName: label
-            }
-
-            return {
-              id: id,
-              changes
-            }
-          // map close
-          });
-          this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
-          this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
-
-        })
-      );
+  addTasksActions$ = this.actions$.pipe(
+    ofType<AddTasksAction>(TaskActionTypes.AddTasks),
+    map((action) => {
+      let deleteTasks = action.payload.tasks.deleteTasks;
+      let labelByNameTasks = action.payload.tasks.labelByNameTasks;
+      let labelBySizeTasks = action.payload.tasks.labelBySizeTasks;
+      let labelByCountTasks = action.payload.tasks.labelByCountTasks;
+      if (deleteTasks) {
+        this.store.dispatch(new DeleteSuggestionsAction({ ids: deleteTasks }));
+      }
+      if (labelByNameTasks) {
+        this.store.dispatch(new LabelByNameSuggestionsAction({ ids: labelByNameTasks}));
+      }
+      if (labelBySizeTasks) {
+        this.store.dispatch(new LabelBySizeSuggestionsAction({ ids: labelBySizeTasks }));
+      }
     })
   );
 
+  @Effect({ dispatch: false })
+  labelByNameActions$ = this.actions$.pipe(
+    ofType<LabelByNameSuggestionsAction>(SuggestionsActionTypes.LabelByNameSuggestions),
+    map((action) => {
+      let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
+        let changes = {
+          labelByName: true
+        }
+        return {
+          id: id,
+          changes
+        }
+      });
+      this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
+    })
+  );
 
   @Effect({ dispatch: false })
-  labelBySizeSuggestedActions$ = this.actions$.pipe(
+  labelBySizeActions$ = this.actions$.pipe(
     ofType<LabelBySizeSuggestionsAction>(SuggestionsActionTypes.LabelBySizeSuggestions),
-    exhaustMap((action) => {
-      return this.store.pipe(
-        select(select_Tasks_Suggestions_Entities),
-        take(1),
-        map((tasks_suggestions) => {
-          let tasks = tasks_suggestions.tasks;
-          let suggestions = tasks_suggestions.suggestions;
-          let tasksArray: ITask[] = [];
-          let changes;
-          let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
-
-            let label = 'Medium';
-
-            switch(action.payload.size) {
-              case 0:
-                label = 'Extra Small';
-              case 1:
-                label = 'Small'
-              case 2:
-                label = 'Medium'
-              case 3:
-                label = 'Large'
-              case 4:
-                label = 'Extra Large'
-            }
-
-            let address = suggestions[id].fromAddress;
-
-            if (tasks[id]) {
-              tasksArray.push({
-                id: id,
-                fromAddress: address,
-                label: true,
-                delete: false,
-                labelNames: tasks[id].labelNames.concat(label)
-              });
-            } else {
-              tasksArray.push({
-                id: id,
-                fromAddress: address,
-                label: true,
-                delete: false,
-                labelNames: [label]
-              });
-            }
-
-            changes = {
-              labelBySize: label
-            }
-
-            return {
-              id: id,
-              changes
-            }
-          // map close
-          });
-          this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
-          this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
-
-        })
-      );
+    map((action) => {
+      let changesArray: Update<ISuggestion>[] = action.payload.ids.map((id) => {
+        let changes = {
+          labelBySize: true
+        }
+        return {
+          id: id,
+          changes
+        }
+      });
+      this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
     })
   );
 
   @Effect({ dispatch: false })
   suggestionsRequest$ = this.actions$
     .pipe(
-      ofType<SuggestionsRequestAction>(BootstrapActionTypes.SuggestionsRequest),
+      ofType<SuggestionsRequestAction>(SuggestionsActionTypes.SuggestionsRequest),
       exhaustMap(() => {
-        return this.bootstrapService.getSuggestions().pipe(
+        return this.suggestionsService.getSuggestions().pipe(
           map((response) => {
             if (response.status === 'error') {
               this.store.dispatch(new SuggestionsRequestFailureAction());
             }
             let senderIds = response.data.suggestions.senderIds;
-            this.store.pipe(
-              select(selectSendersById(senderIds)),
-              map((suggestions) => {
-                console.log(suggestions);
-                this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
-              })
-              ).subscribe();
+            let suggestions: ISuggestion[] = senderIds.map((senderId) => {
+              return {
+                id: senderId,
+                labelByName: false,
+                labelByCount: false,
+                labelBySize: false,
+                delete: false,
+              }
+            });
+            this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
           }),
           catchError((err) => {
             return of(new SuggestionsRequestFailureAction());
@@ -182,38 +124,8 @@ export class SuggestionsEffects {
       })
     );
 
-
-
-  @Effect({ dispatch: false })
-  deleteSuggestedActions$ = this.actions$.pipe(
-    ofType<DeleteSuggestionsMetaAction>(SuggestionsActionTypes.DeleteSuggestionsMeta),
-    exhaustMap((action) => {
-      return this.store.pipe(
-        select(selectEntities),
-        take(1),
-        map((suggestions) => {
-          let tasksArray: ITask[];
-          tasksArray = action.payload.ids.map((id) => {
-            let address = suggestions[id].fromAddress;
-            return {
-              id: id,
-              fromAddress: address,
-              delete: true,
-              label: false,
-              labelNames: []
-            };
-          });
-          this.store.dispatch(new DeleteSuggestionsAction({ ids: action.payload.ids }));
-          this.store.dispatch(new UpsertTasksAction({ tasks: tasksArray }));
-
-        })
-      )
-
-    })
-  );
-
-
   constructor(
     private actions$: Actions,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private suggestionsService: SuggestionsService) { }
 }

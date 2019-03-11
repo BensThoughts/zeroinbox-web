@@ -7,9 +7,9 @@ import { selectPercentLoaded } from '@app/core';
 import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
 import {
   selectSuggestionsLoaded,
-  selectByCountGroup_TS,
-  selectByCountGroup_TC,
-  selectByCountGroup_TL,
+  // selectByCountGroup_TS,
+  // selectByCountGroup_TC,
+  // selectByCountGroup_TL,
 } from '../../state/suggestions.selectors';
 
 
@@ -35,9 +35,9 @@ export class SuggestionsComponent implements OnInit {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
       this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
 
-      this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
+/*       this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
       this.totalLengths$ = this.store.pipe(select(selectByCountGroup_TL));
-      this.totalSizes$ = this.store.pipe(select(selectByCountGroup_TS));
+      this.totalSizes$ = this.store.pipe(select(selectByCountGroup_TS)); */
   }
 
 }

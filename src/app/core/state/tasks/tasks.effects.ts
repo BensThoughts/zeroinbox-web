@@ -1,14 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { UpdateTasksStateAction } from './tasks.actions';
+import { Effect, Actions, ofType } from '@ngrx/effects';
+import { UpdateTasksStateAction, UpsertTasksAction, TaskActionTypes } from './tasks.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { map, filter } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
+import { map, filter, exhaustMap, concatMap, catchError } from 'rxjs/operators';
+import { fromEvent, of } from 'rxjs';
+import { TasksService } from '../../services/tasks/tasks.service';
+import { ITask } from './tasks.model';
 
 
 @Injectable()
 export class TasksEffects {
+
+/*     @Effect({ dispatch: false })
+    upsertTasks$ = this.actions$
+      .pipe(
+        ofType<UpsertTasksAction>(TaskActionTypes.UpsertTasks),
+        concatMap((action) => {
+          let tasks: ITask[] = action.payload.tasks;
+          return this.tasksService.postTasks(tasks);
+        }),
+        catchError((err) => {
+          return of(console.log(err));
+        })
+      ); */
+
+    
+
     @Effect()
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
@@ -24,5 +42,6 @@ export class TasksEffects {
 
     constructor(
       private actions$: Actions,
-      private store: Store<AppState>) { }
+      private store: Store<AppState>,
+      private tasksService: TasksService) { }
   }

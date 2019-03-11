@@ -1,11 +1,13 @@
-import { createFeatureSelector, createSelector, select } from '@ngrx/store';
+import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
 import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
 import { ISuggestion, ISizes } from '../model/suggestions.model';
-
-
+import * as fromSenders from '@app/core/state/senders/senders.selectors';
+import { AppState } from '../../../core/state/core.state';
+import { map } from 'rxjs/operators';
+import { ISender } from '../../../core/state/senders/model/senders.model';
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
@@ -26,6 +28,16 @@ export const selectAllSuggestions = createSelector(
   fromSuggestions.selectAll
 );
 
+export const selectIds = createSelector(
+  selectSuggestionsState,
+  fromSuggestions.selectIds
+)
+
+
+export const selectSuggestionIds = createSelector(
+  selectIds,
+  (ids) => ids as string[]
+)
 
 export const select_Tasks_Suggestions_Entities = createSelector(
   fromTasks.selectEntities,
@@ -47,45 +59,52 @@ export const selectSuggestionsLoaded = createSelector(
 
 
 /*******************************************************************************
- *  BY COUNT
+ *  BY Name based on count
  * ****************************************************************************/
-
 export const selectCountCutoff = createSelector(
   selectSuggestionsState,
   (state: SuggestionsState) => state.cutoff
 );
 
-
-
-export const selectByCount = createSelector(
-  selectAllSuggestions,
-  sendersMore => sendersMore.sort((a,b) => b.count - a.count)
+export const selectSendersUnderCountCutoff = createSelector(
+  fromSenders.selectByCount,
+  selectCountCutoff,
+  (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
 );
 
-
 export const selectNotLabeledByName = createSelector(
-  selectByCount,
+  selectAllSuggestions,
   suggestions => suggestions.filter((suggestion) => {
-    return suggestion.labelByName === undefined;
+    return suggestion.labelByName === false;
   })
 );
 
-
-export const selectByCountCutoff  = createSelector(
+export const selectIdsNotLabeledByName = createSelector(
   selectNotLabeledByName,
-  selectCountCutoff,
-  (suggestions, cutoff) => suggestions.filter(suggestion => suggestion.count >= cutoff),
-);
+  (suggestions) => suggestions.map((suggestion) => suggestion.id)
+)
 
+export const selectFilteredSuggestedSenders = createSelector(
+  selectIdsNotLabeledByName,
+  selectSendersUnderCountCutoff,
+  (suggestions, senders) => {
+    let filteredSenders = senders.filter((sender) => {
+      if (suggestions.indexOf(sender.id) !== -1) {
+        return true;
+      }
+      return false;
+    });
+    return filteredSenders;
+  }
+);
 
 export const selectByCountLength = createSelector(
-  selectByCountCutoff,
-  senders => senders.length
+  selectFilteredSuggestedSenders,
+  (senders) => senders.length
 );
 
-
 export const selectByCountPage = (page: PageQuery) => createSelector(
-  selectByCountCutoff,
+  selectFilteredSuggestedSenders,
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
@@ -100,36 +119,50 @@ export const selectByCountPage = (page: PageQuery) => createSelector(
  ******************************************************************************/
 
 
-export const selectBySize = createSelector(
-  selectAllSuggestions,
-  suggestions => suggestions.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
-);
-
-
-export const selectBySizeFiltered = createSelector(
-  selectBySize,
-  (suggestions) => suggestions.filter((suggestion) => suggestion.labelBySize === undefined)
-);
-
-
 export const selectSizeCutoff = createSelector(
   selectSuggestionsState,
   (state: SuggestionsState) => state.sizeCutoff
 );
 
 
-export const selectBySizeGroupFiltered = createSelector(
+export const selectBySizeFiltered = createSelector(
+  selectAllSuggestions,
+  (suggestions) => suggestions.filter((suggestion) => suggestion.labelBySize === false)
+);
+
+export const selectIdsFilteredBySize = createSelector(
   selectBySizeFiltered,
+  (suggestions) => suggestions.map((suggestion) => suggestion.id)
+)
+
+export const selectSendersSortedBySize = createSelector(
+  fromSenders.selectBySize,
+  selectIdsFilteredBySize,
+  (senders, suggestions) => {
+    let filteredSenders = senders.filter((sender) => {
+      if (suggestions.indexOf(sender.id) !== -1) {
+        return true;
+      }
+      return false;
+    });
+    return filteredSenders;
+  }
+)
+
+
+
+export const selectBySizeGroupFiltered = createSelector(
+  selectSendersSortedBySize,
   selectSizeCutoff,
-  (suggestions, cutoff) => {
-    return filterBySize(suggestions, cutoff);
+  (senders, cutoff) => {
+    return filterBySize(senders, cutoff);
   }
 );
 
 
 export const selectBySizeGroupLength = createSelector(
   selectBySizeGroupFiltered,
-  (suggestions) => suggestions.length
+  (senders) => senders.length
 );
 
 
@@ -144,166 +177,13 @@ export const selectBySizeGroupPage = (page: PageQuery) => createSelector(
 );
 
 
-/*******************************************************************************
- *  CHARTS
- ******************************************************************************/
-
-export const C_XL = 500;
-export const C_LG = 100;
-export const C_MD = 50;
-export const C_SM = 15;
-
-export const selectByCountGroup = createSelector(
-  selectByCount,
-  suggestions => {
-    return {
-        Xl: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_XL
-        }),
-        Lg: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_LG && suggestion.count < C_XL
-        }),
-        Md: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_MD && suggestion.count < C_LG
-        }),
-        Sm: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_SM && suggestion.count < C_MD
-        }),
-        Xs: suggestions.filter((suggestion) => {
-          return suggestion.count < C_SM
-        }),
-    }
-  }
-);
-
-export const selectByCountGroup_TL = createSelector(
-  selectByCountGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: suggestions.Xl.length,
-      Lg: suggestions.Lg.length,
-      Md: suggestions.Md.length,
-      Sm: suggestions.Sm.length,
-      Xs: suggestions.Xs.length
-    }
-  }
-);
-
-export const selectByCountGroup_TS = createSelector(
-  selectByCountGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: accumSize(suggestions.Xl),
-      Lg: accumSize(suggestions.Lg),
-      Md: accumSize(suggestions.Md),
-      Sm: accumSize(suggestions.Sm),
-      Xs: accumSize(suggestions.Xs)
-    }
-  }
-);
-
-export const selectByCountGroup_TC = createSelector(
-  selectByCountGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: accumCount(suggestions.Xl),
-      Lg: accumCount(suggestions.Lg),
-      Md: accumCount(suggestions.Md),
-      Sm: accumCount(suggestions.Sm),
-      Xs: accumCount(suggestions.Xs),
-    }
-  }
-);
-
-
-export const selectBySizeGroup = createSelector(
-  selectBySize,
-  suggestions => {
-    return {
-        Xl: filterBySize(suggestions, 4),
-        Lg: filterBySize(suggestions, 3),
-        Md: filterBySize(suggestions, 2),
-        Sm: filterBySize(suggestions, 1),
-        Xs: filterBySize(suggestions, 0),
-    }
-  }
-);
-
-
-export const selectBySizeGroup_TL = createSelector(
-  selectBySizeGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: suggestions.Xl.length,
-      Lg: suggestions.Lg.length,
-      Md: suggestions.Md.length,
-      Sm: suggestions.Sm.length,
-      Xs: suggestions.Xs.length
-    }
-  }
-);
-
-export const selectBySizeGroup_TS = createSelector(
-  selectBySizeGroup,
-  (suggestions) => {
-
-    return <ISizes> {
-        Xl: accumSize(suggestions.Xl),
-        Lg: accumSize(suggestions.Lg),
-        Md: accumSize(suggestions.Md),
-        Sm: accumSize(suggestions.Sm),
-        Xs: accumSize(suggestions.Xs)
-      }
-  }
-);
-
-export const selectBySizeGroup_TC = createSelector(
-  selectBySizeGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: accumCount(suggestions.Xl),
-      Lg: accumCount(suggestions.Lg),
-      Md: accumCount(suggestions.Md),
-      Sm: accumCount(suggestions.Sm),
-      Xs: accumCount(suggestions.Xs)
-    }
-  }
-);
-
-
-
-export const DECIMAL = 100;
-
-export function accumSize(suggestions: ISuggestion[]) {
-  let acc = suggestions.map((suggestion) => {
-    return suggestion.totalSizeEstimate;
-  });
-  if (acc.length >= 1) {
-    let temp = acc.reduce((accum, curr) => accum + curr) * DECIMAL;
-    return Math.round(temp)/DECIMAL;
-  } else {
-    return 0;
-  }
-}
-
-
-export function accumCount(suggestions: ISuggestion[]) {
-  let acc = suggestions.map((suggestion) => {
-    return suggestion.count;
-  })
-  if (acc.length >= 1) {
-    return acc.reduce((accum, curr) => accum + curr);
-  } else {
-    return 0;
-  }
-}
 
 export const EX_LARGE = 1;
 export const LARGE = .5;
 export const MEDIUM = .2;
 export const SMALL = .08;
 
-export function filterBySize(suggestions: ISuggestion[], cutoff: number) {
+export function filterBySize(suggestions: ISender[], cutoff: number) {
 
   try {
     switch (cutoff) {

@@ -26,15 +26,7 @@ export interface FirstRunStatusResponse {
   }
 }
 
-export interface SuggestionsResponse {
-  status: string,
-  status_message: string,
-  data: {
-    suggestions: {
-      senderIds: string[]
-    }
-  }
-}
+
 
 @Injectable()
 export class BootstrapService {
@@ -55,12 +47,6 @@ export class BootstrapService {
 
     public getLoadingStatus(): Observable<LoadingStatusResponse> {
       return this.httpClient.get<LoadingStatusResponse>(API_URL + '/loadingStatus', {
-        withCredentials: true
-      });
-    }
-
-    public getSuggestions(): Observable<SuggestionsResponse> {
-      return this.httpClient.get<SuggestionsResponse>(API_URL + '/suggestions', {
         withCredentials: true
       });
     }

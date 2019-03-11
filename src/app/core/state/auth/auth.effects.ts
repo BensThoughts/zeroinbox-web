@@ -34,6 +34,7 @@ import { UserService } from '../../services/user/user.service';
 
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
+import { ResetSendersStateAction } from '../senders/senders.actions';
 
 
 @Injectable()
@@ -201,6 +202,7 @@ export class AuthEffects {
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
       this.authService.logout();
+      this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
@@ -220,6 +222,7 @@ export class AuthEffects {
     tap( () => {
       // this.authService.logout();
       this.store.dispatch(new ToggleSyncToStorageAction({ syncToStorage: false }));
+      this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());

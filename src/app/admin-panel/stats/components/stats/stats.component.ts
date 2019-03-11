@@ -11,7 +11,7 @@ import {
   selectBySizeGroup_TC, 
   selectBySizeGroup_TL, 
   selectByCountGroup_TL 
-} from '@app/admin-panel/suggestions/state/suggestions.selectors';
+} from '@app/core';
 
 
 @Component({

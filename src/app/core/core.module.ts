@@ -47,6 +47,8 @@ import { UserEffects } from './state/user/user.effects';
 import { LogService } from './services/log/log.service';
 import { SendersEffects } from './state/senders/senders.effects';
 import { SendersService } from './services/senders/senders.service';
+import { SuggestionsService } from './services/suggestions/suggestions.service';
+import { TasksService } from './services/tasks/tasks.service';
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -82,6 +84,8 @@ import { SendersService } from './services/senders/senders.service';
     NotificationService, // notifications in MatSnackBar
     ReverseAuthGuardService,
     SendersService,
+    SuggestionsService,
+    TasksService,
     UserService,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },

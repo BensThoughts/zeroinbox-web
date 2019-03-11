@@ -24,6 +24,9 @@ import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
+import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
+import { ISender } from '../../../../core/state/senders/model/senders.model';
+import { AddTasksAction } from '../../../../core/state/tasks/tasks.actions';
 
 export interface PageQuery {
   pageIndex: number;
@@ -58,7 +61,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISuggestion[]>;
+  mySub: Observable<ISender[]>;
 
   sizeCutoff$: Observable<number>;
   sizeCutoffs = [
@@ -150,7 +153,16 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   createActions() {
     this.toggle();
-    if (this.selectionDelete.hasValue()) {
+
+    let deleteTasks = this.selectionDelete.selected;
+    let labelTasks = this.selectionLabel.selected;
+    let tasks = {
+      deleteTasks: deleteTasks,
+      labelBySizeTasks: labelTasks
+    };
+
+    this.store.dispatch(new AddTasksAction({ tasks: tasks }))
+/*     if (this.selectionDelete.hasValue()) {
       this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
     }
 
@@ -163,7 +175,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
         })
       ).subscribe();
       this.store.dispatch(new LabelBySizeSuggestionsAction({ ids: this.selectionLabel.selected, size: sizeCutoff }));
-    }
+    } */
 
     of(true).pipe(
       take(1),
@@ -263,7 +275,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
 export class SuggestionsBySizeDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISuggestion[]>([]);
+  private suggestionsSubject = new BehaviorSubject<ISender[]>([]);
 
   constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
     super();
@@ -288,7 +300,7 @@ export class SuggestionsBySizeDataSource extends DataSource<any> {
     ).subscribe();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<ISuggestion[]> {
+  connect(collectionViewer: CollectionViewer): Observable<ISender[]> {
     return this.suggestionsSubject.asObservable();
   }
 

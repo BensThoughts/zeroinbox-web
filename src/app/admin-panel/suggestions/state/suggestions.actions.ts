@@ -58,7 +58,7 @@ export class LabelByNameSuggestionsAction implements Action {
 export class LabelBySizeSuggestionsAction implements Action {
   readonly type = SuggestionsActionTypes.LabelBySizeSuggestions;
 
-  constructor(public payload: { ids: string[], size: number }) {}
+  constructor(public payload: { ids: string[] }) {}
 }
 
 export class UpdateSuggestionsAction implements Action {
