@@ -41,7 +41,6 @@ import { environment } from '@env/environment';
 import { BootstrapService } from './services/bootstrap/bootstrap.service';
 
 import { BootstrapEffects } from './state//bootstrap/bootstrap.effects';
-import { TasksEffects } from '../admin-panel/tasks/state/tasks.effects';
 import { UserEffects } from './state/user/user.effects';
 
 import { LogService } from './services/log/log.service';
