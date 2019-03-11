@@ -49,6 +49,7 @@ import { SendersEffects } from './state/senders/senders.effects';
 import { SendersService } from './services/senders/senders.service';
 import { SuggestionsService } from './services/suggestions/suggestions.service';
 import { TasksService } from './services/tasks/tasks.service';
+import { GoogleAnalyticsEffects } from './state/router/google-analytics.effects';
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -66,8 +67,9 @@ import { TasksService } from './services/tasks/tasks.service';
     EffectsModule.forRoot([
       AuthEffects,
       BootstrapEffects,
+      GoogleAnalyticsEffects,
+      SendersEffects,
       UserEffects,
-      SendersEffects
     ]),
     environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
