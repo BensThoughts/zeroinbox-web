@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatPaginator, MatTable } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
@@ -13,8 +13,6 @@ import {
 
 import {
   SetCountCutoffAction,
-  LabelByNameSuggestionsAction,
-  DeleteSuggestionsMetaAction,
 } from '../../state/suggestions.actions';
 
 
@@ -22,12 +20,9 @@ import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
-import { selectSuggestionIds } from '../../state/suggestions.selectors';
-import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { UpsertTasksAction, AddTasksAction } from '../../../../core/state/tasks/tasks.actions';
+import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 
 export interface PageQuery {
   pageIndex: number;
@@ -161,14 +156,6 @@ export class SuggestionsCountTableComponent implements OnInit {
     };
 
     this.store.dispatch(new AddTasksAction({ tasks: tasks }))
-
-    // if (this.selectionDelete.hasValue()) {
-      // this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
-    // }
-
-    // if (this.selectionLabel.hasValue()) {
-      // this.store.dispatch(new LabelByNameSuggestionsAction({ ids: this.selectionLabel.selected }));
-    // }
 
     of(true).pipe(
       take(1),

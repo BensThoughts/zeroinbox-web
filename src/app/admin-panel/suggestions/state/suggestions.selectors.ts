@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector, select, Store } from '@ngrx/stor
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
-import * as fromTasks from '@app/core/state/tasks/tasks.selectors';
+import * as fromTasks from '@app/admin-panel/tasks/state/tasks.selectors';
 import { ISuggestion, ISizes } from '../model/suggestions.model';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { AppState } from '../../../core/state/core.state';
@@ -33,20 +33,6 @@ export const selectIds = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectIds
 )
-
-
-export const selectSuggestionIds = createSelector(
-  selectIds,
-  (ids) => ids as string[]
-)
-
-export const select_Tasks_Suggestions_Entities = createSelector(
-  fromTasks.selectEntities,
-  selectEntities,
-  (tasks, suggestions) => {
-    return { tasks: tasks, suggestions: suggestions };
-  }
-);
 
 
 /**

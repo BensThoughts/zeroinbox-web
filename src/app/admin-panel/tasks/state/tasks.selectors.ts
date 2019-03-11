@@ -1,7 +1,11 @@
 import * as fromTasks from './tasks.reducer';
-import { selectTasksState } from '../core.state';
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { TasksState } from './tasks.reducer';
+import { State } from './tasks.reducer';
+
+export const selectTasksState = createFeatureSelector<State, TasksState>(
+  'tasks'
+);
 
 export const selectEntities = createSelector(
   selectTasksState,

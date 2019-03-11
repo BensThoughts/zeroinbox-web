@@ -26,7 +26,7 @@ import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
 import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { AddTasksAction } from '../../../../core/state/tasks/tasks.actions';
+import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 
 export interface PageQuery {
   pageIndex: number;

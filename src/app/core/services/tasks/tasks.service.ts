@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 
 import { API_URL } from '../apiurl';
-import { ITask } from '../../state/tasks/tasks.model';
+import { ITask } from '../../../admin-panel/tasks/state/tasks.model';
 
 export interface TasksResponse {
     status: string,

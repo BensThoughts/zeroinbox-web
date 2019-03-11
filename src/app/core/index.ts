@@ -4,7 +4,7 @@ export * from './services/auth/auth-guard.service';
 export * from './state//bootstrap/bootstrap.actions';
 export * from './state//bootstrap/bootstrap.reducer';
 export * from './state//bootstrap/bootstrap.selectors';
-export * from './state/tasks/tasks.actions';
+export * from '../admin-panel/tasks/state/tasks.actions';
 export * from './state/auth/auth.reducer';
 export * from './state/auth/auth.actions';
 export * from './state/auth/auth.selectors';

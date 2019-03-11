@@ -12,7 +12,7 @@ import { authReducer, AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
 import { userReducer, UserState } from './user/user.reducer';
-import { tasksReducer, TasksState } from './tasks/tasks.reducer';
+import { tasksReducer, TasksState } from '../../admin-panel/tasks/state/tasks.reducer';
 import { sendersReducer, SendersState } from './senders/senders.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';
@@ -24,7 +24,6 @@ export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
   user: userReducer,
   bootstrap: bootstrapReducer,
-  tasks: tasksReducer,
   senders: sendersReducer
 };
 
@@ -51,10 +50,6 @@ export const selectBootstrapState = createFeatureSelector<AppState, BootstrapSta
   'bootstrap'
 );
 
-export const selectTasksState = createFeatureSelector<AppState, TasksState>(
-  'tasks'
-);
-
 export const selectSendersState = createFeatureSelector<AppState, SendersState>(
   'senders'
 )
@@ -72,6 +67,5 @@ export interface AppState {
   user: UserState;
   auth: AuthState;
   bootstrap: BootstrapState;
-  tasks: TasksState;
   senders: SendersState;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { selectLabelTasks, selectDeleteTasks } from '@app/core/state/tasks/tasks.selectors';
+import { selectLabelTasks, selectDeleteTasks } from '@app/admin-panel/tasks/state/tasks.selectors';
 
 @Component({
   selector: 'app-tasks-component',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
-import { AppState, UpsertTasksAction, AddTasksAction } from '@app/core';
+import { Store } from '@ngrx/store';
+import { AppState, AddTasksAction } from '@app/core';
 import {
   SuggestionsActionTypes,
   SuggestionsRequestAction,
@@ -9,20 +9,14 @@ import {
   LoadSuggestionsAction,
   DeleteSuggestionsAction,
   UpdateSuggestionsAction,
-  LabelByNameSuggestionsAction,
-  DeleteSuggestionsMetaAction,
-  LabelBySizeSuggestionsAction
 } from './suggestions.actions';
-import { map, filter, take, mergeMap, exhaustMap, catchError } from 'rxjs/operators';
-import { ITask } from '@app/core/state/tasks/tasks.model';
+import { map, filter, exhaustMap, catchError } from 'rxjs/operators';
 import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
-import { select_Tasks_Suggestions_Entities, selectEntities } from './suggestions.selectors';
 import { UpdateSuggestionsStateAction } from './suggestions.actions';
 import { fromEvent, of } from 'rxjs';
-import { selectSendersById } from '@app/core';
 import { SuggestionsService } from '@app/core/services/suggestions/suggestions.service';
-import { TaskActionTypes } from '../../../core/state/tasks/tasks.actions';
+import { TaskActionTypes } from '../../tasks/state/tasks.actions';
 
 
 @Injectable()

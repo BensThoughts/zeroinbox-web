@@ -1,7 +1,11 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { ITask } from './tasks.model';
 import { TaskActions, TaskActionTypes } from './tasks.actions';
+import { AppState } from '@app/core/state/core.state';
 
+export interface State extends AppState {
+  tasks: TasksState;
+}
 
 export interface TasksState extends EntityState<ITask> { }
 

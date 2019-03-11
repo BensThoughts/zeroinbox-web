@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { UpdateTasksStateAction, UpsertTasksAction, TaskActionTypes } from './tasks.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from '../core.state';
+import { AppState } from '@app/core/state/core.state';
 import { map, filter, exhaustMap, concatMap, catchError } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
-import { TasksService } from '../../services/tasks/tasks.service';
-import { ITask } from './tasks.model';
+import { TasksService } from '@app/core/services/tasks/tasks.service';
 
 
 @Injectable()

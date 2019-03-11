@@ -28,7 +28,7 @@ import {
   GetAllSuggestionsAction,
   ToggleSyncToStorageAction 
 } from '../bootstrap/bootstrap.actions';
-import { ResetTasksStateAction } from '../tasks/tasks.actions';
+import { ResetTasksStateAction } from '../../../admin-panel/tasks/state/tasks.actions';
 import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/user.service';
 import { UserService } from '../../services/user/user.service';
 
