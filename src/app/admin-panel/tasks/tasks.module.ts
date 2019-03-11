@@ -7,7 +7,7 @@ import { TasksComponent } from './components/tasks.component';
 import { tasksReducer } from './state/tasks.reducer';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { SuggestionsEffects } from '../suggestions/state/suggestions.effects';
+import { TasksEffects } from './state/tasks.effects';
 
 @NgModule({
   declarations: [TasksComponent],
@@ -15,7 +15,7 @@ import { SuggestionsEffects } from '../suggestions/state/suggestions.effects';
     CommonModule,
     SharedModule,
     StoreModule.forFeature('tasks', tasksReducer),
-    EffectsModule.forFeature([SuggestionsEffects])
+    EffectsModule.forFeature([TasksEffects])
   ]
 })
 

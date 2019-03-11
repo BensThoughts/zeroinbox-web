@@ -1,9 +1,9 @@
 export interface ITask {
   id: string;
   delete: boolean;
-  labelByName: boolean;
-  labelBySize: boolean;
-  labelByCount: boolean;
+  labelByName?: boolean;
+  labelBySize?: boolean;
+  labelByCount?: boolean;
   labelName?: string;
 }
 
