@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'suggestions', component: SuggestionsComponent},
-      {path: 'labels', component: StatsComponent},
+      {path: 'stats', component: StatsComponent},
       {path: 'tasks', component: TasksComponent},
       {path: 'settings', component: SettingsComponent}
     ],

@@ -20,7 +20,7 @@ export const menu_items: MenuItem[] = [
   },
   {
     name: 'Stats',
-    route: '/admin-panel/labels',
+    route: '/admin-panel/stats',
     icon: 'chart-pie'
   },
   {
