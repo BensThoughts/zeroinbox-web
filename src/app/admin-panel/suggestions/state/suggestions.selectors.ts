@@ -177,28 +177,28 @@ export const LARGE = .5;
 export const MEDIUM = .2;
 export const SMALL = .08;
 
-export function filterBySize(suggestions: ISender[], cutoff: number) {
+export function filterBySize(suggestions: ISender[], cutoff: string) {
 
   try {
     switch (cutoff) {
 
-      case 4:
+      case 'XL':
         return suggestions.filter((suggestion) => {
           return (suggestion.totalSizeEstimate >= EX_LARGE);
         });
-      case 3:
+      case 'LG':
         return suggestions.filter((suggestion) => {
           return (suggestion.totalSizeEstimate < EX_LARGE) && (suggestion.totalSizeEstimate >= LARGE);
         });
-      case 2:
+      case 'MD':
         return  suggestions.filter((suggestion) => {
           return (suggestion.totalSizeEstimate < LARGE) && (suggestion.totalSizeEstimate >= MEDIUM);
         });
-      case 1:
+      case 'SM':
         return suggestions.filter((suggestion) => {
           return (suggestion.totalSizeEstimate < MEDIUM) && (suggestion.totalSizeEstimate >= SMALL);
         });
-      case 0:
+      case 'XS':
         return suggestions.filter((suggestion) => {
           return (suggestion.totalSizeEstimate < SMALL);
         })

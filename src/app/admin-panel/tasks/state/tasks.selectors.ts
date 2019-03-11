@@ -3,15 +3,27 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { TasksState } from './tasks.reducer';
 import { State } from './tasks.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
+import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
 
 export const selectTasksState = createFeatureSelector<State, TasksState>(
   'tasks'
 );
 
-export const selectEntities = createSelector(
+export const selectTasksEntities = createSelector(
   selectTasksState,
   fromTasks.selectEntities
 );
+
+export const selectTaskAndSenderEntities = createSelector(
+  selectSenderEntities,
+  selectTasksEntities,
+  (senders, tasks) => {
+    return {
+      senders: senders,
+      tasks: tasks
+    }
+  }
+)
 
 export const selectTasks = createSelector(
   selectTasksState,
@@ -46,12 +58,19 @@ export const deleteTaskIds = createSelector(
 export const selectLabelTasks = createSelector(
   labelTaskIds,
   fromSenders.selectByCount,
-  (tasks, senders) => {
+  selectTasksEntities,
+  (taskIds, senders, tasks) => {
     let filteredSenders = senders.filter((sender) => {
-      if (tasks.indexOf(sender.id) !== -1) {
+      if (taskIds.indexOf(sender.id) !== -1) {
         return true;
       }
       return false;
+    }).map((sender) => {
+      let labelNames = tasks[sender.id].labelNames;
+      return {
+        fromAddress: sender.fromAddress,
+        labelNames: labelNames
+      }
     });
     return filteredSenders;
   }

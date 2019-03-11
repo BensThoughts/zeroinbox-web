@@ -62,13 +62,13 @@ export class SuggestionsSizeTableComponent implements OnInit {
   collectionViewer: CollectionViewer;
   mySub: Observable<ISender[]>;
 
-  sizeCutoff$: Observable<number>;
+  sizeCutoff$: Observable<string>;
   sizeCutoffs = [
-    { value: 0, label: 'extra small' },
-    { value: 1, label: 'small' },
-    { value: 2, label: 'medium' },
-    { value: 3, label: 'large' },
-    { value: 4, label: 'extra large' }
+    { value: 'XS', label: 'extra small' },
+    { value: 'SM', label: 'small' },
+    { value: 'MD', label: 'medium' },
+    { value: 'LG', label: 'large' },
+    { value: 'XL', label: 'extra large' }
   ];
 
   handler: Subscription;
@@ -150,17 +150,24 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
 
-  createActions() {
+  createTasks() {
     this.toggle();
 
     let deleteTasks = this.selectionDelete.selected;
     let labelTasks = this.selectionLabel.selected;
-    let tasks = {
-      deleteTasks: deleteTasks,
-      labelBySizeTasks: labelTasks
-    };
+    this.store.pipe(
+      select(selectSizeCutoff),
+      map((cutoff) => {
+        let tasks = {
+          deleteTasks: deleteTasks,
+          labelBySizeTasks: labelTasks,
+          labelName: cutoff
+        };
+    
+        this.store.dispatch(new AddTasksAction({ tasks: tasks }))
+      })
+    ).subscribe();
 
-    this.store.dispatch(new AddTasksAction({ tasks: tasks }))
 
     of(true).pipe(
       take(1),

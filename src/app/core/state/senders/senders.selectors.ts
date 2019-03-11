@@ -22,7 +22,7 @@ export const selectUniqueSenders = createSelector(
     fromSenders.selectTotal
 );
 
-export const selectEntities = createSelector(
+export const selectSenderEntities = createSelector(
     selectSendersState,
     fromSenders.selectEntities
 )
@@ -33,7 +33,7 @@ export const selectAll = createSelector(
 )
 
 export const selectSendersById = (senderIds: string[]) => createSelector(
-    selectEntities,
+    selectSenderEntities,
     (entities) => {
         let senders = senderIds.map((senderId) => {
             return entities[senderId];

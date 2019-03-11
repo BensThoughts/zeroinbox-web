@@ -10,7 +10,7 @@ export interface State extends AppState {
 export interface SuggestionsState extends EntityState<ISuggestion> {
   suggestionsLoaded: boolean;
   cutoff: number;
-  sizeCutoff: number;
+  sizeCutoff: string;
 }
 
 export function selectSendersId(l: ISuggestion) {
@@ -26,7 +26,7 @@ export const adapter: EntityAdapter<ISuggestion> =
 const initialSuggestionsState = adapter.getInitialState({
   suggestionsLoaded: false,
   cutoff: 15,
-  sizeCutoff: 2
+  sizeCutoff: 'MD'
 });
 
 export function suggestionsReducer(

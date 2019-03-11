@@ -16,37 +16,35 @@ export class TasksService {
 
   constructor(private httpClient: HttpClient) {}
 
- /*  public postTasks(tasks: ITask[]): Observable<TasksResponse> {
-    let labelByNameTasks = tasks.filter((task) => {
-        if (task.labelByName) {
-            return true;
-        }
-        return false;
-    }).map((labelTask) => {
-        return {
-            senderId: labelTask.id,
-            labelNames: labelTask.labelNames
-        }
-    });
+    public postTasks(tasks: ITask[]): Observable<TasksResponse> {
+        let labelTasks = tasks.filter((task) => {
+            if (task.labelByName || task.labelBySize) {
+                return true;
+            }
+            return false;
+        }).map((labelTask) => {
+            return {
+                senderId: labelTask.id,
+                labelNames: labelTask.labelNames
+            }
+        });
 
-    let deleteTasks = tasks.filter((task) => {
-        if (task.delete) {
-            return true;
-        }
-        return false;
-    }).map((deleteTask) => {
-        return deleteTask.id
-    });
+        let deleteTasks = tasks.filter((task) => {
+            if (task.delete) {
+                return true;
+            }
+            return false;
+        }).map((deleteTask) => {
+            return deleteTask.id
+        });
 
-    let body = {
-        label: labelTasks,
-        delete: deleteTasks
-    }
+        let body = {
+            label: labelTasks,
+            delete: deleteTasks
+        }
     
-    return this.httpClient.post<TasksResponse>(API_URL + '/actions', body, {
-      withCredentials: true
-    });
-
-  } */
-
+        return this.httpClient.post<TasksResponse>(API_URL + '/actions', body, {
+            withCredentials: true
+        });
+    }
 }

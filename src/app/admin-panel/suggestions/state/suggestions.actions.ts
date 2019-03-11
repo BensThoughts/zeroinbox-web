@@ -76,7 +76,7 @@ export class SetCountCutoffAction implements Action {
 export class SetSizeCutoffAction implements Action {
   readonly type = SuggestionsActionTypes.SetSizeCutoff;
 
-  constructor(public payload: { sizeCutoff: number }) {}
+  constructor(public payload: { sizeCutoff: string }) {}
 }
 
 export class UpdateSuggestionsStateAction implements Action {

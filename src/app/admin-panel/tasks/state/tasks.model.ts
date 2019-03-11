@@ -4,7 +4,7 @@ export interface ITask {
   labelByName?: boolean;
   labelBySize?: boolean;
   labelByCount?: boolean;
-  labelName?: string;
+  labelNames?: string[];
 }
 
 export interface ITaskCreator {
@@ -12,4 +12,5 @@ export interface ITaskCreator {
   labelByNameTasks?: string[];
   labelBySizeTasks?: string[];
   labelByCountTasks?: string[];
+  labelName?: string;
 }
