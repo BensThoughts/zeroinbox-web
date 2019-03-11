@@ -8,6 +8,7 @@ import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { AppState } from '../../../core/state/core.state';
 import { map } from 'rxjs/operators';
 import { ISender } from '../../../core/state/senders/model/senders.model';
+import { selectAll } from '../../../core/state/senders/senders.selectors';
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
@@ -67,10 +68,17 @@ export const selectCountCutoff = createSelector(
 );
 
 export const selectSendersUnderCountCutoff = createSelector(
-  fromSenders.selectByCount,
+  fromSenders.selectAll,
   selectCountCutoff,
   (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
 );
+
+export const sortByCount = createSelector(
+  selectSendersUnderCountCutoff,
+  (senders) => senders.sort((a, b) => {
+    return b.count - a.count;
+  })
+)
 
 export const selectNotLabeledByName = createSelector(
   selectAllSuggestions,
@@ -86,10 +94,10 @@ export const selectIdsNotLabeledByName = createSelector(
 
 export const selectFilteredSuggestedSenders = createSelector(
   selectIdsNotLabeledByName,
-  selectSendersUnderCountCutoff,
-  (suggestions, senders) => {
+  sortByCount,
+  (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
-      if (suggestions.indexOf(sender.id) !== -1) {
+      if (senderIds.indexOf(sender.id) !== -1) {
         return true;
       }
       return false;
