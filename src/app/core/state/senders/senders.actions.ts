@@ -3,7 +3,7 @@ import { ISender } from './model/senders.model';
 
 
 export enum SendersActionTypes {
-  SendersRequested = '[Senders Effects] Senders Requested',
+  SendersRequest = '[Senders Effects] Senders Requested',
   SendersRequestFailure = '[Senders Effects] Senders Request Failure',
 
   AddAllSenders = '[Senders Effects] Add All Senders',
@@ -12,8 +12,8 @@ export enum SendersActionTypes {
   ResetSendersState = '[Auth Effects] Reset Senders State'
 }
 
-export class SendersRequestedAction implements Action {
-  readonly type = SendersActionTypes.SendersRequested;
+export class SendersRequestAction implements Action {
+  readonly type = SendersActionTypes.SendersRequest;
 }
 
 export class SendersRequestFailureAction implements Action {
@@ -31,7 +31,7 @@ export class ResetSendersStateAction implements Action {
 
 
 export type SendersActions = 
-  | SendersRequestedAction
+  | SendersRequestAction
   | SendersRequestFailureAction
   | AddAllSendersAction
   | ResetSendersStateAction

@@ -8,11 +8,13 @@ import {
   selectEmailProfile,
   selectPercentLoaded,
   selectFirstRun,
+  selectSendersLoaded,
+  selectUniqueSenders,
 } from '@app/core';
 
 import {
-  selectUniqueSenders,
-  selectSuggestionsLoaded,
+  // selectUniqueSenders,
+  // selectSuggestionsLoaded,
 } from '@app/admin-panel/suggestions/state/suggestions.selectors';
 
 import { Store, select } from '@ngrx/store';
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
   unique_senders$: Observable<number>;
   percentLoaded$;
   suggestionsLoaded$;
+  sendersLoaded$;
   firstRun$;
 
   constructor(private store: Store<AppState>) { }
@@ -42,8 +45,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
+    
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
-    this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
+    this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
+    // this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
+    // this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
     this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
     this.firstRun$ = this.store.pipe(select(selectFirstRun));
   }

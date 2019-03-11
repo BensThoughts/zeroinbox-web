@@ -37,7 +37,7 @@
 
 
   <div class="container text-center">
-  <div  *ngIf="!(suggestionsLoaded$ | async) && (firstRun$ | async); else loaded">
+  <div  *ngIf="!(sendersLoaded$ | async) && (firstRun$ | async); else loaded">
 
       <div class="row justify-content-center align-items-center">
           <div class="col-sm">

@@ -45,6 +45,8 @@ import { TasksEffects } from './state/tasks/tasks.effects';
 import { UserEffects } from './state/user/user.effects';
 
 import { LogService } from './services/log/log.service';
+import { SendersEffects } from './state/senders/senders.effects';
+import { SendersService } from './services/senders/senders.service';
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -63,7 +65,8 @@ import { LogService } from './services/log/log.service';
       AuthEffects,
       BootstrapEffects,
       TasksEffects,
-      UserEffects
+      UserEffects,
+      SendersEffects
     ]),
     environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
@@ -72,13 +75,14 @@ import { LogService } from './services/log/log.service';
 
   declarations: [],
   providers: [
-    AuthService,
-    UserService,
     AuthGuardService,
-    ReverseAuthGuardService,
+    AuthService,
     BootstrapService,
     LogService,
     NotificationService, // notifications in MatSnackBar
+    ReverseAuthGuardService,
+    SendersService,
+    UserService,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */

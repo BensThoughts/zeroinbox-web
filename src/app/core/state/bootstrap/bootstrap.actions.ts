@@ -2,7 +2,7 @@ import {Action} from '@ngrx/store';
 
 export enum BootstrapActionTypes {
 
-  GetAllSuggestions = '[Bootstrap Effects] Get All Suggestions',
+  GetAllSenders = '[Bootstrap Effects] Get All Suggestions',
 
   FirstRunStatusRequest = '[Bootstrap Effects] First Run Status Request',
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
@@ -16,9 +16,6 @@ export enum BootstrapActionTypes {
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
   UpdatePercentLoaded = '[Boostrap Effects] Update Percent Loaded',
 
-  SuggestionsRequest = '[Bootstrap Effects] Suggestions Request',
-  SuggestionsRequestFailure = '[Bootstrap Effects] Suggestions Request Failure',
-
   ToggleSyncToStorage = '[Bootstrap Effects] Sync To Storage',
 
   UpdateBootstrapState = '[Bootstrap Effects] Update Bootstrap State From Another Tab/Window',
@@ -26,7 +23,7 @@ export enum BootstrapActionTypes {
 }
 
 export class GetAllSuggestionsAction implements Action {
-  readonly type = BootstrapActionTypes.GetAllSuggestions;
+  readonly type = BootstrapActionTypes.GetAllSenders;
 }
 
 export class FirstRunStatusRequestAction implements Action {
@@ -86,19 +83,6 @@ export class ToggleSyncToStorageAction implements Action {
  * [constructor description]
  * @param payload [description]
  */
- export class SuggestionsRequestAction implements Action {
-   readonly type = BootstrapActionTypes.SuggestionsRequest;
- }
-
- export class SuggestionsRequestFailureAction implements Action {
-   readonly type = BootstrapActionTypes.SuggestionsRequestFailure;
-   constructor(public payload: any) {}
- }
-
-/**
- * [constructor description]
- * @param payload [description]
- */
 export class UpdateBootstrapStateAction implements Action {
   readonly type = BootstrapActionTypes.UpdateBootstrapState;
   constructor(public payload: any){}
@@ -123,9 +107,6 @@ export type BootstrapActions =
   | LoadingStatusRequestAction
   | LoadingStatusRequestFailureAction
   | UpdatePercentLoadedAction
-
-  | SuggestionsRequestAction
-  | SuggestionsRequestFailureAction
 
   | ToggleSyncToStorageAction
   | ResetBootstrapStateAction

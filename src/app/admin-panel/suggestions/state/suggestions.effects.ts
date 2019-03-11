@@ -156,6 +156,32 @@ export class SuggestionsEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  suggestionsRequest$ = this.actions$
+    .pipe(
+      ofType<SuggestionsRequestAction>(BootstrapActionTypes.SuggestionsRequest),
+      exhaustMap(() => {
+        return this.bootstrapService.getSuggestions().pipe(
+          map((response) => {
+            if (response.status === 'error') {
+              this.store.dispatch(new SuggestionsRequestFailureAction());
+            }
+            let senderIds = response.data.suggestions.senderIds;
+            this.store.pipe(
+              select(selectSendersById(senderIds)),
+              map((suggestions) => {
+                console.log(suggestions);
+                this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
+              })
+              ).subscribe();
+          }),
+          catchError((err) => {
+            return of(new SuggestionsRequestFailureAction());
+          })
+        )
+      })
+    );
+
 
 
   @Effect({ dispatch: false })

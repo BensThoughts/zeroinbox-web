@@ -12,10 +12,7 @@ import {
 
   LoadingStatusRequestAction,
   LoadingStatusRequestFailureAction,
-
-  SuggestionsRequestAction,
-  SuggestionsRequestFailureAction,
-
+  UpdatePercentLoadedAction,
 
   UpdateBootstrapStateAction,
   UpdateFirstRunAction,
@@ -35,8 +32,14 @@ import {
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
 import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { UpdatePercentLoadedAction } from './bootstrap.actions';
 import { LoginSuccessAction } from '../auth/auth.actions';
+import { SendersRequestAction } from '../senders/senders.actions';
+import { selectSendersById } from '../senders/senders.selectors';
+
+import {
+  SuggestionsRequestAction,
+  SuggestionsRequestFailureAction,
+} from '@app/admin-panel/suggestions/state/suggestions.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -49,7 +52,7 @@ export class BootstrapEffects {
   @Effect()
   getAllSuggestions$ = this.actions$
     .pipe(
-      ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSuggestions),
+      ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSenders),
       map(() => {
         return new FirstRunStatusRequestAction();
         }
@@ -71,7 +74,9 @@ export class BootstrapEffects {
             if (response.data.firstRun) {
               return new LoadSuggestionsRequestAction();
             } else {
-              return new SuggestionsRequestAction();
+              this.store.dispatch(new SuggestionsRequestAction());
+              return new SendersRequestAction();
+              // return new SuggestionsRequestAction();
             }
           }),
           catchError((err) => {
@@ -80,10 +85,6 @@ export class BootstrapEffects {
           })
         );
       }),
-      catchError((err) => {
-        console.error(err);
-        return of(new FirstRunStatusRequestFailureAction());
-      })
     );
 
   @Effect()
@@ -129,7 +130,9 @@ export class BootstrapEffects {
               this.store.dispatch(new UpdatePercentLoadedAction({ percentLoaded: percentLoaded }))
               return new LoadingStatusRequestAction();
             } else {
-              return new SuggestionsRequestAction()
+              this.store.dispatch(new SuggestionsRequestAction());
+              return new SendersRequestAction();
+              // return new SuggestionsRequestAction()
             }
           }),
           catchError((err) => {
@@ -138,52 +141,6 @@ export class BootstrapEffects {
           })
         )
       }),
-      catchError((err) => {
-        console.error(err);
-        return of(new LoadingStatusRequestFailureAction());
-      })
-
-    );
-
-    toMB(totalSizeEstimate: number) {
-        if (totalSizeEstimate === undefined) {
-          return 0;
-        } else {
-          let temp = totalSizeEstimate / MB * DECIMAL;
-          return Math.round(temp)/DECIMAL;
-        }
-      }
-
-
-  @Effect()
-  allSuggestionsRequested$ = this.actions$
-    .pipe(
-      ofType<SuggestionsRequestAction>(BootstrapActionTypes.SuggestionsRequest),
-      exhaustMap((action) => {
-        return this.bootstrapService.getSuggestions().pipe(
-          map((response) => {
-            let suggestions: ISuggestion[] = response.data.suggestions.map((suggestion) => {
-              let totalSizeEstimate = this.toMB(suggestion.totalSizeEstimate);
-              return {
-                id: suggestion.senderId,
-                fromAddress: suggestion.senderAddress,
-                fromName: suggestion.senderNames[0],
-                count: suggestion.count,
-                totalSizeEstimate: totalSizeEstimate
-              };
-            })
-            return new LoadSuggestionsAction({ suggestions: suggestions });
-          }),
-          catchError((err) => {
-            console.error(err);
-            return of(new SuggestionsRequestFailureAction(err));
-          })
-        );
-      }),
-      catchError((err) => {
-        console.error(err);
-        return of(new SuggestionsRequestFailureAction(err));
-      })
     );
 
     @Effect()

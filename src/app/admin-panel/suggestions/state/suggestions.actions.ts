@@ -5,6 +5,9 @@ import { Update } from '@ngrx/entity';
 export enum SuggestionsActionTypes {
   LoadSuggestions = '[Senders Effects] Add All Suggestions',
 
+  SuggestionsRequest = '[Bootstrap Effects] Suggestions Request',
+  SuggestionsRequestFailure = '[Boostrap Effects] Suggestions Request Failure',
+
   DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
   DeleteSuggestionsMeta = '[Suggestions Table Component] Delete Suggestions Meta',
   LabelByNameSuggestions = '[Suggestions Table Component] Label By Name',
@@ -18,6 +21,14 @@ export enum SuggestionsActionTypes {
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Other Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
+}
+
+export class SuggestionsRequestAction implements Action {
+  readonly type = SuggestionsActionTypes.SuggestionsRequest;
+}
+
+export class SuggestionsRequestFailureAction implements Action {
+  readonly type = SuggestionsActionTypes.SuggestionsRequestFailure;
 }
 
 export class LoadSuggestionsAction implements Action {
@@ -80,6 +91,8 @@ export class ResetSuggestionsStateAction implements Action {
 
 export type ByCountActions =
   | LoadSuggestionsAction
+  | SuggestionsRequestAction
+  | SuggestionsRequestFailureAction
 
   | DeleteSuggestionsAction
 

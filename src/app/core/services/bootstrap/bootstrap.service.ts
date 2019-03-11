@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
-import { AppState } from '@app/core/state/core.state';
-import { Store } from '@ngrx/store';
 
 import { API_URL } from '../apiurl';
 
@@ -28,20 +26,13 @@ export interface FirstRunStatusResponse {
   }
 }
 
-
-export interface ISuggestionResponse {
-  senderId: string;
-  senderAddress: string;
-  senderNames: Array<string>;
-  count: number;
-  totalSizeEstimate: number;
-}
-
 export interface SuggestionsResponse {
   status: string,
   status_message: string,
   data: {
-    suggestions: ISuggestionResponse[]
+    suggestions: {
+      senderIds: string[]
+    }
   }
 }
 
@@ -69,7 +60,7 @@ export class BootstrapService {
     }
 
     public getSuggestions(): Observable<SuggestionsResponse> {
-      return this.httpClient.get<SuggestionsResponse>(API_URL + '/senders', {
+      return this.httpClient.get<SuggestionsResponse>(API_URL + '/suggestions', {
         withCredentials: true
       });
     }

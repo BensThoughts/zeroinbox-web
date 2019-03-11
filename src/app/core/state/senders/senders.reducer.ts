@@ -3,7 +3,7 @@ import { ISender } from './model/senders.model';
 import { SendersActionTypes } from './senders.actions';
 
 export interface SendersState extends EntityState<ISender> {
-    suggestionsLoaded: boolean;
+    sendersLoaded: boolean;
 }
 
 export function selectSendersId(l: ISender) {
@@ -17,17 +17,17 @@ export const adapter: EntityAdapter<ISender> =
   
   
 const initialSuggestionsState = adapter.getInitialState({
-  suggestionsLoaded: false,
+  sendersLoaded: false,
 });
 
-export function suggestionsReducer(
+export function sendersReducer(
   state = initialSuggestionsState,
   action): SendersState {
 
     switch (action.type) {
 
-      case SendersActionTypes.AddAllSenders:
-        return adapter.addAll(action.payload.suggestions, { ...state, suggestionsLoaded: true });
+      case SendersActionTypes.AddAllSenders:  
+        return adapter.addAll(action.payload.senders, { ...state, sendersLoaded: true });
       
       case SendersActionTypes.ResetSendersState:
         return initialSuggestionsState;
