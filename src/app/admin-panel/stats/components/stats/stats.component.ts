@@ -22,15 +22,17 @@ import {
 
 export class StatsComponent implements OnInit {
 
-  sg_Tl$;
-  sg_Ts$;
-  sg_Tc$;
+  // sg = size group
+  sg_Tl$; // sg by Total Length (number of senders)
+  sg_Ts$; // sg by Total size (in MB)
+  sg_Tc$; // sg by Total Count (number of threads)
   sizesColumnNames = ['Threads', 'over 1MB', '1MB - 500KB', '500KB - 300KB', '300KB - 200KB', 'under 200KB'];
 
 
-  cg_Tl$;
-  cg_Ts$;
-  cg_Tc$;
+  // cg = count group
+  cg_Tl$; // cg by Total Length (number of senders)
+  cg_Ts$; // cg by Total size (in MB)
+  cg_Tc$; // cg by Total Count (number of threads)
   countColumnNames = ['Threads', 'over 500', '500 - 100', '50 - 100', '15 - 50', 'under 15'];
 
 

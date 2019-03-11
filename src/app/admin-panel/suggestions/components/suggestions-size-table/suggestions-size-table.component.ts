@@ -24,7 +24,6 @@ import { tap, map, take, delay } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
-import { selectSendersById } from '../../../../core/state/senders/senders.selectors';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 
@@ -162,20 +161,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
     };
 
     this.store.dispatch(new AddTasksAction({ tasks: tasks }))
-/*     if (this.selectionDelete.hasValue()) {
-      this.store.dispatch(new DeleteSuggestionsMetaAction({ ids: this.selectionDelete.selected }));
-    }
-
-    if (this.selectionLabel.hasValue()) {
-      let sizeCutoff = 0;
-      this.sizeCutoff$.pipe(
-        take(1),
-        map((cutoff) => {
-          sizeCutoff = cutoff;
-        })
-      ).subscribe();
-      this.store.dispatch(new LabelBySizeSuggestionsAction({ ids: this.selectionLabel.selected, size: sizeCutoff }));
-    } */
 
     of(true).pipe(
       take(1),

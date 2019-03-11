@@ -15,8 +15,6 @@ export class StatsBarchartComponent implements OnInit {
 
   testData: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
 
-
-
   constructor() { }
 
   ngOnInit() {

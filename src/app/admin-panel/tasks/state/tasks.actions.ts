@@ -31,8 +31,7 @@ export class UpdateTasksStateAction implements Action {
 }
 
 export type TaskActions =
-
+  | AddTasksAction
   | ResetTasksStateAction
   | UpsertTasksAction
-
   | UpdateTasksStateAction

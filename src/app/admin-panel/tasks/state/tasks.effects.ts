@@ -7,8 +7,6 @@ import { map, filter, exhaustMap, concatMap, catchError } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { TasksService } from '@app/core/services/tasks/tasks.service';
 import { ITask } from './tasks.model';
-import { Update } from '@ngrx/entity';
-
 
 @Injectable()
 export class TasksEffects {
