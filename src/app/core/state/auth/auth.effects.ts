@@ -97,7 +97,8 @@ export class AuthEffects {
    * back to the app from a successful google login.  It gets the Basic Profile and Email Profile
    * from the api.  concatMap is needed here so that the EmailProfile is not loaded until the
    * BasicProfile has been obtained.  Server side, the api depends on the Basic Profile for the
-   * EmailProfile to successfully load.
+   * EmailProfile to successfully load. This is because the BasicProfile includes the userId, which
+   * is used to track the user in everything they do.
    */
   @Effect({ dispatch: false })
   loginComplete$ = this.actions$.pipe(
