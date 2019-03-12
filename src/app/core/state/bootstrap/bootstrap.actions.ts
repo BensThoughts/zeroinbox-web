@@ -10,6 +10,9 @@ export enum BootstrapActionTypes {
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
   UpdateFirstRun = '[Bootstrap Effects] Update First Run',
 
+  NavigateToHomePage = '[Bootstrap Effects] Navigate To Home Page',
+  NaviagteToDownloadingPage = '[Bootstrap Effects] Navigate To Downloading Page',
+
   DownloadSendersRequest = '[Bootstrap Effects] Load Suggestions Request',
   DownloadSendersRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
   UpdateDownloadingStatus = '[BootstrapEffects] Update Loading Status',
@@ -44,6 +47,15 @@ export class UpdateFirstRunAction implements Action {
   readonly type = BootstrapActionTypes.UpdateFirstRun;
   constructor(public payload: { firstRun: boolean }) {}
 }
+
+export class NavigateToHomePageAction implements Action {
+  readonly type = BootstrapActionTypes.NavigateToHomePage;
+}
+
+export class NavigateToDownloadingPageAction implements Action {
+  readonly type = BootstrapActionTypes.NaviagteToDownloadingPage;
+}
+
 
 export class DownloadSendersRequestAction implements Action {
   readonly type = BootstrapActionTypes.DownloadSendersRequest;
@@ -106,6 +118,9 @@ export type BootstrapActions =
   | FirstRunStatusRequestAction
   | FirstRunStatusRequestFailureAction
   | UpdateFirstRunAction
+
+  | NavigateToHomePageAction
+  | NavigateToDownloadingPageAction
 
   | DownloadSendersRequestAction
   | DownloadSendersRequestFailureAction

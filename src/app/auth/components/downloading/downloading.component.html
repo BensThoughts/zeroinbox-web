@@ -1,46 +1,46 @@
-<div class="container my-2">
+<div class="container">
 
-        <div class="row">
-          <div class="col-sm">
-          <mat-card class="mat-user-card text-center">
-            <mat-card-title>
-              Welcome...
-            </mat-card-title>
-            <span *ngIf="basic_profile$ | async as basic_profile">
-              <img [src]="basic_profile.picture" class="user">
-            </span>
-            <!--          <img mat-card-lg-image [src]="basic_profile.picture">         -->
-    
-    
-    
-            <mat-divider></mat-divider>
-            <mat-card-content>
-              <span *ngIf="basic_profile$ | async as basic_profile">
-                <div>
-                  {{ basic_profile.name }}
-                </div>
-              </span>
-              <span *ngIf="email_profile$ | async as email_profile">
-                <div>
-                  {{ email_profile.emailAddress }}
-                </div>
-              </span>
-            </mat-card-content>
-    
-          </mat-card>
-          </div>
+    <div class="row my-2 justify-content-center align-items-center">
+            <mat-card class="mat-user-card text-center">
+                <mat-card-title>
+                Welcome...
+                </mat-card-title>
+                <span *ngIf="basic_profile$ | async as basic_profile">
+                    <img [src]="basic_profile.picture" class="user">
+                </span> 
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                    <span *ngIf="basic_profile$ | async as basic_profile">
+                        <div>
+                        {{ basic_profile.name }}
+                        </div>
+                    </span>
+                    <span *ngIf="email_profile$ | async as email_profile">
+                        <div>
+                        {{ email_profile.emailAddress }}
+                        </div>
+                    </span>
+                </mat-card-content> 
+            </mat-card>
+    </div>
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm">
+            <mat-card class="w-100">
+                <mat-card-title>
+                Loading...
+                </mat-card-title>
+                <mat-card-subtitle>
+                    It looks like this is the first time you have ever used Zero Inbox.
+                    Please wait while we download the meta-data from your inbox. test
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <mat-progress-bar mode="determinate" [value]="percentLoaded$ | async"></mat-progress-bar>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 
-<div class="row justify-content-center align-items-center">
-    <div class="col-sm">
-        <mat-card class="w-100">
-            <mat-card-title>
-              Loading...
-            </mat-card-title>
-            <mat-card-content>
-                <mat-progress-bar mode="determinate" [value]="percentLoaded$ | async"></mat-progress-bar>
-            </mat-card-content>
-          </mat-card>
-    </div>
 </div>
+
+

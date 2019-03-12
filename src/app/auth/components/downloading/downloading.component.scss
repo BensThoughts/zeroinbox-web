@@ -2,10 +2,6 @@
   height: 100%;
 }
 
-.badge-card {
-  width: 200px;
-}
-
 .user {
   display: inline-block;
   width: 150px;
@@ -22,6 +18,7 @@
 
 .mat-user-card {
   max-width: 500px;
+  min-width: 300px;
   margin-top: 20px;
   img {
     margin: 10px;
@@ -37,37 +34,7 @@ mat-card {
   }
 
   mat-card-title {
-
     position: relative;
-  }
-
-
-  mat-card-actions {
-    button {
-      margin: 5px;
-    }
-  }
-
-  .welcome-card {
-    text-align: center;
-  }
-
-
-  .content {
-    text-align: center;
-  }
-
-  .stats {
-    width: 100%;
-    position: relative;
-    text-align: center;
-  }
-
-  mat-card-content {
-    mat-chip-list {
-      text-align: center;
-      position: relative;
-    }
   }
 
   mat-card-footer {

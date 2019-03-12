@@ -6,16 +6,9 @@ import {
   AppState,
   selectBasicProfile,
   selectEmailProfile,
-  selectPercentLoaded,
-  selectFirstRun,
   selectSendersLoaded,
   selectUniqueSenders,
 } from '@app/core';
-
-import {
-  // selectUniqueSenders,
-  // selectSuggestionsLoaded,
-} from '@app/admin-panel/suggestions/state/suggestions.selectors';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';

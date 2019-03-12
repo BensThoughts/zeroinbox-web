@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
   BootstrapActionTypes,
@@ -17,6 +17,7 @@ import {
 
   UpdateBootstrapStateAction,
   UpdateFirstRunAction,
+  NavigateToHomePageAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -28,7 +29,8 @@ import {
   concatMap, 
   filter, 
   withLatestFrom, 
-  delay 
+  delay, 
+  tap
 } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
 import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
@@ -36,7 +38,7 @@ import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/sugges
 import { LoginSuccessAction } from '../auth/auth.actions';
 import { SendersRequestAction } from '../senders/senders.actions';
 import { selectSendersById } from '../senders/senders.selectors';
-import { BootstrapAppAction } from './bootstrap.actions';
+import { BootstrapAppAction, BootstrapActionTypes, NavigateToDownloadingPageAction } from './bootstrap.actions';
 
 import {
   SuggestionsRequestAction,
@@ -73,16 +75,15 @@ export class BootstrapEffects {
               return new FirstRunStatusRequestFailureAction();
             }
             this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
-            // this.store.dispatch(new LoginSuccessAction())
+            
             if (response.data.firstRun) {
-              this.router.navigate([this.bootstrapService.downloadingSendersUrl])
-              return new DownloadSendersRequestAction();
+              return new NavigateToDownloadingPageAction();
             } else {
-              this.router.navigate([this.bootstrapService.sendersDownloadedUrl])
               this.store.dispatch(new SendersRequestAction());
-              return new SuggestionsRequestAction();
-              // return new SuggestionsRequestAction();
+              this.store.dispatch(new SuggestionsRequestAction();
+              return new NavigateToHomePageAction();
             }
+
           }),
           catchError((err) => {
             console.error(err);
@@ -91,6 +92,28 @@ export class BootstrapEffects {
         );
       }),
     );
+
+  @Effect()
+  navigateToHomePage$ = this.actions$
+    .pipe(
+      ofType<NavigateToHomePageAction>(BootstrapActionTypes.NavigateToHomePage),
+      tap(() => {
+        this.ngZone.run(() => {
+          this.router.navigate([this.bootstrapService.sendersDownloadedUrl])
+        });
+      })
+    )
+
+  @Effect()
+  navigateToDownloadingPage$ = this.actions$
+    .pipe(
+      ofType<NavigateToDownloadingPageAction>(BootstrapActionTypes.NaviagteToDownloadingPage),
+      tap(() => {
+        this.ngZone.run(() => {
+          this.router.navigate([this.bootstrapService.downloadingSendersUrl])
+        });
+      })
+    )
 
   @Effect()
   loadSuggestionsRequest$ = this.actions$
@@ -135,10 +158,9 @@ export class BootstrapEffects {
               this.store.dispatch(new UpdatePercentDownloadedAction({ percentLoaded: percentLoaded }))
               return new DownloadingStatusRequestAction();
             } else {
-              this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
               this.store.dispatch(new SendersRequestAction());
-              return new SuggestionsRequestAction();
-              // return new SuggestionsRequestAction()
+              this.store.dispatch(new SuggestionsRequestAction());
+              return new NavigateToHomePageAction();
             }
           }),
           catchError((err) => {
@@ -168,5 +190,6 @@ export class BootstrapEffects {
     private actions$: Actions,
     private router: Router,
     private bootstrapService: BootstrapService,
+    private ngZone: NgZone,
     private store: Store<AppState>) { }
 }
