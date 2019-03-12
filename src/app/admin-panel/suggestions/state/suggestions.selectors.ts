@@ -2,13 +2,8 @@ import { createFeatureSelector, createSelector, select, Store } from '@ngrx/stor
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
-import * as fromTasks from '@app/admin-panel/tasks/state/tasks.selectors';
-import { ISuggestion, ISizes } from '../model/suggestions.model';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
-import { AppState } from '../../../core/state/core.state';
-import { map } from 'rxjs/operators';
-import { ISender } from '../../../core/state/senders/model/senders.model';
-import { selectAll } from '../../../core/state/senders/senders.selectors';
+import { ISender } from '@app/core/state/senders/model/senders.model';
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
