@@ -8,7 +8,7 @@ export enum SendersActionTypes {
 
   AddAllSenders = '[Senders Effects] Add All Senders',
 
-  UpdateSendersState = '[Suggestions Effects] Update Suggestions State From Other Window',
+  UpdateSendersState = '[Senders Effects] Update Senders State From Another Tab/Window',
   ResetSendersState = '[Auth Effects] Reset Senders State'
 }
 
@@ -25,6 +25,11 @@ export class AddAllSendersAction implements Action {
   constructor(public payload: { senders: ISender[] }) {}
 }
 
+export class UpdateSendersStateAction implements Action {
+  readonly type = SendersActionTypes.UpdateSendersState;
+  constructor(public payload: any ) {}
+}
+
 export class ResetSendersStateAction implements Action {
   readonly type = SendersActionTypes.ResetSendersState;
 }
@@ -34,4 +39,5 @@ export type SendersActions =
   | SendersRequestAction
   | SendersRequestFailureAction
   | AddAllSendersAction
+  | UpdateSendersStateAction
   | ResetSendersStateAction

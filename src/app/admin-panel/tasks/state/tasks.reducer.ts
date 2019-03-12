@@ -1,5 +1,5 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ITask } from './tasks.model';
+import { ITask } from '../model/tasks.model';
 import { TaskActions, TaskActionTypes } from './tasks.actions';
 import { AppState } from '@app/core/state/core.state';
 

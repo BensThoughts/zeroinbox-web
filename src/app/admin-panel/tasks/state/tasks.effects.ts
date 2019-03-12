@@ -6,7 +6,7 @@ import { AppState } from '@app/core/state/core.state';
 import { map, filter, exhaustMap, concatMap, catchError, mergeMap, take } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { TasksService } from '@app/core/services/tasks/tasks.service';
-import { ITask } from './tasks.model';
+import { ITask } from '../model/tasks.model';
 import { selectTaskAndSenderEntities } from './tasks.selectors';
 
 @Injectable()
@@ -51,7 +51,7 @@ export class TasksEffects {
                 }
                 // let newLabelName = tasksAndSenders.senders[id].fromName;
                 let newLabelName: string;
-                let labelAbbreviation = action.payload.tasks.labelName;
+                let labelAbbreviation = action.payload.tasks.bySizeLabelName;
                 newLabelName = this.getSizeLabel(labelAbbreviation);
                 return {
                   id: id,

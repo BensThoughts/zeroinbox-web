@@ -35,34 +35,11 @@ import { UserService } from '../../services/user/user.service';
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { ResetSendersStateAction } from '../senders/senders.actions';
+import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
 
 
 @Injectable()
 export class AuthEffects {
-
-  /**
-   * onChange$ listens for changes to the local-storage so that if the app is open in
-   * another tab/window the changes made in the other tab/window will also be reflected in
-   * this tab/window.
-   */
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-auth';
-    }),
-    filter(evt => evt.newValue !== null),
-    map(evt => {
-
-      let authenticated = JSON.parse(evt.newValue).isAuthenticated;
-
-      if (authenticated) {
-        return new LoginSuccessAction();
-      } else {
-        return new LogoutConfirmedFromOtherWindowAction();
-      }
-    })
-  );
 
   /**
    * Effect login$ activates the signIn() flow from the authService.
@@ -193,6 +170,30 @@ export class AuthEffects {
     )
   );
 
+    /**
+   * onChange$ listens for changes to the local-storage so that if the app is open in
+   * another tab/window the changes made in the other tab/window will also be reflected in
+   * this tab/window.
+   */
+  @Effect()
+  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+    // listen to our storage key
+    filter((evt) => {
+      return evt.key === 'go-app-auth';
+    }),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+
+      let authenticated = JSON.parse(evt.newValue).isAuthenticated;
+
+      if (authenticated) {
+        return new LoginSuccessAction();
+      } else {
+        return new LogoutConfirmedFromOtherWindowAction();
+      }
+    })
+  );
+
 
   /**
    * Effect logoutConfirmed$ resets the state and sends a request to the api
@@ -203,6 +204,9 @@ export class AuthEffects {
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
     tap( () => {
       this.authService.logout();
+      this.store.dispatch(new ToggleSyncToStorageAction({ syncToStorage: false }));
+      this.store.dispatch(new ResetLocalStorageAction());
+
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetTasksStateAction());
@@ -229,6 +233,7 @@ export class AuthEffects {
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
+      // this.store.dispatch(new ResetLocalStorageAction());
       this.router.navigate([this.authService.logoutUrl]);
     })
   );

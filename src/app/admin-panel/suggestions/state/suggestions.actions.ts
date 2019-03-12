@@ -19,7 +19,7 @@ export enum SuggestionsActionTypes {
 
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
-  UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Other Window',
+  UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
 

@@ -5,7 +5,15 @@ import { AppState } from '../core.state';
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
   return localStorageSync(
     {
-      keys: ['user', 'auth', 'bootstrap', 'settings', 'tasks', 'senders', 'suggestions'],
+      keys: [
+        'user', 
+        'auth', 
+        'bootstrap', 
+        'settings', 
+        'senders', 
+        'suggestions',
+        // 'tasks',
+      ],
       rehydrate: true,
       removeOnUndefined: true,
       storageKeySerializer: (key) => 'go-app-' + key,

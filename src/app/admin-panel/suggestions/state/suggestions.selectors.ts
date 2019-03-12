@@ -4,12 +4,13 @@ import * as fromSuggestions from './suggestions.reducer';
 import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
+import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
 );
 
-export const selectEntities = createSelector(
+export const selectSuggestionEntities = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectEntities
 );
@@ -27,6 +28,17 @@ export const selectAllSuggestions = createSelector(
 export const selectIds = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectIds
+)
+
+export const selectSuggestionAndSenderEntities = createSelector(
+  selectSenderEntities,
+  selectSuggestionEntities,
+  (senders, suggestions) => {
+    return {
+      senders: senders,
+      suggestions: suggestions
+    }
+  }
 )
 
 
@@ -54,7 +66,7 @@ export const selectSendersUnderCountCutoff = createSelector(
   (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
 );
 
-export const sortByCount = createSelector(
+export const sortSendersByCount = createSelector(
   selectSendersUnderCountCutoff,
   (senders) => senders.sort((a, b) => {
     return b.count - a.count;
@@ -68,14 +80,21 @@ export const selectNotLabeledByName = createSelector(
   })
 );
 
-export const selectIdsNotLabeledByName = createSelector(
+export const selectNotDelete = createSelector(
   selectNotLabeledByName,
+  suggestions => suggestions.filter((suggestion) => {
+    return suggestion.delete === false;
+  })
+)
+
+export const selectSuggestionIds = createSelector(
+  selectNotDelete,
   (suggestions) => suggestions.map((suggestion) => suggestion.id)
 )
 
 export const selectFilteredSuggestedSenders = createSelector(
-  selectIdsNotLabeledByName,
-  sortByCount,
+  selectSuggestionIds,
+  sortSendersByCount,
   (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
       if (senderIds.indexOf(sender.id) !== -1) {

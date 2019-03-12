@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 export enum SettingsActionTypes {
   ChangeTheme = '[Settings] Change Theme',
-  UpdateSettingsState = '[Settings Effects] Update Settings State',
+  UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window',
 }
 
 export class SettingsChangeThemeAction implements Action {

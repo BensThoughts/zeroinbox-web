@@ -1,11 +1,12 @@
 import {Action} from '@ngrx/store';
-import { ITask, ITaskCreator } from './tasks.model';
+import { ITask } from '../model/tasks.model';
+import { ITaskCreator } from '../model/tasks.creator.model';
 
 export enum TaskActionTypes {
   AddTasks = '[Suggestions Effects] Add Tasks',
   UpsertTasks = '[Tasks Effects] Upsert Tasks Action',
   ResetTasks = '[Auth Effects] Reset Tasks',
-  UpdateTasks = '[Tasks Effects] Update Tasks State From Other Window'
+  UpdateTasks = '[Tasks Effects] Update Tasks State From Another Tab/Window'
 }
 
 

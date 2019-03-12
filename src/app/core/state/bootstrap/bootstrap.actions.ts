@@ -16,7 +16,7 @@ export enum BootstrapActionTypes {
   LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
   UpdatePercentLoaded = '[Boostrap Effects] Update Percent Loaded',
 
-  ToggleSyncToStorage = '[Bootstrap Effects] Sync To Storage',
+  ToggleSyncToStorage = '[Auth Effects] Toggle Sync To Storage False',
 
   UpdateBootstrapState = '[Bootstrap Effects] Update Bootstrap State From Another Tab/Window',
   ResetBootstrapState = '[Auth Effects] Reset Bootstrap State'

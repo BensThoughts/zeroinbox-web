@@ -1,10 +1,8 @@
-export interface ISuggestion {
+export interface ITask {
   id: string;
+  delete: boolean;
   labelByName?: boolean;
   labelBySize?: boolean;
   labelByCount?: boolean;
-  delete?: boolean;
   labelNames?: string[];
 }
-
-

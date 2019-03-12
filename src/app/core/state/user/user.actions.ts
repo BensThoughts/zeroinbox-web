@@ -5,7 +5,7 @@ export enum UserActionTypes {
   LoadBasicProfile = '[Auth-User Service] Load BasicProfile',
   LoadEmailProfile = '[Auth-User Service] Load Email Profile',
   ResetUserState = '[Auth Effects] Reset User',
-  UpdateUserState = '[User Effects] Update User State From Other Window'
+  UpdateUserState = '[User Effects] Update User State From Another Tab/Window'
 }
 
 export class LoadBasicProfileAction implements Action {

@@ -26,6 +26,7 @@ import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
+import { ITaskCreator } from '../../../tasks/model/tasks.creator.model';
 
 export interface PageQuery {
   pageIndex: number;
@@ -158,10 +159,11 @@ export class SuggestionsSizeTableComponent implements OnInit {
     this.store.pipe(
       select(selectSizeCutoff),
       map((cutoff) => {
-        let tasks = {
+        let tasks: ITaskCreator = {
           deleteTasks: deleteTasks,
           labelBySizeTasks: labelTasks,
-          labelName: cutoff
+          labelByNameTasks: [],
+          bySizeLabelName: cutoff
         };
     
         this.store.dispatch(new AddTasksAction({ tasks: tasks }))

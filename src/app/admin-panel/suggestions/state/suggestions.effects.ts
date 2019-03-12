@@ -40,14 +40,28 @@ export class SuggestionsEffects {
     ofType<AddTasksAction>(TaskActionTypes.AddTasks),
     map((action) => {
       let deleteTasks = action.payload.tasks.deleteTasks;
+      let deleteChangesArray: Update<ISuggestion>[] = [];
       let labelByNameTasks = action.payload.tasks.labelByNameTasks;
+      let byNameChangesArray: Update<ISuggestion>[] = [];
       let labelBySizeTasks = action.payload.tasks.labelBySizeTasks;
+      let bySizeChangesArray: Update<ISuggestion>[] = [];
       let labelByCountTasks = action.payload.tasks.labelByCountTasks;
       if (deleteTasks) {
-        this.store.dispatch(new DeleteSuggestionsAction({ ids: deleteTasks }));
+        deleteChangesArray = deleteTasks.map((id) => {
+          let changes = {
+            delete: true,
+            labelByName: false,
+            labelBySize: false,
+            labelByCount: false
+          }
+          return {
+            id: id,
+            changes
+          }
+        });
       }
       if (labelByNameTasks) {
-        let changesArray: Update<ISuggestion>[] = labelByNameTasks.map((id) => {
+        byNameChangesArray = labelByNameTasks.map((id) => {
           let changes = {
             labelByName: true
           }
@@ -56,11 +70,9 @@ export class SuggestionsEffects {
             changes
           }
         });
-        this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }))
-        // this.store.dispatch(new LabelByNameSuggestionsAction({ ids: labelByNameTasks}));
       }
       if (labelBySizeTasks) {
-        let changesArray: Update<ISuggestion>[] = labelBySizeTasks.map((id) => {
+        bySizeChangesArray = labelBySizeTasks.map((id) => {
           let changes = {
             labelBySize: true
           }
@@ -69,9 +81,11 @@ export class SuggestionsEffects {
             changes
           }
         });
-        this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }))
-        // this.store.dispatch(new LabelBySizeSuggestionsAction({ ids: labelBySizeTasks }));
       }
+      let changesArray: Update<ISuggestion>[] = deleteChangesArray
+      .concat(byNameChangesArray)
+      .concat(bySizeChangesArray);
+      this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
     })
   );
 

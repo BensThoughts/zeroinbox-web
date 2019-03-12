@@ -1,10 +1,16 @@
 import { Injectable } from "@angular/core";
 import { ofType, Effect, Actions } from '@ngrx/effects';
-import { SendersActionTypes, SendersRequestAction, AddAllSendersAction, SendersRequestFailureAction } from './senders.actions';
-import { exhaustMap, map, catchError } from 'rxjs/operators';
+import { 
+  SendersActionTypes, 
+  SendersRequestAction, 
+  AddAllSendersAction, 
+  SendersRequestFailureAction, 
+  UpdateSendersStateAction 
+} from './senders.actions';
+import { exhaustMap, map, catchError, filter } from 'rxjs/operators';
 import { SendersService } from '../../services/senders/senders.service';
 import { ISender } from './model/senders.model';
-import { of } from 'rxjs';
+import { of, fromEvent } from 'rxjs';
 
 @Injectable()
 export class SendersEffects {
@@ -50,6 +56,19 @@ export class SendersEffects {
         catchError((err) => {
           console.error(err);
           return of(new SendersRequestFailureAction());
+        })
+      );
+
+      @Effect()
+      onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+      // listen to our storage key
+        filter((evt) => {
+          return evt.key === 'go-app-senders';
+        }),
+        filter(evt => evt.newValue !== null),
+        map(evt => {
+          let suggestionsState = JSON.parse(evt.newValue);
+          return new UpdateSendersStateAction(suggestionsState);
         })
       );
 
