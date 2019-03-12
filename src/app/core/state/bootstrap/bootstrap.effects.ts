@@ -2,10 +2,14 @@ import { Injectable, NgZone } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
   BootstrapActionTypes,
-  GetAllSendersAction,
+  BootstrapAppAction,
 
   FirstRunStatusRequestAction,
   FirstRunStatusRequestFailureAction,
+  UpdateFirstRunAction,
+
+  NavigateToHomePageAction,
+  NavigateToDownloadingPageAction,
 
   DownloadSendersRequestAction,
   DownloadSendersRequestFailureAction,
@@ -16,8 +20,6 @@ import {
   UpdatePercentDownloadedAction,
 
   UpdateBootstrapStateAction,
-  UpdateFirstRunAction,
-  NavigateToHomePageAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -38,7 +40,6 @@ import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/sugges
 import { LoginSuccessAction } from '../auth/auth.actions';
 import { SendersRequestAction } from '../senders/senders.actions';
 import { selectSendersById } from '../senders/senders.selectors';
-import { BootstrapAppAction, BootstrapActionTypes, NavigateToDownloadingPageAction } from './bootstrap.actions';
 
 import {
   SuggestionsRequestAction,
