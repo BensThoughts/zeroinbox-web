@@ -80,7 +80,7 @@ export class BootstrapEffects {
               return new NavigateToDownloadingPageAction();
             } else {
               this.store.dispatch(new SendersRequestAction());
-              this.store.dispatch(new SuggestionsRequestAction();
+              this.store.dispatch(new SuggestionsRequestAction());
               return new NavigateToHomePageAction();
             }
 
