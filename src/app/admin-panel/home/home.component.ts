@@ -35,10 +35,7 @@ export class HomeComponent implements OnInit {
   basic_profile$: Observable<BasicProfile>;
   email_profile$: Observable<EmailProfile>;
   unique_senders$: Observable<number>;
-  percentLoaded$;
-  suggestionsLoaded$;
   sendersLoaded$;
-  firstRun$;
 
   constructor(private store: Store<AppState>) { }
 
@@ -48,10 +45,6 @@ export class HomeComponent implements OnInit {
     
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
     this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
-    // this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
-    // this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
-    this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-    this.firstRun$ = this.store.pipe(select(selectFirstRun));
   }
 
 }

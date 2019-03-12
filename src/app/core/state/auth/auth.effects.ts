@@ -25,7 +25,7 @@ import {
 from '../user/user.actions';
 import { 
   ResetBootstrapStateAction, 
-  GetAllSuggestionsAction,
+  GetAllSendersAction,
   ToggleSyncToStorageAction 
 } from '../bootstrap/bootstrap.actions';
 import { ResetTasksStateAction } from '../../../admin-panel/tasks/state/tasks.actions';
@@ -36,6 +36,7 @@ import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout
 import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { ResetSendersStateAction } from '../senders/senders.actions';
 import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
+import { BootstrapAppAction } from '../bootstrap/bootstrap.actions';
 
 
 @Injectable()
@@ -80,35 +81,8 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginComplete$ = this.actions$.pipe(
     ofType<LoginCompleteAction>(AuthActionTypes.LoginComplete),
-    concatMap(() => {
-      return this.userService.getBasicProfile().pipe(
-        map((response: BasicProfileResponse) => {
-          if (response.status === 'error') {
-            console.error('Error getting basic profile: ' + response.status_message)
-          } else {
-            this.store.dispatch(new LoadBasicProfileAction(response.data.basic_profile));
-          }
-        }),
-        catchError((err) => {
-          return of(console.error(err));
-        })
-      );
-    }),
-    concatMap(() => {
-      return this.userService.getEmailProfile().pipe(
-        map((response: EmailProfileResponse) => {
-          if (response.status === 'error') {
-            console.error('Error getting email profile: ' + response.status_message)
-          }
-        this.store.dispatch(new LoadEmailProfileAction(response.data.email_profile));
-        }),
-        catchError((err) => {
-          return of(console.error(err));
-        })
-      );
-    }),
     map(() => {
-      this.store.dispatch(new GetAllSuggestionsAction());
+      this.store.dispatch(new BootstrapAppAction());
       // this.store.dispatch(new LoginSuccessAction()) is dispatched from
       // bootstrap effects so that we can get the firstRun status before showing
       // the homepage
@@ -212,6 +186,7 @@ export class AuthEffects {
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
+      
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -226,15 +201,18 @@ export class AuthEffects {
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
     ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
     tap( () => {
-      // this.authService.logout();
       this.store.dispatch(new ToggleSyncToStorageAction({ syncToStorage: false }));
+
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
-      // this.store.dispatch(new ResetLocalStorageAction());
+
       this.router.navigate([this.authService.logoutUrl]);
+
+      // this.store.dispatch(new ResetLocalStorageAction());
+      // this.authService.logout();
     })
   );
 

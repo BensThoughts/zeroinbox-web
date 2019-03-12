@@ -12,9 +12,7 @@ import {
 } from '../../state/suggestions.selectors';
 
 import {
-  DeleteSuggestionsMetaAction,
   SetSizeCutoffAction,
-  LabelBySizeSuggestionsAction,
 } from '../../state/suggestions.actions';
 
 

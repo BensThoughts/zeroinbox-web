@@ -1,4 +1,10 @@
-@import '../../../styles-variables';
+.loading-container {
+  height: 100%;
+}
+
+.badge-card {
+  width: 200px;
+}
 
 .user {
   display: inline-block;
@@ -21,7 +27,6 @@
     margin: 10px;
   }
 }
-
 
 mat-card {
   // max-width: 300px;

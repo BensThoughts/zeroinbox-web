@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ReverseAuthGuardService } from '@app/core/services/auth/reverse-auth-guard.service';
+import { DownloadingComponent } from './components/downloading/downloading.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'loading',
     component: LoadingComponent
+  },
+  {
+    path: 'downloading',
+    component: DownloadingComponent
   }
 ];
 

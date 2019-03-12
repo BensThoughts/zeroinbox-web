@@ -37,26 +37,7 @@
 
 
   <div class="container text-center">
-  <div  *ngIf="!(sendersLoaded$ | async) && (firstRun$ | async); else loaded">
 
-      <div class="row justify-content-center align-items-center">
-          <div class="col-sm">
-              <mat-card class="w-100">
-                  <mat-card-title>
-                    Loading...
-                  </mat-card-title>
-                  <mat-card-content>
-                      <mat-progress-bar mode="determinate" [value]="percentLoaded$ | async"></mat-progress-bar>
-                  </mat-card-content>
-                </mat-card>
-          </div>
-        </div>
-  </div>
-
-
-
-
-    <ng-template #loaded>
         <div class="row">
             <div class="col-sm">
               <mat-card class="my-2">
@@ -176,8 +157,6 @@
               </mat-card>
             </div>
           </div>
-
-    </ng-template>
 
   </div>
 

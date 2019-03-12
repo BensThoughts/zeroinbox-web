@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
   BootstrapActionTypes,
-  GetAllSuggestionsAction,
+  GetAllSendersAction,
 
   FirstRunStatusRequestAction,
   FirstRunStatusRequestFailureAction,
 
-  LoadSuggestionsRequestAction,
-  LoadSuggestionsRequestFailureAction,
+  DownloadSendersRequestAction,
+  DownloadSendersRequestFailureAction,
+  UpdateDownloadingStatusAction,
 
-  LoadingStatusRequestAction,
-  LoadingStatusRequestFailureAction,
-  UpdatePercentLoadedAction,
+  DownloadingStatusRequestAction,
+  DownloadingStatusRequestFailureAction,
+  UpdatePercentDownloadedAction,
 
   UpdateBootstrapStateAction,
   UpdateFirstRunAction,
@@ -35,11 +36,14 @@ import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/sugges
 import { LoginSuccessAction } from '../auth/auth.actions';
 import { SendersRequestAction } from '../senders/senders.actions';
 import { selectSendersById } from '../senders/senders.selectors';
+import { BootstrapAppAction } from './bootstrap.actions';
 
 import {
   SuggestionsRequestAction,
   SuggestionsRequestFailureAction,
 } from '@app/admin-panel/suggestions/state/suggestions.actions';
+import { Router } from '@angular/router';
+import { UserProfileRequestAction } from '../user/user.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -48,13 +52,12 @@ export const DECIMAL = 100;
 @Injectable()
 export class BootstrapEffects {
 
-
   @Effect()
   getAllSuggestions$ = this.actions$
     .pipe(
-      ofType<GetAllSuggestionsAction>(BootstrapActionTypes.GetAllSenders),
-      map(() => {
-        return new FirstRunStatusRequestAction();
+      ofType<BootstrapAppAction>(BootstrapActionTypes.BoostrapApp),
+      map((action) => {
+        return new UserProfileRequestAction();
         }
       )
     );
@@ -70,12 +73,14 @@ export class BootstrapEffects {
               return new FirstRunStatusRequestFailureAction();
             }
             this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
-            this.store.dispatch(new LoginSuccessAction())
+            // this.store.dispatch(new LoginSuccessAction())
             if (response.data.firstRun) {
-              return new LoadSuggestionsRequestAction();
+              this.router.navigate([this.bootstrapService.downloadingSendersUrl])
+              return new DownloadSendersRequestAction();
             } else {
-              this.store.dispatch(new SuggestionsRequestAction());
-              return new SendersRequestAction();
+              this.router.navigate([this.bootstrapService.sendersDownloadedUrl])
+              this.store.dispatch(new SendersRequestAction());
+              return new SuggestionsRequestAction();
               // return new SuggestionsRequestAction();
             }
           }),
@@ -90,25 +95,25 @@ export class BootstrapEffects {
   @Effect()
   loadSuggestionsRequest$ = this.actions$
     .pipe(
-      ofType<LoadSuggestionsRequestAction>(BootstrapActionTypes.LoadSuggestionsRequest),
+      ofType<DownloadSendersRequestAction>(BootstrapActionTypes.DownloadSendersRequest),
       exhaustMap(() => {
         return this.bootstrapService.getLoadSuggestions().pipe(
           map((response) => {
             if (response.status === 'error') {
-              return new LoadSuggestionsRequestFailureAction();
+              return new DownloadSendersRequestFailureAction();
             } else {
-              return new LoadingStatusRequestAction();
+              return new DownloadingStatusRequestAction();
             }
           }),
           catchError((err) => {
             console.error(err);
-            return of(new LoadSuggestionsRequestFailureAction());
+            return of(new DownloadSendersRequestFailureAction());
           })
         )
       }),
       catchError((err) => {
         console.error(err);
-        return of(new LoadSuggestionsRequestFailureAction());
+        return of(new DownloadSendersRequestFailureAction());
       })
     );
 
@@ -116,28 +121,29 @@ export class BootstrapEffects {
   @Effect()
   getLoadingStatus$ = this.actions$
     .pipe(
-      ofType<LoadingStatusRequestAction>(BootstrapActionTypes.LoadingStatusRequest),
+      ofType<DownloadingStatusRequestAction>(BootstrapActionTypes.DownloadingStatusRequest),
       delay(1000),
       concatMap((action) => {
         return this.bootstrapService.getLoadingStatus().pipe(
           map((response) => {
             if (response.status === 'error') {
-              return new LoadingStatusRequestFailureAction();
+              return new DownloadingStatusRequestFailureAction();
             }
             if (response.data.loadingStatus) {
               console.log(response.data.percentLoaded);
               let percentLoaded = response.data.percentLoaded;
-              this.store.dispatch(new UpdatePercentLoadedAction({ percentLoaded: percentLoaded }))
-              return new LoadingStatusRequestAction();
+              this.store.dispatch(new UpdatePercentDownloadedAction({ percentLoaded: percentLoaded }))
+              return new DownloadingStatusRequestAction();
             } else {
-              this.store.dispatch(new SuggestionsRequestAction());
-              return new SendersRequestAction();
+              this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
+              this.store.dispatch(new SendersRequestAction());
+              return new SuggestionsRequestAction();
               // return new SuggestionsRequestAction()
             }
           }),
           catchError((err) => {
             console.error(err);
-            return of(new LoadingStatusRequestFailureAction());
+            return of(new DownloadingStatusRequestFailureAction());
           })
         )
       }),
@@ -160,6 +166,7 @@ export class BootstrapEffects {
     
   constructor(
     private actions$: Actions,
+    private router: Router,
     private bootstrapService: BootstrapService,
     private store: Store<AppState>) { }
 }

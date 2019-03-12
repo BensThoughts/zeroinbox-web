@@ -23,10 +23,10 @@ export function bootstrapReducer(
       case BootstrapActionTypes.UpdateFirstRun:
         return { ...state, ...action.payload }
 
-      case BootstrapActionTypes.UpdateLoadingStatus:
+      case BootstrapActionTypes.UpdateDownloadingStatus:
         return { ...state, ...action.payload }
 
-      case BootstrapActionTypes.UpdatePercentLoaded:
+      case BootstrapActionTypes.UpdatePercentDownloaded:
         return { ...state, ...action.payload }
 
       case BootstrapActionTypes.ToggleSyncToStorage:

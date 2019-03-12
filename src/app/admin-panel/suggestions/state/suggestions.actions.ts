@@ -3,20 +3,14 @@ import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
 
 export enum SuggestionsActionTypes {
-  LoadSuggestions = '[Senders Effects] Add All Suggestions',
-
   SuggestionsRequest = '[Bootstrap Effects] Suggestions Request',
   SuggestionsRequestFailure = '[Boostrap Effects] Suggestions Request Failure',
 
+  LoadSuggestions = '[Senders Effects] Add All Suggestions',
   DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
-  DeleteSuggestionsMeta = '[Suggestions Table Component] Delete Suggestions Meta',
-  LabelByNameSuggestions = '[Suggestions Table Component] Label By Name',
-  LabelBySizeSuggestions = '[Suggestions Size Table Component] Label By Size',
-
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
 
   SetCountCutoff = '[Suggestions Table Component] Set Cutoff',
-
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
@@ -39,24 +33,6 @@ export class LoadSuggestionsAction implements Action {
 
 export class DeleteSuggestionsAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSuggestions;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class DeleteSuggestionsMetaAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSuggestionsMeta;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class LabelByNameSuggestionsAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelByNameSuggestions;
-
-  constructor(public payload: { ids: string[] }) {}
-}
-
-export class LabelBySizeSuggestionsAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelBySizeSuggestions;
 
   constructor(public payload: { ids: string[] }) {}
 }
@@ -90,20 +66,14 @@ export class ResetSuggestionsStateAction implements Action {
 }
 
 export type ByCountActions =
-  | LoadSuggestionsAction
   | SuggestionsRequestAction
   | SuggestionsRequestFailureAction
 
+  | LoadSuggestionsAction
   | DeleteSuggestionsAction
-
-  | DeleteSuggestionsMetaAction
-  | LabelByNameSuggestionsAction
-  | LabelBySizeSuggestionsAction
-
   | UpdateSuggestionsAction
 
   | SetCountCutoffAction
-
   | SetSizeCutoffAction
 
   | UpdateSuggestionsStateAction

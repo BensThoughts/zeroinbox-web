@@ -31,7 +31,18 @@ export interface FirstRunStatusResponse {
 @Injectable()
 export class BootstrapService {
 
+    private _downloadingSendersUrl = '/downloading';
+    private _sendersDownloadedUrl = '/admin-panel/home';
+
     constructor(private httpClient: HttpClient) {}
+
+    get downloadingSendersUrl() {
+      return this._downloadingSendersUrl;
+    }
+
+    get sendersDownloadedUrl() {
+      return this._sendersDownloadedUrl
+    }
 
     public getFirstRunStatus(): Observable<FirstRunStatusResponse> {
       return this.httpClient.get<FirstRunStatusResponse>(API_URL + '/firstRunStatus', {
@@ -40,7 +51,7 @@ export class BootstrapService {
     }
 
     public getLoadSuggestions(): Observable<LoadSuggestionsResponse> {
-      return this.httpClient.get<LoadSuggestionsResponse>(API_URL + '/loadSuggestions', {
+      return this.httpClient.get<LoadSuggestionsResponse>(API_URL + '/loadSenders', {
         withCredentials: true
       });
     }

@@ -2,19 +2,21 @@ import {Action} from '@ngrx/store';
 
 export enum BootstrapActionTypes {
 
+  BoostrapApp = '[Auth Effects] Bootstrap App',
+
   GetAllSenders = '[Bootstrap Effects] Get All Suggestions',
 
   FirstRunStatusRequest = '[Bootstrap Effects] First Run Status Request',
   FirstRunStatusRequestFailure = '[Bootstrap Effects] First Run Status Request Failure',
   UpdateFirstRun = '[Bootstrap Effects] Update First Run',
 
-  LoadSuggestionsRequest = '[Bootstrap Effects] Load Suggestions Request',
-  LoadSuggestionsRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
-  UpdateLoadingStatus = '[BootstrapEffects] Update Loading Status',
+  DownloadSendersRequest = '[Bootstrap Effects] Load Suggestions Request',
+  DownloadSendersRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
+  UpdateDownloadingStatus = '[BootstrapEffects] Update Loading Status',
 
-  LoadingStatusRequest = '[Bootstrap Effects] Loading Status Request',
-  LoadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
-  UpdatePercentLoaded = '[Boostrap Effects] Update Percent Loaded',
+  DownloadingStatusRequest = '[Bootstrap Effects] Loading Status Request',
+  DownloadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
+  UpdatePercentDownloaded = '[Boostrap Effects] Update Percent Loaded',
 
   ToggleSyncToStorage = '[Auth Effects] Toggle Sync To Storage False',
 
@@ -22,7 +24,11 @@ export enum BootstrapActionTypes {
   ResetBootstrapState = '[Auth Effects] Reset Bootstrap State'
 }
 
-export class GetAllSuggestionsAction implements Action {
+export class BootstrapAppAction implements Action {
+  readonly type = BootstrapActionTypes.BoostrapApp;
+}
+
+export class GetAllSendersAction implements Action {
   readonly type = BootstrapActionTypes.GetAllSenders;
 }
 
@@ -39,29 +45,29 @@ export class UpdateFirstRunAction implements Action {
   constructor(public payload: { firstRun: boolean }) {}
 }
 
-export class LoadSuggestionsRequestAction implements Action {
-  readonly type = BootstrapActionTypes.LoadSuggestionsRequest;
+export class DownloadSendersRequestAction implements Action {
+  readonly type = BootstrapActionTypes.DownloadSendersRequest;
 }
 
-export class LoadSuggestionsRequestFailureAction implements Action {
-  readonly type = BootstrapActionTypes.LoadSuggestionsRequestFailure;
+export class DownloadSendersRequestFailureAction implements Action {
+  readonly type = BootstrapActionTypes.DownloadSendersRequestFailure;
 }
 
-export class UpdateLoadingStatusAction implements Action {
-  readonly type = BootstrapActionTypes.UpdateLoadingStatus;
+export class UpdateDownloadingStatusAction implements Action {
+  readonly type = BootstrapActionTypes.UpdateDownloadingStatus;
   constructor(public payload: { loadingStatus: boolean }) {}
 }
 
-export class LoadingStatusRequestAction implements Action {
-  readonly type = BootstrapActionTypes.LoadingStatusRequest;
+export class DownloadingStatusRequestAction implements Action {
+  readonly type = BootstrapActionTypes.DownloadingStatusRequest;
 }
 
-export class LoadingStatusRequestFailureAction implements Action {
-  readonly type = BootstrapActionTypes.LoadingStatusRequestFailure;
+export class DownloadingStatusRequestFailureAction implements Action {
+  readonly type = BootstrapActionTypes.DownloadingStatusRequestFailure;
 }
 
-export class UpdatePercentLoadedAction implements Action {
-  readonly type = BootstrapActionTypes.UpdatePercentLoaded;
+export class UpdatePercentDownloadedAction implements Action {
+  readonly type = BootstrapActionTypes.UpdatePercentDownloaded;
   constructor(public payload: { percentLoaded: number }) {}
 }
 
@@ -94,19 +100,20 @@ export class ResetBootstrapStateAction implements Action {
 
 
 export type BootstrapActions =
-  | GetAllSuggestionsAction
+  | BootstrapAppAction
+  | GetAllSendersAction
 
   | FirstRunStatusRequestAction
   | FirstRunStatusRequestFailureAction
   | UpdateFirstRunAction
 
-  | LoadSuggestionsRequestAction
-  | LoadSuggestionsRequestFailureAction
-  | UpdateLoadingStatusAction
+  | DownloadSendersRequestAction
+  | DownloadSendersRequestFailureAction
+  | UpdateDownloadingStatusAction
 
-  | LoadingStatusRequestAction
-  | LoadingStatusRequestFailureAction
-  | UpdatePercentLoadedAction
+  | DownloadingStatusRequestAction
+  | DownloadingStatusRequestFailureAction
+  | UpdatePercentDownloadedAction
 
   | ToggleSyncToStorageAction
   | ResetBootstrapStateAction
