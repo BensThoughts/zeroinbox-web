@@ -9,6 +9,7 @@ import {
   selectByCountLength,
   selectCountCutoff,
   selectByCountPage,
+  PageQuery
 } from '../../state/suggestions.selectors';
 
 import {
@@ -23,11 +24,6 @@ import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from './rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
-
-export interface PageQuery {
-  pageIndex: number;
-  pageSize:number;
-}
 
 @Component({
   selector: 'app-count-suggestions-table',

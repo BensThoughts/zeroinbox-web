@@ -1,10 +1,14 @@
 import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
-import { PageQuery } from '../components/suggestions-count-table/suggestions-count-table.component';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
-import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
+
+export interface PageQuery {
+  pageIndex: number;
+  pageSize:number;
+}
+
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'
@@ -31,7 +35,7 @@ export const selectIds = createSelector(
 )
 
 export const selectSuggestionAndSenderEntities = createSelector(
-  selectSenderEntities,
+  fromSenders.selectSenderEntities,
   selectSuggestionEntities,
   (senders, suggestions) => {
     return {
@@ -203,30 +207,30 @@ export const LARGE = .5;
 export const MEDIUM = .2;
 export const SMALL = .08;
 
-export function filterBySize(suggestions: ISender[], cutoff: string) {
+export function filterBySize(senders: ISender[], cutoff: string) {
 
   try {
     switch (cutoff) {
 
       case 'XL':
-        return suggestions.filter((suggestion) => {
-          return (suggestion.totalSizeEstimate >= EX_LARGE);
+        return senders.filter((sender) => {
+          return (sender.totalSizeEstimate >= EX_LARGE);
         });
       case 'LG':
-        return suggestions.filter((suggestion) => {
-          return (suggestion.totalSizeEstimate < EX_LARGE) && (suggestion.totalSizeEstimate >= LARGE);
+        return senders.filter((sender) => {
+          return (sender.totalSizeEstimate < EX_LARGE) && (sender.totalSizeEstimate >= LARGE);
         });
       case 'MD':
-        return  suggestions.filter((suggestion) => {
-          return (suggestion.totalSizeEstimate < LARGE) && (suggestion.totalSizeEstimate >= MEDIUM);
+        return  senders.filter((sender) => {
+          return (sender.totalSizeEstimate < LARGE) && (sender.totalSizeEstimate >= MEDIUM);
         });
       case 'SM':
-        return suggestions.filter((suggestion) => {
-          return (suggestion.totalSizeEstimate < MEDIUM) && (suggestion.totalSizeEstimate >= SMALL);
+        return senders.filter((sender) => {
+          return (sender.totalSizeEstimate < MEDIUM) && (sender.totalSizeEstimate >= SMALL);
         });
       case 'XS':
-        return suggestions.filter((suggestion) => {
-          return (suggestion.totalSizeEstimate < SMALL);
+        return senders.filter((sender) => {
+          return (sender.totalSizeEstimate < SMALL);
         })
 
       default:

@@ -9,6 +9,7 @@ import {
   selectBySizeGroupPage,
   selectBySizeGroupLength,
   selectSizeCutoff,
+  PageQuery,
 } from '../../state/suggestions.selectors';
 
 import {
@@ -26,10 +27,6 @@ import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 import { ITaskCreator } from '../../../tasks/model/tasks.creator.model';
 
-export interface PageQuery {
-  pageIndex: number;
-  pageSize:number;
-}
 
 @Component({
   selector: 'go-suggestions-size-table',
