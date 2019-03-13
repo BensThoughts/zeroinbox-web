@@ -93,7 +93,7 @@ export class SuggestionsCountTableComponent implements OnInit {
       pageSize: this.pageSize
     };
 
-    this.dataSource.loadSuggestions(this.input.nativeElement.value,initialPage);
+    this.dataSource.loadSuggestions(this.input.nativeElement.value, initialPage);
 
     this.updatePaginatorLength();
 

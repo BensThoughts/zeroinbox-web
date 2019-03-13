@@ -91,12 +91,12 @@ export const selectSuggestionIds = createSelector(
   (suggestions) => suggestions.map((suggestion) => suggestion.id)
 )
 
-export const selectFilteredSuggestedSenders = (filter: string) => createSelector(
+export const selectFilteredSuggestedSenders = createSelector(
   selectSuggestionIds,
   sortSendersByCount,
   (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
-      if ((senderIds.indexOf(sender.id) !== -1) && sender.fromAddress.includes(filter)) {
+      if (senderIds.indexOf(sender.id) !== -1) {
         return true;
       }
       return false;
@@ -105,13 +105,26 @@ export const selectFilteredSuggestedSenders = (filter: string) => createSelector
   }
 );
 
+export const selectFilteredSenders = (filter: string) => createSelector(
+  selectFilteredSuggestedSenders,
+  (senders) => {
+    let filteredSenders = senders.filter((sender) => {
+      if (sender.fromAddress.includes(filter)) {
+        return true;
+      }
+      return false;
+    });
+    return filteredSenders;
+  }
+)
+
 export const selectByCountLength = (filter: string) => createSelector(
-  selectFilteredSuggestedSenders(filter),
+  selectFilteredSenders(filter),
   (senders) => senders.length
 );
 
 export const selectByCountPage = (filter: string, page: PageQuery) => createSelector(
-  selectFilteredSuggestedSenders(filter),
+  selectFilteredSenders(filter),
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
