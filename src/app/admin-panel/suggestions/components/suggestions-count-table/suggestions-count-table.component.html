@@ -1,5 +1,11 @@
 
 <div>
+  <form>
+    <mat-form-field>
+      <input matInput placeholder="Search Addresses" #searchInput>
+    </mat-form-field>
+  </form>
+
 <table mat-table [dataSource]="dataSource" class="mat-table">
 
    <ng-container matColumnDef="address">

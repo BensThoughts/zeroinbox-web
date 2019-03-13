@@ -25,7 +25,7 @@ export const adapter: EntityAdapter<ISuggestion> =
 
 const initialSuggestionsState = adapter.getInitialState({
   suggestionsLoaded: false,
-  cutoff: 15,
+  cutoff: 1,
   sizeCutoff: 'MD'
 });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { MatPaginator, MatTable } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
@@ -16,9 +16,9 @@ import {
 } from '../../state/suggestions.actions';
 
 
-import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
-import { tap, map, take, delay } from 'rxjs/operators';
+import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from './rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
@@ -42,6 +42,7 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('searchInput') input: ElementRef;
 
   displayedColumns: string[] = ['address'];
 
@@ -82,7 +83,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   ngOnInit() {
 
     this.cutoff$ = this.store.pipe(select(selectCountCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength));
+    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength(this.input.nativeElement.value)));
 
     this.dataSource = new SuggestionsByCountDataSource(this.store);
 
@@ -92,7 +93,7 @@ export class SuggestionsCountTableComponent implements OnInit {
       pageSize: this.pageSize
     };
 
-    this.dataSource.loadSuggestions(initialPage);
+    this.dataSource.loadSuggestions(this.input.nativeElement.value,initialPage);
 
     this.updatePaginatorLength();
 
@@ -101,9 +102,21 @@ export class SuggestionsCountTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-  this.paginator.page.pipe(
-    tap(() => this.loadSuggestionsPage())
-  ).subscribe();
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadSuggestionsPage();
+          this.updatePaginatorLength();
+        })
+      ).subscribe();
+  
+    this.paginator.page
+    .pipe(
+      tap(() => this.loadSuggestionsPage())
+    ).subscribe();
 
   }
 
@@ -125,12 +138,14 @@ export class SuggestionsCountTableComponent implements OnInit {
       pageSize: this.paginator.pageSize
       };
 
-      this.dataSource.loadSuggestions(newPage);
+      this.dataSource.loadSuggestions(
+        this.input.nativeElement.value,
+        newPage);
   }
 
   updatePaginatorLength() {
     this.store.pipe(
-      select(selectByCountLength),
+      select(selectByCountLength(this.input.nativeElement.value)),
       take(1),
       map((length) => {
         this.paginator.length = length;
@@ -268,9 +283,9 @@ export class SuggestionsByCountDataSource extends DataSource<any> {
     return this.suggestionsSubject.value;
   }
 
-  loadSuggestions(page: PageQuery) {
+  loadSuggestions(filter: string, page: PageQuery) {
     this.store.pipe(
-      select(selectByCountPage(page)),
+      select(selectByCountPage(filter, page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })

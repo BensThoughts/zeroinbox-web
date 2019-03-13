@@ -65,7 +65,7 @@ export class BootstrapEffects {
       )
     );
 
-  @Effect()
+  @Effect({ dispatch: false })
   firstRunStatusRequested$ = this.actions$
     .pipe(
       ofType<FirstRunStatusRequestAction>(BootstrapActionTypes.FirstRunStatusRequest),
@@ -73,16 +73,18 @@ export class BootstrapEffects {
         return this.bootstrapService.getFirstRunStatus().pipe(
           map((response) => {
             if (response.status === 'error') {
-              return new FirstRunStatusRequestFailureAction();
+              this.store.dispatch(new FirstRunStatusRequestFailureAction());
             }
             this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
             
             if (response.data.firstRun) {
-              return new NavigateToDownloadingPageAction();
+              // return new NavigateToDownloadingPageAction();
+              this.router.navigate([this.bootstrapService.downloadingSendersUrl]);
             } else {
               this.store.dispatch(new SendersRequestAction());
               this.store.dispatch(new SuggestionsRequestAction());
-              return new NavigateToHomePageAction();
+              this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
+              // return new NavigateToHomePageAction();
             }
 
           }),
@@ -159,9 +161,10 @@ export class BootstrapEffects {
               this.store.dispatch(new UpdatePercentDownloadedAction({ percentLoaded: percentLoaded }))
               return new DownloadingStatusRequestAction();
             } else {
+              this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
               this.store.dispatch(new SendersRequestAction());
-              this.store.dispatch(new SuggestionsRequestAction());
-              return new NavigateToHomePageAction();
+              return new SuggestionsRequestAction();
+              //return new NavigateToHomePageAction();
             }
           }),
           catchError((err) => {

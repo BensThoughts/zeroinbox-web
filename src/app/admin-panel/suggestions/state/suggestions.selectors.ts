@@ -50,7 +50,12 @@ export const selectSuggestionsLoaded = createSelector(
   (state: SuggestionsState) => state.suggestionsLoaded
 );
 
-
+export const selectNotSetForDelete = createSelector(
+  selectAllSuggestions,
+  suggestions => suggestions.filter((suggestion) => {
+    return suggestion.delete === false;
+  })
+)
 
 /*******************************************************************************
  *  BY Name based on count
@@ -74,30 +79,24 @@ export const sortSendersByCount = createSelector(
 )
 
 export const selectNotLabeledByName = createSelector(
-  selectAllSuggestions,
+  selectNotSetForDelete,
   suggestions => suggestions.filter((suggestion) => {
     return suggestion.labelByName === false;
   })
 );
 
-export const selectNotDelete = createSelector(
-  selectNotLabeledByName,
-  suggestions => suggestions.filter((suggestion) => {
-    return suggestion.delete === false;
-  })
-)
 
 export const selectSuggestionIds = createSelector(
-  selectNotDelete,
+  selectNotLabeledByName,
   (suggestions) => suggestions.map((suggestion) => suggestion.id)
 )
 
-export const selectFilteredSuggestedSenders = createSelector(
+export const selectFilteredSuggestedSenders = (filter: string) => createSelector(
   selectSuggestionIds,
   sortSendersByCount,
   (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
-      if (senderIds.indexOf(sender.id) !== -1) {
+      if ((senderIds.indexOf(sender.id) !== -1) && sender.fromAddress.includes(filter)) {
         return true;
       }
       return false;
@@ -106,13 +105,13 @@ export const selectFilteredSuggestedSenders = createSelector(
   }
 );
 
-export const selectByCountLength = createSelector(
-  selectFilteredSuggestedSenders,
+export const selectByCountLength = (filter: string) => createSelector(
+  selectFilteredSuggestedSenders(filter),
   (senders) => senders.length
 );
 
-export const selectByCountPage = (page: PageQuery) => createSelector(
-  selectFilteredSuggestedSenders,
+export const selectByCountPage = (filter: string, page: PageQuery) => createSelector(
+  selectFilteredSuggestedSenders(filter),
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
@@ -134,7 +133,7 @@ export const selectSizeCutoff = createSelector(
 
 
 export const selectBySizeFiltered = createSelector(
-  selectAllSuggestions,
+  selectNotSetForDelete,
   (suggestions) => suggestions.filter((suggestion) => suggestion.labelBySize === false)
 );
 
