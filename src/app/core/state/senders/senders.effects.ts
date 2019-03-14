@@ -38,7 +38,7 @@ export class SendersEffects {
               let senders: ISender[] = response.data.suggestions.map((sender) => {
                 let totalSizeEstimate = this.toMB(sender.totalSizeEstimate);
                 return {
-                  id: sender.senderId,
+                  senderId: sender.senderId,
                   fromAddress: sender.senderAddress,
                   fromName: sender.senderNames[0],
                   count: sender.count,

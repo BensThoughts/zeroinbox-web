@@ -61,12 +61,12 @@ export const selectLabelTasks = createSelector(
   selectTasksEntities,
   (taskIds, senders, tasks) => {
     let filteredSenders = senders.filter((sender) => {
-      if (taskIds.indexOf(sender.id) !== -1) {
+      if (taskIds.indexOf(sender.senderId) !== -1) {
         return true;
       }
       return false;
     }).map((sender) => {
-      let labelNames = tasks[sender.id].labelNames;
+      let labelNames = tasks[sender.senderId].labelNames;
       return {
         fromAddress: sender.fromAddress,
         labelNames: labelNames
@@ -81,7 +81,7 @@ export const selectDeleteTasks = createSelector(
   fromSenders.selectByCount,
   (tasks, senders) => {
     let filteredSenders = senders.filter((sender) => {
-      if (tasks.indexOf(sender.id) !== -1) {
+      if (tasks.indexOf(sender.senderId) !== -1) {
         return true;
       }
       return false;

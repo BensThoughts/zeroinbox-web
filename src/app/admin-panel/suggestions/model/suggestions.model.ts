@@ -1,5 +1,5 @@
 export interface ISuggestion {
-  id: string;
+  senderId: string;
   labelByName?: boolean;
   labelBySize?: boolean;
   labelByCount?: boolean;

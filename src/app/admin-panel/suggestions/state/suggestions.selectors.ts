@@ -101,7 +101,7 @@ export const selectNotLabeledByName = createSelector(
 
 export const selectIdsNotLabeledByName = createSelector(
   selectNotLabeledByName,
-  (suggestions) => suggestions.map((suggestion) => suggestion.id)
+  (suggestions) => suggestions.map((suggestion) => suggestion.senderId)
 )
 
 export const selectSendersFromSuggestionIds = createSelector(
@@ -109,7 +109,7 @@ export const selectSendersFromSuggestionIds = createSelector(
   sortSendersByCount,
   (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
-      if (senderIds.indexOf(sender.id) !== -1) {
+      if (senderIds.indexOf(sender.senderId) !== -1) {
         return true;
       }
       return false;
@@ -173,7 +173,7 @@ export const selectNotLabeledBySize = createSelector(
 
 export const selectIdsNotLabeledBySize = createSelector(
   selectNotLabeledBySize,
-  (suggestions) => suggestions.map((suggestion) => suggestion.id)
+  (suggestions) => suggestions.map((suggestion) => suggestion.senderId)
 )
 
 export const selectSendersSortedBySize = createSelector(
@@ -181,7 +181,7 @@ export const selectSendersSortedBySize = createSelector(
   selectIdsNotLabeledBySize,
   (senders, suggestions) => {
     let filteredSenders = senders.filter((sender) => {
-      if (suggestions.indexOf(sender.id) !== -1) {
+      if (suggestions.indexOf(sender.senderId) !== -1) {
         return true;
       }
       return false;

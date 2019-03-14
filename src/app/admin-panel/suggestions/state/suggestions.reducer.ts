@@ -13,8 +13,8 @@ export interface SuggestionsState extends EntityState<ISuggestion> {
   sizeGroup: string;
 }
 
-export function selectSendersId(l: ISuggestion) {
-  return l.id;
+export function selectSendersId(suggestion: ISuggestion) {
+  return suggestion.senderId;
 }
 
 export const adapter: EntityAdapter<ISuggestion> =

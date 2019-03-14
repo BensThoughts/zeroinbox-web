@@ -6,8 +6,8 @@ export interface SendersState extends EntityState<ISender> {
     sendersLoaded: boolean;
 }
 
-export function selectSendersId(l: ISender) {
-    return l.id;
+export function selectSendersId(sender: ISender) {
+    return sender.senderId;
   }
   
 export const adapter: EntityAdapter<ISender> =

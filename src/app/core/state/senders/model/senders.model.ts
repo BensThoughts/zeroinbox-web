@@ -1,7 +1,7 @@
 export interface ISender {
-    id: string;
+    senderId: string;
     fromAddress: string;
     fromName: string;
     count: number;
     totalSizeEstimate: number;
-  }
+}

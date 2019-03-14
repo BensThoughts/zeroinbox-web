@@ -211,8 +211,8 @@ export class SuggestionsCountTableComponent implements OnInit {
     this.isAllSelected(action) ?
       selectionModels.currentSelected.clear() :
         this.dataSource.getValues().forEach((suggestion) => {
-          selectionModels.currentSelected.select(suggestion.id);
-          selectionModels.currentDeselected.deselect(suggestion.id);
+          selectionModels.currentSelected.select(suggestion.senderId);
+          selectionModels.currentDeselected.deselect(suggestion.senderId);
         })
     }
 

@@ -1,14 +1,15 @@
 
 <div>
 
-    <form>
-        <mat-form-field>
-          <input matInput placeholder="Search Addresses" #searchInput>
-        </mat-form-field>
-      </form>
+    <div>
+        <form>
+            <mat-form-field>
+              <input matInput placeholder="Search Addresses" #searchInput>
+            </mat-form-field>
+          </form>
+    </div>
+
     <span class="d-flex flex-wrap justify-content-center align-items-center">
-
-
 
         <div class="d-md-none">
           Show senders with
@@ -71,8 +72,8 @@
 
            <mat-checkbox
                 (click)="$event.stopPropagation()"
-                (change)="$event ? suggestionToggle('delete', suggestion.id) : null"
-                [checked]="isSelected('delete',suggestion.id)">
+                (change)="$event ? suggestionToggle('delete', suggestion.senderId) : null"
+                [checked]="isSelected('delete',suggestion.senderId)">
                 <span class="icon-handler-2">
                   <fa-icon size="1x" icon="trash-alt"></fa-icon>
                 </span>
@@ -83,8 +84,8 @@
 
        <span class="icon-handler">
          <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? suggestionToggle('label', suggestion.id) : null"
-                     [checked]="isSelected('label', suggestion.id)">
+                     (change)="$event ? suggestionToggle('label', suggestion.senderId) : null"
+                     [checked]="isSelected('label', suggestion.senderId)">
 
                      <span class="icon-handler-2">
                      <fa-icon size="1x" icon="tag"></fa-icon>
@@ -107,7 +108,7 @@
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
-        (click)="toggleFromRow(suggestion.id)"
+        (click)="toggleFromRow(suggestion.senderId)"
         [@removeRow]="myRemoved ? 'add' : 'remove'">
    </tr>
  </table>

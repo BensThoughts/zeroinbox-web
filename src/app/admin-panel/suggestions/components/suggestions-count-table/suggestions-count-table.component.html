@@ -32,35 +32,35 @@
 <table mat-table [dataSource]="dataSource" class="mat-table">
 
    <ng-container matColumnDef="address">
-     <th mat-header-cell *matHeaderCellDef>
-
-       <div>
-       <span class="icon-handler">
-       <mat-checkbox (change)="$event ? masterToggle('delete') : null"
-                     [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
-                     [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
-                     <span class="icon-handler-2">
-                     <fa-icon icon="trash-alt"></fa-icon>
-                     </span>
-       </mat-checkbox>
-       </span>
-
-       <span class="icon-handler">
-       <mat-checkbox (change)="$event ? masterToggle('label') : null"
-                     [checked]="selectionLabel.hasValue() && isAllSelected('label')"
-                     [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
-                     <span class="icon-handler-2">
-                     <fa-icon icon="tag"></fa-icon>
-                     </span>
-       </mat-checkbox>
-       </span>
-
-       <span>
-          <button mat-raised-button (click)="createActions()">Create Actions</button>
-        </span>
-
-       </div>
-     </th>
+     <span>
+        <th mat-header-cell *matHeaderCellDef>
+            <div>
+            <span class="icon-handler">
+            <mat-checkbox (change)="$event ? masterToggle('delete') : null"
+                          [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
+                          [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
+                          <span class="icon-handler-2">
+                          <fa-icon icon="trash-alt"></fa-icon>
+                          </span>
+            </mat-checkbox>
+            </span>
+     
+            <span class="icon-handler">
+            <mat-checkbox (change)="$event ? masterToggle('label') : null"
+                          [checked]="selectionLabel.hasValue() && isAllSelected('label')"
+                          [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
+                          <span class="icon-handler-2">
+                          <fa-icon icon="tag"></fa-icon>
+                          </span>
+            </mat-checkbox>
+            </span>
+     
+               <button mat-raised-button (click)="createActions()">Create Actions</button>
+     
+            </div>
+          </th>
+     </span>
+   
 
      <td mat-cell *matCellDef="let suggestion">
 
@@ -72,8 +72,8 @@
 
            <mat-checkbox
                 (click)="$event.stopPropagation()"
-                (change)="$event ? suggestionToggle('delete', suggestion.id) : null"
-                [checked]="isSelected('delete',suggestion.id)">
+                (change)="$event ? suggestionToggle('delete', suggestion.senderId) : null"
+                [checked]="isSelected('delete',suggestion.senderId)">
                 <span class="icon-handler-2">
                   <fa-icon size="1x" icon="trash-alt"></fa-icon>
                 </span>
@@ -84,8 +84,8 @@
 
        <span class="icon-handler">
          <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? suggestionToggle('label', suggestion.id) : null"
-                     [checked]="isSelected('label', suggestion.id)">
+                     (change)="$event ? suggestionToggle('label', suggestion.senderId) : null"
+                     [checked]="isSelected('label', suggestion.senderId)">
 
                      <span class="icon-handler-2">
                      <fa-icon size="1x" icon="tag"></fa-icon>
@@ -108,7 +108,7 @@
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
-        (click)="toggleFromRow(suggestion.id)"
+        (click)="toggleFromRow(suggestion.senderId)"
         [@removeRow]="myRemoved ? 'add' : 'remove'">
    </tr>
  </table>
