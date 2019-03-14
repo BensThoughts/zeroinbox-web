@@ -22,7 +22,7 @@ import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../model/suggestions.model';
-import { rowAnimations } from './rowAnimations';
+import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';

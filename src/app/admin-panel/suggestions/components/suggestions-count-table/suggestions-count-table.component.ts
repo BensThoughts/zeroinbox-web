@@ -21,7 +21,7 @@ import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { rowAnimations } from './rowAnimations';
+import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
