@@ -106,31 +106,31 @@ export const selectNotLabeledByName = createSelector(
 );
 
 
-export const selectSendersFromSuggestionIds = (filter: string) => createSelector(
+export const selectSendersFromSuggestionIds = createSelector(
   selectNotLabeledByName,
   sortSendersByCount,
   (suggestions, senders) => {
     let suggestionsMap = new Map(suggestions);
     return senders.filter((sender) => {
-      return (suggestionsMap.get(sender.senderId) !== undefined) && sender.fromAddress.includes(filter);
+      return suggestionsMap.get(sender.senderId) !== undefined;
     })
   }
 );
 
-/* export const selectFilteredSenders = (filter: string) => createSelector(
+export const selectFilteredSenders = (filter: string) => createSelector(
   selectSendersFromSuggestionIds,
   (senders) => {
     return senders.filter((sender) => {
       return sender.fromAddress.includes(filter) 
     });
   }
-) */
+)
 /**
  * Used to determine the total number of pages for the MatPaginator
  * @param filter - A search string to determine the sender email addresses to display
  */
 export const selectByCountLength = (filter: string) => createSelector(
-  selectSendersFromSuggestionIds(filter),
+  selectFilteredSenders(filter),
   (senders) => senders.length
 );
 
@@ -140,7 +140,7 @@ export const selectByCountLength = (filter: string) => createSelector(
  * @param page - The page that the MatPaginator is currently on 
  */
 export const selectByCountPage = (filter: string, page: PageQuery) => createSelector(
-  selectSendersFromSuggestionIds(filter),
+  selectFilteredSenders(filter),
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
