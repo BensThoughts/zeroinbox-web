@@ -47,7 +47,6 @@ import { LogService } from './services/log/log.service';
 import { SendersEffects } from './state/senders/senders.effects';
 import { SendersService } from './services/senders/senders.service';
 import { SuggestionsService } from './services/suggestions/suggestions.service';
-import { TasksService } from './services/tasks/tasks.service';
 import { GoogleAnalyticsEffects } from './state/router/google-analytics.effects';
 import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-sync.effects';
 
@@ -87,7 +86,6 @@ import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-syn
     ReverseAuthGuardService,
     SendersService,
     SuggestionsService,
-    TasksService,
     UserService,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },

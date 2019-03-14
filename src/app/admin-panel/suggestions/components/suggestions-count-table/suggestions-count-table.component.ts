@@ -22,8 +22,9 @@ import { DataSource } from '@angular/cdk/table';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from './rowAnimations';
-import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { AddTasksAction } from '../../../tasks/state/tasks.actions';
+import { ISender } from '@app/core/state/senders/model/senders.model';
+import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
+import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
 
 @Component({
   selector: 'app-count-suggestions-table',
@@ -158,9 +159,10 @@ export class SuggestionsCountTableComponent implements OnInit {
     this.toggle();
     let deleteTasks = this.selectionDelete.selected;
     let labelTasks = this.selectionLabel.selected;
-    let tasks = {
+    let tasks: ITaskCreator = {
       deleteTasks: deleteTasks,
-      labelByNameTasks: labelTasks
+      labelByNameTasks: labelTasks,
+      labelBySizeTasks: [],
     };
 
     this.store.dispatch(new AddTasksAction({ tasks: tasks }))

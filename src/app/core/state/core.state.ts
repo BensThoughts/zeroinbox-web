@@ -12,7 +12,6 @@ import { authReducer, AuthState } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 
 import { userReducer, UserState } from './user/user.reducer';
-import { tasksReducer, TasksState } from '../../admin-panel/tasks/state/tasks.reducer';
 import { sendersReducer, SendersState } from './senders/senders.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';

@@ -25,7 +25,7 @@ import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
-import { ITaskCreator } from '../../../tasks/model/tasks.creator.model';
+import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
 
 
 @Component({
@@ -166,12 +166,12 @@ export class SuggestionsSizeTableComponent implements OnInit {
     let labelTasks = this.selectionLabel.selected;
     this.store.pipe(
       select(selectSizeGroup),
-      map((cutoff) => {
+      map((sizeGroup) => {
         let tasks: ITaskCreator = {
           deleteTasks: deleteTasks,
           labelBySizeTasks: labelTasks,
           labelByNameTasks: [],
-          bySizeLabelName: cutoff
+          sizeGroup: sizeGroup
         };
     
         this.store.dispatch(new AddTasksAction({ tasks: tasks }))

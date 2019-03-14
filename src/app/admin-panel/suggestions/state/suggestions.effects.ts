@@ -85,13 +85,13 @@ export class SuggestionsEffects {
           }
           if (labelBySizeTasks) {
             bySizeChangesArray = labelBySizeTasks.map((id) => {
-              let sender = suggestionsAndSenders.senders[id];
               let suggestion = suggestionsAndSenders.suggestions[id];
               let storedLabels = [];
               if (suggestion.labelNames) {
                 storedLabels = suggestion.labelNames;
               }
-              let newLabel = sender.fromName;
+              let sizeGroup = action.payload.tasks.sizeGroup;
+              let newLabel = this.getSizeLabel(sizeGroup);
               let changes = {
                 labelBySize: true,
                 labelNames: storedLabels.concat(newLabel)
@@ -113,6 +113,23 @@ export class SuggestionsEffects {
      
     })
   );
+
+  getSizeLabel(label: string) {
+    switch(label) {
+      case 'XL':
+        return 'Extra Large';
+      case 'LG':
+        return 'Large';
+      case 'MD':
+        return 'Medium';
+      case 'SM':
+        return 'Small';
+      case 'XS':
+        return 'Extra Small';
+      default:
+        return 'Labeled By Size'
+    }
+  }    
 
   @Effect({ dispatch: false })
   updateSuggestions$ = this.actions$

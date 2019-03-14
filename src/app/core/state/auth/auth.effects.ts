@@ -28,7 +28,6 @@ import {
   GetAllSendersAction,
   ToggleSyncToStorageAction 
 } from '../bootstrap/bootstrap.actions';
-import { ResetTasksStateAction } from '../../../admin-panel/tasks/state/tasks.actions';
 import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/user.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -183,7 +182,6 @@ export class AuthEffects {
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
       
@@ -205,7 +203,6 @@ export class AuthEffects {
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetTasksStateAction());
       this.store.dispatch(new ResetSuggestionsStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
 

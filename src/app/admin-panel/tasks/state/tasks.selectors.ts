@@ -1,64 +1,36 @@
-import * as fromTasks from './tasks.reducer';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { TasksState } from './tasks.reducer';
-import { State } from './tasks.reducer';
+import * as fromSuggestions from '@app/admin-panel/suggestions/state/suggestions.selectors';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
-import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
 
-export const selectTasksState = createFeatureSelector<State, TasksState>(
-  'tasks'
-);
-
-export const selectTasksEntities = createSelector(
-  selectTasksState,
-  fromTasks.selectEntities
-);
-
-export const selectTaskAndSenderEntities = createSelector(
-  selectSenderEntities,
-  selectTasksEntities,
-  (senders, tasks) => {
-    return {
-      senders: senders,
-      tasks: tasks
-    }
+export const labelTaskIds = createSelector(
+  fromSuggestions.selectAllSuggestions,
+  (suggestions) => {
+    return suggestions.filter((suggestion) => {
+      if (suggestion.labelByName || suggestion.labelBySize) {
+        return true;
+      }
+      return false;
+    }).map((suggestion) => suggestion.senderId);
   }
 )
 
-export const selectTasks = createSelector(
-  selectTasksState,
-  (state: TasksState) => state
-);
-
-export const selectAllTasks = createSelector(
-  selectTasks,
-  fromTasks.selectAll
-)
-
-export const filterLabelTasks = createSelector(
-  selectAllTasks,
-  (tasks) => tasks.filter((task) => task.labelByName === true || task.labelBySize === true)
-);
-
-export const labelTaskIds = createSelector(
-  filterLabelTasks,
-  (tasks) => tasks.map((task) => task.id)
-)
-
-export const filterDeleteTasks = createSelector(
-  selectAllTasks,
-  (tasks) => tasks.filter((task) => task.delete === true)
-);
-
 export const deleteTaskIds = createSelector(
-  filterDeleteTasks,
-  (tasks) => tasks.map((task) => task.id)
+  fromSuggestions.selectAllSuggestions,
+  (suggestions) => {
+    return suggestions.filter((suggestion) => {
+      if (suggestion.delete) {
+        return true;
+      }
+      return false;
+    }).map((suggestion) => suggestion.senderId);
+  }
 )
+
 
 export const selectLabelTasks = createSelector(
   labelTaskIds,
   fromSenders.selectByCount,
-  selectTasksEntities,
+  fromSuggestions.selectSuggestionEntities,
   (taskIds, senders, tasks) => {
     let filteredSenders = senders.filter((sender) => {
       if (taskIds.indexOf(sender.senderId) !== -1) {

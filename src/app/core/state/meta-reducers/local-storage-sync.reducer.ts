@@ -12,7 +12,6 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
         'settings', 
         'senders', 
         'suggestions',
-        // 'tasks',
       ],
       rehydrate: true,
       removeOnUndefined: true,
