@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { MatPaginator, MatTable } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
@@ -8,7 +8,7 @@ import {
 import {
   selectBySizeGroupPage,
   selectBySizeGroupLength,
-  selectSizeCutoff,
+  selectSizeGroup,
   PageQuery,
 } from '../../state/suggestions.selectors';
 
@@ -17,9 +17,9 @@ import {
 } from '../../state/suggestions.actions';
 
 
-import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
 import { DataSource } from '@angular/cdk/table';
-import { tap, map, take, delay } from 'rxjs/operators';
+import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from './rowAnimations';
@@ -41,6 +41,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('searchInput') input: ElementRef;
 
   @Input() myData: Observable<ISuggestion[]>;
 
@@ -60,19 +61,17 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   sizeCutoff$: Observable<string>;
   sizeCutoffs = [
-    { value: 'XS', label: 'extra small' },
-    { value: 'SM', label: 'small' },
-    { value: 'MD', label: 'medium' },
-    { value: 'LG', label: 'large' },
-    { value: 'XL', label: 'extra large' }
+    { value: 'ALL', label: 'any size email' },
+    { value: 'XS', label: 'extra small emails' },
+    { value: 'SM', label: 'small emails' },
+    { value: 'MD', label: 'medium emails' },
+    { value: 'LG', label: 'large emails' },
+    { value: 'XL', label: 'extra large emails' }
   ];
 
   handler: Subscription;
 
   myRemoved = true;
-
-  lengthOfSuggestions_CountMoreThan$;
-
 
    toggle() {
      this.myRemoved = !this.myRemoved;
@@ -82,8 +81,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.sizeCutoff$ = this.store.pipe(select(selectSizeCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectBySizeGroupLength));
+    this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));
 
     this.dataSource = new SuggestionsBySizeDataSource(this.store);
 
@@ -93,7 +91,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
       pageSize: this.pageSize
     };
 
-    this.dataSource.loadSuggestions(initialPage);
+    this.dataSource.loadSuggestions(this.input.nativeElement.value, initialPage);
 
     this.updatePaginatorLength();
 
@@ -102,9 +100,21 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-  this.paginator.page.pipe(
-    tap(() => this.loadSuggestionsPage())
-  ).subscribe();
+
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      tap(() => {
+        this.paginator.pageIndex = 0;
+        this.loadSuggestionsPage();
+        this.updatePaginatorLength();
+      })
+    ).subscribe();
+  
+    this.paginator.page.pipe(
+      tap(() => this.loadSuggestionsPage())
+    ).subscribe();
 
   }
 
@@ -126,12 +136,15 @@ export class SuggestionsSizeTableComponent implements OnInit {
       pageSize: this.paginator.pageSize
       };
 
-      this.dataSource.loadSuggestions(newPage);
+      this.dataSource.loadSuggestions(
+        this.input.nativeElement.value,  
+        newPage
+      );
   }
 
   updatePaginatorLength() {
     this.store.pipe(
-      select(selectBySizeGroupLength),
+      select(selectBySizeGroupLength(this.input.nativeElement.value)),
       take(1),
       map((length) => {
         this.paginator.length = length;
@@ -152,7 +165,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
     let deleteTasks = this.selectionDelete.selected;
     let labelTasks = this.selectionLabel.selected;
     this.store.pipe(
-      select(selectSizeCutoff),
+      select(selectSizeGroup),
       map((cutoff) => {
         let tasks: ITaskCreator = {
           deleteTasks: deleteTasks,
@@ -280,9 +293,9 @@ export class SuggestionsBySizeDataSource extends DataSource<any> {
     return this.suggestionsSubject.value;
   }
 
-  loadSuggestions(page: PageQuery) {
+  loadSuggestions(filter: string, page: PageQuery) {
     this.store.pipe(
-      select(selectBySizeGroupPage(page)),
+      select(selectBySizeGroupPage(filter, page)),
       tap((suggestions) => {
         this.suggestionsSubject.next(suggestions);
       })

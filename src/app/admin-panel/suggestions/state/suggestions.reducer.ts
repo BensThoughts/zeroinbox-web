@@ -9,8 +9,8 @@ export interface State extends AppState {
 
 export interface SuggestionsState extends EntityState<ISuggestion> {
   suggestionsLoaded: boolean;
-  cutoff: number;
-  sizeCutoff: string;
+  countCutoff: number;
+  sizeGroup: string;
 }
 
 export function selectSendersId(l: ISuggestion) {
@@ -25,8 +25,8 @@ export const adapter: EntityAdapter<ISuggestion> =
 
 const initialSuggestionsState = adapter.getInitialState({
   suggestionsLoaded: false,
-  cutoff: 1,
-  sizeCutoff: 'MD'
+  countCutoff: 1,
+  sizeGroup: 'MD'
 });
 
 export function suggestionsReducer(
@@ -45,10 +45,10 @@ export function suggestionsReducer(
         return adapter.updateMany(action.payload.suggestions, state);
 
       case SuggestionsActionTypes.SetCountCutoff:
-        return { ...state, cutoff: action.payload.countCutoff };
+        return { ...state, countCutoff: action.payload.countCutoff };
 
       case SuggestionsActionTypes.SetSizeCutoff:
-        return { ...state, sizeCutoff: action.payload.sizeCutoff };
+        return { ...state, sizeGroup: action.payload.sizeCutoff };
 
       case SuggestionsActionTypes.ResetSuggestions:
         return initialSuggestionsState;

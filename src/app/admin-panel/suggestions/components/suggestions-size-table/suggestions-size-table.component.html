@@ -1,5 +1,37 @@
 
 <div>
+
+    <form>
+        <mat-form-field>
+          <input matInput placeholder="Search Addresses" #searchInput>
+        </mat-form-field>
+      </form>
+    <span class="d-flex flex-wrap justify-content-center align-items-center">
+
+
+
+        <div class="d-md-none">
+          Show senders with
+        </div>
+        <span class="mx-2 d-none d-md-flex">
+          Show senders with
+        </span>
+        <span class="mx-2">
+          <mat-form-field>
+            <mat-select [placeholder]=""
+                        [ngModel]="sizeCutoff$ | async"
+                        (selectionChange)="onCutoffSelect($event)"
+                        name="Size Cutoffs">
+                        <mat-option *ngFor="let t of sizeCutoffs" [value]="t.value">
+                          {{ t.label }}
+                        </mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+        </span>
+      </span>
+
+
 <table mat-table [dataSource]="dataSource" class="mat-table">
 
    <ng-container matColumnDef="address">
@@ -88,29 +120,6 @@
     There are no suggestions left with at least {{ cutoff }} threads.
   </div>
 </ng-template>
-
-
-<span class="d-flex flex-wrap justify-content-center align-items-center">
-  <div class="d-md-none">
-    Only show senders with
-  </div>
-  <span class="mx-2 d-none d-md-flex">
-    Only show senders with
-  </span>
-  <span class="mx-2">
-    <mat-form-field>
-      <mat-select [placeholder]=""
-                  [ngModel]="sizeCutoff$ | async"
-                  (selectionChange)="onCutoffSelect($event)"
-                  name="Size Cutoffs">
-                  <mat-option *ngFor="let t of sizeCutoffs" [value]="t.value">
-                    {{ t.label }}
-                  </mat-option>
-      </mat-select>
-    </mat-form-field> emails.
-
-  </span>
-</span>
 
 <div class="d-flex justify-content-end align-items-center flex-nowrap">
   <span>

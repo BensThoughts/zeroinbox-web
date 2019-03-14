@@ -67,8 +67,6 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   myRemoved = true;
 
-  lengthOfSuggestions_CountMoreThan$;
-
 
    toggle() {
      this.myRemoved = !this.myRemoved;
@@ -79,7 +77,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   ngOnInit() {
 
     this.cutoff$ = this.store.pipe(select(selectCountCutoff));
-    this.lengthOfSuggestions_CountMoreThan$ = this.store.pipe(select(selectByCountLength(this.input.nativeElement.value)));
 
     this.dataSource = new SuggestionsByCountDataSource(this.store);
 
