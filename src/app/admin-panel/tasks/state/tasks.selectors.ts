@@ -1,63 +1,51 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromSuggestions from '@app/admin-panel/suggestions/state/suggestions.selectors';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
+import { selectSuggestionEntities } from '../../suggestions/state/suggestions.selectors';
+import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
 
-export const labelTaskIds = createSelector(
-  fromSuggestions.selectAllSuggestions,
+export const labelTasks = createSelector(
+  fromSuggestions.selectSuggestionEntities,
   (suggestions) => {
-    return suggestions.filter((suggestion) => {
-      if (suggestion.labelByName || suggestion.labelBySize) {
-        return true;
-      }
-      return false;
-    }).map((suggestion) => suggestion.senderId);
+    return Object.entries(suggestions).filter((suggestion) => {
+      return (suggestion[1].labelByName === true) || (suggestion[1].labelBySize === true)
+    });
   }
 )
 
-export const deleteTaskIds = createSelector(
-  fromSuggestions.selectAllSuggestions,
+export const deleteTasks = createSelector(
+  fromSuggestions.selectSuggestionEntities,
   (suggestions) => {
-    return suggestions.filter((suggestion) => {
-      if (suggestion.delete) {
-        return true;
-      }
-      return false;
-    }).map((suggestion) => suggestion.senderId);
+    return Object.entries(suggestions).filter((suggestion) => {
+      return suggestion[1].delete === true;
+    });
   }
 )
 
 
 export const selectLabelTasks = createSelector(
-  labelTaskIds,
+  labelTasks,
   fromSenders.selectByCount,
-  fromSuggestions.selectSuggestionEntities,
-  (taskIds, senders, tasks) => {
-    let filteredSenders = senders.filter((sender) => {
-      if (taskIds.indexOf(sender.senderId) !== -1) {
-        return true;
-      }
-      return false;
+  (tasks, senders) => {
+    let tasksMap = new Map(tasks);
+    return senders.filter((sender) => {
+      return tasksMap.get(sender.senderId) !== undefined
     }).map((sender) => {
-      let labelNames = tasks[sender.senderId].labelNames;
       return {
         fromAddress: sender.fromAddress,
-        labelNames: labelNames
+        labelNames: tasksMap.get(sender.senderId).labelNames
       }
     });
-    return filteredSenders;
   }
 );
 
 export const selectDeleteTasks = createSelector(
-  deleteTaskIds,
+  deleteTasks,
   fromSenders.selectByCount,
   (tasks, senders) => {
-    let filteredSenders = senders.filter((sender) => {
-      if (tasks.indexOf(sender.senderId) !== -1) {
-        return true;
-      }
-      return false;
+    let tasksMap = new Map(tasks);
+    return senders.filter((sender) => {
+      return tasksMap.get(sender.senderId) !== undefined;
     });
-    return filteredSenders;
   }
 );
