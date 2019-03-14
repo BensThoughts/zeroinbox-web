@@ -1,8 +1,7 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromSuggestions from '@app/admin-panel/suggestions/state/suggestions.selectors';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
-import { selectSuggestionEntities } from '../../suggestions/state/suggestions.selectors';
-import { selectSenderEntities } from '../../../core/state/senders/senders.selectors';
+
 
 export const labelTasks = createSelector(
   fromSuggestions.selectSuggestionEntities,
