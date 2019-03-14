@@ -3,6 +3,7 @@ import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
+import { selectAll } from '../../../core/state/senders/senders.selectors';
 
 export interface PageQuery {
   pageIndex: number;
@@ -55,10 +56,16 @@ export const selectSuggestionsLoaded = createSelector(
 );
 
 export const selectNotSetForDelete = createSelector(
-  selectAllSuggestions,
-  suggestions => suggestions.filter((suggestion) => {
-    return suggestion.delete === false;
-  })
+  selectSuggestionEntities,
+  suggestions => {
+    return Object.entries(suggestions).filter((suggestion) => {
+      return suggestion[1].delete === false;
+    })
+  }
+
+    // suggestions.filter((suggestion) => {
+    //  return suggestion.delete === false;
+    // })
 )
 
 /*******************************************************************************
@@ -84,58 +91,46 @@ export const selectSendersUnderCountCutoff = createSelector(
   (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
 );
 
-/* export const sortSendersByCount = createSelector(
+export const sortSendersByCount = createSelector(
   selectSendersUnderCountCutoff,
   (senders) => senders.sort((a, b) => {
     return b.count - a.count;
   })
-) */
+)
 
 export const selectNotLabeledByName = createSelector(
   selectNotSetForDelete,
   suggestions => suggestions.filter((suggestion) => {
-    return suggestion.labelByName === false;
+    return suggestion[1].labelByName === false;
   })
 );
 
 
-export const selectIdsNotLabeledByName = createSelector(
+export const selectSendersFromSuggestionIds = (filter: string) => createSelector(
   selectNotLabeledByName,
-  (suggestions) => suggestions.map((suggestion) => suggestion.senderId)
-)
-
-export const selectSendersFromSuggestionIds = createSelector(
-  selectIdsNotLabeledByName,
-  selectSendersUnderCountCutoff,
-  (senderIds, senders) => {
-    let filteredSenders = senders.filter((sender) => {
-      if (senderIds.indexOf(sender.senderId) !== -1) {
-        return true;
-      }
-      return false;
-    });
-    return filteredSenders;
+  sortSendersByCount,
+  (suggestions, senders) => {
+    let suggestionsMap = new Map(suggestions);
+    return senders.filter((sender) => {
+      return (suggestionsMap.get(sender.senderId) !== undefined) && sender.fromAddress.includes(filter);
+    })
   }
 );
 
-export const selectFilteredSenders = (filter: string) => createSelector(
+/* export const selectFilteredSenders = (filter: string) => createSelector(
   selectSendersFromSuggestionIds,
   (senders) => {
-    let filteredSenders = senders.filter((sender) => {
-      if (sender.fromAddress.includes(filter)) {
-        return true;
-      }
-      return false;
+    return senders.filter((sender) => {
+      return sender.fromAddress.includes(filter) 
     });
-    return filteredSenders;
   }
-)
+) */
 /**
  * Used to determine the total number of pages for the MatPaginator
  * @param filter - A search string to determine the sender email addresses to display
  */
 export const selectByCountLength = (filter: string) => createSelector(
-  selectFilteredSenders(filter),
+  selectSendersFromSuggestionIds(filter),
   (senders) => senders.length
 );
 
@@ -145,7 +140,7 @@ export const selectByCountLength = (filter: string) => createSelector(
  * @param page - The page that the MatPaginator is currently on 
  */
 export const selectByCountPage = (filter: string, page: PageQuery) => createSelector(
-  selectFilteredSenders(filter),
+  selectSendersFromSuggestionIds(filter),
   (sendersMore) => {
     const start = page.pageIndex * page.pageSize,
           end = start + page.pageSize;
@@ -168,23 +163,16 @@ export const selectSizeGroup = createSelector(
 
 export const selectNotLabeledBySize = createSelector(
   selectNotSetForDelete,
-  (suggestions) => suggestions.filter((suggestion) => suggestion.labelBySize === false)
+  (suggestions) => suggestions.filter((suggestion) => suggestion[1].labelBySize === false)
 );
-
-export const selectIdsNotLabeledBySize = createSelector(
-  selectNotLabeledBySize,
-  (suggestions) => suggestions.map((suggestion) => suggestion.senderId)
-)
 
 export const selectSendersSortedBySize = createSelector(
   fromSenders.selectBySize,
-  selectIdsNotLabeledBySize,
+  selectNotLabeledBySize,
   (senders, suggestions) => {
+    let suggestionsMap = new Map(suggestions);
     let filteredSenders = senders.filter((sender) => {
-      if (suggestions.indexOf(sender.senderId) !== -1) {
-        return true;
-      }
-      return false;
+      return suggestionsMap.get(sender.senderId) !== undefined;
     });
     return filteredSenders;
   }
