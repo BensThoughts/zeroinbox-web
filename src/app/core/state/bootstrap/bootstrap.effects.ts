@@ -8,12 +8,8 @@ import {
   FirstRunStatusRequestFailureAction,
   UpdateFirstRunAction,
 
-  NavigateToHomePageAction,
-  NavigateToDownloadingPageAction,
-
   DownloadSendersRequestAction,
   DownloadSendersRequestFailureAction,
-  UpdateDownloadingStatusAction,
 
   DownloadingStatusRequestAction,
   DownloadingStatusRequestFailureAction,
