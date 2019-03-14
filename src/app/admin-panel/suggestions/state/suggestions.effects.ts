@@ -7,10 +7,16 @@ import {
   SuggestionsRequestAction,
   SuggestionsRequestFailureAction,
   LoadSuggestionsAction,
-  DeleteSuggestionsAction,
   UpdateSuggestionsAction,
 } from './suggestions.actions';
-import { map, filter, exhaustMap, catchError, concatMap, take, withLatestFrom } from 'rxjs/operators';
+import { 
+  map, 
+  filter, 
+  exhaustMap, 
+  catchError, 
+  concatMap, 
+  take
+} from 'rxjs/operators';
 import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
 import { UpdateSuggestionsStateAction } from './suggestions.actions';
@@ -39,19 +45,22 @@ export class SuggestionsEffects {
   @Effect({ dispatch: false })
   addTasksActions$ = this.actions$.pipe(
     ofType<AddTasksAction>(TaskActionTypes.AddTasks),
-    concatMap((action) => {
-      return this.store.pipe(
+    map((action) => {
+      this.store.pipe(
+        take(1),
         select(selectSuggestionAndSenderEntities),
         take(1),
         map((suggestionsAndSenders) => {
-          let deleteTasks = action.payload.tasks.deleteTasks;
+          let suggestions = suggestionsAndSenders.suggestions;
+          let senders = suggestionsAndSenders.senders;
+          let deleteTaskSenderIds = action.payload.tasks.deleteTaskSenderIds;
           let deleteChangesArray: Update<ISuggestion>[] = [];
-          let labelByNameTasks = action.payload.tasks.labelByNameTasks;
+          let labelByNameSenderIds = action.payload.tasks.labelByNameSenderIds;
           let byNameChangesArray: Update<ISuggestion>[] = [];
-          let labelBySizeTasks = action.payload.tasks.labelBySizeTasks;
+          let labelBySizeSenderIds = action.payload.tasks.labelBySizeSenderIds;
           let bySizeChangesArray: Update<ISuggestion>[] = [];
-          if (deleteTasks) {
-            deleteChangesArray = deleteTasks.map((id) => {
+          if (deleteTaskSenderIds) {
+            deleteChangesArray = deleteTaskSenderIds.map((id) => {
               let changes = {
                 delete: true,
                 labelByName: false,
@@ -64,10 +73,10 @@ export class SuggestionsEffects {
               }
             });
           }
-          if (labelByNameTasks) {
-            byNameChangesArray = labelByNameTasks.map((id) => {
-              let sender = suggestionsAndSenders.senders[id];
-              let suggestion = suggestionsAndSenders.suggestions[id];
+          if (labelByNameSenderIds) {
+            byNameChangesArray = labelByNameSenderIds.map((id) => {
+              let sender = senders[id];
+              let suggestion = suggestions[id];
               let storedLabels = [];
               if (suggestion.labelNames) {
                 storedLabels = suggestion.labelNames;
@@ -83,9 +92,9 @@ export class SuggestionsEffects {
               }
             });
           }
-          if (labelBySizeTasks) {
-            bySizeChangesArray = labelBySizeTasks.map((id) => {
-              let suggestion = suggestionsAndSenders.suggestions[id];
+          if (labelBySizeSenderIds) {
+            bySizeChangesArray = labelBySizeSenderIds.map((id) => {
+              let suggestion = suggestions[id];
               let storedLabels = [];
               if (suggestion.labelNames) {
                 storedLabels = suggestion.labelNames;
@@ -107,7 +116,7 @@ export class SuggestionsEffects {
           .concat(bySizeChangesArray);
           this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
         })
-      )
+      ).subscribe();
 
 
      
@@ -156,16 +165,6 @@ export class SuggestionsEffects {
               this.store.dispatch(new SuggestionsRequestFailureAction());
             }
             let suggestions = response.data.suggestions;
-            console.log(suggestions);
-            // let suggestions: ISuggestion[] = senderIds.map((senderId) => {
-            //  return {
-            //    id: senderId,
-            //    labelByName: false,
-            //    labelByCount: false,
-            //    labelBySize: false,
-            //    delete: false,
-            //  }
-            // });
             this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
           }),
           catchError((err) => {

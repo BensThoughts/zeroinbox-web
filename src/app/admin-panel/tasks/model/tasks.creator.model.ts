@@ -1,6 +1,6 @@
 export interface ITaskCreator {
-    deleteTasks: string[];
-    labelByNameTasks: string[];
-    labelBySizeTasks: string[];
+    deleteTaskSenderIds: string[];
+    labelByNameSenderIds: string[];
+    labelBySizeSenderIds: string[];
     sizeGroup?: string;
-  }
+}

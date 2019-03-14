@@ -162,15 +162,15 @@ export class SuggestionsSizeTableComponent implements OnInit {
   createTasks() {
     this.toggle();
 
-    let deleteTasks = this.selectionDelete.selected;
-    let labelTasks = this.selectionLabel.selected;
+    let deleteTaskSenderIds = this.selectionDelete.selected;
+    let labelBySizeSenderIds = this.selectionLabel.selected;
     this.store.pipe(
       select(selectSizeGroup),
       map((sizeGroup) => {
         let tasks: ITaskCreator = {
-          deleteTasks: deleteTasks,
-          labelBySizeTasks: labelTasks,
-          labelByNameTasks: [],
+          deleteTaskSenderIds: deleteTaskSenderIds,
+          labelBySizeSenderIds: labelBySizeSenderIds,
+          labelByNameSenderIds: [],
           sizeGroup: sizeGroup
         };
     

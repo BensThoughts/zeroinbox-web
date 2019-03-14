@@ -157,12 +157,12 @@ export class SuggestionsCountTableComponent implements OnInit {
   createActions() {
 
     this.toggle();
-    let deleteTasks = this.selectionDelete.selected;
-    let labelTasks = this.selectionLabel.selected;
+    let deleteTaskSenderIds = this.selectionDelete.selected;
+    let labelByNameSenderIds = this.selectionLabel.selected;
     let tasks: ITaskCreator = {
-      deleteTasks: deleteTasks,
-      labelByNameTasks: labelTasks,
-      labelBySizeTasks: [],
+      deleteTaskSenderIds: deleteTaskSenderIds,
+      labelByNameSenderIds: labelByNameSenderIds,
+      labelBySizeSenderIds: [],
     };
 
     this.store.dispatch(new AddTasksAction({ tasks: tasks }))
