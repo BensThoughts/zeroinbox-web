@@ -1,9 +1,8 @@
-import { createFeatureSelector, createSelector, select, Store } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
-import { selectAll } from '../../../core/state/senders/senders.selectors';
 
 export interface PageQuery {
   pageIndex: number;
