@@ -45,9 +45,8 @@ export class SuggestionsEffects {
   @Effect({ dispatch: false })
   addTasksActions$ = this.actions$.pipe(
     ofType<AddTasksAction>(TaskActionTypes.AddTasks),
-    map((action) => {
-      this.store.pipe(
-        take(1),
+    concatMap((action) => {
+      return this.store.pipe(
         select(selectSuggestionAndSenderEntities),
         take(1),
         map((suggestionsAndSenders) => {
@@ -115,8 +114,8 @@ export class SuggestionsEffects {
           .concat(byNameChangesArray)
           .concat(bySizeChangesArray);
           this.store.dispatch(new UpdateSuggestionsAction({ suggestions: changesArray }));
-        })
-      ).subscribe();
+        }),
+      )
 
 
      
@@ -140,7 +139,7 @@ export class SuggestionsEffects {
     }
   }    
 
-  @Effect({ dispatch: false })
+/*   @Effect({ dispatch: false })
   updateSuggestions$ = this.actions$
     .pipe(
       ofType<UpdateSuggestionsAction>(SuggestionsActionTypes.UpdateSuggestions),
@@ -151,7 +150,7 @@ export class SuggestionsEffects {
           })
         );
       })
-    )
+    ) */
 
 
   @Effect({ dispatch: false })

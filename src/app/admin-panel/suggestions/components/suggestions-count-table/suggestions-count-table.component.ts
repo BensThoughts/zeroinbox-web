@@ -64,7 +64,8 @@ export class SuggestionsCountTableComponent implements OnInit {
     { value: 500, label: '500 threads' }
   ];
 
-  handler: Subscription;
+  handler1: Subscription;
+  handler2: Subscription;
 
   myRemoved = true;
 
@@ -96,7 +97,8 @@ export class SuggestionsCountTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    fromEvent(this.input.nativeElement, 'keyup')
+
+    this.handler1 = fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
         distinctUntilChanged(),
@@ -107,11 +109,16 @@ export class SuggestionsCountTableComponent implements OnInit {
         })
       ).subscribe();
   
-    this.paginator.page
+    this.handler2 = this.paginator.page
     .pipe(
       tap(() => this.loadSuggestionsPage())
     ).subscribe();
 
+  }
+
+  ngOnDestroy() {
+    this.handler1.unsubscribe();
+    this.handler2.unsubscribe();
   }
 
 

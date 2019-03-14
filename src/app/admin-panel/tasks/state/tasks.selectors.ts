@@ -1,4 +1,4 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import * as fromSuggestions from '@app/admin-panel/suggestions/state/suggestions.selectors';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 
