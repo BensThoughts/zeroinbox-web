@@ -20,6 +20,7 @@ import {
   UpdatePercentDownloadedAction,
 
   UpdateBootstrapStateAction,
+  LoadAllDataRequestAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -76,15 +77,11 @@ export class BootstrapEffects {
               this.store.dispatch(new FirstRunStatusRequestFailureAction());
             }
             this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
-            
-            if (response.data.firstRun) {
-              // return new NavigateToDownloadingPageAction();
+            if (response.data.firstRun === true) {
               this.router.navigate([this.bootstrapService.downloadingSendersUrl]);
             } else {
-              this.store.dispatch(new SendersRequestAction());
-              this.store.dispatch(new SuggestionsRequestAction());
+              this.store.dispatch(new LoadAllDataRequestAction());
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
-              // return new NavigateToHomePageAction();
             }
 
           }),
@@ -95,28 +92,6 @@ export class BootstrapEffects {
         );
       }),
     );
-
-  @Effect()
-  navigateToHomePage$ = this.actions$
-    .pipe(
-      ofType<NavigateToHomePageAction>(BootstrapActionTypes.NavigateToHomePage),
-      tap(() => {
-        this.ngZone.run(() => {
-          this.router.navigate([this.bootstrapService.sendersDownloadedUrl])
-        });
-      })
-    )
-
-  @Effect()
-  navigateToDownloadingPage$ = this.actions$
-    .pipe(
-      ofType<NavigateToDownloadingPageAction>(BootstrapActionTypes.NaviagteToDownloadingPage),
-      tap(() => {
-        this.ngZone.run(() => {
-          this.router.navigate([this.bootstrapService.downloadingSendersUrl])
-        });
-      })
-    )
 
   @Effect()
   loadSuggestionsRequest$ = this.actions$
@@ -144,7 +119,7 @@ export class BootstrapEffects {
     );
 
 
-  @Effect()
+  @Effect({ dispatch: false })
   getLoadingStatus$ = this.actions$
     .pipe(
       ofType<DownloadingStatusRequestAction>(BootstrapActionTypes.DownloadingStatusRequest),
@@ -153,27 +128,34 @@ export class BootstrapEffects {
         return this.bootstrapService.getLoadingStatus().pipe(
           map((response) => {
             if (response.status === 'error') {
-              return new DownloadingStatusRequestFailureAction();
+              this.store.dispatch(new DownloadingStatusRequestFailureAction());
             }
-            if (response.data.loadingStatus) {
-              console.log(response.data.percentLoaded);
+            if (response.data.loadingStatus === true) {
               let percentLoaded = response.data.percentLoaded;
               this.store.dispatch(new UpdatePercentDownloadedAction({ percentLoaded: percentLoaded }))
-              return new DownloadingStatusRequestAction();
+              this.store.dispatch(new DownloadingStatusRequestAction());
             } else {
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
-              this.store.dispatch(new SendersRequestAction());
-              return new SuggestionsRequestAction();
-              //return new NavigateToHomePageAction();
+              this.store.dispatch(new LoadAllDataRequestAction());
             }
           }),
           catchError((err) => {
             console.error(err);
-            return of(new DownloadingStatusRequestFailureAction());
+            return of(this.store.dispatch(new DownloadingStatusRequestFailureAction()));
           })
         )
       }),
     );
+
+    @Effect({ dispatch: false })
+    loadAllData$ = this.actions$
+      .pipe(
+        ofType<LoadAllDataRequestAction>(BootstrapActionTypes.LoadAllDataRequest),
+        map(() => {
+          this.store.dispatch(new SendersRequestAction());
+          this.store.dispatch(new SuggestionsRequestAction());
+        })
+      );
 
     @Effect()
     onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
@@ -184,7 +166,6 @@ export class BootstrapEffects {
       filter(evt => evt.newValue !== null),
       map(evt => {
         let BootstrapState = JSON.parse(evt.newValue);
-        // this.store.dispatch(new SyncToStorageAction({ syncToStorage: false }));
         return new UpdateBootstrapStateAction(BootstrapState);
       })
     );
@@ -197,3 +178,27 @@ export class BootstrapEffects {
     private ngZone: NgZone,
     private store: Store<AppState>) { }
 }
+
+
+
+/*   @Effect()
+  navigateToHomePage$ = this.actions$
+    .pipe(
+      ofType<NavigateToHomePageAction>(BootstrapActionTypes.NavigateToHomePage),
+      tap(() => {
+        this.ngZone.run(() => {
+          this.router.navigate([this.bootstrapService.sendersDownloadedUrl])
+        });
+      })
+    )
+
+  @Effect()
+  navigateToDownloadingPage$ = this.actions$
+    .pipe(
+      ofType<NavigateToDownloadingPageAction>(BootstrapActionTypes.NaviagteToDownloadingPage),
+      tap(() => {
+        this.ngZone.run(() => {
+          this.router.navigate([this.bootstrapService.downloadingSendersUrl])
+        });
+      })
+    ) */

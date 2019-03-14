@@ -12,7 +12,61 @@ import { selectTaskAndSenderEntities } from './tasks.selectors';
 @Injectable()
 export class TasksEffects {
 
-  @Effect({ dispatch: false })
+
+
+  getSizeLabel(label: string) {
+      switch(label) {
+        case 'XL':
+          return 'Extra Large';
+        case 'LG':
+          return 'Large';
+        case 'MD':
+          return 'Medium';
+        case 'SM':
+          return 'Small';
+        case 'XS':
+          return 'Extra Small';
+        default:
+          return 'Labeled By Size'
+      }
+  }    
+
+    @Effect()
+    onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+    // listen to our storage key
+      filter((evt) => {
+        return evt.key === 'go-app-tasks';
+      }),
+      filter(evt => evt.newValue !== null),
+      map(evt => {
+        let suggestionsState = JSON.parse(evt.newValue);
+        return new UpdateTasksStateAction(suggestionsState);
+      })
+    );
+
+    constructor(
+      private actions$: Actions,
+      private store: Store<AppState>,
+      private tasksService: TasksService) { }
+  }
+
+
+
+  /*   @Effect({ dispatch: false })
+  upsertTasks$ = this.actions$
+      .pipe(
+        ofType<UpsertTasksAction>(TaskActionTypes.UpsertTasks),
+        concatMap((action) => {
+          let tasks: ITask[] = action.payload.tasks;
+          return this.tasksService.postTasks(tasks);
+        }),
+        catchError((err) => {
+          return of(console.log(err));
+        })
+    ); */
+
+
+   /*  @Effect({ dispatch: false })
   addTasks$ = this.actions$
     .pipe(
       ofType<AddTasksAction>(TaskActionTypes.AddTasks),
@@ -82,55 +136,4 @@ export class TasksEffects {
         ).subscribe();
 
       })
-    )
-
-  getSizeLabel(label: string) {
-      switch(label) {
-        case 'XL':
-          return 'Extra Large';
-        case 'LG':
-          return 'Large';
-        case 'MD':
-          return 'Medium';
-        case 'SM':
-          return 'Small';
-        case 'XS':
-          return 'Extra Small';
-        default:
-          return 'Labeled By Size'
-      }
-  }
-
-/*   @Effect({ dispatch: false })
-  upsertTasks$ = this.actions$
-      .pipe(
-        ofType<UpsertTasksAction>(TaskActionTypes.UpsertTasks),
-        concatMap((action) => {
-          let tasks: ITask[] = action.payload.tasks;
-          return this.tasksService.postTasks(tasks);
-        }),
-        catchError((err) => {
-          return of(console.log(err));
-        })
-    ); */
-
-    
-
-    @Effect()
-    onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-      filter((evt) => {
-        return evt.key === 'go-app-tasks';
-      }),
-      filter(evt => evt.newValue !== null),
-      map(evt => {
-        let suggestionsState = JSON.parse(evt.newValue);
-        return new UpdateTasksStateAction(suggestionsState);
-      })
-    );
-
-    constructor(
-      private actions$: Actions,
-      private store: Store<AppState>,
-      private tasksService: TasksService) { }
-  }
+    ) */

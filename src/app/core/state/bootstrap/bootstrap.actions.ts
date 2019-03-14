@@ -21,6 +21,8 @@ export enum BootstrapActionTypes {
   DownloadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
   UpdatePercentDownloaded = '[Boostrap Effects] Update Percent Loaded',
 
+  LoadAllDataRequest = '[Bootstrap Effects] Load All Data Request',
+
   ToggleSyncToStorage = '[Auth Effects] Toggle Sync To Storage False',
 
   UpdateBootstrapState = '[Bootstrap Effects] Update Bootstrap State From Another Tab/Window',
@@ -83,6 +85,10 @@ export class UpdatePercentDownloadedAction implements Action {
   constructor(public payload: { percentLoaded: number }) {}
 }
 
+export class LoadAllDataRequestAction implements Action {
+  readonly type = BootstrapActionTypes.LoadAllDataRequest;
+}
+
 
 /**
  * Used to temporarily turn sync to storage off, so that when the state
@@ -129,6 +135,8 @@ export type BootstrapActions =
   | DownloadingStatusRequestAction
   | DownloadingStatusRequestFailureAction
   | UpdatePercentDownloadedAction
+
+  | LoadAllDataRequestAction
 
   | ToggleSyncToStorageAction
   | ResetBootstrapStateAction

@@ -29,7 +29,7 @@ export const reducers: ActionReducerMap<AppState> = {
 
 export const metaReducers: MetaReducer<AppState>[] = [
   localStorageSyncReducer,
-  debug
+  // debug
 ];
 if (!environment.production) {
   metaReducers.unshift(storeFreeze);
