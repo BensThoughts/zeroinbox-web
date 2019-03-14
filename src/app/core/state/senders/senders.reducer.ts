@@ -9,10 +9,15 @@ export interface SendersState extends EntityState<ISender> {
 export function selectSendersId(sender: ISender) {
     return sender.senderId;
   }
+
+export function sortByCount(senderA: ISender, senderB: ISender) {
+  return senderB.count - senderA.count;
+}
   
 export const adapter: EntityAdapter<ISender> =
   createEntityAdapter<ISender>({
     selectId: selectSendersId,
+    sortComparer: sortByCount
   });
   
   

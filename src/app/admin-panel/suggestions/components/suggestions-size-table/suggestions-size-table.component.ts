@@ -181,7 +181,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
     of(true).pipe(
       take(1),
-      delay(200),
+      delay(100),
       map(() => {
         if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
           if (this.dataSource.getLength() === 0) {

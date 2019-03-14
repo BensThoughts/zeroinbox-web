@@ -84,12 +84,12 @@ export const selectSendersUnderCountCutoff = createSelector(
   (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
 );
 
-export const sortSendersByCount = createSelector(
+/* export const sortSendersByCount = createSelector(
   selectSendersUnderCountCutoff,
   (senders) => senders.sort((a, b) => {
     return b.count - a.count;
   })
-)
+) */
 
 export const selectNotLabeledByName = createSelector(
   selectNotSetForDelete,
@@ -106,7 +106,7 @@ export const selectIdsNotLabeledByName = createSelector(
 
 export const selectSendersFromSuggestionIds = createSelector(
   selectIdsNotLabeledByName,
-  sortSendersByCount,
+  selectSendersUnderCountCutoff,
   (senderIds, senders) => {
     let filteredSenders = senders.filter((sender) => {
       if (senderIds.indexOf(sender.senderId) !== -1) {
