@@ -32,15 +32,10 @@ import {
   tap
 } from 'rxjs/operators';
 import { of, fromEvent } from 'rxjs';
-import { ISuggestion } from '@app/admin-panel/suggestions/model/suggestions.model';
-import { LoadSuggestionsAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
-import { LoginSuccessAction } from '../auth/auth.actions';
 import { SendersRequestAction } from '../senders/senders.actions';
-import { selectSendersById } from '../senders/senders.selectors';
 
 import {
   SuggestionsRequestAction,
-  SuggestionsRequestFailureAction,
 } from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { Router } from '@angular/router';
 import { UserProfileRequestAction } from '../user/user.actions';
