@@ -3,6 +3,7 @@ import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
+import { selectAll } from '../../../core/state/senders/senders.selectors';
 
 export interface PageQuery {
   pageIndex: number;
@@ -165,8 +166,8 @@ export const selectNotLabeledBySize = createSelector(
   (suggestions) => suggestions.filter((suggestion) => suggestion[1].labelBySize === false)
 );
 
-export const selectSendersSortedBySize = createSelector(
-  fromSenders.selectBySize,
+export const selectSendersNotLabeledBySize = createSelector(
+  fromSenders.selectAll,
   selectNotLabeledBySize,
   (senders, suggestions) => {
     let suggestionsMap = new Map(suggestions);
@@ -177,13 +178,19 @@ export const selectSendersSortedBySize = createSelector(
   }
 )
 
+export const selectSendersSortedBySize = createSelector(
+  selectSendersNotLabeledBySize,
+  (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
+)
+
 
 
 export const selectBySizeGroupFiltered = createSelector(
   selectSendersSortedBySize,
   selectSizeGroup,
   (senders, sizeGroup) => {
-    return filterBySize(senders, sizeGroup);
+    return senders.filter((sender) => filterBySize(sender, sizeGroup))
+    // return filterBySize(senders, sizeGroup);
   }
 );
 
@@ -223,37 +230,40 @@ export const LARGE = .5;
 export const MEDIUM = .2;
 export const SMALL = .08;
 
-export function filterBySize(senders: ISender[], sizeGroup: string) {
+export function filterBySize(sender: ISender, sizeGroup: string) {
 
   try {
     switch (sizeGroup) {
 
       case 'XL':
-        return senders.filter((sender) => {
-          return (sender.totalSizeEstimate >= EX_LARGE);
-        });
+        if (sender.totalSizeEstimate >= EX_LARGE) {
+          return true;
+        }
+        return false;
       case 'LG':
-        return senders.filter((sender) => {
-          return (sender.totalSizeEstimate < EX_LARGE) && (sender.totalSizeEstimate >= LARGE);
-        });
+        if ((sender.totalSizeEstimate < EX_LARGE) && (sender.totalSizeEstimate >= LARGE)) {
+          return true;
+        }
+        return false;
       case 'MD':
-        return  senders.filter((sender) => {
-          return (sender.totalSizeEstimate < LARGE) && (sender.totalSizeEstimate >= MEDIUM);
-        });
+        if ((sender.totalSizeEstimate < LARGE) && (sender.totalSizeEstimate >= MEDIUM)) {
+          return true;
+        }
+        return false;
       case 'SM':
-        return senders.filter((sender) => {
-          return (sender.totalSizeEstimate < MEDIUM) && (sender.totalSizeEstimate >= SMALL);
-        });
+        if ((sender.totalSizeEstimate < MEDIUM) && (sender.totalSizeEstimate >= SMALL)) {
+          return true;
+        }
+        return false;
       case 'XS':
-        return senders.filter((sender) => {
-          return (sender.totalSizeEstimate < SMALL);
-        });
+        if (sender.totalSizeEstimate < SMALL) {
+          return true;
+        }
+        return false;
       case 'ALL':
-        return senders;
-
+        return true;
       default:
         throw Error('Error: case is not one of 0-4 (Small - Extra Large)');
-
     }
   } catch(err) {
     console.error(err);
