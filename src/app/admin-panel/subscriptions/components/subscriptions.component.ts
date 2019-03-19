@@ -12,7 +12,7 @@ import { ISender } from '@app/core/state/senders/model/senders.model';
   selector: 'app-subscriptions-component',
   templateUrl: './subscriptions.component.html',
   styleUrls: ['./subscriptions.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SubscriptionsComponent implements OnInit {
 

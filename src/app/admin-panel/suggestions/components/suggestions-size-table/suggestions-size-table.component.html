@@ -9,6 +9,11 @@
           </form>
     </div>
 
+    <section matSort class="mat-elevation-z2 mat-header-row">
+        <span class="mat-header-cell" mat-sort-header="fromAddress">Address</span>
+        <span class="mat-header-cell" mat-sort-header="totalSizeEstimate">Size</span>
+    </section>
+
     <span class="d-flex flex-wrap justify-content-center align-items-center">
 
         <div class="d-md-none">
@@ -125,7 +130,9 @@
 <div class="d-flex justify-content-end align-items-center flex-nowrap">
   <span>
     <button mat-raised-button (click)="createTasks()">Create Actions</button>
-    <mat-paginator [pageSize]="pageSize"
+    <mat-paginator #paginator
+                   [length]="totalRows$ | async"
+                   [pageSize]="pageSize"
                    [pageSizeOptions]="pageSizeOptions"
                    showFirstLastButtons="true">
 

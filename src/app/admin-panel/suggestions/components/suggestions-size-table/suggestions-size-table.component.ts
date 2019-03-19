@@ -1,15 +1,12 @@
 import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable } from '@angular/material';
+import { MatPaginator, MatTable, MatSort } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
 } from '@app/core';
 
 import {
-  selectBySizeGroupPage,
-  selectBySizeGroupLength,
   selectSizeGroup,
-  PageQuery,
 } from '../../state/suggestions.selectors';
 
 import {
@@ -26,6 +23,8 @@ import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { AddTasksAction } from '../../../tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
+import { fromMatSort, fromMatPaginator, SimpleDataSource } from '../../../subscriptions/state/datasource-utils';
+import { selectBySizeGroupFiltered } from '../../state/suggestions.selectors';
 
 
 @Component({
@@ -41,17 +40,19 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
   @Input() myData: Observable<ISuggestion[]>;
 
   displayedColumns: string[] = ['address'];
 
-  dataSource: SuggestionsBySizeDataSource;
+  dataSource: SimpleDataSource<ISender>;
 
   length;
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  totalRows$: Observable<number>;
 
   selectionDelete = new SelectionModel<string>(true, []);
   selectionLabel = new SelectionModel<string>(true, []);
@@ -81,26 +82,19 @@ export class SuggestionsSizeTableComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-
     this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));
 
-    this.dataSource = new SuggestionsBySizeDataSource(this.store);
-
-
-    const initialPage: PageQuery = {
-      pageIndex: 0,
-      pageSize: this.pageSize
-    };
-
-    this.dataSource.loadSuggestions(
-      this.input.nativeElement.value, 
-      initialPage
+    this.dataSource = new SimpleDataSource(
+      this.store,
+      selectBySizeGroupFiltered,
+      this.paginator,
+      this.sort
     );
 
+    this.totalRows$ = this.dataSource.getFilteredLength();
+
+    this.loadSuggestionsPage();
     this.updatePaginatorLength();
-
-
-
   }
 
   ngAfterViewInit() {
@@ -139,26 +133,11 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   loadSuggestionsPage() {
     this.clearSelections();
-
-    const newPage: PageQuery = {
-      pageIndex: this.paginator.pageIndex,
-      pageSize: this.paginator.pageSize
-      };
-
-      this.dataSource.loadSuggestions(
-        this.input.nativeElement.value,  
-        newPage
-      );
+    this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
   }
 
   updatePaginatorLength() {
-    this.store.pipe(
-      select(selectBySizeGroupLength(this.input.nativeElement.value)),
-      take(1),
-      map((length) => {
-        this.paginator.length = length;
-      })
-    ).subscribe();
+    this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
   }
 
 
@@ -282,42 +261,5 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
 
-
-}
-
-
-export class SuggestionsBySizeDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISender[]>([]);
-
-  constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
-    super();
-
-  }
-
-
-  getLength() {
-    return this.suggestionsSubject.value.length;
-  }
-
-  getValues() {
-    return this.suggestionsSubject.value;
-  }
-
-  loadSuggestions(filter: string, page: PageQuery) {
-    this.store.pipe(
-      select(selectBySizeGroupPage(filter, page)),
-      tap((suggestions) => {
-        this.suggestionsSubject.next(suggestions);
-      })
-    ).subscribe();
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<ISender[]> {
-    return this.suggestionsSubject.asObservable();
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-    this.suggestionsSubject.complete();
-  }
 
 }

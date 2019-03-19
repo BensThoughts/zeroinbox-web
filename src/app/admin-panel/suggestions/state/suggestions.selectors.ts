@@ -71,29 +71,11 @@ export const selectNotSetForDelete = createSelector(
       return suggestion[1].delete === false;
     })
   }
-
-    // suggestions.filter((suggestion) => {
-    //  return suggestion.delete === false;
-    // })
 )
 
 /*******************************************************************************
  *  BY Name based on count
  * ****************************************************************************/
-
-/**
- * Select the current count cutoff setting. Used to determine the senders to 
- * display based on a minimum number of total threads from the sender.
- */
-export const selectCountCutoff = createSelector(
-  selectSuggestionsState,
-  (state: SuggestionsState) => state.countCutoff
-);
-
-/**
- * Select senders with at least the minimum number of threads 
- * (count === number of threads) currently set as countCutoff.
- */
 
 export const selectNotLabeledByName = createSelector(
   selectNotSetForDelete,
@@ -111,38 +93,6 @@ export const selectSendersFromSuggestionIds = createSelector(
     return senders.filter((sender) => {
       return suggestionsMap.get(sender.senderId) !== undefined;
     })
-  }
-);
-
-export const selectFilteredSenders = (filter: string) => createSelector(
-  selectSendersFromSuggestionIds,
-  (senders) => {
-    return senders.filter((sender) => {
-      return sender.fromAddress.includes(filter) 
-    });
-  }
-)
-/**
- * Used to determine the total number of pages for the MatPaginator
- * @param filter - A search string to determine the sender email addresses to display
- */
-export const selectByCountLength = (filter: string) => createSelector(
-  selectFilteredSenders(filter),
-  (senders) => senders.length
-);
-
-/**
- * Used to select the senders to display
- * @param filter - A search string to determine the sender email addresses to display
- * @param page - The page that the MatPaginator is currently on 
- */
-export const selectByCountPage = (filter: string, page: PageQuery) => createSelector(
-  selectFilteredSenders(filter),
-  (sendersMore) => {
-    const start = page.pageIndex * page.pageSize,
-          end = start + page.pageSize;
-
-    return sendersMore.slice(start, end);
   }
 );
 
@@ -190,36 +140,6 @@ export const selectBySizeGroupFiltered = createSelector(
     // return filterBySize(senders, sizeGroup);
   }
 );
-
-export const selectBySizeFiltered = (filter: string) => createSelector(
-  selectBySizeGroupFiltered,
-  (senders) => {
-    let filteredSenders = senders.filter((sender) => {
-      if (sender.fromAddress.includes(filter)) {
-        return true;
-      }
-      return false;
-    });
-    return filteredSenders;
-  }
-)
-
-export const selectBySizeGroupLength = (filter: string) => createSelector(
-  selectBySizeFiltered(filter),
-  (senders) => senders.length
-);
-
-
-export const selectBySizeGroupPage = (filter: string, page: PageQuery) => createSelector(
-  selectBySizeFiltered(filter),
-  (sendersMore) => {
-    const start = page.pageIndex * page.pageSize,
-          end = start + page.pageSize;
-
-    return sendersMore.slice(start, end);
-  }
-);
-
 
 
 export const EX_LARGE = 1;

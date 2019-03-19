@@ -14,8 +14,6 @@
             <span class="mat-header-cell" mat-sort-header="count">Count</span>
         </section>
 
-
-
     </span>
 
 <table mat-table [dataSource]="dataSource" class="mat-table">
@@ -117,10 +115,11 @@
 <div class="d-flex justify-content-end align-items-center flex-nowrap">
   <span>
     <button mat-raised-button (click)="createActions()">Create Actions</button>
-    <mat-paginator [pageSize]="pageSize"
+    <mat-paginator #paginator
+                   [length]="totalRows$ | async"
+                   [pageSize]="pageSize"
                    [pageSizeOptions]="pageSizeOptions"
                    showFirstLastButtons="true">
-
     </mat-paginator>
   </span>
 </div>

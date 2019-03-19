@@ -5,16 +5,7 @@ import {
   AppState,
 } from '@app/core';
 
-import {
-  selectByCountLength,
-  selectCountCutoff,
-  selectByCountPage,
-  PageQuery
-} from '../../state/suggestions.selectors';
-
-import {
-  SetCountCutoffAction,
-} from '../../state/suggestions.actions';
+import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
 
 
 import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
@@ -27,7 +18,6 @@ import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
 import { fromMatPaginator, SimpleDataSource } from '@app/admin-panel/subscriptions/state/datasource-utils';
 import { fromMatSort } from '../../../subscriptions/state/datasource-utils';
-import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
 
 @Component({
   selector: 'app-count-suggestions-table',
@@ -52,6 +42,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   length;
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  totalRows$: Observable<number>;
 
   selectionDelete = new SelectionModel<string>(true, []);
   selectionLabel = new SelectionModel<string>(true, []);
@@ -59,7 +50,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   collectionViewer: CollectionViewer;
   mySub: Observable<ISender[]>;
 
-  cutoff$: Observable<number>;
   countCutoffs = [
     { value: 1, label: '1 thread' },
     { value: 15, label: '15 threads' },
@@ -81,12 +71,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    const pageEvents$: Observable<PageEvent> = fromMatPaginator(this.paginator);
-    const sortEvents$: Observable<Sort> = fromMatSort(this.sort);
-
-    this.cutoff$ = this.store.pipe(select(selectCountCutoff));
-
-    // this.dataSource = new SuggestionsByCountDataSource(this.store);
     this.dataSource = new SimpleDataSource(
       this.store, 
       selectSendersFromSuggestionIds, 
@@ -94,16 +78,11 @@ export class SuggestionsCountTableComponent implements OnInit {
       this.sort
     );
 
-    const initialPage: PageQuery = {
-      pageIndex: 0,
-      pageSize: this.pageSize
-    };
+    this.totalRows$ = this.dataSource.getFilteredLength();
 
-    this.dataSource.loadData();
-
+    // this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
+    this.loadSuggestionsPage();
     this.updatePaginatorLength();
-
-
 
   }
 
@@ -133,34 +112,21 @@ export class SuggestionsCountTableComponent implements OnInit {
   }
 
 
-  onCutoffSelect({ value: cutoff }) {
-    this.store.dispatch(new SetCountCutoffAction({ countCutoff: cutoff }));
-
-    this.updatePaginatorLength();
-    this.clearSelections();
-    this.paginator.firstPage();
-  }
-
-
   loadSuggestionsPage() {
     this.clearSelections();
-
-    const newPage: PageQuery = {
-      pageIndex: this.paginator.pageIndex,
-      pageSize: this.paginator.pageSize
-      };
-
-      this.dataSource.loadData();
+    this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
   }
 
   updatePaginatorLength() {
-    this.store.pipe(
+    this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
+    // this.paginator.length = this.dataSource.getLength();
+/*     this.store.pipe(
       select(selectByCountLength(this.input.nativeElement.value)),
       take(1),
       map((length) => {
         this.paginator.length = length;
       })
-    ).subscribe();
+    ).subscribe(); */
   }
 
 
@@ -273,42 +239,6 @@ export class SuggestionsCountTableComponent implements OnInit {
     catch(e) {
       console.error(e);
     }
-  }
-
-}
-
-
-export class SuggestionsByCountDataSource extends DataSource<any> {
-  private suggestionsSubject = new BehaviorSubject<ISender[]>([]);
-
-  constructor(private store: Store<AppState> ) { // private store: Store<AppState>) {
-    super();
-
-  }
-
-  getLength() {
-    return this.suggestionsSubject.value.length;
-  }
-
-  getValues() {
-    return this.suggestionsSubject.value;
-  }
-
-  loadSuggestions(filter: string, page: PageQuery) {
-    this.store.pipe(
-      select(selectByCountPage(filter, page)),
-      tap((suggestions) => {
-        this.suggestionsSubject.next(suggestions);
-      })
-    ).subscribe();
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<ISender[]> {
-    return this.suggestionsSubject.asObservable();
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-    this.suggestionsSubject.complete();
   }
 
 }

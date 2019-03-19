@@ -8,10 +8,12 @@ import { of } from 'rxjs/observable/of';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Store, MemoizedSelector, select } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, withLatestFrom } from 'rxjs/operators';
+import { ISender } from '../../../core/state/senders/model/senders.model';
 
 export class SimpleDataSource<T> extends DataSource<T> {
     private dataSubject = new BehaviorSubject<T[]>([]);
+    private dataLength = new BehaviorSubject<number>(0);
     private pageEvents$;
     private sortEvents$;
 
@@ -30,6 +32,21 @@ export class SimpleDataSource<T> extends DataSource<T> {
         return this.dataSubject.value.length;
     }
 
+    setFilteredLength(filter, filterProp) {
+        this.store.pipe(
+            select(this.selector),
+            filterRows(filter, filterProp),
+            tap((rows) => {
+                let newLength = rows.length;
+                this.dataLength.next(newLength);
+            })
+        ).subscribe();
+    }
+
+    getFilteredLength() {
+        return this.dataLength.asObservable();
+    }
+
     getValues() {
         return this.dataSubject.value;
     }
@@ -45,12 +62,25 @@ export class SimpleDataSource<T> extends DataSource<T> {
         ).subscribe();
     }
 
+    loadFilteredData(filter, filterProp) {
+        this.store.pipe(
+            select(this.selector),
+            filterRows(filter, filterProp),
+            sortRows(this.sortEvents$),
+            paginateRows(this.pageEvents$),
+            tap((array) => {
+                this.dataSubject.next(array);
+            })
+        ).subscribe()
+    }
+
     connect(collectionViewer: CollectionViewer): Observable<T[]> {
         return this.dataSubject.asObservable();
     }
 
     disconnect(collectionViewer: CollectionViewer): void {
         this.dataSubject.complete();
+        this.dataLength.complete();
     }
 }
 
@@ -64,7 +94,16 @@ function defaultSort(a: any, b: any): number {
     if (b === null) { return 1; }
   
     //from this point on a & b can not be null or undefined.
-  
+
+    // compare only on letters, not on capitalization when strings
+    if (typeof(a) === 'string') {
+        a = a.toLowerCase();
+    }
+
+    if (typeof(b) === 'string') {
+        b = b.toLowerCase();
+    }
+    
     if (a > b) {
       return 1;
     } else if (a < b) {
@@ -154,4 +193,17 @@ export function paginateRows<U>(page$: Observable<PageEvent>): (obs$: Observable
         return copy.splice(startIndex, page.pageSize);
       }
     );
+}
+
+export function filterRows<U>(
+    filter: string,
+    filterProp: string,
+    ): (obs$: Observable<U[]>) => Observable<U[]> {
+    return (rows$: Observable<U[]>) => rows$.pipe(
+        map((row) => {
+            return row.filter((item) => {
+                return item[filterProp].includes(filter);
+            })
+        })
+    )
 }
