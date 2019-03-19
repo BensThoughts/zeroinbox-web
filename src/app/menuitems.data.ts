@@ -24,7 +24,12 @@ export const menu_items: MenuItem[] = [
     icon: 'chart-pie'
   },
   {
-    name: 'Suggestions',
+    name: 'Subscriptions',
+    route: '/admin-panel/subscriptions',
+    icon: 'newspaper'
+  },
+  {
+    name: 'Senders',
     route: '/admin-panel/suggestions',
     icon: 'lightbulb',
   },

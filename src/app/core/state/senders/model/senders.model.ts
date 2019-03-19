@@ -4,4 +4,6 @@ export interface ISender {
     fromName: string;
     count: number;
     totalSizeEstimate: number;
+    unsubscribeWeb: string;
+    unsubscribeEmail: string;
 }

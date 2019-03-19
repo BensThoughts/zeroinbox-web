@@ -11,6 +11,8 @@ export interface ISendersResponse {
   senderNames: Array<string>;
   count: number;
   totalSizeEstimate: number;
+  unsubscribeEmail: string;
+  unsubscribeWeb: string;
 }
 
 export interface SendersResponse {

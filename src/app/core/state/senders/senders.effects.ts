@@ -42,7 +42,9 @@ export class SendersEffects {
                   fromAddress: sender.senderAddress,
                   fromName: sender.senderNames[0],
                   count: sender.count,
-                  totalSizeEstimate: totalSizeEstimate
+                  totalSizeEstimate: totalSizeEstimate,
+                  unsubscribeEmail: sender.unsubscribeEmail,
+                  unsubscribeWeb: sender.unsubscribeWeb
                 };
               })
               return new AddAllSendersAction({ senders: senders });
