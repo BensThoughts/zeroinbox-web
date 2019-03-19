@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable } from '@angular/material';
+import { MatPaginator, MatTable, PageEvent, Sort, MatSort } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
@@ -25,6 +25,9 @@ import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
+import { fromMatPaginator, SimpleDataSource } from '@app/admin-panel/subscriptions/state/datasource-utils';
+import { fromMatSort } from '../../../subscriptions/state/datasource-utils';
+import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
 
 @Component({
   selector: 'app-count-suggestions-table',
@@ -39,11 +42,12 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
   displayedColumns: string[] = ['address'];
 
-  dataSource: SuggestionsByCountDataSource;
+  dataSource: SimpleDataSource<ISender>;
 
   length;
   pageSize = 5;
@@ -77,21 +81,25 @@ export class SuggestionsCountTableComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    const pageEvents$: Observable<PageEvent> = fromMatPaginator(this.paginator);
+    const sortEvents$: Observable<Sort> = fromMatSort(this.sort);
 
     this.cutoff$ = this.store.pipe(select(selectCountCutoff));
 
-    this.dataSource = new SuggestionsByCountDataSource(this.store);
-
+    // this.dataSource = new SuggestionsByCountDataSource(this.store);
+    this.dataSource = new SimpleDataSource(
+      this.store, 
+      selectSendersFromSuggestionIds, 
+      this.paginator,
+      this.sort
+    );
 
     const initialPage: PageQuery = {
       pageIndex: 0,
       pageSize: this.pageSize
     };
 
-    this.dataSource.loadSuggestions(
-      this.input.nativeElement.value, 
-      initialPage
-    );
+    this.dataSource.loadData();
 
     this.updatePaginatorLength();
 
@@ -142,9 +150,7 @@ export class SuggestionsCountTableComponent implements OnInit {
       pageSize: this.paginator.pageSize
       };
 
-      this.dataSource.loadSuggestions(
-        this.input.nativeElement.value,
-        newPage);
+      this.dataSource.loadData();
   }
 
   updatePaginatorLength() {

@@ -9,24 +9,13 @@
           </mat-form-field>
         </form>
 
-      <div class="d-md-none">
-        Show senders with more than
-      </div>
-      <span class="mx-2 d-none d-md-flex">
-        Show senders with more than
-      </span>
-      <span class="mx-2">
-        <mat-form-field>
-          <mat-select [placeholder]=""
-                      [ngModel]="cutoff$ | async"
-                      (selectionChange)="onCutoffSelect($event)"
-                      name="Count Cutoffs">
-                      <mat-option *ngFor="let t of countCutoffs" [value]="t.value">
-                        {{ t.label }}
-                      </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </span>
+        <section matSort class="mat-elevation-z2 mat-header-row">
+            <span class="mat-header-cell" mat-sort-header="fromAddress">Address</span>
+            <span class="mat-header-cell" mat-sort-header="count">Count</span>
+        </section>
+
+
+
     </span>
 
 <table mat-table [dataSource]="dataSource" class="mat-table">
@@ -54,6 +43,8 @@
                           </span>
             </mat-checkbox>
             </span>
+
+
      
                <button mat-raised-button (click)="createActions()">Create Actions</button>
      

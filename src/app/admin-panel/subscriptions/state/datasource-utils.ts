@@ -12,14 +12,33 @@ import { tap, map } from 'rxjs/operators';
 
 export class SimpleDataSource<T> extends DataSource<T> {
     private dataSubject = new BehaviorSubject<T[]>([]);
-    
-    constructor(private store: Store<AppState>, private selector: MemoizedSelector<AppState, T[]>) { 
-        super(); 
+    private pageEvents$;
+    private sortEvents$;
+
+    constructor(
+        private store: Store<AppState>, 
+        private selector: MemoizedSelector<AppState, T[]>,
+        private paginator: MatPaginator,
+        private sort: MatSort
+    ) { 
+        super();
+        this.pageEvents$ = fromMatPaginator(this.paginator);
+        this.sortEvents$ = fromMatSort(this.sort);
+    }
+
+    getLength() {
+        return this.dataSubject.value.length;
+    }
+
+    getValues() {
+        return this.dataSubject.value;
     }
 
     loadData() {
         this.store.pipe(
             select(this.selector),
+            sortRows(this.sortEvents$),
+            paginateRows(this.pageEvents$),
             tap((array) => {
                 this.dataSubject.next(array);
             })

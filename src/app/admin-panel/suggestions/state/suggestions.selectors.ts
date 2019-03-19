@@ -94,18 +94,6 @@ export const selectCountCutoff = createSelector(
  * Select senders with at least the minimum number of threads 
  * (count === number of threads) currently set as countCutoff.
  */
-export const selectSendersUnderCountCutoff = createSelector(
-  fromSenders.selectAll,
-  selectCountCutoff,
-  (senders, cutoff) => senders.filter((sender) => sender.count >= cutoff)
-);
-
-export const sortSendersByCount = createSelector(
-  selectSendersUnderCountCutoff,
-  (senders) => senders.sort((a, b) => {
-    return b.count - a.count;
-  })
-)
 
 export const selectNotLabeledByName = createSelector(
   selectNotSetForDelete,
@@ -117,7 +105,7 @@ export const selectNotLabeledByName = createSelector(
 
 export const selectSendersFromSuggestionIds = createSelector(
   selectNotLabeledByName,
-  sortSendersByCount,
+  fromSenders.selectAll,
   (suggestions, senders) => {
     let suggestionsMap = new Map(suggestions);
     return senders.filter((sender) => {
