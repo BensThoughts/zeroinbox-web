@@ -13,11 +13,6 @@ export const selectSuggestionEntities = createSelector(
   fromSuggestions.selectEntities
 );
 
-export const selectUniqueSenders = createSelector(
-  selectSuggestionsState,
-  fromSuggestions.selectTotal
-);
-
 export const selectAllSuggestions = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectAll
@@ -26,7 +21,7 @@ export const selectAllSuggestions = createSelector(
 export const selectIds = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectIds
-)
+);
 
 export const selectSuggestionAndSenderEntities = createSelector(
   fromSenders.selectSenderEntities,
@@ -37,7 +32,7 @@ export const selectSuggestionAndSenderEntities = createSelector(
       suggestions: suggestions
     }
   }
-)
+);
 
 
 /**
@@ -55,7 +50,7 @@ export const selectNotSubscription = createSelector(
       return suggestion[1].subscriptionList === false;
     })
   }
-)
+);
 
 export const selectNotSetForDelete = createSelector(
   selectNotSubscription,
@@ -64,7 +59,7 @@ export const selectNotSetForDelete = createSelector(
       return suggestion[1].delete === false;
     })
   }
-)
+);
 
 /*******************************************************************************
  *  BY Name based on count
@@ -109,7 +104,7 @@ export const selectNotLabeledBySize = createSelector(
 export const selectSendersSortedBySize = createSelector(
   fromSenders.selectAll,
   (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
-)
+);
 
 export const selectSendersNotLabeledBySize = createSelector(
   selectSendersSortedBySize,
@@ -121,18 +116,13 @@ export const selectSendersNotLabeledBySize = createSelector(
     });
     return filteredSenders;
   }
-)
-
-
-
-
+);
 
 export const selectBySizeGroupFiltered = createSelector(
   selectSendersNotLabeledBySize,
   selectSizeGroup,
   (senders, sizeGroup) => {
     return senders.filter((sender) => filterBySize(sender, sizeGroup))
-    // return filterBySize(senders, sizeGroup);
   }
 );
 
