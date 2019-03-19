@@ -12,6 +12,9 @@ export class SubscriptionsComponent implements OnInit {
 
   subscriptions$;
 
+  pageSize = 5;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
