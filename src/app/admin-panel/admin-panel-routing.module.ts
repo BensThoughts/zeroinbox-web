@@ -7,6 +7,7 @@ import { StatsComponent } from './stats/components/stats/stats.component';
 import { TasksComponent } from './tasks/components/tasks.component';
 import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
 import { SettingsComponent } from './settings/components/settings.component';
+import { SubscriptionsComponent } from './subscriptions/components/subscriptions.component';
 
 
 
@@ -14,12 +15,13 @@ const routes: Routes = [
   {
     path: 'admin-panel',
     children: [
-      {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: 'home', component: HomeComponent},
-      {path: 'suggestions', component: SuggestionsComponent},
-      {path: 'stats', component: StatsComponent},
-      {path: 'tasks', component: TasksComponent},
-      {path: 'settings', component: SettingsComponent}
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'subscriptions', component: SubscriptionsComponent },
+      { path: 'suggestions', component: SuggestionsComponent },
+      { path: 'stats', component: StatsComponent },
+      { path: 'tasks', component: TasksComponent },
+      { path: 'settings', component: SettingsComponent }
     ],
     canActivate: [AuthGuardService]
   }

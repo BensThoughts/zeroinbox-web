@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <mat-divider></mat-divider>
+  <mat-tab-group mat-align-tabs="center">
+
+    <mat-tab label="Subscriptions">
+      <mat-accordion>
+        <div class="my-3" *ngIf="subscriptions$ | async as subscriptions">
+          <div class="my-1" *ngFor="let sender of subscriptions">
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{ sender.fromAddress }}
+          </mat-panel-title>
+
+
+
+          </mat-expansion-panel-header>
+              {{ sender.count }}
+          </mat-expansion-panel>
+          </div>
+        </div>
+
+      </mat-accordion>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+    
+
+</div>
