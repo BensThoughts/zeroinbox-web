@@ -55,10 +55,19 @@ export const selectSuggestionsLoaded = createSelector(
   (state: SuggestionsState) => state.suggestionsLoaded
 );
 
-export const selectNotSetForDelete = createSelector(
+export const selectNotSubscription = createSelector(
   selectSuggestionEntities,
   suggestions => {
     return Object.entries(suggestions).filter((suggestion) => {
+      return suggestion[1].subscriptionList === false;
+    })
+  }
+)
+
+export const selectNotSetForDelete = createSelector(
+  selectNotSubscription,
+  suggestions => {
+    return suggestions.filter((suggestion) => {
       return suggestion[1].delete === false;
     })
   }
