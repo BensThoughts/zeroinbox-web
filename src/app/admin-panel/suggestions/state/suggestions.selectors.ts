@@ -106,8 +106,13 @@ export const selectNotLabeledBySize = createSelector(
   (suggestions) => suggestions.filter((suggestion) => suggestion[1].labelBySize === false)
 );
 
-export const selectSendersNotLabeledBySize = createSelector(
+export const selectSendersSortedBySize = createSelector(
   fromSenders.selectAll,
+  (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
+)
+
+export const selectSendersNotLabeledBySize = createSelector(
+  selectSendersSortedBySize,
   selectNotLabeledBySize,
   (senders, suggestions) => {
     let suggestionsMap = new Map(suggestions);
@@ -118,15 +123,12 @@ export const selectSendersNotLabeledBySize = createSelector(
   }
 )
 
-export const selectSendersSortedBySize = createSelector(
-  selectSendersNotLabeledBySize,
-  (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
-)
+
 
 
 
 export const selectBySizeGroupFiltered = createSelector(
-  selectSendersSortedBySize,
+  selectSendersNotLabeledBySize,
   selectSizeGroup,
   (senders, sizeGroup) => {
     return senders.filter((sender) => filterBySize(sender, sizeGroup))
