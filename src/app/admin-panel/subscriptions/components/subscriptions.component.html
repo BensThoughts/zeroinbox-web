@@ -4,8 +4,8 @@
 
     <mat-tab label="Subscriptions">
       <mat-accordion>
-        <div class="my-3" *ngIf="subscriptions$ | async as subscriptions">
-          <div class="my-1" *ngFor="let sender of subscriptions">
+        <div class="my-3">
+          <div class="my-1" *ngFor="let sender of displayedRows$ | async">
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -23,9 +23,13 @@
 
       </mat-accordion>
 
-      <mat-paginator [pageSize]="pageSize"
-                     [pageSizeOptions]="pageSizeOptions"
-                     showFirstLastButtons="true">
+      <mat-paginator #paginator 
+                    [pageSize]="pageSize"
+                    [length]="totalRows$ | async"
+                    [pageSize]="pageSize"
+                    [pageIndex]="0"
+                    [pageSizeOptions]="pageSizeOptions"
+                    showFirstLastButtons="true">
       </mat-paginator>
 
     </mat-tab>
