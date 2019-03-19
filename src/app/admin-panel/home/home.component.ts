@@ -19,7 +19,7 @@ import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [fadeElementsAnimation],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HomeComponent implements OnInit {
