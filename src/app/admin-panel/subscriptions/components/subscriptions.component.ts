@@ -41,20 +41,9 @@ export class SubscriptionsComponent implements OnInit {
       sortRows(sortEvents$),
       paginateRows(pageEvents$)
     );
-  
-    /* const rows$ = of(testData);
-    this.displayedRows$ = rows$.pipe(
-      sortRows(sortEvents$),
-      paginateRows(pageEvents$)
-    )
-    this.totalRows$ = rows$.pipe(
-      map(rows => rows.length)
-    )  */
   }
 
   ngAfterViewInit() {
-    // this.paginator.nextPage();
-    // this.paginator.firstPage();
   }
 
 
