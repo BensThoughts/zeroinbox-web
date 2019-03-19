@@ -39,8 +39,6 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   dataSource: SimpleDataSource<ISender>;
 
-  length;
-  pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
 
@@ -79,14 +77,11 @@ export class SuggestionsCountTableComponent implements OnInit {
     );
 
     this.totalRows$ = this.dataSource.getFilteredLength();
-
-    // this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
-    this.loadSuggestionsPage();
-    this.updatePaginatorLength();
-
   }
 
   ngAfterViewInit() {
+    this.loadSuggestionsPage();
+    this.updatePaginatorLength();
 
     this.handler1 = fromEvent(this.input.nativeElement, 'keyup')
       .pipe(

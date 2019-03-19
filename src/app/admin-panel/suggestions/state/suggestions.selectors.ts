@@ -3,13 +3,6 @@ import { SuggestionsState, State } from './suggestions.reducer';
 import * as fromSuggestions from './suggestions.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 import { ISender } from '@app/core/state/senders/model/senders.model';
-import { selectAll } from '../../../core/state/senders/senders.selectors';
-
-export interface PageQuery {
-  pageIndex: number;
-  pageSize:number;
-}
-
 
 export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
   'suggestions'

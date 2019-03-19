@@ -132,10 +132,8 @@
     <button mat-raised-button (click)="createTasks()">Create Actions</button>
     <mat-paginator #paginator
                    [length]="totalRows$ | async"
-                   [pageSize]="pageSize"
                    [pageSizeOptions]="pageSizeOptions"
                    showFirstLastButtons="true">
-
     </mat-paginator>
   </span>
 </div>

@@ -179,11 +179,10 @@ export function fromMatPaginator(pager: MatPaginator): Observable<PageEvent> {
       })),
       pager.page.asObservable()
     );
-}
-
-
-/** RxJs operator to paginate an array based on an Observable of PageEvent objects **/
-export function paginateRows<U>(page$: Observable<PageEvent>): (obs$: Observable<U[]>) => Observable<U[]> {
+  }
+  
+  /** RxJs operator to paginate an array based on an Observable of PageEvent objects **/
+  export function paginateRows<U>(page$: Observable<PageEvent>): (obs$: Observable<U[]>) => Observable<U[]> {
     return (rows$: Observable<U[]>) => combineLatest(
       rows$,
       page$,
@@ -193,7 +192,8 @@ export function paginateRows<U>(page$: Observable<PageEvent>): (obs$: Observable
         return copy.splice(startIndex, page.pageSize);
       }
     );
-}
+  }
+  
 
 export function filterRows<U>(
     filter: string,
