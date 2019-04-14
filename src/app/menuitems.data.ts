@@ -24,11 +24,6 @@ export const menu_items: MenuItem[] = [
     icon: 'book-dead'
   },
   {
-    name: 'Stats',
-    route: '/admin-panel/stats',
-    icon: 'chart-pie'
-  },
-  {
     name: 'Subscriptions',
     route: '/admin-panel/subscriptions',
     icon: 'newspaper'
@@ -42,10 +37,5 @@ export const menu_items: MenuItem[] = [
     name: 'Actions',
     route: '/admin-panel/tasks',
     icon: 'tasks'
-  },
-  {
-    name: 'Settings',
-    route: '/admin-panel/settings',
-    icon: 'cog'
   },
 ];

@@ -22,7 +22,7 @@
 @import 'styles-reset.scss-theme';
 
 @import './app/app.component.scss-theme.scss';
-@import './app/admin-panel/home/home.component.scss-theme.scss';
+@import './app/admin-panel/home/components/home/home.component.scss-theme.scss';
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);

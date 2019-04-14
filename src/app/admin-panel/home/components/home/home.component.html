@@ -1,11 +1,3 @@
-
-
-<!-- <div class="container my-2">
-    <div class="row">
-     
-    </div>
-</div> -->
-
 <div class="container text-center">
 
   <div class="row">
@@ -44,13 +36,7 @@
           <div class="content">
             Get up to speed quickly on how to use this app.
           </div>
-          <div class="stats">
-            <mat-chip-list>
-              <mat-chip *ngIf="email_profile$ | async as email_profile">
-                <code>Threads: {{ email_profile.threadsTotal }}</code>
-              </mat-chip>
-            </mat-chip-list>
-          </div>
+
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
@@ -74,13 +60,6 @@
               See who has sent you the most emails, as well as the largest sized ones.  Then
               take actions to get them out of the inbox.  Delete them or have them categorized
               into a label so that they stay out of the inbox.
-              <div *ngIf="unique_senders$ | async as unique_senders">
-                <mat-chip-list>
-                  <mat-chip>
-                    <code>Unique Senders: {{ unique_senders }}</code>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions>      
@@ -133,6 +112,47 @@
           </a>
 
         </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm">
+      <mat-card class="my-2 mx-1">
+        <mat-card-title>
+          Stats
+        </mat-card-title>
+        <mat-divider class="my-2"></mat-divider>
+        <mat-card-content>
+          <div class="container">
+            <div class="row">
+
+              <div class="col-sm">                
+                <mat-chip-list>
+                  <mat-chip *ngIf="email_profile$ | async as email_profile">
+                    <code>Threads in your GMail account: <b>{{ email_profile.threadsTotal }}</b></code>
+                  </mat-chip>
+                </mat-chip-list>
+                <mat-chip-list>
+                  <mat-chip *ngIf="total_threads$ | async as total_threads">
+                    <code>Threads in your inbox: <b>{{ total_threads }}</b></code>
+                  </mat-chip>
+                </mat-chip-list>
+                <mat-chip-list *ngIf="unique_senders$ | async as unique_senders">
+                    <mat-chip>
+                      <code>Unique senders in your inbox: <b>{{ unique_senders }}</b></code>
+                    </mat-chip>
+                </mat-chip-list>
+              </div>
+
+              <div class="col-sm">
+
+
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
       </mat-card>
     </div>
   </div>
