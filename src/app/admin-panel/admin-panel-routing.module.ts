@@ -21,9 +21,9 @@ const routes: Routes = [
       { path: 'how-to', component: HowToComponent},
       { path: 'subscriptions', component: SubscriptionsComponent },
       { path: 'suggestions', component: SuggestionsComponent },
-      { path: 'stats', component: StatsComponent },
-      { path: 'tasks', component: TasksComponent },
-      { path: 'settings', component: SettingsComponent }
+      // { path: 'stats', component: StatsComponent },
+      { path: 'actions', component: TasksComponent },
+      // { path: 'settings', component: SettingsComponent }
     ],
     canActivate: [AuthGuardService]
   }

@@ -7,12 +7,15 @@ import {
   selectEmailProfile,
   selectSendersLoaded,
   selectUniqueSenders,
-  selectTotalThreads
+  selectTotalThreads,
+  selectByCountGroup_TL,
+  selectBySizeGroup_TL,
 } from '@app/core';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
+import { selectTotalSubscriptions } from '@app/admin-panel/subscriptions/state/subscriptions.selectors';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +31,14 @@ export class HomeComponent implements OnInit {
   email_profile$: Observable<EmailProfile>;
   unique_senders$: Observable<number>;
   total_threads$: Observable<number>;
-  sendersLoaded$;
+  total_subscriptions$: Observable<number>;
+  sendersLoaded$: Observable<boolean>;
+
+
+  cg_Tl$;
+  sg_Tl$;
+  sizesColumnNames = ['Threads', 'over 1MB', '1MB - 500KB', '500KB - 300KB', '300KB - 200KB', 'under 200KB'];
+  countColumnNames = ['Threads', 'over 500', '500 - 100', '50 - 100', '15 - 50', 'under 15'];
 
   constructor(private store: Store<AppState>) { }
 
@@ -36,8 +46,11 @@ export class HomeComponent implements OnInit {
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.total_threads$ = this.store.pipe(select(selectTotalThreads));
+    this.total_subscriptions$ = this.store.pipe(select(selectTotalSubscriptions))
     this.unique_senders$ = this.store.pipe(select(selectUniqueSenders));
     this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
+    this.sg_Tl$ = this.store.pipe(select(selectBySizeGroup_TL));
+    this.cg_Tl$ = this.store.pipe(select(selectByCountGroup_TL));
   }
 
   ngOnDestroy() {

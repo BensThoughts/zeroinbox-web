@@ -13,12 +13,12 @@ export class StatsBarchartComponent implements OnInit {
   @Input() columnNames: string[];
   @Input() type: string;
 
-  testData: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
+  data: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
 
   constructor() { }
 
   ngOnInit() {
-    this.testData = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
+    this.data = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
   }
 
 }

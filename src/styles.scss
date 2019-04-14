@@ -23,11 +23,13 @@
 
 @import './app/app.component.scss-theme.scss';
 @import './app/admin-panel/home/components/home/home.component.scss-theme.scss';
+@import './app/admin-panel/subscriptions/components/subcriptions.component.scss-theme.scss';
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);
   @include anms-app-component-theme($theme);
   @include anms-home-component-theme($theme);
+  @include anms-subscriptions-component-theme($theme);
 }
 // specify theme class eg: <body class="my-theme"> ... </body>
 
@@ -37,24 +39,28 @@
   @include angular-material-theme($go-theme);
   @include custom-components-theme($go-theme);
   @include anms-home-component-theme($go-theme);
+  @include anms-subscriptions-component-theme($go-theme);
 }
 
 .light-theme {
   @include angular-material-theme($go-light-theme);
   @include custom-components-theme($go-light-theme);
   @include anms-home-component-theme($go-light-theme);
+  @include anms-subscriptions-component-theme($go-light-theme);
 }
 
 .black-theme {
   @include angular-material-theme($go-black-theme);
   @include custom-components-theme($go-black-theme);
   @include anms-home-component-theme($go-black-theme);
+  @include anms-subscriptions-component-theme($go-black-theme);
 }
 
 .nature-theme {
   @include angular-material-theme($go-nature-theme);
   @include custom-components-theme($go-nature-theme);
   @include anms-home-component-theme($go-nature-theme);
+  @include anms-subscriptions-component-theme($go-nature-theme);
 }
 
 .center-snackbar {

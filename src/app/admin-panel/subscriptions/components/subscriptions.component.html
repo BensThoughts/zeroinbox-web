@@ -25,14 +25,14 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header class="right-aligned-header">
             <mat-panel-title>
-              <div>
-                  <span>
-                      {{ sender.fromName }}
-                  </span>
-                  <span>
-                      Threads: {{ sender.count }}
-                  </span>
-              </div>
+                    <mat-chip-list>
+                        {{ sender.fromName }}
+                      <mat-chip>
+                        <code>
+                            Threads: {{ sender.count }}
+                        </code>
+                      </mat-chip>
+                    </mat-chip-list>
 
           </mat-panel-title>
 

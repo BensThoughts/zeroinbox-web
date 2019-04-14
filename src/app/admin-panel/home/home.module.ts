@@ -7,6 +7,7 @@ import { SharedModule } from '@app/shared';
 
 import { GoogleChartsModule } from 'angular-google-charts'
 import { StatsBarchartComponent } from './components/stats-barchart/stats-barchart.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { StatsBarchartComponent } from './components/stats-barchart/stats-barcha
   imports: [
     CommonModule,
     SharedModule,
+    RouterModule,
     GoogleChartsModule.forRoot()
   ],
   providers: []

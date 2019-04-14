@@ -40,9 +40,11 @@
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
-          <button mat-stroked-button>
-            Go-to
-          </button>
+          <a routerLink="/admin-panel/how-to">
+            <button mat-stroked-button>
+              Go-to
+            </button>
+          </a>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -62,13 +64,12 @@
               into a label so that they stay out of the inbox.
             </mat-card-content>
             <mat-divider></mat-divider>
-            <mat-card-actions>      
-              <button mat-stroked-button>
-                Goto
-              </button>
-              <button mat-stroked-button>
-                About
-              </button>
+            <mat-card-actions>
+              <a routerLink="/admin-panel/suggestions">
+                <button mat-stroked-button>
+                    Goto
+                </button>
+              </a>      
             </mat-card-actions>
           </mat-card>
         </div>
@@ -86,9 +87,11 @@
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
-          <button mat-stroked-button>
-            Goto
-          </button>
+          <a routerLink="/admin-panel/actions">
+            <button mat-stroked-button>
+              Goto
+            </button>
+          </a>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -128,28 +131,64 @@
           <div class="container">
             <div class="row">
 
-              <div class="col-sm">                
+              <div class="col-sm">
+                Statistics about the current state of your GMail account inbox.
+                <mat-divider></mat-divider>
+                
+                <div class="my-2">
                 <mat-chip-list>
+                    Threads in your GMail account: 
                   <mat-chip *ngIf="email_profile$ | async as email_profile">
-                    <code>Threads in your GMail account: <b>{{ email_profile.threadsTotal }}</b></code>
+                    <code><b>{{ email_profile.threadsTotal }}</b></code>
                   </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list>
+                    Threads in your inbox: 
                   <mat-chip *ngIf="total_threads$ | async as total_threads">
-                    <code>Threads in your inbox: <b>{{ total_threads }}</b></code>
+                    <code><b>{{ total_threads }}</b></code>
                   </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list *ngIf="unique_senders$ | async as unique_senders">
+                    Unique senders in your inbox: 
                     <mat-chip>
-                      <code>Unique senders in your inbox: <b>{{ unique_senders }}</b></code>
+                      <code><b>{{ unique_senders }}</b></code>
                     </mat-chip>
                 </mat-chip-list>
+                <mat-chip-list *ngIf="total_subscriptions$ | async as total_subscriptions">
+                    Number of subscriptions in your inbox:   
+                  <mat-chip>
+                      <code><b>{{ total_subscriptions }}</b></code>
+                  </mat-chip>
+                </mat-chip-list>
+                </div>
               </div>
 
-              <div class="col-sm">
+              <div class="row">
+                  <div class="col-sm d-flex justify-content-center">
+              
+                      <div class="my-2" *ngIf="sg_Tl$ | async as sg_Tl">
+                        <app-stats-barchart
+                          title="Total Number of Senders x Size Count"
+                          type="ColumnChart"
+                          [sizes]="sg_Tl"
+                          [columnNames]="sizesColumnNames">
+                        </app-stats-barchart>
+                      </div>
+                  </div>
 
-
+                  <div class="col-sm d-flex justify-content-center">
+                      <div class="my-2" *ngIf="cg_Tl$ | async as cg_Tl">
+                        <app-stats-barchart
+                          title="Total Number of Senders x Thread Count"
+                          type="ColumnChart"
+                          [sizes]="cg_Tl"
+                          [columnNames]="countColumnNames">
+                        </app-stats-barchart>
+                      </div>
+      
+                    </div>      
               </div>
+             
             </div>
           </div>
         </mat-card-content>

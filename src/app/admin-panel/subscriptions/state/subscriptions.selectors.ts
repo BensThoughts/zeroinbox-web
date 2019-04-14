@@ -10,6 +10,11 @@ export const selectSubscriptions = createSelector(
   })
 )
 
+export const selectTotalSubscriptions = createSelector(
+  selectSubscriptions,
+  (subscriptions) => subscriptions.length
+)
+
 
 export const selectSubscriptionSenders = createSelector(
   selectSubscriptions,

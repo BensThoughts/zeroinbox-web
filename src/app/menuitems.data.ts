@@ -35,7 +35,7 @@ export const menu_items: MenuItem[] = [
   },
   {
     name: 'Actions',
-    route: '/admin-panel/tasks',
+    route: '/admin-panel/actions',
     icon: 'tasks'
   },
 ];
