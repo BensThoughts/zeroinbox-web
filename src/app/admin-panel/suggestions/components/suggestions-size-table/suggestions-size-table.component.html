@@ -100,7 +100,7 @@
        </span>
 
        <span class="count-text3">
-       Size: {{suggestion.totalSizeEstimate}} MB
+       {{suggestion.totalSizeEstimate}} MB
        </span>
 
        </span>
@@ -110,7 +110,12 @@
 
    </ng-container>
 
+   <ng-container matColumnDef="actions-column">
+    <th mat-header-cell *matHeaderCellDef> Name of the item purchased </th>
+   </ng-container>
+
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+   <tr mat-header-row *matHeaderRowDef="['actions-column']"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
         (click)="toggleFromRow(suggestion.senderId)"
@@ -127,13 +132,11 @@
   </div>
 </ng-template>
 
-<div class="d-flex justify-content-end align-items-center flex-nowrap">
-  <span>
+<div class="d-flex justify-content-between align-items-center flex-nowrap">
     <button mat-raised-button (click)="createTasks()">Create Actions</button>
     <mat-paginator #paginator
                    [length]="totalRows$ | async"
                    [pageSizeOptions]="pageSizeOptions"
                    showFirstLastButtons="true">
     </mat-paginator>
-  </span>
 </div>

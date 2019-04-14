@@ -1,9 +1,17 @@
 
 
-<div class="container my-2">
+<!-- <div class="container my-2">
     <div class="row">
-      <div class="col-sm">
-      <mat-card class="mat-user-card text-center">
+     
+    </div>
+</div> -->
+
+<div class="container text-center">
+
+  <div class="row">
+  
+    <div class="col-sm">
+      <mat-card class="mat-user-card text-center my-2 mx-1">
         <mat-card-title>
           Welcome...
         </mat-card-title>
@@ -24,23 +32,17 @@
           </span>
         </mat-card-content>
       </mat-card>
-      </div>
     </div>
-</div>
 
-<div class="container text-center">
-  <div class="row">
     <div class="col-sm">
-      <mat-card class="my-2">
+      <mat-card class="my-2 mx-1">
         <mat-card-title>
-          Statistics
+          How To Use
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-card-content>
           <div class="content">
-            Get stats on your inbox. Find out who sends you the most emails.
-            Who sends you the largests emails. See a list of every mailing list you
-            are subscribed to.
+            Get up to speed quickly on how to use this app.
           </div>
           <div class="stats">
             <mat-chip-list>
@@ -53,48 +55,48 @@
         <mat-divider></mat-divider>
         <mat-card-actions>
           <button mat-stroked-button>
-            Goto
-          </button>
-          <button mat-stroked-button>
-            About
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-sm">
-      <mat-card class="my-2">
-        <mat-card-title>
-          Suggestions
-        </mat-card-title>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          Get suggestions for actions you can take to clean up your inbox.
-          Select the ones you would like to take or just select all of them.
-          You can also create new actions that have not been senders. Then
-          head over to the actions section to review the requested actions.
-          <div *ngIf="unique_senders$ | async as unique_senders">
-            <mat-chip-list>
-              <mat-chip>
-                <code>Unique Senders: {{ unique_senders }}</code>
-              </mat-chip>
-            </mat-chip-list>
-          </div>
-        </mat-card-content>
-        <mat-divider></mat-divider>
-        <mat-card-actions>      
-          <button mat-stroked-button>
-            Goto
-          </button>
-          <button mat-stroked-button>
-            About
+            Go-to
           </button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
+  
   <div class="row">
+
+      <div class="col-sm">
+          <mat-card class="my-2 mx-1">
+            <mat-card-title>
+              Senders
+            </mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              See who has sent you the most emails, as well as the largest sized ones.  Then
+              take actions to get them out of the inbox.  Delete them or have them categorized
+              into a label so that they stay out of the inbox.
+              <div *ngIf="unique_senders$ | async as unique_senders">
+                <mat-chip-list>
+                  <mat-chip>
+                    <code>Unique Senders: {{ unique_senders }}</code>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions>      
+              <button mat-stroked-button>
+                Goto
+              </button>
+              <button mat-stroked-button>
+                About
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+
     <div class="col-sm">
-      <mat-card class="my-2">
+      <mat-card class="my-2 mx-1">
         <mat-card-title>
           Actions
         </mat-card-title>
@@ -108,29 +110,28 @@
           <button mat-stroked-button>
             Goto
           </button>
-          <button mat-stroked-button>
-            About
-          </button>
         </mat-card-actions>
       </mat-card>
     </div>
+
     <div class="col-sm">
-      <mat-card class="my-2">
+      <mat-card class="my-2 mx-1">
         <mat-card-title>
-          Settings
+          Subscriptions
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-card-content>
-          Customize the look and feel of Zero Inbox.
+          View all of the email lists that you are subscribed to in one place. Unsubscribe
+          in one easy click!
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
-          <button mat-stroked-button>
-            Goto
-          </button>
-          <button mat-stroked-button>
-            About
-          </button>
+          <a routerLink="/admin-panel/subscriptions">
+            <button mat-stroked-button>
+                Go-to
+            </button>         
+          </a>
+
         </mat-card-actions>
       </mat-card>
     </div>

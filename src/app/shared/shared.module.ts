@@ -46,6 +46,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
   faBook,
+  faBookDead,
   faCog,
   faChartPie,
   faChevronCircleLeft,
@@ -65,6 +66,7 @@ import {
   faTrashAlt,
   faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
+
 import {
   faGithub,
   faMediumM,
@@ -76,6 +78,7 @@ import {
 library.add(
   faBars,
   faBook,
+  faBookDead,
   faCog,
   faChartPie,
   faChevronCircleLeft,

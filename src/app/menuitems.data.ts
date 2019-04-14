@@ -19,6 +19,11 @@ export const menu_items: MenuItem[] = [
     icon: 'home'
   },
   {
+    name: 'How-To',
+    route: '/admin-panel/how-to',
+    icon: 'book-dead'
+  },
+  {
     name: 'Stats',
     route: '/admin-panel/stats',
     icon: 'chart-pie'

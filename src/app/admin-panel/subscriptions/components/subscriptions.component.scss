@@ -3,4 +3,15 @@
     overflow: hidden;
     word-wrap: break-word;
   }
-  
+
+.sort-button {
+  width: 50px;
+}
+
+.right-aligned-header > .mat-content {
+  justify-content: space-between;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+flex: 0 0 auto;
+}

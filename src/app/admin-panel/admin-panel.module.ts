@@ -14,9 +14,10 @@ import { SuggestionsModule } from './suggestions/suggestions.module';
 import { TasksModule } from './tasks/tasks.module';
 import { SettingsModule } from './settings/settings.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { HowToComponent } from './how-to/how-to.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, HowToComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -42,6 +42,16 @@ export const selectSendersById = (senderIds: string[]) => createSelector(
     }
 );
 
+export const selectTotalThreads = createSelector(
+  selectAll,
+  (senders) => {
+    let total = senders.map((sender) => sender.count).reduce((acc, curr, index, array) => {
+      return acc + curr;
+    });
+    return total;
+  }
+)
+
 
 /*******************************************************************************
  *  CHARTS

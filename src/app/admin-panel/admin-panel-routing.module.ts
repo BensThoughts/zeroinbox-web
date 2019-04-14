@@ -8,6 +8,7 @@ import { TasksComponent } from './tasks/components/tasks.component';
 import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
 import { SettingsComponent } from './settings/components/settings.component';
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions.component';
+import { HowToComponent } from './how-to/how-to.component';
 
 
 
@@ -17,6 +18,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'how-to', component: HowToComponent},
       { path: 'subscriptions', component: SubscriptionsComponent },
       { path: 'suggestions', component: SuggestionsComponent },
       { path: 'stats', component: StatsComponent },

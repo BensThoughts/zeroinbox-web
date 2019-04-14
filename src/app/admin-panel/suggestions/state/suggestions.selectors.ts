@@ -13,6 +13,13 @@ export const selectSuggestionEntities = createSelector(
   fromSuggestions.selectEntities
 );
 
+export const selectEntitiesAsEntriesArray = createSelector(
+  selectSuggestionEntities,
+  suggestions => {
+    return Object.entries(suggestions);
+  }
+)
+
 export const selectAllSuggestions = createSelector(
   selectSuggestionsState,
   fromSuggestions.selectAll
@@ -53,7 +60,7 @@ export const selectNotSubscription = createSelector(
 );
 
 export const selectNotSetForDelete = createSelector(
-  selectNotSubscription,
+  selectEntitiesAsEntriesArray,
   suggestions => {
     return suggestions.filter((suggestion) => {
       return suggestion[1].delete === false;
