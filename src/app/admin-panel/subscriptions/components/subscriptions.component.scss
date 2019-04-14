@@ -17,3 +17,12 @@
 .mat-content > mat-panel-title, .mat-content > mat-panel-description {
 flex: 0 0 auto;
 }
+
+mat-chip-list {
+  mat-chip {
+    code {
+      background-color: #616161;
+      color: white;
+    }
+  }
+}
