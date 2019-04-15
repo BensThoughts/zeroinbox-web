@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import { ITaskCreator } from '../model/tasks.creator.model';
+import { ISuggestion } from '../../suggestions/model/suggestions.model';
 
 export enum TaskActionTypes {
   AddTasks = '[Suggestions Effects] Add Tasks',
@@ -14,6 +15,7 @@ export class AddTasksAction implements Action {
 
 export class EditLabelAction implements Action {
   readonly type = TaskActionTypes.EditLabel;
+  constructor(public payload: { suggestion: any, labelName: string }) {}
 }
 
 

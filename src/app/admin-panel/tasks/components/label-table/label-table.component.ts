@@ -94,7 +94,7 @@ export class LabelTableComponent implements OnInit {
   }
 
   editLabel(suggestion, labelName) {
-    this.store.dispatch(new EditLabelAction());
+    this.store.dispatch(new EditLabelAction({ suggestion: suggestion, labelName: labelName }));
     console.log(suggestion);
     console.log(labelName);
   }

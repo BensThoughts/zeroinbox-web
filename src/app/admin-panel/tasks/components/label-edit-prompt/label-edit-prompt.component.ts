@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -8,6 +8,8 @@ import { MatDialogRef } from '@angular/material';
 })
 export class LabelEditComponent {
   constructor(private ref: MatDialogRef<LabelEditComponent>) {}
+
+  @Input() labelName: string;
 
   save() {
     this.ref.close(true);
