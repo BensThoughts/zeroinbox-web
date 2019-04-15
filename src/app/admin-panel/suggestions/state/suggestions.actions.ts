@@ -10,7 +10,6 @@ export enum SuggestionsActionTypes {
   DeleteSuggestions = '[Suggestions Table Component] Delete Suggestions',
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
 
-  SetCountCutoff = '[Suggestions Table Component] Set Cutoff',
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
@@ -43,12 +42,6 @@ export class UpdateSuggestionsAction implements Action {
   constructor(public payload: { suggestions: Update<ISuggestion>[] }) {}
 }
 
-export class SetCountCutoffAction implements Action {
-  readonly type = SuggestionsActionTypes.SetCountCutoff;
-
-  constructor(public payload: { countCutoff: number }) {}
-}
-
 export class SetSizeCutoffAction implements Action {
   readonly type = SuggestionsActionTypes.SetSizeCutoff;
 
@@ -73,7 +66,6 @@ export type ByCountActions =
   | DeleteSuggestionsAction
   | UpdateSuggestionsAction
 
-  | SetCountCutoffAction
   | SetSizeCutoffAction
 
   | UpdateSuggestionsStateAction
