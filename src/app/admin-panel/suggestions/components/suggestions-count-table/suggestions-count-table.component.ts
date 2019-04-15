@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable, PageEvent, Sort, MatSort } from '@angular/material';
-import { Store, select } from '@ngrx/store';
+import { MatPaginator, MatTable, MatSort } from '@angular/material';
+import { Store } from '@ngrx/store';
 import {
   AppState,
 } from '@app/core';
@@ -8,16 +8,14 @@ import {
 import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
 
 
-import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
-import { DataSource } from '@angular/cdk/table';
+import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
-import { fromMatPaginator, SimpleDataSource } from '@app/admin-panel/subscriptions/state/datasource-utils';
-import { fromMatSort } from '../../../subscriptions/state/datasource-utils';
+import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 
 @Component({
   selector: 'app-count-suggestions-table',

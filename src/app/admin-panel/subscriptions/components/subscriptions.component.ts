@@ -5,7 +5,7 @@ import { selectSubscriptionSenders } from '../state/subscriptions.selectors';
 import { MatSort, MatPaginator, PageEvent, Sort } from '@angular/material';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { fromMatPaginator, paginateRows, fromMatSort, sortRows } from '../state/datasource-utils';
+import { fromMatPaginator, paginateRows, fromMatSort, sortRows } from '../../../core/utils/datasource-utils';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 
 @Component({
