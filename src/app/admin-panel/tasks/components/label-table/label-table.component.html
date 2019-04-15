@@ -47,12 +47,12 @@
        </span>
 
        <span class="count-text3" *ngFor="let labelName of suggestion.labelNames">
-        <a (click)="editLabel(suggestion, labelName)">
+        <button mat-stroked-button (click)="editLabel(suggestion, labelName)">
             <span class="icon-handler-2">
                 <fa-icon icon="tag"></fa-icon>
               </span>
               {{ labelName }}
-        </a>
+        </button>
 
        </span>
 

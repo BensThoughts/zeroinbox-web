@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable, PageEvent, Sort, MatSort } from '@angular/material';
+import { MatPaginator, MatTable, PageEvent, Sort, MatSort, MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
@@ -11,11 +11,10 @@ import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/
 import { SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
-import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
-import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { selectLabelTasks } from '../../state/tasks.selectors';
 import { LabelTasks } from '../../model/label-tasks.model';
+import { EditLabelAction } from '../../state/tasks.actions';
 
 @Component({
   selector: 'app-label-table',
@@ -95,6 +94,7 @@ export class LabelTableComponent implements OnInit {
   }
 
   editLabel(suggestion, labelName) {
+    this.store.dispatch(new EditLabelAction());
     console.log(suggestion);
     console.log(labelName);
   }

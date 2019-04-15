@@ -6,15 +6,15 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './label-edit-prompt.component.html',
   styleUrls: ['./label-edit-prompt.component.scss']
 })
-export class LogoutPromptComponent {
-  constructor(private ref: MatDialogRef<LogoutPromptComponent>) {}
+export class LabelEditComponent {
+  constructor(private ref: MatDialogRef<LabelEditComponent>) {}
 
   save() {
-    this.ref.close(false);
+    this.ref.close(true);
   }
 
   delete() {
-    this.ref.close(true);
+    this.ref.close(false);
   }
 
 }

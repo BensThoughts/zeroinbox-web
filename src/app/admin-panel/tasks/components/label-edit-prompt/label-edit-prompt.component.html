@@ -2,15 +2,19 @@
   <h3 mat-dialog-title>Edit Label</h3>
 
   <mat-dialog-content>
-    Edit Label...
+      <form>
+          <mat-form-field>
+            <input matInput placeholder="Search Address" #searchInput>
+          </mat-form-field>
+        </form>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="save()">
-      Save
+      Delete
     </button>
     <button mat-stroked-button (click)="delete()">
-      Delete
+      Save
     </button>
   </mat-dialog-actions>
 </div>
