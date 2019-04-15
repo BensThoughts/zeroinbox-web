@@ -1,29 +1,29 @@
 
 <div>
 
-    <div>
-        <form>
-            <mat-form-field>
-              <input matInput placeholder="Search Addresses" #searchInput>
-            </mat-form-field>
-          </form>
-    </div>
+  <span class="d-flex flex-wrap justify-content-center align-items-center">
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Search Addresses" #searchInput>
+      </mat-form-field>
+    </form>
+  </span>
 
-    <section matSort class="mat-elevation-z2 mat-header-row">
-        <span class="mat-header-cell" mat-sort-header="fromAddress">Address</span>
-        <span class="mat-header-cell" mat-sort-header="totalSizeEstimate">Size</span>
-    </section>
 
-    <span class="d-flex flex-wrap justify-content-center align-items-center">
+<table mat-table matSort [dataSource]="dataSource" class="mat-table">
 
-        <div class="d-md-none">
-          Show senders with
-        </div>
-        <span class="mx-2 d-none d-md-flex">
-          Show senders with
-        </span>
-        <span class="mx-2">
+   <ng-container matColumnDef="address">
+     <th mat-header-cell *matHeaderCellDef>
+        <div class="d-flex justify-content-between align-items-center">
+
+    
+          <span>
+            <span class="mat-header-cell" mat-sort-header="fromAddress">Sort By Address</span>
+          </span>
+
           <mat-form-field>
+              Show senders with
+
             <mat-select [placeholder]=""
                         [ngModel]="sizeCutoff$ | async"
                         (selectionChange)="onCutoffSelect($event)"
@@ -33,38 +33,9 @@
                         </mat-option>
             </mat-select>
           </mat-form-field>
-      
-        </span>
-      </span>
-
-
-<table mat-table [dataSource]="dataSource" class="mat-table">
-
-   <ng-container matColumnDef="address">
-     <th mat-header-cell *matHeaderCellDef>
-
-       <div>
-       <span class="icon-handler">
-       <mat-checkbox (change)="$event ? masterToggle('delete') : null"
-                     [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
-                     [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
-                     <span class="icon-handler-2">
-                     <fa-icon icon="trash-alt"></fa-icon>
-                     </span>
-       </mat-checkbox>
-       </span>
-
-       <span class="icon-handler">
-       <mat-checkbox (change)="$event ? masterToggle('label') : null"
-                     [checked]="selectionLabel.hasValue() && isAllSelected('label')"
-                     [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
-                     <span class="icon-handler-2">
-                     <fa-icon icon="tag"></fa-icon>
-                     </span>
-       </mat-checkbox>
-       </span>
-
-       </div>
+    
+    
+        </div>
      </th>
 
      <td mat-cell *matCellDef="let suggestion">
@@ -110,12 +81,41 @@
 
    </ng-container>
 
-   <ng-container matColumnDef="actions-column">
-    <th mat-header-cell *matHeaderCellDef> Name of the item purchased </th>
+   <ng-container matColumnDef="select-all-row">
+    <th mat-header-cell *matHeaderCellDef> 
+        <span class="d-flex justify-content-between">
+          
+          <span>
+            <span class="icon-handler">
+                <mat-checkbox class=""
+                (change)="$event ? masterToggle('delete') : null"
+                [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
+                [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
+                  <span class="icon-handler-2">
+                    <fa-icon icon="trash-alt"></fa-icon>
+                  </span>
+                </mat-checkbox>
+            </span>
+
+            <span class="icon-handler">
+              <mat-checkbox class=""
+                (change)="$event ? masterToggle('label') : null"
+                [checked]="selectionLabel.hasValue() && isAllSelected('label')"
+                [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
+                <span class="icon-handler-2">
+                  <fa-icon icon="tag"></fa-icon>
+                </span>
+              </mat-checkbox>
+            </span>
+          </span>    
+          
+          <button mat-stroked-button (click)="createActions()">Create Actions</button>
+      </span>
+    </th>
    </ng-container>
 
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-header-row *matHeaderRowDef="['actions-column']"></tr>
+   <tr mat-header-row *matHeaderRowDef="['select-all-row']"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
         (click)="toggleFromRow(suggestion.senderId)"
@@ -133,7 +133,9 @@
 </ng-template>
 
 <div class="d-flex justify-content-between align-items-center flex-nowrap">
-    <button mat-raised-button (click)="createTasks()">Create Actions</button>
+    <span class="d-none d-md-block">
+        <button mat-stroked-button (click)="createTasks()">Create Actions</button>
+    </span>
     <mat-paginator #paginator
                    [length]="totalRows$ | async"
                    [pageSizeOptions]="pageSizeOptions"

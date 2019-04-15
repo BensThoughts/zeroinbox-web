@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/components/home/home.component';
 import { AuthGuardService } from '@app/core';
 import { StatsComponent } from './stats/components/stats/stats.component';
-import { TasksComponent } from './tasks/components/tasks.component';
+import { TasksComponent } from './tasks/components/tasks/tasks.component';
 import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
 import { SettingsComponent } from './settings/components/settings.component';
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions.component';
