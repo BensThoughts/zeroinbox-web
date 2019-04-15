@@ -55,7 +55,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISender[]>;
 
   sizeCutoff$: Observable<string>;
   sizeCutoffs = [

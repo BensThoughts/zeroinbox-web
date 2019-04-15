@@ -44,7 +44,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   selectionLabel = new SelectionModel<string>(true, []);
 
   collectionViewer: CollectionViewer;
-  mySub: Observable<ISender[]>;
 
   countCutoffs = [
     { value: 1, label: '1 thread' },
@@ -112,14 +111,6 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   updatePaginatorLength() {
     this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
-    // this.paginator.length = this.dataSource.getLength();
-/*     this.store.pipe(
-      select(selectByCountLength(this.input.nativeElement.value)),
-      take(1),
-      map((length) => {
-        this.paginator.length = length;
-      })
-    ).subscribe(); */
   }
 
 

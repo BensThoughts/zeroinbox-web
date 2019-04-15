@@ -10,7 +10,6 @@ import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from '../../animations/rowAnimations';
-import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { selectLabelTasks } from '../../state/tasks.selectors';
 import { LabelTasks } from '../../model/label-tasks.model';
@@ -40,8 +39,6 @@ export class LabelTableComponent implements OnInit {
   totalRows$: Observable<number>;
 
   selectionFilter = new SelectionModel<string>(true, []);
-
-  mySub: Observable<ISender[]>;
 
   handler1: Subscription;
   handler2: Subscription;
