@@ -145,7 +145,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
 
-  createTasks() {
+  createActions() {
     this.toggle();
 
     let deleteTaskSenderIds = this.selectionDelete.selected;

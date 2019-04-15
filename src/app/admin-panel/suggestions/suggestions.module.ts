@@ -8,12 +8,11 @@ import { StoreModule } from '@ngrx/store';
 import { suggestionsReducer } from './state/suggestions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionsEffects } from './state/suggestions.effects';
-import { SuggestionsByGroupComponent } from './components/suggestions-by-group/suggestions-by-group.component';
 import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
 
 
 @NgModule({
-  declarations: [SuggestionsComponent, SuggestionsCountTableComponent, SuggestionsByGroupComponent, SuggestionsSizeTableComponent],
+  declarations: [SuggestionsComponent, SuggestionsCountTableComponent, SuggestionsSizeTableComponent],
   imports: [
     CommonModule,
     SharedModule,

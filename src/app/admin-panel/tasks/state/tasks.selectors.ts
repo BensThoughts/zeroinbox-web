@@ -31,6 +31,7 @@ export const selectLabelTasks = createSelector(
       return tasksMap.get(sender.senderId) !== undefined
     }).map((sender) => {
       return {
+        senderId: sender.senderId,
         fromAddress: sender.fromAddress,
         labelNames: tasksMap.get(sender.senderId).labelNames
       }

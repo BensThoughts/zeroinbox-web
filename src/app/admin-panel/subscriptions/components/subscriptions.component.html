@@ -17,38 +17,26 @@
           </tr>
 
         </table>
-        
-      <mat-accordion>
 
-        <div class="my-3">
-          <div class="my-1" *ngFor="let sender of displayedRows$ | async">
+        <mat-list>
+          <div class="my-3" *ngFor="let sender of displayedRows$ | async">
+            <mat-list-item>
+              <div class="my-2">
 
-            <mat-expansion-panel>
-              <mat-expansion-panel-header class="right-aligned-header">
-                <mat-panel-title>
-                  {{ sender.fromName }} ( {{ sender.fromAddress }} )
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-            
-              <mat-chip-list>
-                <mat-chip>
-                  <code>
-                    Threads: {{ sender.count }}
-                  </code>
-                </mat-chip>
-                <mat-chip>
-                  <code>
-                    Size: {{ sender.totalSizeEstimate }} MB
-                  </code>
-                </mat-chip>
-              </mat-chip-list>
-          
-            </mat-expansion-panel>
-          
-          </div>
-        </div>
+                <div class="my-1">
+                        {{ sender.fromName }} ( {{ sender.fromAddress }} )
 
-      </mat-accordion>
+
+                </div>
+               
+                  <mat-divider></mat-divider>
+                </div>
+
+            </mat-list-item>
+            </div>
+
+        </mat-list>
+      
 
     </mat-tab>
 

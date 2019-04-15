@@ -1,29 +1,34 @@
 <div class="container-fluid">
-  Actions
+  <span class="d-flex justify-content-center align-items-center my-3">
+          Review Actions
+  </span>
 
     <mat-divider></mat-divider>
   <mat-tab-group mat-align-tabs="center">
 
     <mat-tab label="Label">
-      <mat-accordion>
-        <div class="my-3" *ngIf="labelTasks$ | async as labelTasks">
-          <div class="my-1" *ngFor="let task of labelTasks">
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-            <mat-panel-title>
-            {{ task.fromAddress }}
-          </mat-panel-title>
-
-
-
-          </mat-expansion-panel-header>
-              {{ task.labelNames }}
-          </mat-expansion-panel>
-          </div>
+      <span *ngIf="(labelTasks$ | async).length != 0; else noneLeft">
+          <app-label-table>
+          </app-label-table>
+      </span>
+      <ng-template #noneLeft>
+        <div class="container justify-content-center align-items-center">
+            <span class="how-to d-flex justify-content-center align-items-center my-2">
+                <mat-card>
+                  <mat-card-title>
+                    No Label Actions!
+                  </mat-card-title>
+                  <mat-divider></mat-divider>
+                  <mat-card-content>
+                      There are no label actions created. You need to create some first.
+                      Go to the senders page, then select some senders that you would like
+                      to label and click create actions.
+                  </mat-card-content>
+                </mat-card>
+              </span>
         </div>
-
-      </mat-accordion>
+        
+      </ng-template>
 
     </mat-tab>
     <mat-tab label="Delete">

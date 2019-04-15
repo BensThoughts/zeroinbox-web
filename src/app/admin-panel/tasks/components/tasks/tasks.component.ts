@@ -11,6 +11,7 @@ import { selectLabelTasks, selectDeleteTasks } from '@app/admin-panel/tasks/stat
 export class TasksComponent implements OnInit {
 
   labelTasks$;
+  labelTasksReady$;
   deleteTasks$;
 
   constructor(private store: Store<AppState>) { }

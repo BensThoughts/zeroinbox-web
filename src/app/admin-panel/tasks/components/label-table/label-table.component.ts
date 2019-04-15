@@ -6,22 +6,21 @@ import {
 } from '@app/core';
 
 
-
-import { Observable, of, BehaviorSubject, Subscription, fromEvent } from 'rxjs';
-import { DataSource } from '@angular/cdk/table';
+import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { AddTasksAction } from '@app/admin-panel/tasks/state/tasks.actions';
 import { ITaskCreator } from '@app/admin-panel/tasks/model/tasks.creator.model';
-import { fromMatPaginator, SimpleDataSource } from '@app/core/utils/datasource-utils';
-import { fromMatSort } from '../../../../core/utils/datasource-utils';
+import { SimpleDataSource } from '@app/core/utils/datasource-utils';
+import { selectLabelTasks } from '../../state/tasks.selectors';
+import { LabelTasks } from '../../model/label-tasks.model';
 
 @Component({
-  selector: 'app-count-suggestions-table',
-  templateUrl: './suggestions-count-table.component.html',
-  styleUrls: ['./suggestions-count-table.component.scss'],
+  selector: 'app-label-table',
+  templateUrl: './label-table.component.html',
+  styleUrls: ['./label-table.component.scss'],
   animations: [rowAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -34,26 +33,16 @@ export class LabelTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
-  displayedColumns: string[] = ['address', 'labels'];
+  displayedColumns: string[] = ['address'];
 
-  dataSource: SimpleDataSource<ISender>;
+  dataSource: SimpleDataSource<LabelTasks>;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
 
-  selectionDelete = new SelectionModel<string>(true, []);
-  selectionLabel = new SelectionModel<string>(true, []);
+  selectionFilter = new SelectionModel<string>(true, []);
 
-  collectionViewer: CollectionViewer;
   mySub: Observable<ISender[]>;
-
-  countCutoffs = [
-    { value: 1, label: '1 thread' },
-    { value: 15, label: '15 threads' },
-    { value: 50, label: '50 threads' },
-    { value: 100, label: '100 threads' },
-    { value: 500, label: '500 threads' }
-  ];
 
   handler1: Subscription;
   handler2: Subscription;
@@ -70,7 +59,7 @@ export class LabelTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new SimpleDataSource(
       this.store, 
-      selectSendersFromSuggestionIds, 
+      selectLabelTasks, 
       this.paginator,
       this.sort
     );
@@ -117,23 +106,13 @@ export class LabelTableComponent implements OnInit {
 
 
   clearSelections() {
-    this.selectionDelete.clear();
-    this.selectionLabel.clear();
+    this.selectionFilter.clear();
   }
 
 
   createActions() {
 
     this.toggle();
-    let deleteTaskSenderIds = this.selectionDelete.selected;
-    let labelByNameSenderIds = this.selectionLabel.selected;
-    let tasks: ITaskCreator = {
-      deleteTaskSenderIds: deleteTaskSenderIds,
-      labelByNameSenderIds: labelByNameSenderIds,
-      labelBySizeSenderIds: [],
-    };
-
-    this.store.dispatch(new AddTasksAction({ tasks: tasks }))
 
     of(true).pipe(
       take(1),
@@ -154,40 +133,27 @@ export class LabelTableComponent implements OnInit {
 
 
   toggleFromRow(id: string) {
-    if (!this.isSelected('label', id) && !this.isSelected('delete', id)) {
-        this.selectionLabel.select(id);
-    } else if (this.isSelected('label', id)) {
-        this.selectionLabel.deselect(id);
-        this.selectionDelete.select(id);
+    this.filterToggle(id);
+  }
+
+  filterToggle(id: string) {
+    if (this.selectionFilter.isSelected(id)) {
+      this.selectionFilter.deselect(id);
     } else {
-      this.selectionDelete.deselect(id);
+      this.selectionFilter.select(id);
     }
   }
 
-  suggestionToggle(action: string, id: string) {
-
-    let selectionModels = this.selectSelectionModels(action);
-    if (selectionModels.currentSelected.isSelected(id)) {
-      selectionModels.currentSelected.deselect(id);
-    } else {
-      selectionModels.currentSelected.select(id);
-      selectionModels.currentDeselected.deselect(id);
-    }
-
-  }
-
-  masterToggle(action: string) {
-    let selectionModels = this.selectSelectionModels(action);
-    this.isAllSelected(action) ?
-      selectionModels.currentSelected.clear() :
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selectionFilter.clear() :
         this.dataSource.getValues().forEach((suggestion) => {
-          selectionModels.currentSelected.select(suggestion.senderId);
-          selectionModels.currentDeselected.deselect(suggestion.senderId);
-        })
+          this.selectionFilter.select(suggestion.senderId);
+        });
     }
 
   isTotalPageSelected() {
-    const totalSelectedLength = this.selectionLabel.selected.length + this.selectionDelete.selected.length;
+    const totalSelectedLength = this.selectionFilter.selected.length;
     const totalLength = this.dataSource.getLength();
     if (totalSelectedLength === totalLength) {
       return true;
@@ -195,36 +161,14 @@ export class LabelTableComponent implements OnInit {
     return false;
   }
 
-  isAllSelected(action: string) {
-
-    let selectionModel = this.selectSelectionModels(action);
-    const numSelected = selectionModel.currentSelected.selected.length;
+  isAllSelected() {
+    const numSelected = this.selectionFilter.selected.length;
     const numRows = this.dataSource.getLength();
-
     return numSelected == numRows;
-
   }
 
-  isSelected(action: string, id: string) {
-    let selectionModel = this.selectSelectionModels(action);
-    return selectionModel.currentSelected.isSelected(id);
-  }
-
-  selectSelectionModels(action: string) {
-    try {
-      switch (action) {
-        case 'label':
-          return { currentSelected: this.selectionLabel, currentDeselected: this.selectionDelete };
-        case 'delete':
-          return { currentSelected: this.selectionDelete, currentDeselected: this.selectionLabel };
-
-        default:
-          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
-      }
-    }
-    catch(e) {
-      console.error(e);
-    }
+  isSelected(id: string) {
+    return this.selectionFilter.isSelected(id);
   }
 
 }

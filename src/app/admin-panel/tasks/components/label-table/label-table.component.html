@@ -33,34 +33,24 @@
        {{suggestion.fromAddress}}
        <div class="count-text">
         <span class="count-text2">
-         <span class="icon-handler">
-
-           <mat-checkbox
-                (click)="$event.stopPropagation()"
-                (change)="$event ? suggestionToggle('delete', suggestion.senderId) : null"
-                [checked]="isSelected('delete',suggestion.senderId)">
-                <span class="icon-handler-2">
-                  <fa-icon size="1x" icon="trash-alt"></fa-icon>
-                </span>
-          </mat-checkbox>
-
-
-       </span>
 
        <span class="icon-handler">
          <mat-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? suggestionToggle('label', suggestion.senderId) : null"
-                     [checked]="isSelected('label', suggestion.senderId)">
+                     (change)="$event ? filterToggle(suggestion.senderId) : null"
+                     [checked]="isSelected(suggestion.senderId)">
 
                      <span class="icon-handler-2">
-                     <fa-icon size="1x" icon="tag"></fa-icon>
+                      <fa-icon size="1x" icon="filter"></fa-icon>
                      </span>
 
        </mat-checkbox>
        </span>
 
-       <span class="count-text3">
-       Threads: {{suggestion.count}}
+       <span class="count-text3" *ngFor="let labelName of suggestion.labelNames">
+        <span class="icon-handler-2">
+          <fa-icon icon="tag"></fa-icon>
+        </span>
+        {{ labelName }}
        </span>
 
        </span>
@@ -72,29 +62,17 @@
      <ng-container matColumnDef="select-all-row">
       <th mat-header-cell *matHeaderCellDef>
         <span class="d-flex justify-content-between align-items-center">
-            <span>
                 <span class="icon-handler">
-                    <mat-checkbox (change)="$event ? masterToggle('delete') : null"
-                                  [checked]="selectionDelete.hasValue() && isAllSelected('delete')"
-                                  [indeterminate]="selectionDelete.hasValue() && !isAllSelected('delete')">
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selectionFilter.hasValue() && isAllSelected()"
+                                  [indeterminate]="selectionFilter.hasValue() && !isAllSelected()">
                                   <span class="icon-handler-2">
-                                  <fa-icon icon="trash-alt"></fa-icon>
+                                  <fa-icon icon="filter"></fa-icon>
                                   </span>
                     </mat-checkbox>
                     </span>
-              
-                    <span class="icon-handler">
-                    <mat-checkbox (change)="$event ? masterToggle('label') : null"
-                                  [checked]="selectionLabel.hasValue() && isAllSelected('label')"
-                                  [indeterminate]="selectionLabel.hasValue() && !isAllSelected('label')">
-                                  <span class="icon-handler-2">
-                                  <fa-icon icon="tag"></fa-icon>
-                                  </span>
-                    </mat-checkbox>
-                    </span>
-            </span>
            
-            <button mat-stroked-button (click)="createActions()">Create Actions</button>
+            <button mat-stroked-button (click)="createActions()">Apply Actions</button>
         </span>
       
       </th>
@@ -113,16 +91,10 @@
 
 </div>
 
-<ng-template #noneLeft>
-  <div *ngIf="cutoff$ | async as cutoff">
-    There are no suggestions left with at least {{ cutoff }} threads.
-  </div>
-</ng-template>
-
 
 <div class="d-none d-flex justify-content-between align-items-center flex-nowrap">
   <span class="d-none d-md-block">
-      <button class="text-left" mat-stroked-button (click)="createActions()">Create Actions</button>
+      <button class="text-left" mat-stroked-button (click)="createActions()">Apply Actions</button>
   </span>
     <mat-paginator #paginator
                    [length]="totalRows$ | async"
