@@ -158,7 +158,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
           deleteTaskSenderIds: deleteTaskSenderIds,
           labelBySizeSenderIds: labelBySizeSenderIds,
           labelByNameSenderIds: [],
-          sizeGroup: sizeGroup
         };
     
         this.store.dispatch(new AddTasksAction({ tasks: tasks }))

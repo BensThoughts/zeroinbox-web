@@ -101,8 +101,10 @@ export class LabelTableComponent implements OnInit {
 
 
   loadSuggestionsPage() {
-    this.clearSelections();
     this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource.getValues().forEach((suggestion) => {
+      this.selectionFilter.select(suggestion.senderId);
+    })
   }
 
   updatePaginatorLength() {

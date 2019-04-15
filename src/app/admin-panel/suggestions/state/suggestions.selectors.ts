@@ -129,53 +129,10 @@ export const selectBySizeGroupFiltered = createSelector(
   selectSendersNotLabeledBySize,
   selectSizeGroup,
   (senders, sizeGroup) => {
-    return senders.filter((sender) => filterBySize(sender, sizeGroup))
+    if (sizeGroup === 'ALL') {
+      return senders;
+    } else {
+      return senders.filter((sender) => sender.sizeGroup === sizeGroup)
+    }
   }
 );
-
-
-export const EX_LARGE = 1;
-export const LARGE = .5;
-export const MEDIUM = .2;
-export const SMALL = .08;
-
-export function filterBySize(sender: ISender, sizeGroup: string) {
-
-  try {
-    switch (sizeGroup) {
-
-      case 'XL':
-        if (sender.totalSizeEstimate >= EX_LARGE) {
-          return true;
-        }
-        return false;
-      case 'LG':
-        if ((sender.totalSizeEstimate < EX_LARGE) && (sender.totalSizeEstimate >= LARGE)) {
-          return true;
-        }
-        return false;
-      case 'MD':
-        if ((sender.totalSizeEstimate < LARGE) && (sender.totalSizeEstimate >= MEDIUM)) {
-          return true;
-        }
-        return false;
-      case 'SM':
-        if ((sender.totalSizeEstimate < MEDIUM) && (sender.totalSizeEstimate >= SMALL)) {
-          return true;
-        }
-        return false;
-      case 'XS':
-        if (sender.totalSizeEstimate < SMALL) {
-          return true;
-        }
-        return false;
-      case 'ALL':
-        return true;
-      default:
-        throw Error('Error: case is not one of 0-4 (Small - Extra Large)');
-    }
-  } catch(err) {
-    console.error(err);
-  }
-
-}

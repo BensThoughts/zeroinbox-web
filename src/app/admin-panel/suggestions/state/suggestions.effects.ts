@@ -93,13 +93,13 @@ export class SuggestionsEffects {
           }
           if (labelBySizeSenderIds) {
             bySizeChangesArray = labelBySizeSenderIds.map((id) => {
+              let sender = senders[id];
               let suggestion = suggestions[id];
               let storedLabels = [];
               if (suggestion.labelNames) {
                 storedLabels = suggestion.labelNames;
               }
-              let sizeGroup = action.payload.tasks.sizeGroup;
-              let newLabel = this.getSizeLabel(sizeGroup);
+              let newLabel = this.getSizeLabel(sender.sizeGroup);
               let changes = {
                 labelBySize: true,
                 labelNames: storedLabels.concat(newLabel)
@@ -125,17 +125,17 @@ export class SuggestionsEffects {
   getSizeLabel(label: string) {
     switch(label) {
       case 'XL':
-        return 'Extra Large';
+        return 'Size/Extra-Large';
       case 'LG':
-        return 'Large';
+        return 'Size/Large';
       case 'MD':
-        return 'Medium';
+        return 'Size/Medium';
       case 'SM':
-        return 'Small';
+        return 'Size/Small';
       case 'XS':
-        return 'Extra Small';
+        return 'Size/Extra-Small';
       default:
-        return 'Labeled By Size'
+        return 'Unknown Size';
     }
   }    
 

@@ -27,6 +27,26 @@ export class SendersEffects {
         }
     }
 
+    private XL = 1;
+    private LG = .5;
+    private MD = .2;
+    private SM = .08;
+
+    getSizeGroup(totalSizeEstimate) {
+      if (totalSizeEstimate > this.XL) {
+        return 'XL';
+      }
+      if (totalSizeEstimate < this.XL && totalSizeEstimate > this.LG) {
+        return 'LG';
+      }
+      if (totalSizeEstimate < this.LG && totalSizeEstimate > this.MD) {
+        return 'MD';
+      }
+      if (totalSizeEstimate < this.MD && totalSizeEstimate > this.SM) {
+        return 'SM';
+      }
+      return 'XS';
+    }
 
     @Effect()
     allSendersRequested$ = this.actions$
@@ -37,12 +57,14 @@ export class SendersEffects {
             map((response) => {
               let senders: ISender[] = response.data.suggestions.map((sender) => {
                 let totalSizeEstimate = this.toMB(sender.totalSizeEstimate);
+                let sizeGroup = this.getSizeGroup(totalSizeEstimate);
                 return {
                   senderId: sender.senderId,
                   fromAddress: sender.senderAddress,
                   fromName: sender.senderNames[0],
                   count: sender.count,
                   totalSizeEstimate: totalSizeEstimate,
+                  sizeGroup: sizeGroup,
                   unsubscribeEmail: sender.unsubscribeEmail,
                   unsubscribeWeb: sender.unsubscribeWeb
                 };
