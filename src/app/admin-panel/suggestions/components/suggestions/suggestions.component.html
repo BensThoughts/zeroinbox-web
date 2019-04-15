@@ -1,16 +1,16 @@
 
 
 <div class="h-100">
-  <div class="container-fluid h-100 my-4">
+  <div class="container h-100 my-4">
     <div class="row" *ngIf="suggestionsLoaded$ | async; else loading">
-      <div class="col mx-0 px-0">
+      <div class="col">
 
         <span class="d-flex align-items-center justify-content-center my-2">
           Create Actions
         </span>
 
     <mat-divider></mat-divider>
-
+    
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Name">
         <mat-card class="my-2">

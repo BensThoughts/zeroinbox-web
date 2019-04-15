@@ -12,8 +12,6 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
-
-
 }
 
 @media (max-width: $toolbar-breakpoint) {
@@ -59,6 +57,11 @@ mat-toolbar {
 
 
 mat-sidenav-container {
+
+  mat-sidenav-content {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 
   .app-nav-list-icon {
     padding-bottom: 7px;

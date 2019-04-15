@@ -26,7 +26,7 @@ export const adapter: EntityAdapter<ISuggestion> =
 const initialSuggestionsState = adapter.getInitialState({
   suggestionsLoaded: false,
   countCutoff: 1,
-  sizeGroup: 'MD'
+  sizeGroup: 'ALL'
 });
 
 export function suggestionsReducer(

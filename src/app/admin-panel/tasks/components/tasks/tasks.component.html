@@ -7,11 +7,11 @@
   <mat-tab-group mat-align-tabs="center">
 
     <mat-tab label="Label">
-      <span *ngIf="(labelTasks$ | async).length != 0; else noneLeft">
+      <span *ngIf="(labelTasks$ | async).length != 0; else noLabelTasks">
           <app-label-table>
           </app-label-table>
       </span>
-      <ng-template #noneLeft>
+      <ng-template #noLabelTasks>
         <div class="container justify-content-center align-items-center">
             <span class="how-to d-flex justify-content-center align-items-center my-2">
                 <mat-card>
@@ -33,13 +33,31 @@
     </mat-tab>
     <mat-tab label="Delete">
 
-      <div *ngIf="deleteTasks$ | async as deleteTasks">
-        <div *ngFor="let task of deleteTasks">
+      <div *ngIf="(deleteTasks$ | async).length != 0; else noDeleteTasks">
+        <div>
         <mat-card>
-          {{ task.fromAddress }}
+          Delete Tasks
         </mat-card>
         </div>
       </div>
+
+      <ng-template #noDeleteTasks>
+        <div class="container justify-content-center align-items-center">
+            <span class="how-to d-flex justify-content-center align-items-center my-2">
+                <mat-card>
+                  <mat-card-title>
+                    No Delete Actions!
+                  </mat-card-title>
+                  <mat-divider></mat-divider>
+                  <mat-card-content>
+                      There are no delete actions created. You need to create some first.
+                      Go to the senders page, then select some senders that you would like
+                      to delete and click create actions.
+                  </mat-card-content>
+                </mat-card>
+              </span>
+        </div>
+      </ng-template>
 
     </mat-tab>
 
