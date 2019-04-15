@@ -94,6 +94,11 @@ export class LabelTableComponent implements OnInit {
     this.handler2.unsubscribe();
   }
 
+  editLabel(suggestion, labelName) {
+    console.log(suggestion);
+    console.log(labelName);
+  }
+
 
   loadSuggestionsPage() {
     this.clearSelections();

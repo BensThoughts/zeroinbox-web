@@ -47,10 +47,13 @@
        </span>
 
        <span class="count-text3" *ngFor="let labelName of suggestion.labelNames">
-        <span class="icon-handler-2">
-          <fa-icon icon="tag"></fa-icon>
-        </span>
-        {{ labelName }}
+        <a (click)="editLabel(suggestion, labelName)">
+            <span class="icon-handler-2">
+                <fa-icon icon="tag"></fa-icon>
+              </span>
+              {{ labelName }}
+        </a>
+
        </span>
 
        </span>
@@ -83,7 +86,6 @@
    <tr mat-header-row *matHeaderRowDef="['select-all-row']"></tr>
    <tr mat-row
         *matRowDef="let suggestion; columns: displayedColumns;"
-        (click)="toggleFromRow(suggestion.senderId)"
         [@removeRow]="myRemoved ? 'add' : 'remove'">
    </tr>
  </table>
