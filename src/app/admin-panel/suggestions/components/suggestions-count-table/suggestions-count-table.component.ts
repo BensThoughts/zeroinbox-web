@@ -6,14 +6,15 @@ import {
 } from '@app/core';
 
 import {
-  selectByCount
-} from '@app/core/state/senders/senders.selectors';
+  selectSendersByCount
+} from '../../state/suggestions.selectors';
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
+import { EditLabelAction } from '../../state/suggestions.actions';
 
 @Component({
   selector: 'app-count-suggestions-table',
@@ -55,7 +56,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new SimpleDataSource(
       this.store, 
-      selectByCount, 
+      selectSendersByCount, 
       this.paginator,
       this.sort
     );
@@ -117,6 +118,14 @@ export class SuggestionsCountTableComponent implements OnInit {
         this.toggle();
       })
     ).subscribe();
+
+  }
+
+  labelSender(suggestion: ISender) {
+    this.store.dispatch(new EditLabelAction({ sender: suggestion }));
+  }
+
+  deleteSender(suggestion: ISender) {
 
   }
 }

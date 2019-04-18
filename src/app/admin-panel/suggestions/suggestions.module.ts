@@ -9,15 +9,23 @@ import { suggestionsReducer } from './state/suggestions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionsEffects } from './state/suggestions.effects';
 import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
+import { LabelEditComponent } from './components/label-edit/label-edit.component';
 
 
 @NgModule({
-  declarations: [SuggestionsComponent, SuggestionsCountTableComponent, SuggestionsSizeTableComponent],
+  declarations: [
+    SuggestionsComponent, 
+    SuggestionsCountTableComponent, 
+    SuggestionsSizeTableComponent,
+    LabelEditComponent],
   imports: [
     CommonModule,
     SharedModule,
     StoreModule.forFeature('suggestions', suggestionsReducer),
     EffectsModule.forFeature([SuggestionsEffects])
+  ],
+  entryComponents: [
+    LabelEditComponent
   ]
 })
 export class SuggestionsModule { }

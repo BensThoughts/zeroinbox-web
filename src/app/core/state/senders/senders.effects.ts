@@ -62,6 +62,7 @@ export class SendersEffects {
                   senderId: sender.senderId,
                   fromAddress: sender.senderAddress,
                   fromName: sender.senderNames[0],
+                  labelNames: [sender.senderNames[0]],
                   count: sender.count,
                   totalSizeEstimate: totalSizeEstimate,
                   sizeGroup: sizeGroup,

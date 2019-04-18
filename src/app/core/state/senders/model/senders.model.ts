@@ -7,4 +7,5 @@ export interface ISender {
     sizeGroup: string;
     unsubscribeWeb: string;
     unsubscribeEmail: string;
+    labelNames: string[];
 }

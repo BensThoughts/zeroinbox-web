@@ -2,20 +2,24 @@ import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-label-edit-prompt',
-  templateUrl: './label-edit-prompt.component.html',
-  styleUrls: ['./label-edit-prompt.component.scss']
+  selector: 'app-label-edit',
+  templateUrl: './label-edit.component.html',
+  styleUrls: ['./label-edit.component.scss']
 })
 export class LabelEditComponent {
   constructor(private ref: MatDialogRef<LabelEditComponent>) {}
 
-  @Input() labelName: string;
+  @Input() labelNames: string[];
+
+  addLabel() {
+    
+  }
 
   save() {
     this.ref.close(true);
   }
 
-  delete() {
+  cancel() {
     this.ref.close(false);
   }
 

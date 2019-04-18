@@ -6,6 +6,7 @@ import {
   SuggestionsActionTypes,
   SuggestionsRequestAction,
   SuggestionsRequestFailureAction,
+  EditLabelAction,
   LoadSuggestionsAction,
   UpdateSuggestionsAction,
 } from './suggestions.actions';
@@ -17,12 +18,11 @@ import {
   concatMap, 
   take
 } from 'rxjs/operators';
-import { ISuggestion } from '../model/suggestions.model';
-import { Update } from '@ngrx/entity';
 import { UpdateSuggestionsStateAction } from './suggestions.actions';
 import { fromEvent, of } from 'rxjs';
 import { SuggestionsService } from '@app/core/services/suggestions/suggestions.service';
-import { selectSuggestionAndSenderEntities } from './suggestions.selectors';
+import { MatDialog } from '@angular/material';
+import { LabelEditComponent } from '../components/label-edit/label-edit.component';
 
 
 @Injectable()
@@ -39,6 +39,27 @@ export class SuggestionsEffects {
       let suggestionsState = JSON.parse(evt.newValue);
       return new UpdateSuggestionsStateAction(suggestionsState);
     })
+  );
+
+  @Effect({dispatch: false})
+  editLabel = this.actions$.pipe(
+      ofType<EditLabelAction>(SuggestionsActionTypes.EditLabel),
+      exhaustMap((action) => {
+          let dialoagRef = this.dialogService.open(LabelEditComponent);
+          let instance = dialoagRef.componentInstance;
+          instance.labelNames = action.payload.sender.labelNames;
+          return dialoagRef
+          .afterClosed()
+          .pipe(
+              map(confirmed => {
+                  if (confirmed) {
+                      console.log('DELETE');
+                  } else {
+                      console.log('SAVE');
+                  }
+              })
+          )
+      })
   );
 
 
@@ -97,5 +118,6 @@ export class SuggestionsEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
+    private dialogService: MatDialog,
     private suggestionsService: SuggestionsService) { }
 }

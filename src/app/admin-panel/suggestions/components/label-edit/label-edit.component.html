@@ -1,0 +1,23 @@
+<div class=mat-logout-component>
+  <h3 mat-dialog-title>Label Sender</h3>
+  
+  <mat-dialog-content>
+    <form *ngFor="let labelName of labelNames">
+      <fa-icon icon="tag"></fa-icon>
+      <mat-form-field>
+        <input matInput [placeholder]="labelName" #searchInput>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="addLabel()"><fa-icon icon="plus"></fa-icon></button>
+    <button mat-stroked-button (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-stroked-button (click)="save()">
+      Label
+    </button>
+  </mat-dialog-actions>
+
+</div>

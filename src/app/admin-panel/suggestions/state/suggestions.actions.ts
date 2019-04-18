@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ISuggestion } from '../model/suggestions.model';
 import { Update } from '@ngrx/entity';
+import { ISender } from '../../../core/state/senders/model/senders.model';
 
 export enum SuggestionsActionTypes {
   SuggestionsRequest = '[Bootstrap Effects] Suggestions Request',
@@ -11,6 +12,8 @@ export enum SuggestionsActionTypes {
   UpdateSuggestions = '[Suggestions Effects] Update Suggestions',
 
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
+
+  EditLabel = '[Suggestions Component] Edit Label',
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
@@ -58,6 +61,11 @@ export class ResetSuggestionsStateAction implements Action {
   readonly type = SuggestionsActionTypes.ResetSuggestions;
 }
 
+export class EditLabelAction implements Action {
+  readonly type = SuggestionsActionTypes.EditLabel;
+  constructor(public payload: { sender: ISender }) {}
+}
+
 export type ByCountActions =
   | SuggestionsRequestAction
   | SuggestionsRequestFailureAction
@@ -67,6 +75,8 @@ export type ByCountActions =
   | UpdateSuggestionsAction
 
   | SetSizeCutoffAction
+
+  | EditLabelAction
 
   | UpdateSuggestionsStateAction
   | ResetSuggestionsStateAction
