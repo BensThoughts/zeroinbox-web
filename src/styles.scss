@@ -23,7 +23,7 @@
 
 @import './app/app.component.scss-theme.scss';
 @import './app/admin-panel/home/components/home/home.component.scss-theme.scss';
-@import './app/admin-panel/subscriptions/components/subcriptions.component.scss-theme.scss';
+@import './app/admin-panel/subscriptions/components/subscriptions/subcriptions.component.scss-theme.scss';
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);

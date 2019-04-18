@@ -5,7 +5,7 @@ import { HomeComponent } from './home/components/home/home.component';
 import { AuthGuardService } from '@app/core';
 import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
 import { SettingsComponent } from './settings/components/settings.component';
-import { SubscriptionsComponent } from './subscriptions/components/subscriptions.component';
+import { SubscriptionsComponent } from './subscriptions/components/subscriptions/subscriptions.component';
 import { HowToComponent } from './how-to/how-to.component';
 
 

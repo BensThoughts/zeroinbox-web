@@ -22,7 +22,15 @@ export const selectTotalSubscriptions = createSelector(
 )
 
 
-export const selectSubscriptionSenders = createSelector(
+export const selectSubscriptionsByName = createSelector(
   selectSubscriptions,
-  (senders) => senders
+  (senders) => senders.sort((a, b) => {
+    if (a.fromName.toLowerCase() > b.fromName.toLowerCase()) {
+      return 1;
+    } else if (a.fromName.toLowerCase() < b.fromName.toLowerCase()) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }).slice()
 );

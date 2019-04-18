@@ -11,7 +11,7 @@ import {
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { rowAnimations } from '../animations/rowAnimations';
+import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { EditLabelAction } from '../../state/suggestions.actions';
