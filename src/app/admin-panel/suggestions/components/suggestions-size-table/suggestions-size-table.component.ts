@@ -3,6 +3,7 @@ import { MatPaginator, MatTable, MatSort } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import {
   AppState,
+  selectBySize
 } from '@app/core';
 
 import {
@@ -76,7 +77,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
     this.dataSource = new SimpleDataSource(
       this.store,
-      selectBySizeGroupFiltered,
+      selectBySize,
       this.paginator,
       this.sort
     );

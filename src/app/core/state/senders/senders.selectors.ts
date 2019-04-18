@@ -32,16 +32,6 @@ export const selectAll = createSelector(
     fromSenders.selectAll
 )
 
-export const selectSendersById = (senderIds: string[]) => createSelector(
-    selectSenderEntities,
-    (entities) => {
-        let senders = senderIds.map((senderId) => {
-            return entities[senderId];
-        });
-        return senders;
-    }
-);
-
 export const selectTotalThreads = createSelector(
   selectAll,
   (senders) => {
@@ -108,7 +98,39 @@ export const selectByCountGroup_TL = createSelector(
   }
 );
 
-export const selectByCountGroup_TS = createSelector(
+
+
+
+export const selectBySizeGroup = createSelector(
+  selectBySize,
+  senders => {
+    return {
+        Xl: senders.filter(sender => sender.sizeGroup === 'XL'),
+        Lg: senders.filter(sender => sender.sizeGroup === 'LG'),
+        Md: senders.filter(sender => sender.sizeGroup === 'MD'),
+        Sm: senders.filter(sender => sender.sizeGroup === 'SM'),
+        Xs: senders.filter(sender => sender.sizeGroup === 'XS'),
+    }
+  }
+);
+
+
+export const selectBySizeGroup_TL = createSelector(
+  selectBySizeGroup,
+  (senders) => {
+    return <ISizes> {
+      Xl: senders.Xl.length,
+      Lg: senders.Lg.length,
+      Md: senders.Md.length,
+      Sm: senders.Sm.length,
+      Xs: senders.Xs.length
+    }
+  }
+);
+
+
+
+/* export const selectByCountGroup_TS = createSelector(
   selectByCountGroup,
   (suggestions) => {
     return <ISizes> {
@@ -130,34 +152,6 @@ export const selectByCountGroup_TC = createSelector(
       Md: accumCount(suggestions.Md),
       Sm: accumCount(suggestions.Sm),
       Xs: accumCount(suggestions.Xs),
-    }
-  }
-);
-
-
-export const selectBySizeGroup = createSelector(
-  selectBySize,
-  suggestions => {
-    return {
-        Xl: filterBySize(suggestions, 4),
-        Lg: filterBySize(suggestions, 3),
-        Md: filterBySize(suggestions, 2),
-        Sm: filterBySize(suggestions, 1),
-        Xs: filterBySize(suggestions, 0),
-    }
-  }
-);
-
-
-export const selectBySizeGroup_TL = createSelector(
-  selectBySizeGroup,
-  (suggestions) => {
-    return <ISizes> {
-      Xl: suggestions.Xl.length,
-      Lg: suggestions.Lg.length,
-      Md: suggestions.Md.length,
-      Sm: suggestions.Sm.length,
-      Xs: suggestions.Xs.length
     }
   }
 );
@@ -215,45 +209,4 @@ export function accumCount(suggestions: ISender[]) {
   } else {
     return 0;
   }
-}
-
-export const EX_LARGE = 1;
-export const LARGE = .5;
-export const MEDIUM = .2;
-export const SMALL = .08;
-
-export function filterBySize(suggestions: ISender[], cutoff: number) {
-
-    try {
-      switch (cutoff) {
-  
-        case 4:
-          return suggestions.filter((suggestion) => {
-            return (suggestion.totalSizeEstimate >= EX_LARGE);
-          });
-        case 3:
-          return suggestions.filter((suggestion) => {
-            return (suggestion.totalSizeEstimate < EX_LARGE) && (suggestion.totalSizeEstimate >= LARGE);
-          });
-        case 2:
-          return  suggestions.filter((suggestion) => {
-            return (suggestion.totalSizeEstimate < LARGE) && (suggestion.totalSizeEstimate >= MEDIUM);
-          });
-        case 1:
-          return suggestions.filter((suggestion) => {
-            return (suggestion.totalSizeEstimate < MEDIUM) && (suggestion.totalSizeEstimate >= SMALL);
-          });
-        case 0:
-          return suggestions.filter((suggestion) => {
-            return (suggestion.totalSizeEstimate < SMALL);
-          })
-  
-        default:
-          throw Error('Error: case is not one of 0-4 (Small - Extra Large)');
-  
-      }
-    } catch(err) {
-      console.error(err);
-    }
-  
-  }
+} */

@@ -6,7 +6,6 @@ import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from '@app/shared';
 
 
-import { StatsModule } from './stats/stats.module';
 import { SuggestionsModule } from './suggestions/suggestions.module';
 import { SettingsModule } from './settings/settings.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
@@ -21,7 +20,6 @@ import { HomeModule } from './home/home.module';
     HomeModule,
     SubscriptionsModule,
     SuggestionsModule,
-    StatsModule,
     SettingsModule,
     AdminPanelRoutingModule
   ],

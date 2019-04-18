@@ -3,6 +3,7 @@ import { MatPaginator, MatTable, MatSort } from '@angular/material';
 import { Store } from '@ngrx/store';
 import {
   AppState,
+  selectByCount,
 } from '@app/core';
 
 import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
@@ -10,7 +11,6 @@ import { selectSendersFromSuggestionIds } from '../../state/suggestions.selector
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { rowAnimations } from '../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
@@ -53,7 +53,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new SimpleDataSource(
       this.store, 
-      selectSendersFromSuggestionIds, 
+      selectByCount, 
       this.paginator,
       this.sort
     );

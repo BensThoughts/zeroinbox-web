@@ -17,7 +17,7 @@ export function sortByCount(senderA: ISender, senderB: ISender) {
 export const adapter: EntityAdapter<ISender> =
   createEntityAdapter<ISender>({
     selectId: selectSendersId,
-    sortComparer: sortByCount
+    // sortComparer: sortByCount
   });
   
   
