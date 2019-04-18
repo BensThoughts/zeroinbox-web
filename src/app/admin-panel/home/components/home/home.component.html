@@ -3,82 +3,54 @@
   <div class="row">
   
     <div class="col-sm">
-      <div class="d-flex justify-content-center align-items-center">
-          <mat-card class="mat-user-card text-center my-2 mx-1">
-              <mat-card-title>
-                Welcome...
-              </mat-card-title>
-              <span *ngIf="basic_profile$ | async as basic_profile">
-                <img [src]="basic_profile.picture" class="user">
-              </span>
-              <mat-divider></mat-divider>
-              <mat-card-content>
-                <span *ngIf="basic_profile$ | async as basic_profile">
-                  <div>
-                    {{ basic_profile.name }}
-                  </div>
-                </span>
-                <span *ngIf="email_profile$ | async as email_profile">
-                  <div>
-                    {{ email_profile.emailAddress }}
-                  </div>
-                </span>
-              </mat-card-content>
-            </mat-card>
-
-            <div class="col-sm">
-                <mat-card class="my-2 mx-1">
-                  <mat-card-title>
-                    How To Use
-                  </mat-card-title>
-                  <mat-divider></mat-divider>
-                  <mat-card-content>
-                    <div class="content">
-                      Get up to speed quickly on how to use this app.
-                    </div>
-          
-                  </mat-card-content>
-                  <mat-divider></mat-divider>
-                  <mat-card-actions>
-                    <a routerLink="/admin-panel/how-to">
-                      <button mat-stroked-button>
-                        Go-to
-                      </button>
-                    </a>
-                  </mat-card-actions>
-                </mat-card>
-              </div>
-
-      </div>
-     
+      <mat-card class="mat-user-card text-center my-2 mx-1">
+        <mat-card-title>
+          Welcome...
+        </mat-card-title>
+        <span *ngIf="basic_profile$ | async as basic_profile">
+          <img [src]="basic_profile.picture" class="user">
+        </span>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <span *ngIf="basic_profile$ | async as basic_profile">
+            <div>
+              {{ basic_profile.name }}
+            </div>
+          </span>
+          <span *ngIf="email_profile$ | async as email_profile">
+            <div>
+              {{ email_profile.emailAddress }}
+            </div>
+          </span>
+        </mat-card-content>
+      </mat-card>
     </div>
 
+    <div class="col-sm">
+      <mat-card class="my-2 mx-1">
+        <mat-card-title>
+          How To Use
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div class="content">
+            Get up to speed quickly on how to use this app.
+          </div>
 
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+          <a routerLink="/admin-panel/how-to">
+            <button mat-stroked-button>
+              Go-to
+            </button>
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
   
   <div class="row">
-
-      <div class="col-sm">
-          <mat-card class="my-2 mx-1">
-            <mat-card-title>
-              Subscriptions
-            </mat-card-title>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-              View all of the email lists that you are subscribed to in one place. Unsubscribe
-              in one easy click!
-            </mat-card-content>
-            <mat-divider></mat-divider>
-            <mat-card-actions>
-              <a routerLink="/admin-panel/subscriptions">
-                <button mat-stroked-button>
-                    Go-to
-                </button>         
-              </a>
-    
-            </mat-card-actions>
-          </mat-card>
-        </div>
 
       <div class="col-sm">
           <mat-card class="my-2 mx-1">
@@ -102,6 +74,30 @@
           </mat-card>
         </div>
 
+
+
+
+    <div class="col-sm">
+      <mat-card class="my-2 mx-1">
+        <mat-card-title>
+          Subscriptions
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          View all of the email lists that you are subscribed to in one place. Unsubscribe
+          in one easy click!
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+          <a routerLink="/admin-panel/subscriptions">
+            <button mat-stroked-button>
+                Go-to
+            </button>         
+          </a>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 
   <div class="row">
