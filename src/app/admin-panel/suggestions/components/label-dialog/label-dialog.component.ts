@@ -7,19 +7,18 @@ import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-label-edit',
-  templateUrl: './label-edit.component.html',
-  styleUrls: ['./label-edit.component.scss'],
+  selector: 'app-label-dialog',
+  templateUrl: './label-dialog.component.html',
+  styleUrls: ['./label-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LabelEditComponent {
+export class LabelDialogComponent {
   constructor(
-    private ref: MatDialogRef<LabelEditComponent>,
+    private ref: MatDialogRef<LabelDialogComponent>,
     private store: Store<AppState>
     ) {}
 
   @Input() labelNames$: Observable<string[]>;
-  @Input() sender$: Observable<ISender>;
   @Input() sender: ISender;
 
   addLabel() {

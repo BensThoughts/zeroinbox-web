@@ -4,7 +4,10 @@ import { Store, select } from '@ngrx/store';
 import { AppState, selectLabelNamesBySenderId } from '@app/core';
 import {
   SuggestionsActionTypes,
-  EditLabelAction,
+  LabelSenderDialogAction,
+  UpdateSuggestionsStateAction,
+  AddLabelAction,
+  DeleteSenderDialogAction
 } from './suggestions.actions';
 import { 
   map, 
@@ -15,13 +18,13 @@ import {
   take,
   tap
 } from 'rxjs/operators';
-import { UpdateSuggestionsStateAction, AddLabelAction } from './suggestions.actions';
 import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { LabelEditComponent } from '../components/label-edit/label-edit.component';
+import { LabelDialogComponent } from '../components/label-dialog/label-dialog.component';
 import { Update } from '@ngrx/entity';
 import { ISender } from '../../../core/state/senders/model/senders.model';
 import { UpdateSenderAction } from '../../../core/state/senders/senders.actions';
+import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 
 
 @Injectable()
@@ -42,9 +45,9 @@ export class SuggestionsEffects {
 
   @Effect({dispatch: false})
   editLabel = this.actions$.pipe(
-      ofType<EditLabelAction>(SuggestionsActionTypes.EditLabel),
+      ofType<LabelSenderDialogAction>(SuggestionsActionTypes.LabelSenderDialog),
       exhaustMap((action) => {
-          let dialoagRef = this.dialogService.open(LabelEditComponent);
+          let dialoagRef = this.dialogService.open(LabelDialogComponent);
           let instance = dialoagRef.componentInstance;
           instance.sender = action.payload.sender;
           instance.labelNames$ = this.store.pipe(
@@ -55,14 +58,35 @@ export class SuggestionsEffects {
           .pipe(
               map(confirmed => {
                   if (confirmed) {
-                      console.log('DELETE');
+                      console.log('LABEL');
                   } else {
-                      console.log('SAVE');
+                      console.log('CANCEL LABEL');
                   }
               })
           )
       })
   );
+
+  @Effect({ dispatch: false }) 
+  deleteSender$ = this.actions$.pipe(
+    ofType<DeleteSenderDialogAction>(SuggestionsActionTypes.DeleteSenderDialog),
+    exhaustMap((action) => {
+      let dialogRef = this.dialogService.open(DeleteDialogComponent);
+      let instance = dialogRef.componentInstance;
+      instance.sender = action.payload.sender;
+      return dialogRef
+      .afterClosed()
+      .pipe(
+        map(confirmed => {
+          if (confirmed) {
+            console.log('DELETE');
+          } else {
+            console.log('CANCEL DELETE');
+          }
+        })
+      )
+    })
+  )
 
   @Effect({dispatch: false})
   addLabel = this.actions$.pipe(

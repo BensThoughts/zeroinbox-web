@@ -9,7 +9,8 @@ import { suggestionsReducer } from './state/suggestions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionsEffects } from './state/suggestions.effects';
 import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
-import { LabelEditComponent } from './components/label-edit/label-edit.component';
+import { LabelDialogComponent } from './components/label-dialog/label-dialog.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { LabelEditComponent } from './components/label-edit/label-edit.component
     SuggestionsComponent, 
     SuggestionsCountTableComponent, 
     SuggestionsSizeTableComponent,
-    LabelEditComponent],
+    LabelDialogComponent,
+    DeleteDialogComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -25,7 +28,8 @@ import { LabelEditComponent } from './components/label-edit/label-edit.component
     EffectsModule.forFeature([SuggestionsEffects])
   ],
   entryComponents: [
-    LabelEditComponent
+    LabelDialogComponent,
+    DeleteDialogComponent
   ]
 })
 export class SuggestionsModule { }
