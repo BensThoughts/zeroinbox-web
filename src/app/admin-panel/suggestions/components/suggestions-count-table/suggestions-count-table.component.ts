@@ -40,11 +40,6 @@ export class SuggestionsCountTableComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
 
-  selectionDelete = new SelectionModel<string>(true, []);
-  selectionLabel = new SelectionModel<string>(true, []);
-
-  collectionViewer: CollectionViewer;
-
   handler1: Subscription;
   handler2: Subscription;
 
@@ -97,7 +92,6 @@ export class SuggestionsCountTableComponent implements OnInit {
 
 
   loadSuggestionsPage() {
-    this.clearSelections();
     this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
   }
 
@@ -106,24 +100,9 @@ export class SuggestionsCountTableComponent implements OnInit {
   }
 
 
-  clearSelections() {
-    this.selectionDelete.clear();
-    this.selectionLabel.clear();
-  }
-
-
   createActions() {
 
     this.toggle();
-    let deleteTaskSenderIds = this.selectionDelete.selected;
-    let labelByNameSenderIds = this.selectionLabel.selected;
-    let tasks: ITaskCreator = {
-      deleteTaskSenderIds: deleteTaskSenderIds,
-      labelByNameSenderIds: labelByNameSenderIds,
-      labelBySizeSenderIds: [],
-    };
-
-    this.store.dispatch(new AddTasksAction({ tasks: tasks }))
 
     of(true).pipe(
       take(1),
@@ -134,87 +113,10 @@ export class SuggestionsCountTableComponent implements OnInit {
             this.paginator.previousPage();
           }
         }
-        this.clearSelections();
         this.updatePaginatorLength();
         this.toggle();
       })
     ).subscribe();
 
   }
-
-
-  toggleFromRow(id: string) {
-    if (!this.isSelected('label', id) && !this.isSelected('delete', id)) {
-        this.selectionLabel.select(id);
-    } else if (this.isSelected('label', id)) {
-        this.selectionLabel.deselect(id);
-        this.selectionDelete.select(id);
-    } else {
-      this.selectionDelete.deselect(id);
-    }
-  }
-
-  suggestionToggle(action: string, id: string) {
-
-    let selectionModels = this.selectSelectionModels(action);
-    if (selectionModels.currentSelected.isSelected(id)) {
-      selectionModels.currentSelected.deselect(id);
-    } else {
-      selectionModels.currentSelected.select(id);
-      selectionModels.currentDeselected.deselect(id);
-    }
-
-  }
-
-  masterToggle(action: string) {
-    let selectionModels = this.selectSelectionModels(action);
-    this.isAllSelected(action) ?
-      selectionModels.currentSelected.clear() :
-        this.dataSource.getValues().forEach((suggestion) => {
-          selectionModels.currentSelected.select(suggestion.senderId);
-          selectionModels.currentDeselected.deselect(suggestion.senderId);
-        })
-    }
-
-  isTotalPageSelected() {
-    const totalSelectedLength = this.selectionLabel.selected.length + this.selectionDelete.selected.length;
-    const totalLength = this.dataSource.getLength();
-    if (totalSelectedLength === totalLength) {
-      return true;
-    }
-    return false;
-  }
-
-  isAllSelected(action: string) {
-
-    let selectionModel = this.selectSelectionModels(action);
-    const numSelected = selectionModel.currentSelected.selected.length;
-    const numRows = this.dataSource.getLength();
-
-    return numSelected == numRows;
-
-  }
-
-  isSelected(action: string, id: string) {
-    let selectionModel = this.selectSelectionModels(action);
-    return selectionModel.currentSelected.isSelected(id);
-  }
-
-  selectSelectionModels(action: string) {
-    try {
-      switch (action) {
-        case 'label':
-          return { currentSelected: this.selectionLabel, currentDeselected: this.selectionDelete };
-        case 'delete':
-          return { currentSelected: this.selectionDelete, currentDeselected: this.selectionLabel };
-
-        default:
-          throw new Error('Error: ' + action + ' is not one of "label" or "delete"');
-      }
-    }
-    catch(e) {
-      console.error(e);
-    }
-  }
-
 }
