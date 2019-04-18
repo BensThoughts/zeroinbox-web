@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable, MatSort } from '@angular/material';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input } from '@angular/core';
+import { MatPaginator, MatTable, MatSort, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
 import {
   AppState,
-  selectByCount,
 } from '@app/core';
 
-import { selectSendersFromSuggestionIds } from '../../state/suggestions.selectors';
-
+import {
+  selectByCount
+} from '@app/core/state/senders/senders.selectors';
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class SuggestionsCountTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
-  displayedColumns: string[] = ['address'];
+  displayedColumns: string[] = ['count'];
 
   dataSource: SimpleDataSource<ISender>;
 
@@ -40,6 +40,8 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   handler1: Subscription;
   handler2: Subscription;
+
+  @Input() test2: Observable<ISender>;
 
   myRemoved = true;
 

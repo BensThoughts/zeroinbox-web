@@ -44,9 +44,9 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   @Input() myData: Observable<ISuggestion[]>;
 
-  displayedColumns: string[] = ['address'];
+  displayedColumns: string[] = ['totalSizeEstimate'];
 
-  dataSource: SimpleDataSource<ISender>;
+  dataSource2: SimpleDataSource<ISender>;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
@@ -75,14 +75,14 @@ export class SuggestionsSizeTableComponent implements OnInit {
   ngOnInit() {
     this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));
 
-    this.dataSource = new SimpleDataSource(
+    this.dataSource2 = new SimpleDataSource(
       this.store,
       selectBySize,
       this.paginator,
       this.sort
     );
 
-    this.totalRows$ = this.dataSource.getFilteredLength();
+    this.totalRows$ = this.dataSource2.getFilteredLength();
   }
 
   ngAfterViewInit() {
@@ -123,11 +123,11 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
   loadSuggestionsPage() {
-    this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource2.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
   }
 
   updatePaginatorLength() {
-    this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource2.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
   }
 
 
@@ -146,7 +146,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
       delay(100),
       map(() => {
         if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
-          if (this.dataSource.getLength() === 0) {
+          if (this.dataSource2.getLength() === 0) {
             this.paginator.previousPage();
           }
         }

@@ -47,15 +47,22 @@ export const selectTotalThreads = createSelector(
  *  CHARTS
  ******************************************************************************/
 
-export const selectBySize = createSelector(
-    selectAll,
-    (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate)
+
+/**
+ * Important, you must return a deep copy of these with .slice() or
+ * else ngrx gets confused
+ */
+export const selectByCount = createSelector(
+  selectAll,
+  (senders) => senders.sort((a, b) => b.count - a.count).slice()
 )
 
-export const selectByCount = createSelector(
+export const selectBySize = createSelector(
     selectAll,
-    (senders) => senders.sort((a, b) => b.count - a.count)
+    (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate).slice()
 )
+
+
 
 export const C_XL = 500;
 export const C_LG = 100;

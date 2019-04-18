@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 
 import { Observable } from 'rxjs';
-import { selectPercentLoaded } from '@app/core';
+import { selectPercentLoaded, selectByCount, selectBySize } from '@app/core';
 import {
   selectSuggestionsLoaded,
   // selectByCountGroup_TS,
@@ -28,13 +28,17 @@ export class SuggestionsComponent implements OnInit {
   totalLengths$;
   totalSizes$;
 
+  testData$;
+  testData$2;
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
       this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
       this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-
-/*       this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
+      this.testData$ = this.store.pipe(select(selectByCount));
+      this.testData$2 = this.store.pipe(select(selectBySize));
+      /*       this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
       this.totalLengths$ = this.store.pipe(select(selectByCountGroup_TL));
       this.totalSizes$ = this.store.pipe(select(selectByCountGroup_TS)); */
   }
