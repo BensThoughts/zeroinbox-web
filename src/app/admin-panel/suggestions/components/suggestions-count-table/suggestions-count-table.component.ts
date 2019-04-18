@@ -93,11 +93,11 @@ export class SuggestionsCountTableComponent implements OnInit {
 
 
   loadSuggestionsPage() {
-    this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource.loadFilteredData(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
   }
 
   updatePaginatorLength() {
-    this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource.setFilteredLength(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
   }
 
 
