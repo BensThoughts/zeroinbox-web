@@ -1,23 +1,19 @@
 <div class=mat-logout-component>
-  <h3 mat-dialog-title>Label Sender</h3>
   
   <mat-dialog-content>
-    <div *ngIf="sender$ | async as sender2">
-        <form *ngFor="let labelName of sender2.labelNames">
-            <fa-icon icon="tag"></fa-icon>
-            <mat-form-field>
-              <input matInput [placeholder]="labelName" #searchInput>
-            </mat-form-field>
-            <button mat-stroked-button (click)="addLabel()"><fa-icon icon="minus"></fa-icon></button>
-          </form>
 
-    </div>
+        <form *ngFor="let labelName of labelNames$ | async">
+            <mat-form-field>
+              <input matInput placeholder="Label Name" [value]="labelName" #searchInput>
+            </mat-form-field>
+<!--             <button mat-stroked-button (click)="addLabel()"><fa-icon icon="minus"></fa-icon></button>
+ -->          </form>
 
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-stroked-button (click)="addLabel()"><fa-icon icon="plus"></fa-icon></button>
-    <button mat-stroked-button (click)="cancel()">
+<!--     <button mat-stroked-button (click)="addLabel()"><fa-icon icon="plus"></fa-icon></button>
+ -->    <button mat-stroked-button (click)="cancel()">
       Cancel
     </button>
     <button mat-stroked-button (click)="save()">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectSenderById } from '@app/core';
+import { AppState, selectLabelNamesBySenderId } from '@app/core';
 import {
   SuggestionsActionTypes,
   EditLabelAction,
@@ -12,7 +12,8 @@ import {
   exhaustMap, 
   catchError, 
   concatMap, 
-  take
+  take,
+  tap
 } from 'rxjs/operators';
 import { UpdateSuggestionsStateAction, AddLabelAction } from './suggestions.actions';
 import { fromEvent, of } from 'rxjs';
@@ -46,8 +47,8 @@ export class SuggestionsEffects {
           let dialoagRef = this.dialogService.open(LabelEditComponent);
           let instance = dialoagRef.componentInstance;
           instance.sender = action.payload.sender;
-          instance.sender$ = this.store.pipe(
-            select(selectSenderById(action.payload.sender.senderId))
+          instance.labelNames$ = this.store.pipe(
+            select(selectLabelNamesBySenderId(action.payload.sender.senderId))
           )
           return dialoagRef
           .afterClosed()

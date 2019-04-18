@@ -18,7 +18,7 @@ export class LabelEditComponent {
     private store: Store<AppState>
     ) {}
 
-  @Input() labelNames: string[];
+  @Input() labelNames$: Observable<string[]>;
   @Input() sender$: Observable<ISender>;
   @Input() sender: ISender;
 

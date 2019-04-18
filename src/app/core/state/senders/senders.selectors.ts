@@ -42,9 +42,9 @@ export const selectTotalThreads = createSelector(
   }
 )
 
-export const selectSenderById = (id: string) => createSelector(
+export const selectLabelNamesBySenderId = (id: string) => createSelector(
   selectSenderEntities,
-  (senders) => senders[id]
+  (senders) => senders[id].labelNames
 )
 
 
