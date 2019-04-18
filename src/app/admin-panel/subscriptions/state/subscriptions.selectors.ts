@@ -5,7 +5,15 @@ import * as fromSenders from '@app/core/state/senders/senders.selectors';
 
 export const selectSubscriptions = createSelector(
   fromSenders.selectAll,
-  (senders) => senders
+  (senders) => senders.filter((sender) => {
+    if (sender.unsubscribeEmail != null) {
+      return true;
+    }
+    if (sender.unsubscribeWeb != null) {
+      return true;
+    }
+    return false;
+  })
 )
 
 export const selectTotalSubscriptions = createSelector(
