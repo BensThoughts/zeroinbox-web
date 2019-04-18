@@ -34,6 +34,9 @@ export function sendersReducer(
       case SendersActionTypes.AddAllSenders:  
         return adapter.addAll(action.payload.senders, { ...state, sendersLoaded: true });
 
+      case SendersActionTypes.UpdateSender:
+        return adapter.updateOne(action.payload.senderUpdate, state);
+
       case SendersActionTypes.UpdateSendersState:
         return action.payload;
       

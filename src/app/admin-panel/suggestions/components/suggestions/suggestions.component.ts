@@ -4,6 +4,7 @@ import { AppState } from '@app/core/state/core.state';
 
 import { Observable } from 'rxjs';
 import { selectPercentLoaded, selectByCount, selectBySize } from '@app/core';
+import { selectSendersLoaded } from '../../../../core/state/senders/senders.selectors';
 import {
   selectSuggestionsLoaded,
   // selectByCountGroup_TS,
@@ -21,7 +22,7 @@ import {
 })
 export class SuggestionsComponent implements OnInit {
 
-  suggestionsLoaded$: Observable<boolean>;
+  sendersLoaded$: Observable<boolean>;
   percentLoaded$: Observable<number>;
 
   totalCounts$;
@@ -34,7 +35,7 @@ export class SuggestionsComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-      this.suggestionsLoaded$ = this.store.pipe(select(selectSuggestionsLoaded));
+      this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
       this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
       this.testData$ = this.store.pipe(select(selectByCount));
       this.testData$2 = this.store.pipe(select(selectBySize));

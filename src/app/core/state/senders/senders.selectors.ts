@@ -42,6 +42,11 @@ export const selectTotalThreads = createSelector(
   }
 )
 
+export const selectSenderById = (id: string) => createSelector(
+  selectSenderEntities,
+  (senders) => senders[id]
+)
+
 
 /*******************************************************************************
  *  CHARTS

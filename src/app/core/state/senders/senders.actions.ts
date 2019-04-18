@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ISender } from './model/senders.model';
+import { Update } from '@ngrx/entity';
 
 
 export enum SendersActionTypes {
@@ -7,6 +8,7 @@ export enum SendersActionTypes {
   SendersRequestFailure = '[Senders Effects] Senders Request Failure',
 
   AddAllSenders = '[Senders Effects] Add All Senders',
+  UpdateSender = '[] Update Sender',
 
   UpdateSendersState = '[Senders Effects] Update Senders State From Another Tab/Window',
   ResetSendersState = '[Auth Effects] Reset Senders State'
@@ -25,6 +27,11 @@ export class AddAllSendersAction implements Action {
   constructor(public payload: { senders: ISender[] }) {}
 }
 
+export class UpdateSenderAction implements Action {
+  readonly type = SendersActionTypes.UpdateSender;
+  constructor(public payload: { senderUpdate: Update<ISender> }) {}
+}
+
 export class UpdateSendersStateAction implements Action {
   readonly type = SendersActionTypes.UpdateSendersState;
   constructor(public payload: any ) {}
@@ -39,5 +46,7 @@ export type SendersActions =
   | SendersRequestAction
   | SendersRequestFailureAction
   | AddAllSendersAction
+  | UpdateSenderAction
+  
   | UpdateSendersStateAction
   | ResetSendersStateAction

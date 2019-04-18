@@ -34,9 +34,6 @@ import {
 import { of, fromEvent } from 'rxjs';
 import { SendersRequestAction } from '../senders/senders.actions';
 
-import {
-  SuggestionsRequestAction,
-} from '@app/admin-panel/suggestions/state/suggestions.actions';
 import { Router } from '@angular/router';
 import { UserProfileRequestAction } from '../user/user.actions';
 
@@ -144,7 +141,6 @@ export class BootstrapEffects {
         ofType<LoadAllDataRequestAction>(BootstrapActionTypes.LoadAllDataRequest),
         map(() => {
           this.store.dispatch(new SendersRequestAction());
-          this.store.dispatch(new SuggestionsRequestAction());
         })
       );
 

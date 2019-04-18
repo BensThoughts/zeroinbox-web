@@ -16,8 +16,6 @@ import {
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { ISuggestion } from '../../model/suggestions.model';
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 

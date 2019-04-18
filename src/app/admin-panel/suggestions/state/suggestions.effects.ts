@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '@app/core';
+import { AppState, selectSenderById } from '@app/core';
 import {
   SuggestionsActionTypes,
-  SuggestionsRequestAction,
-  SuggestionsRequestFailureAction,
   EditLabelAction,
-  LoadSuggestionsAction,
-  UpdateSuggestionsAction,
 } from './suggestions.actions';
 import { 
   map, 
@@ -18,11 +14,13 @@ import {
   concatMap, 
   take
 } from 'rxjs/operators';
-import { UpdateSuggestionsStateAction } from './suggestions.actions';
+import { UpdateSuggestionsStateAction, AddLabelAction } from './suggestions.actions';
 import { fromEvent, of } from 'rxjs';
-import { SuggestionsService } from '@app/core/services/suggestions/suggestions.service';
 import { MatDialog } from '@angular/material';
 import { LabelEditComponent } from '../components/label-edit/label-edit.component';
+import { Update } from '@ngrx/entity';
+import { ISender } from '../../../core/state/senders/model/senders.model';
+import { UpdateSenderAction } from '../../../core/state/senders/senders.actions';
 
 
 @Injectable()
@@ -47,7 +45,10 @@ export class SuggestionsEffects {
       exhaustMap((action) => {
           let dialoagRef = this.dialogService.open(LabelEditComponent);
           let instance = dialoagRef.componentInstance;
-          instance.labelNames = action.payload.sender.labelNames;
+          instance.sender = action.payload.sender;
+          instance.sender$ = this.store.pipe(
+            select(selectSenderById(action.payload.sender.senderId))
+          )
           return dialoagRef
           .afterClosed()
           .pipe(
@@ -61,6 +62,22 @@ export class SuggestionsEffects {
           )
       })
   );
+
+  @Effect({dispatch: false})
+  addLabel = this.actions$.pipe(
+    ofType<AddLabelAction>(SuggestionsActionTypes.AddLabel),
+    map((action) => {
+      let senderUpdate: Update<ISender>;
+      let changes = {
+        labelNames: action.payload.sender.labelNames.concat("")
+      }
+      senderUpdate = {
+        id: action.payload.sender.senderId,
+        changes
+      }
+      this.store.dispatch(new UpdateSenderAction({ senderUpdate: senderUpdate }))
+    })
+  )
 
 
 
@@ -94,30 +111,8 @@ export class SuggestionsEffects {
       })
     ) */
 
-
-  @Effect({ dispatch: false })
-  suggestionsRequest$ = this.actions$
-    .pipe(
-      ofType<SuggestionsRequestAction>(SuggestionsActionTypes.SuggestionsRequest),
-      exhaustMap(() => {
-        return this.suggestionsService.getSuggestions().pipe(
-          map((response) => {
-            if (response.status === 'error') {
-              this.store.dispatch(new SuggestionsRequestFailureAction());
-            }
-            let suggestions = response.data.suggestions;
-            this.store.dispatch(new LoadSuggestionsAction({ suggestions: suggestions }));
-          }),
-          catchError((err) => {
-            return of(new SuggestionsRequestFailureAction());
-          })
-        )
-      })
-    );
-
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
-    private dialogService: MatDialog,
-    private suggestionsService: SuggestionsService) { }
+    private dialogService: MatDialog) { }
 }

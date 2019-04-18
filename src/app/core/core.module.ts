@@ -46,7 +46,6 @@ import { UserEffects } from './state/user/user.effects';
 import { LogService } from './services/log/log.service';
 import { SendersEffects } from './state/senders/senders.effects';
 import { SendersService } from './services/senders/senders.service';
-import { SuggestionsService } from './services/suggestions/suggestions.service';
 import { GoogleAnalyticsEffects } from './state/router/google-analytics.effects';
 import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-sync.effects';
 
@@ -85,7 +84,6 @@ import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-syn
     NotificationService, // notifications in MatSnackBar
     ReverseAuthGuardService,
     SendersService,
-    SuggestionsService,
     UserService,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
