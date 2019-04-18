@@ -42,11 +42,9 @@ export class SuggestionsSizeTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
-  @Input() myData: Observable<ISuggestion[]>;
-
   displayedColumns: string[] = ['totalSizeEstimate'];
 
-  dataSource2: SimpleDataSource<ISender>;
+  dataSource: SimpleDataSource<ISender>;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
@@ -75,14 +73,14 @@ export class SuggestionsSizeTableComponent implements OnInit {
   ngOnInit() {
     this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));
 
-    this.dataSource2 = new SimpleDataSource(
+    this.dataSource = new SimpleDataSource(
       this.store,
       selectBySize,
       this.paginator,
       this.sort
     );
 
-    this.totalRows$ = this.dataSource2.getFilteredLength();
+    this.totalRows$ = this.dataSource.getFilteredLength();
   }
 
   ngAfterViewInit() {
@@ -123,11 +121,11 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
   loadSuggestionsPage() {
-    this.dataSource2.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource.loadFilteredData(this.input.nativeElement.value, 'fromAddress');
   }
 
   updatePaginatorLength() {
-    this.dataSource2.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
+    this.dataSource.setFilteredLength(this.input.nativeElement.value, 'fromAddress');
   }
 
 
@@ -146,7 +144,7 @@ export class SuggestionsSizeTableComponent implements OnInit {
       delay(100),
       map(() => {
         if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
-          if (this.dataSource2.getLength() === 0) {
+          if (this.dataSource.getLength() === 0) {
             this.paginator.previousPage();
           }
         }
