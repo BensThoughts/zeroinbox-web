@@ -7,6 +7,9 @@ export enum SuggestionsActionTypes {
   LabelSenderDialog = '[Suggestions Component] Edit Label',
   DeleteSenderDialog = '[Suggestions Component] Delete Sender',
 
+  DeleteSenderRequest = '[Suggestions Effects] Delete Sender Request',
+  DeleteSenderRequestFailure = '[Suggestions Effects] Delete Sender Request Failure',
+
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
@@ -34,6 +37,15 @@ export class LabelSenderDialogAction implements Action {
 export class DeleteSenderDialogAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSenderDialog;
   constructor(public payload: { sender: ISender }) {}
+}
+
+export class DeleteSenderRequestAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteSenderRequest;
+  constructor(public payload: { sender: ISender }) {}
+}
+
+export class DeleteSenderRequestFailureAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteSenderRequestFailure;
 }
 
 export type ByCountActions =
