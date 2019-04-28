@@ -5,7 +5,6 @@ export enum SuggestionsActionTypes {
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
   LabelSenderDialog = '[Suggestions Component] Edit Label',
-  AddLabel = '[Label Edit Component] Add Label',
   DeleteSenderDialog = '[Suggestions Component] Delete Sender',
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
@@ -32,12 +31,6 @@ export class LabelSenderDialogAction implements Action {
   readonly type = SuggestionsActionTypes.LabelSenderDialog;
   constructor(public payload: { sender: ISender }) {}
 }
-
-export class AddLabelAction implements Action {
-  readonly type = SuggestionsActionTypes.AddLabel;
-  constructor(public payload: { sender: ISender }) {}
-}
-
 export class DeleteSenderDialogAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSenderDialog;
   constructor(public payload: { sender: ISender }) {}
@@ -47,7 +40,6 @@ export type ByCountActions =
   | SetSizeCutoffAction
 
   | LabelSenderDialogAction
-  | AddLabelAction
   | DeleteSenderDialogAction
 
   | UpdateSuggestionsStateAction

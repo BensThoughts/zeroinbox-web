@@ -40,10 +40,10 @@
           <div class="count-text">
             <span class="count-text2">
               <span class="icon-handler">
-                <button mat-stroked-button (click)="createActions()"><fa-icon icon="tag"></fa-icon></button>
+                <button mat-stroked-button (click)="labelSender(suggestion)"><fa-icon icon="tag"></fa-icon></button>
               </span>
               <span class="icon-handler">
-                <button mat-stroked-button (click)="createActions()"><fa-icon icon="trash-alt"></fa-icon></button>
+                <button mat-stroked-button (click)="deleteSender(suggestion)"><fa-icon icon="trash-alt"></fa-icon></button>
               </span>
               <span class="count-text3">
                 {{suggestion.totalSizeEstimate}} MB

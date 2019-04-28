@@ -9,9 +9,12 @@ import {
   selectSizeGroup,
 } from '../../state/suggestions.selectors';
 
-import {
-  SetSizeCutoffAction,
+import { 
+  SetSizeCutoffAction, 
+  LabelSenderDialogAction, 
+  DeleteSenderDialogAction 
 } from '../../state/suggestions.actions';
+
 
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
@@ -150,6 +153,14 @@ export class SuggestionsSizeTableComponent implements OnInit {
       })
     ).subscribe();
 
+  }
+
+  labelSender(suggestion: ISender) {
+    this.store.dispatch(new LabelSenderDialogAction({ sender: suggestion }));
+  }
+
+  deleteSender(suggestion: ISender) {
+    this.store.dispatch(new DeleteSenderDialogAction({ sender: suggestion }));
   }
 
 }

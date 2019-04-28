@@ -6,7 +6,6 @@ import {
   SuggestionsActionTypes,
   LabelSenderDialogAction,
   UpdateSuggestionsStateAction,
-  AddLabelAction,
   DeleteSenderDialogAction
 } from './suggestions.actions';
 import { 
@@ -87,23 +86,6 @@ export class SuggestionsEffects {
       )
     })
   )
-
-  @Effect({dispatch: false})
-  addLabel = this.actions$.pipe(
-    ofType<AddLabelAction>(SuggestionsActionTypes.AddLabel),
-    map((action) => {
-      let senderUpdate: Update<ISender>;
-      let changes = {
-        labelNames: action.payload.sender.labelNames.concat("")
-      }
-      senderUpdate = {
-        id: action.payload.sender.senderId,
-        changes
-      }
-      this.store.dispatch(new UpdateSenderAction({ senderUpdate: senderUpdate }))
-    })
-  )
-
 
 
   getSizeLabel(label: string) {
