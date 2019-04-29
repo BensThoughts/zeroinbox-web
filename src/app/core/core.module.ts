@@ -48,6 +48,8 @@ import { SendersEffects } from './state/senders/senders.effects';
 import { SendersService } from './services/senders/senders.service';
 import { GoogleAnalyticsEffects } from './state/router/google-analytics.effects';
 import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-sync.effects';
+import { ActionsService } from './services/actions/actions.service';
+
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -77,6 +79,7 @@ import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-syn
 
   declarations: [],
   providers: [
+    ActionsService,
     AuthGuardService,
     AuthService,
     BootstrapService,
