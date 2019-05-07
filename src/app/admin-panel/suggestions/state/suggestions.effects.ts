@@ -8,7 +8,6 @@ import {
   UpdateSuggestionsStateAction,
   DeleteSenderDialogAction,
   DeleteAllSendersDialogAction,
-  DeleteSendersRequestSuccessAction,
   DeleteSendersRequestAction
 } from './suggestions.actions';
 import { 
@@ -16,17 +15,12 @@ import {
   filter, 
   exhaustMap, 
   catchError, 
-  concatMap, 
-  take,
-  tap,
   retry
 } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { LabelDialogComponent } from '../components/label-dialog/label-dialog.component';
-import { Update } from '@ngrx/entity';
-import { ISender } from '../../../core/state/senders/model/senders.model';
-import { UpdateSenderAction, DeleteSendersAction } from '../../../core/state/senders/senders.actions';
+import { DeleteSendersAction } from '../../../core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { ActionsService } from '../../../core/services/actions/actions.service';
 import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
@@ -130,43 +124,12 @@ export class SuggestionsEffects {
         map((response) => {
           console.log(response);
           this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
-          // this.store.dispatch(new DeleteSenderRequestSuccessAction({ senderId: action.payload.sender.senderId }))
         }),
         catchError((err) => of(console.log(err)))
       ).subscribe();
     })
   )
 
-
-  getSizeLabel(label: string) {
-    switch(label) {
-      case 'XL':
-        return 'Size/Extra-Large';
-      case 'LG':
-        return 'Size/Large';
-      case 'MD':
-        return 'Size/Medium';
-      case 'SM':
-        return 'Size/Small';
-      case 'XS':
-        return 'Size/Extra-Small';
-      default:
-        return 'Unknown Size';
-    }
-  }    
-
-/*   @Effect({ dispatch: false })
-  updateSuggestions$ = this.actions$
-    .pipe(
-      ofType<UpdateSuggestionsAction>(SuggestionsActionTypes.UpdateSuggestions),
-      concatMap((action) => {
-        return this.suggestionsService.postSuggestions(action.payload.suggestions).pipe(
-          catchError((err) => {
-            return of(console.error(err));
-          })
-        );
-      })
-    ) */
 
   constructor(
     private actions$: Actions,

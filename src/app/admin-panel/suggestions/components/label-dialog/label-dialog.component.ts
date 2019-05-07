@@ -12,6 +12,16 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LabelDialogComponent {
+  categories = [
+    { name: 'No Category', value: 'NO_CATEGORY'},
+    { name: 'Travel', value: 'Travel'},
+    { name: 'Finance', value: 'Finance'},
+    { name: 'Friends', value: 'Friends'},
+    { name: 'Work', value: 'Work'}
+  ]
+
+  defaultCategory = this.categories[0].name;
+
   constructor(
     private ref: MatDialogRef<LabelDialogComponent>,
     private store: Store<AppState>
