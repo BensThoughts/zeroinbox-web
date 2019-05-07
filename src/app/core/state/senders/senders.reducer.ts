@@ -37,6 +37,9 @@ export function sendersReducer(
       case SendersActionTypes.UpdateSender:
         return adapter.updateOne(action.payload.senderUpdate, state);
 
+      case SendersActionTypes.DeleteSender:
+        return adapter.removeMany(action.payload.senderIds, state);
+
       case SendersActionTypes.UpdateSendersState:
         return action.payload;
       

@@ -1,0 +1,21 @@
+<div class=mat-logout-component>
+  
+  <mat-dialog-content>
+    Are you sure you want to delete all emails from
+    <ul>
+      <li *ngFor="let sender of senders">
+        {{ sender.fromAddress}}
+      </li>
+    </ul>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-stroked-button (click)="delete()">
+      Delete
+    </button>
+  </mat-dialog-actions>
+
+</div>

@@ -4,10 +4,12 @@ import { ISender } from '../../../core/state/senders/model/senders.model';
 export enum SuggestionsActionTypes {
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
-  LabelSenderDialog = '[Suggestions Component] Edit Label',
-  DeleteSenderDialog = '[Suggestions Component] Delete Sender',
+  LabelSenderDialog = '[Suggestions Component] Edit Label Dialog',
+  DeleteSenderDialog = '[Suggestions Component] Delete Sender Dialog',
+  DeleteAllSendersDialog = '[Suggestions Component] Delete All Senders Dialog',
 
   DeleteSenderRequest = '[Suggestions Effects] Delete Sender Request',
+  DeleteSenderRequestSuccess = '[Suggestions Effects] Delete Sender Request Success',
   DeleteSenderRequestFailure = '[Suggestions Effects] Delete Sender Request Failure',
 
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
@@ -39,12 +41,22 @@ export class DeleteSenderDialogAction implements Action {
   constructor(public payload: { sender: ISender }) {}
 }
 
-export class DeleteSenderRequestAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSenderRequest;
-  constructor(public payload: { sender: ISender }) {}
+export class DeleteAllSendersDialogAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteAllSendersDialog;
+  constructor(public payload: { senders: ISender[] }) {}
 }
 
-export class DeleteSenderRequestFailureAction implements Action {
+export class DeleteSendersRequestAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteSenderRequest;
+  constructor(public payload: { senders: ISender[] }) {}
+}
+
+export class DeleteSendersRequestSuccessAction implements Action {
+  readonly type = SuggestionsActionTypes.DeleteSenderRequestSuccess;
+  constructor(public payload: { senderIds: string[] }) {}
+}
+
+export class DeleteSendersRequestFailureAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSenderRequestFailure;
 }
 
@@ -53,6 +65,12 @@ export type ByCountActions =
 
   | LabelSenderDialogAction
   | DeleteSenderDialogAction
+  | DeleteAllSendersDialogAction
+
+
+  | DeleteSendersRequestAction
+  | DeleteSendersRequestSuccessAction
+  | DeleteSendersRequestFailureAction
 
   | UpdateSuggestionsStateAction
   | ResetSuggestionsStateAction

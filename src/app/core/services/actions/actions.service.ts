@@ -6,10 +6,10 @@ import { API_URL } from '../apiurl';
 
 
 export interface ActionsRequestBody {
-  senderId: string;
-  action: string;
-  labelName: string;
-  filter: boolean;
+  senderIds: string[];
+  actionType: string;
+  labelName?: string;
+  filter?: boolean;
 }
 
 export interface ActionsResponse {

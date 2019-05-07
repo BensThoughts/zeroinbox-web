@@ -11,6 +11,7 @@ import { SuggestionsEffects } from './state/suggestions.effects';
 import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
 import { LabelDialogComponent } from './components/label-dialog/label-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-all-dialog.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     SuggestionsCountTableComponent, 
     SuggestionsSizeTableComponent,
     LabelDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    DeleteAllDialogComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
   ],
   entryComponents: [
     LabelDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    DeleteAllDialogComponent
   ]
 })
 export class SuggestionsModule { }

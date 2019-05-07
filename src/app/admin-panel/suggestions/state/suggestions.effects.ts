@@ -6,7 +6,10 @@ import {
   SuggestionsActionTypes,
   LabelSenderDialogAction,
   UpdateSuggestionsStateAction,
-  DeleteSenderDialogAction
+  DeleteSenderDialogAction,
+  DeleteAllSendersDialogAction,
+  DeleteSendersRequestSuccessAction,
+  DeleteSendersRequestAction
 } from './suggestions.actions';
 import { 
   map, 
@@ -15,15 +18,18 @@ import {
   catchError, 
   concatMap, 
   take,
-  tap
+  tap,
+  retry
 } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { LabelDialogComponent } from '../components/label-dialog/label-dialog.component';
 import { Update } from '@ngrx/entity';
 import { ISender } from '../../../core/state/senders/model/senders.model';
-import { UpdateSenderAction } from '../../../core/state/senders/senders.actions';
+import { UpdateSenderAction, DeleteSendersAction } from '../../../core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
+import { ActionsService } from '../../../core/services/actions/actions.service';
+import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
 
 
 @Injectable()
@@ -79,11 +85,55 @@ export class SuggestionsEffects {
         map(confirmed => {
           if (confirmed) {
             console.log('DELETE');
+            this.store.dispatch(new DeleteSendersRequestAction({ senders: [action.payload.sender] }))
           } else {
             console.log('CANCEL DELETE');
           }
         })
       )
+    })
+  )
+
+  @Effect({ dispatch: false })
+  deleteAllSenders$ = this.actions$.pipe(
+    ofType<DeleteAllSendersDialogAction>(SuggestionsActionTypes.DeleteAllSendersDialog),
+    exhaustMap((action) => {
+      let dialogRef = this.dialogService.open(DeleteAllDialogComponent);
+      let instance = dialogRef.componentInstance;
+      instance.senders = action.payload.senders;
+      return dialogRef
+      .afterClosed()
+      .pipe(
+        map(confirmed => {
+          if (confirmed) {
+            console.log('DELETE_ALL');
+            this.store.dispatch(new DeleteSendersRequestAction({ senders: action.payload.senders }))
+          } else {
+            console.log('CANCEL DELETE_ALL');
+          }
+        })
+      )
+
+    })
+  )
+
+  @Effect({ dispatch: false })
+  deleteSenderRequest$ = this.actions$.pipe(
+    ofType<DeleteSendersRequestAction>(SuggestionsActionTypes.DeleteSenderRequest),
+    map((action) => {
+      let senderIds = action.payload.senders.map(sender => sender.senderId)
+      this.actionsService.postActions({
+        senderIds: senderIds,
+        actionType: 'delete'
+      }).pipe(
+        retry(3),
+        map((response) => {
+          console.log(response);
+          this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
+          // this.store.dispatch(new DeleteSenderRequestSuccessAction({ senderId: action.payload.sender.senderId }))
+        }),
+        catchError((err) => of(console.log(err)))
+      ).subscribe();
     })
   )
 
@@ -121,5 +171,6 @@ export class SuggestionsEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
-    private dialogService: MatDialog) { }
+    private dialogService: MatDialog,
+    private actionsService: ActionsService) { }
 }

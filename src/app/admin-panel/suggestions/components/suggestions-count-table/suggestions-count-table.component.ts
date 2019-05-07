@@ -14,6 +14,7 @@ import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
+import { DeleteAllSendersDialogAction } from '../../state/suggestions.actions';
 import { 
   LabelSenderDialogAction,
   DeleteSenderDialogAction,
@@ -130,5 +131,10 @@ export class SuggestionsCountTableComponent implements OnInit {
 
   deleteSender(suggestion: ISender) {
     this.store.dispatch(new DeleteSenderDialogAction({ sender: suggestion }));
+  }
+
+  deleteAll() {
+    let senders = this.dataSource.getValues();
+    this.store.dispatch(new DeleteAllSendersDialogAction({ senders: senders }))
   }
 }

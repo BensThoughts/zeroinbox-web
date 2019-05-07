@@ -3,24 +3,22 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { AppState } from '@app/core';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-label-dialog',
-  templateUrl: './label-dialog.component.html',
-  styleUrls: ['./label-dialog.component.scss'],
+  selector: 'app-delete-all-dialog',
+  templateUrl: './delete-all-dialog.component.html',
+  styleUrls: ['./delete-all-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LabelDialogComponent {
+export class DeleteAllDialogComponent {
   constructor(
-    private ref: MatDialogRef<LabelDialogComponent>,
+    private ref: MatDialogRef<DeleteAllDialogComponent>,
     private store: Store<AppState>
     ) {}
 
-  @Input() labelNames$: Observable<string[]>;
-  @Input() sender: ISender;
+  @Input() senders: ISender[];
 
-  save() {
+  delete() {
     this.ref.close(true);
   }
 
