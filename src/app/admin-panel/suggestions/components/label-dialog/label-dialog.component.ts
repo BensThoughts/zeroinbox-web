@@ -4,14 +4,24 @@ import { MatDialogRef } from '@angular/material';
 import { AppState } from '@app/core';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
+export interface ConfirmationObject {
+  save: boolean;
+  category: string;
+  labelName: string;
+}
 @Component({
   selector: 'app-label-dialog',
   templateUrl: './label-dialog.component.html',
   styleUrls: ['./label-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class LabelDialogComponent {
+
+  form: FormGroup;
+
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
     { name: 'Travel', value: 'Travel'},
@@ -23,6 +33,7 @@ export class LabelDialogComponent {
   defaultCategory = this.categories[0].name;
 
   constructor(
+    private fb: FormBuilder,
     private ref: MatDialogRef<LabelDialogComponent>,
     private store: Store<AppState>
     ) {}
@@ -30,12 +41,29 @@ export class LabelDialogComponent {
   @Input() labelNames$: Observable<string[]>;
   @Input() sender: ISender;
 
+  currentCategory;
+
+  onCategorySelect($event) {
+    // console.log($event);
+    this.currentCategory = $event.value; 
+  }
+
   save() {
-    this.ref.close(true);
+    let confirmationObj: ConfirmationObject = {
+      save: true,
+      category: this.currentCategory,
+      labelName: 'TEST'
+    }
+    this.ref.close(confirmationObj);
   }
 
   cancel() {
-    this.ref.close(false);
+    let confirmationObj: ConfirmationObject = {
+      save: false,
+      category: '',
+      labelName: ''
+    }
+    this.ref.close(confirmationObj);
   }
 
 }

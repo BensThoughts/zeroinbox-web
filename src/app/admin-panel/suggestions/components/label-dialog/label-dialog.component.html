@@ -1,12 +1,16 @@
 <div class=mat-logout-component>
   
-  <mat-dialog-content>
+  <mat-dialog-content [formGroup]="form">
 
-        <form *ngFor="let labelName of labelNames$ | async">
-          <div>
+
+          <div *ngFor="let labelName of labelNames$ | async">
               <mat-form-field>
                   <mat-label>Category</mat-label>
-                    <mat-select>
+                    <mat-select [placeholder]=""
+                                [ngModel]="defaultCategory"
+                                (selectionChange)="onCategorySelect($event)"
+                                name="Category"
+                                formControlName="category">
                         <mat-option *ngFor="let category of categories" [value]="category.value">
                           {{ category.name }}
                         </mat-option>
@@ -15,12 +19,13 @@
           </div>
           <div>
               <mat-form-field>
-                  <mat-label>Label Name</mat-label>
-                  <input matInput placeholder="Label Name" [value]="labelName" #searchInput>
-                </mat-form-field>
+                <mat-label>Label Name</mat-label>
+                <input matInput placeholder="Label Name" 
+                                [value]="labelName" #searchInput
+                                formControlName="labelName">
+              </mat-form-field>
           </div>
 
-      </form>
 
   </mat-dialog-content>
 

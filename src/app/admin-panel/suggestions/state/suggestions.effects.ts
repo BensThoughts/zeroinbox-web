@@ -19,7 +19,7 @@ import {
 } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { LabelDialogComponent } from '../components/label-dialog/label-dialog.component';
+import { LabelDialogComponent, ConfirmationObject } from '../components/label-dialog/label-dialog.component';
 import { DeleteSendersAction } from '../../../core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { ActionsService } from '../../../core/services/actions/actions.service';
@@ -55,12 +55,14 @@ export class SuggestionsEffects {
           return dialoagRef
           .afterClosed()
           .pipe(
-              map(confirmed => {
-                  if (confirmed) {
-                      console.log('LABEL');
-                  } else {
-                      console.log('CANCEL LABEL');
-                  }
+              map((confirmationObject: ConfirmationObject) => {
+                if (confirmationObject === undefined || !confirmationObject.save) {
+                  console.log('CANCEL LABEL');
+                } else {
+                  console.log('LABEL');
+                  console.log(confirmationObject.category);
+                  console.log(confirmationObject.labelName);
+                }
               })
           )
       })

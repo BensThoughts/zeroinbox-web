@@ -1,8 +1,7 @@
 <div class=mat-logout-component>
   
   <mat-dialog-content>
-    Are you sure you want to delete all emails from
-    {{ sender.fromAddress }}?
+    Move all emails from <b>{{ sender.fromAddress }}</b> to the trash?
   </mat-dialog-content>
 
   <mat-dialog-actions>
@@ -10,7 +9,7 @@
       Cancel
     </button>
     <button mat-stroked-button (click)="delete()">
-      Delete
+      Trash
     </button>
   </mat-dialog-actions>
 

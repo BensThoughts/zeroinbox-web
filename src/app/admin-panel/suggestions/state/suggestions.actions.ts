@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ISender } from '../../../core/state/senders/model/senders.model';
+import { ISender } from '@app/core/state/senders/model/senders.model';
 
 export enum SuggestionsActionTypes {
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
@@ -7,6 +7,10 @@ export enum SuggestionsActionTypes {
   LabelSenderDialog = '[Suggestions Component] Edit Label Dialog',
   DeleteSenderDialog = '[Suggestions Component] Delete Sender Dialog',
   DeleteAllSendersDialog = '[Suggestions Component] Delete All Senders Dialog',
+
+  LabelSenderRequest = '[Suggestions Effects] Label Sender Request',
+  LabelSenderRequestSuccess = '[Suggestions Effects] Label Sender Request Success',
+  LabelSenderRequestFailure = '[Suggestions Effects] Label Sender Request Failure',
 
   DeleteSenderRequest = '[Suggestions Effects] Delete Sender Request',
   DeleteSenderRequestSuccess = '[Suggestions Effects] Delete Sender Request Success',
@@ -36,6 +40,20 @@ export class LabelSenderDialogAction implements Action {
   readonly type = SuggestionsActionTypes.LabelSenderDialog;
   constructor(public payload: { sender: ISender }) {}
 }
+
+export class LabelSenderRequestAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSenderRequest;
+  constructor(public payload: { sender: ISender }) {}
+}
+
+export class LabelSenderRequestSuccessAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSenderRequestSuccess;
+}
+
+export class LabelSenderRequestFailureAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSenderRequestFailure;
+}
+
 export class DeleteSenderDialogAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSenderDialog;
   constructor(public payload: { sender: ISender }) {}
@@ -67,6 +85,9 @@ export type ByCountActions =
   | DeleteSenderDialogAction
   | DeleteAllSendersDialogAction
 
+  | LabelSenderRequestAction
+  | LabelSenderRequestSuccessAction
+  | LabelSenderRequestFailureAction
 
   | DeleteSendersRequestAction
   | DeleteSendersRequestSuccessAction
