@@ -9,15 +9,13 @@ export interface ActionsRequestBody {
   senderIds: string[];
   actionType: string;
   labelName?: string;
+  category?: string;
   filter?: boolean;
 }
 
 export interface ActionsResponse {
   status: string,
   status_message: string,
-  data: {
-    senderId: string
-  }
 }
 
 @Injectable()

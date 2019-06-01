@@ -24,6 +24,7 @@ import { DeleteSendersAction } from '../../../core/state/senders/senders.actions
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { ActionsService } from '../../../core/services/actions/actions.service';
 import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
+import { LabelSenderRequestAction } from './suggestions.actions';
 
 
 @Injectable()
@@ -65,11 +66,37 @@ export class SuggestionsEffects {
                   console.log('LABEL');
                   console.log(confirmationObject.category);
                   console.log(confirmationObject.labelName);
+                  this.store.dispatch(new LabelSenderRequestAction({
+                    sender: action.payload.sender,
+                    labelName: confirmationObject.labelName,
+                    category: confirmationObject.category
+                  }))
                 }
               })
           )
       })
   );
+
+  @Effect({ dispatch: false })
+  labelSenderRequest$ = this.actions$.pipe(
+    ofType<LabelSenderRequestAction>(SuggestionsActionTypes.LabelSenderRequest),
+    map((action) => {
+      let senderIds = [action.payload.sender.senderId];
+      this.actionsService.postActions({
+        senderIds: senderIds,
+        actionType: 'label',
+        category: action.payload.category,
+        labelName: action.payload.labelName
+      }).pipe(
+        retry(3),
+        map((response) => {
+          console.log(response);
+          // this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
+        }),
+        catchError((err) => of(console.log(err)))
+      ).subscribe();
+    })
+  )
 
   @Effect({ dispatch: false }) 
   deleteSender$ = this.actions$.pipe(

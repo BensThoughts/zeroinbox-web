@@ -43,7 +43,11 @@ export class LabelSenderDialogAction implements Action {
 
 export class LabelSenderRequestAction implements Action {
   readonly type = SuggestionsActionTypes.LabelSenderRequest;
-  constructor(public payload: { sender: ISender }) {}
+  constructor(public payload: { 
+    sender: ISender,
+    labelName: string,
+    category: string, 
+  }) {}
 }
 
 export class LabelSenderRequestSuccessAction implements Action {
