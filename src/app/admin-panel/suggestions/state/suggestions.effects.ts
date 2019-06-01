@@ -91,7 +91,7 @@ export class SuggestionsEffects {
         retry(3),
         map((response) => {
           console.log(response);
-          // this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
+          this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
         }),
         catchError((err) => of(console.log(err)))
       ).subscribe();
