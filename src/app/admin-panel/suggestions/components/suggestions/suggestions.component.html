@@ -2,6 +2,7 @@
 
 <div class="h-100">
   <div class="container h-100 my-4">
+    
     <div class="row" *ngIf="sendersLoaded$ | async; else loading">
       <div class="col">
 
@@ -9,34 +10,31 @@
           View Senders
         </span>
 
-    <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
     
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Threads">
-        <mat-card class="my-2">
-        <app-count-suggestions-table></app-count-suggestions-table>
-        </mat-card>
-      </mat-tab>
-      <mat-tab label="Size">
-        <mat-card class="my-2">
-          <go-suggestions-size-table></go-suggestions-size-table>
-        </mat-card>
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="Threads">
+            <mat-card class="my-2">
+              <app-count-suggestions-table></app-count-suggestions-table>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Size">
+            <mat-card class="my-2">
+              <go-suggestions-size-table></go-suggestions-size-table>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
 
-      </mat-tab>
-
-    </mat-tab-group>
-
-</div>
-
-</div>
-
-<ng-template #loading>
-  <div class="container h-100">
-    <div class="row h-100 justify-content-center align-items-center">
-      <mat-spinner [strokeWidth]="7"></mat-spinner>
+      </div>
     </div>
-  </div>
-</ng-template>
 
-</div>
+    <ng-template #loading>
+      <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+          <mat-spinner [strokeWidth]="7"></mat-spinner>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
 </div>

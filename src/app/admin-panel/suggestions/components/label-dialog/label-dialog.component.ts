@@ -1,10 +1,7 @@
-import { Store } from '@ngrx/store';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { AppState } from '@app/core';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 export interface ConfirmationObject {
   save: boolean;
@@ -20,7 +17,9 @@ export interface ConfirmationObject {
 
 export class LabelDialogComponent {
 
-  form: FormGroup;
+  @Input() sender: ISender;
+
+  name = new FormControl('');
 
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
@@ -30,21 +29,20 @@ export class LabelDialogComponent {
     { name: 'Work', value: 'Work'}
   ]
 
-  defaultCategory = this.categories[0].name;
+  defaultCategory = this.categories[0].value;
+  currentCategory: string;
 
   constructor(
-    private fb: FormBuilder,
     private ref: MatDialogRef<LabelDialogComponent>,
-    private store: Store<AppState>
-    ) {}
+    ) { }
 
-  @Input() labelNames$: Observable<string[]>;
-  @Input() sender: ISender;
 
-  currentCategory;
+  ngOnInit() {
+    this.name.setValue(this.sender.labelNames[0]);
+    this.currentCategory = this.defaultCategory;
+  }
 
   onCategorySelect($event) {
-    // console.log($event);
     this.currentCategory = $event.value; 
   }
 
@@ -52,7 +50,7 @@ export class LabelDialogComponent {
     let confirmationObj: ConfirmationObject = {
       save: true,
       category: this.currentCategory,
-      labelName: 'TEST'
+      labelName: this.name.value
     }
     this.ref.close(confirmationObj);
   }

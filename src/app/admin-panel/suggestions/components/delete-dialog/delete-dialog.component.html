@@ -1,7 +1,12 @@
 <div class=mat-logout-component>
   
   <mat-dialog-content>
-    Move all emails from <b>{{ sender.fromAddress }}</b> to the trash?
+    Move all emails to the trash?
+    <ul>
+      <li>
+        {{ sender.fromAddress }}
+      </li>
+    </ul>
   </mat-dialog-content>
 
   <mat-dialog-actions>
