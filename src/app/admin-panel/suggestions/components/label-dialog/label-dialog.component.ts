@@ -1,13 +1,14 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 export interface ConfirmationObject {
   save: boolean;
   category: string;
   labelName: string;
 }
+
 @Component({
   selector: 'app-label-dialog',
   templateUrl: './label-dialog.component.html',
@@ -15,21 +16,29 @@ export interface ConfirmationObject {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class LabelDialogComponent {
+export class LabelDialogComponent implements OnInit {
 
   @Input() sender: ISender;
 
   formGroup = new FormGroup({
-    labelName: new FormControl(''),
+    labelName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+      // Validators.pattern(/^[a-z0-9]+$/i)
+      Validators.pattern(/^[a-z\d\s]+$/i)
+      // noSlashValidator(/test/)
+    ]),
     category: new FormControl('')
   })
 
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
-    { name: 'Travel', value: 'Travel'},
-    { name: 'Finance', value: 'Finance'},
     { name: 'Friends', value: 'Friends'},
-    { name: 'Work', value: 'Work'}
+    { name: 'Work', value: 'Work'},
+    { name: 'Finance', value: 'Finance'},
+    { name: 'Shopping', value: 'Shopping'},
+    { name: 'Travel', value: 'Travel'},
+    { name: 'Misc', value: 'Misc'},
   ]
 
   constructor(
