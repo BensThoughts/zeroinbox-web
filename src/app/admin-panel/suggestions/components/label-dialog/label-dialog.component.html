@@ -2,29 +2,27 @@
   
   <mat-dialog-content>
 
-
-          <div>
-              <mat-form-field>
-                  <mat-label>Category</mat-label>
-                    <mat-select [placeholder]=""
-                                [ngModel]="defaultCategory"
-                                (selectionChange)="onCategorySelect($event)">
-                        <mat-option *ngFor="let category of categories" [value]="category.value">
-                          {{ category.name }}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-          </div>
-          <div>
-              <mat-form-field>
-                <mat-label>Label Name</mat-label>
-                <input matInput placeholder="Label Name" 
-                                [value]="sender.labelNames[0]" #searchInput
-                                [formControl]="name">
-
-              </mat-form-field>
-          </div>
-
+    <form [formGroup]="formGroup">
+      <div>
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+              <mat-select [placeholder]=""
+                          formControlName="category">
+                  <mat-option *ngFor="let category of categories" [value]="category.value">
+                    {{ category.name }}
+                  </mat-option>
+                </mat-select>
+          </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Label Name</mat-label>
+          <input matInput placeholder="Label Name" 
+                          [value]="sender.fromName" #searchInput
+                          formControlName="labelName">
+        </mat-form-field>
+      </div>
+    </form>
 
   </mat-dialog-content>
 
@@ -32,7 +30,7 @@
     <button mat-stroked-button (click)="cancel()">
       Cancel
     </button>
-    <button mat-stroked-button (click)="save()">
+    <button mat-stroked-button [disabled]="!formGroup.valid" (click)="save()">
       Label
     </button>
   </mat-dialog-actions>

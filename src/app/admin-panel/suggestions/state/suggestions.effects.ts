@@ -50,12 +50,6 @@ export class SuggestionsEffects {
           let dialoagRef = this.dialogService.open(LabelDialogComponent);
           let instance = dialoagRef.componentInstance;
           instance.sender = action.payload.sender;
-/*           instance.labelName$ = this.store.pipe(
-            select(selectLabelNamesBySenderId(action.payload.sender.senderId)),
-            map((labelNames) => {
-              return labelNames[0];
-            })
-          ) */
           return dialoagRef
           .afterClosed()
           .pipe(

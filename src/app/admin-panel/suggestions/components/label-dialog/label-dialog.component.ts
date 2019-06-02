@@ -19,7 +19,10 @@ export class LabelDialogComponent {
 
   @Input() sender: ISender;
 
-  name = new FormControl('');
+  formGroup = new FormGroup({
+    labelName: new FormControl(''),
+    category: new FormControl('')
+  })
 
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
@@ -29,28 +32,25 @@ export class LabelDialogComponent {
     { name: 'Work', value: 'Work'}
   ]
 
-  defaultCategory = this.categories[0].value;
-  currentCategory: string;
-
   constructor(
     private ref: MatDialogRef<LabelDialogComponent>,
     ) { }
 
 
   ngOnInit() {
-    this.name.setValue(this.sender.labelNames[0]);
-    this.currentCategory = this.defaultCategory;
-  }
-
-  onCategorySelect($event) {
-    this.currentCategory = $event.value; 
+    this.formGroup.setValue({
+      labelName: this.sender.fromName,
+      category: 'NO_CATEGORY'
+    });
   }
 
   save() {
+    let currentLabelName = this.formGroup.get('labelName').value;
+    let category = this.formGroup.get('category').value;
     let confirmationObj: ConfirmationObject = {
       save: true,
-      category: this.currentCategory,
-      labelName: this.name.value
+      category: category,
+      labelName: currentLabelName
     }
     this.ref.close(confirmationObj);
   }
