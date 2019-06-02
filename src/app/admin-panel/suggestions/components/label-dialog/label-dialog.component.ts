@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
-import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface ConfirmationObject {
   save: boolean;
@@ -34,9 +34,9 @@ export class LabelDialogComponent implements OnInit {
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
     { name: 'Friends', value: 'Friends'},
+    { name: 'Shopping', value: 'Shopping'},
     { name: 'Work', value: 'Work'},
     { name: 'Finance', value: 'Finance'},
-    { name: 'Shopping', value: 'Shopping'},
     { name: 'Travel', value: 'Travel'},
     { name: 'Misc', value: 'Misc'},
   ]
