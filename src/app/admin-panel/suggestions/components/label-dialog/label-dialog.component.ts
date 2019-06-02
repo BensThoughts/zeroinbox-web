@@ -23,10 +23,9 @@ export class LabelDialogComponent implements OnInit {
   formGroup = new FormGroup({
     labelName: new FormControl('', [
       Validators.required,
-      Validators.maxLength(20),
+      Validators.maxLength(25),
       // Validators.pattern(/^[a-z0-9]+$/i)
-      Validators.pattern(/^[a-z\d\s]+$/i)
-      // noSlashValidator(/test/)
+      Validators.pattern(/^[a-z\d\s.'&-]+$/i)
     ]),
     category: new FormControl('')
   })
@@ -35,6 +34,7 @@ export class LabelDialogComponent implements OnInit {
     { name: 'No Category', value: 'NO_CATEGORY'},
     { name: 'Friends', value: 'Friends'},
     { name: 'Shopping', value: 'Shopping'},
+    { name: 'News', value: 'News'},
     { name: 'Work', value: 'Work'},
     { name: 'Finance', value: 'Finance'},
     { name: 'Travel', value: 'Travel'},
