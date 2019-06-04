@@ -29,6 +29,7 @@ import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 })
 
 export class AppComponent implements OnInit {
+
   title = env.appName;
   logo = require('../assets/logo.png');
 
