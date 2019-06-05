@@ -31,6 +31,6 @@ export class DownloadingComponent implements OnInit {
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-    this.store.dispatch(new DownloadSendersRequestAction());
+    this.store.dispatch(new DownloadSendersRequestAction({ firstRunStatus: true }));
   }
 }

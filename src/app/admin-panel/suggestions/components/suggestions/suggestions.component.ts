@@ -11,6 +11,7 @@ import {
   // selectByCountGroup_TC,
   // selectByCountGroup_TL,
 } from '../../state/suggestions.selectors';
+import { SendersRequestAction } from '@app/core/state/senders/senders.actions';
 
 
 
@@ -23,25 +24,12 @@ import {
 export class SuggestionsComponent implements OnInit {
 
   sendersLoaded$: Observable<boolean>;
-  percentLoaded$: Observable<number>;
-
-  totalCounts$;
-  totalLengths$;
-  totalSizes$;
-
-  testData$;
-  testData$2;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
       this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
-      this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-      this.testData$ = this.store.pipe(select(selectByCount));
-      this.testData$2 = this.store.pipe(select(selectBySize));
-      /*       this.totalCounts$ = this.store.pipe(select(selectByCountGroup_TC));
-      this.totalLengths$ = this.store.pipe(select(selectByCountGroup_TL));
-      this.totalSizes$ = this.store.pipe(select(selectByCountGroup_TS)); */
+      this.store.dispatch(new SendersRequestAction());
   }
 
 }

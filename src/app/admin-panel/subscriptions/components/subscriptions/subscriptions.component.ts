@@ -6,6 +6,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { fromMatPaginator, paginateRows, fromMatSort, sortRows } from '../../../../core/utils/datasource-utils';
 import { ISender } from '@app/core/state/senders/model/senders.model';
+import { SendersRequestAction } from '../../../../core/state/senders/senders.actions';
 
 @Component({
   selector: 'app-subscriptions-component',
@@ -18,11 +19,6 @@ export class SubscriptionsComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-
+    this.store.dispatch(new SendersRequestAction());
   }
-
-  ngAfterViewInit() {
-  }
-
-
 }
