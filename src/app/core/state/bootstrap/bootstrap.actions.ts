@@ -14,7 +14,8 @@ export enum BootstrapActionTypes {
   NaviagteToDownloadingPage = '[Bootstrap Effects] Navigate To Downloading Page',
 
   DownloadSendersRequest = '[Bootstrap Effects] Load Suggestions Request',
-  DownloadSendersRequestFailure = '[Boostrap Effects] Load Suggestions Request Failure',
+  DownloadSendersRequestSuccess = '[Bootstrap Effects] Download Senders Request Success',
+  DownloadSendersRequestFailure = '[Boostrap Effects] Download Senders Request Failure',
   UpdateDownloadingStatus = '[BootstrapEffects] Update Loading Status',
 
   DownloadingStatusRequest = '[Bootstrap Effects] Loading Status Request',
@@ -61,6 +62,11 @@ export class NavigateToDownloadingPageAction implements Action {
 
 export class DownloadSendersRequestAction implements Action {
   readonly type = BootstrapActionTypes.DownloadSendersRequest;
+  constructor(public payload: { firstRunStatus: boolean }) {}
+}
+
+export class DownloadSendersRequestSuccessAction implements Action {
+  readonly type = BootstrapActionTypes.DownloadSendersRequestSuccess;
 }
 
 export class DownloadSendersRequestFailureAction implements Action {
@@ -129,6 +135,7 @@ export type BootstrapActions =
   | NavigateToDownloadingPageAction
 
   | DownloadSendersRequestAction
+  | DownloadSendersRequestSuccessAction
   | DownloadSendersRequestFailureAction
   | UpdateDownloadingStatusAction
 

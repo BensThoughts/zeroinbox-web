@@ -17,6 +17,7 @@ import {
 
   UpdateBootstrapStateAction,
   LoadAllDataRequestAction,
+  DownloadSendersRequestSuccessAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -68,7 +69,7 @@ export class BootstrapEffects {
             if (response.data.firstRun === true) {
               this.router.navigate([this.bootstrapService.downloadingSendersUrl]);
             } else {
-              this.store.dispatch(new LoadAllDataRequestAction());
+              this.store.dispatch(new DownloadSendersRequestAction({ firstRunStatus: false }));
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
             }
 
@@ -85,13 +86,17 @@ export class BootstrapEffects {
   loadSuggestionsRequest$ = this.actions$
     .pipe(
       ofType<DownloadSendersRequestAction>(BootstrapActionTypes.DownloadSendersRequest),
-      exhaustMap(() => {
+      exhaustMap((action) => {
         return this.bootstrapService.getLoadSuggestions().pipe(
           map((response) => {
             if (response.status === 'error') {
               return new DownloadSendersRequestFailureAction();
             } else {
-              return new DownloadingStatusRequestAction();
+              if (action.payload.firstRunStatus) {
+                return new DownloadingStatusRequestAction();
+              } else {
+                return new LoadAllDataRequestAction();
+              }
             }
           }),
           catchError((err) => {
