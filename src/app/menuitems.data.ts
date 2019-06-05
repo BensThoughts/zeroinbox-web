@@ -21,7 +21,7 @@ export const menu_items: MenuItem[] = [
   {
     name: 'How-To',
     route: '/admin-panel/how-to',
-    icon: 'book-dead'
+    icon: 'book'
   },
   {
     name: 'Subscriptions',
