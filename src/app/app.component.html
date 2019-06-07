@@ -13,10 +13,10 @@
 
 
     </span>
-
-    <button mat-flat-button>About</button>
-
-    <button mat-flat-button>FAQ</button>
+    
+    <a routerLink="/about">
+      <button mat-flat-button>About</button>
+    </a>
             
     <span *ngIf="isLoggedIn$ | async">
       <a (click)="signOut()">

@@ -11,9 +11,10 @@ import { SettingsModule } from './settings/settings.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { HomeModule } from './home/home.module';
 import { LogoutPromptComponent } from './logout-prompt/logout-prompt.component';
+import { DownloadingComponent } from './downloading/downloading.component';
 
 @NgModule({
-  declarations: [LogoutPromptComponent],
+  declarations: [LogoutPromptComponent, DownloadingComponent],
   entryComponents: [LogoutPromptComponent],
   imports: [
     CommonModule,

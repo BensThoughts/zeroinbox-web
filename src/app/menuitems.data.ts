@@ -33,6 +33,11 @@ export const auth_menu_items: MenuItem[] = [
     route: '/admin-panel/suggestions',
     icon: 'lightbulb',
   },
+  {
+    name: 'About',
+    route: '/about',
+    icon: 'lightbulb'
+  }
 ]
 
 export const menu_items: MenuItem[] = [
@@ -46,4 +51,9 @@ export const menu_items: MenuItem[] = [
     route: '/manual',
     icon: 'book'
   },
+  {
+    name: 'About',
+    route: '/about',
+    icon: 'lightbulb'
+  }
 ];

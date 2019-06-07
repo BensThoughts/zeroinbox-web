@@ -6,6 +6,7 @@ import { AuthGuardService } from '@app/core';
 import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
 import { SettingsComponent } from './settings/components/settings.component';
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions/subscriptions.component';
+import { DownloadingComponent } from './downloading/downloading.component';
 
 
 
@@ -13,10 +14,27 @@ const routes: Routes = [
   {
     path: 'admin-panel',
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'subscriptions', component: SubscriptionsComponent },
-      { path: 'suggestions', component: SuggestionsComponent },
+      { 
+        path: '', 
+        redirectTo: 'home', 
+        pathMatch: 'full' 
+      },
+      { 
+        path: 'home', 
+        component: HomeComponent 
+      },
+      { 
+        path: 'subscriptions', 
+        component: SubscriptionsComponent 
+      },
+      { 
+        path: 'suggestions', 
+        component: SuggestionsComponent 
+      },
+      {
+        path: 'downloading',
+        component: DownloadingComponent,
+      }
       // { path: 'settings', component: SettingsComponent }
     ],
     canActivate: [AuthGuardService]

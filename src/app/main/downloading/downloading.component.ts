@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { selectPercentLoaded } from '../../../core/state/bootstrap/bootstrap.selectors';
+import { selectPercentLoaded } from '@app/core/state/bootstrap/bootstrap.selectors';
 import { Observable } from 'rxjs';
-import { BasicProfile, EmailProfile } from '../../../core/state/user/user.model';
-import { selectBasicProfile, selectEmailProfile } from '../../../core/state/user/user.selectors';
-import { DownloadSendersRequestAction } from '../../../core/state/bootstrap/bootstrap.actions';
+import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
+import { selectBasicProfile, selectEmailProfile } from '@app/core/state/user/user.selectors';
+import { DownloadSendersRequestAction } from '@app/core/state/bootstrap/bootstrap.actions';
 
 /**
  * This page is displayed on a users first run ever while the email addresses (aka senders)
