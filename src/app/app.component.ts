@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      window.scrollTo(0,1);
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
       this.theme$ = this.store.pipe(select(selectTheme));
   }
