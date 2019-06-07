@@ -13,7 +13,7 @@ import { DownloadSendersRequestAction } from '@app/core/state/bootstrap/bootstra
  */
 
 @Component({
-  selector: 'go-downloading',
+  selector: 'app-downloading',
   templateUrl: './downloading.component.html',
   styleUrls: ['./downloading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
