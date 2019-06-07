@@ -52,14 +52,14 @@ export const menu_items: MenuItem[] = [
     icon: 'home'
   },
   {
-    name: 'Manual',
-    route: '/manual',
-    icon: 'book'
-  },
-  {
     name: 'About',
     route: '/about',
     icon: 'lightbulb'
+  },
+  {
+    name: 'Manual',
+    route: '/manual',
+    icon: 'book'
   },
   {
     name: 'Contact',
