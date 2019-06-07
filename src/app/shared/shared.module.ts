@@ -44,6 +44,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faAddressCard,
   faBars,
   faBook,
   faBookDead,
@@ -70,14 +71,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
+  faFacebook,
   faGithub,
   faMediumM,
   faTwitter,
   faInstagram,
-  faYoutube
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
+  faAddressCard,
   faBars,
   faBook,
   faBookDead,
@@ -102,11 +104,11 @@ library.add(
   faTrashAlt,
   faWindowMaximize,
 
+  faFacebook,
   faGithub,
+  faInstagram,
   faMediumM,
   faTwitter,
-  faInstagram,
-  faYoutube,
 );
 
 @NgModule({

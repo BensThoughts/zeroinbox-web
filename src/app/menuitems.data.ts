@@ -31,12 +31,12 @@ export const auth_menu_items: MenuItem[] = [
   {
     name: 'Senders',
     route: '/admin-panel/suggestions',
-    icon: 'lightbulb',
+    icon: 'address-card'
   },
   {
     name: 'About',
     route: '/about',
-    icon: 'lightbulb'
+    icon: 'lightbulb',
   }
 ]
 

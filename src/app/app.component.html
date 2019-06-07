@@ -13,12 +13,12 @@
 
 
     </span>
-    
+
     <a routerLink="/about">
       <button mat-flat-button>About</button>
     </a>
             
-    <span *ngIf="isLoggedIn$ | async">
+<!--     <span *ngIf="isLoggedIn$ | async">
       <a (click)="signOut()">
         <button mat-icon-button class="logout-button">
           <mat-icon class="logout-icon" matListIcon>
@@ -26,7 +26,7 @@
           </mat-icon>
         </button>
       </a>
-    </span>
+    </span> -->
 
   </mat-toolbar>
 
@@ -45,6 +45,17 @@
             </span>
             <span class="menu-item-name-sm">
             {{ auth_menu_item.name }}
+            </span>
+          </a>
+
+          <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
+            <span class="">
+              <mat-icon matListIcon>
+                <fa-icon icon="sign-out-alt"></fa-icon>
+              </mat-icon>
+            </span>
+            <span class="menu-item-name-sm">
+              Logout
             </span>
           </a>
 

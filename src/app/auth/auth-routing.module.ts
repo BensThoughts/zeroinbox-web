@@ -7,7 +7,7 @@ import { AuthGuardService } from '../core/services/auth/auth-guard.service';
 const routes: Routes = [
   {
     path: 'loading',
-    component: LoadingComponent
+    component: LoadingComponent,
   },
 ];
 
