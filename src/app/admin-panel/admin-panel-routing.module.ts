@@ -21,15 +21,18 @@ const routes: Routes = [
       },
       { 
         path: 'home', 
-        component: HomeComponent 
+        component: HomeComponent,
+        // canActivate: [AuthGuardService]
       },
       { 
         path: 'subscriptions', 
-        component: SubscriptionsComponent 
+        component: SubscriptionsComponent,
+        // canActivate: [AuthGuardService] 
       },
       { 
         path: 'suggestions', 
-        component: SuggestionsComponent 
+        component: SuggestionsComponent,
+        // canActivate: [AuthGuardService] 
       },
       {
         path: 'downloading',

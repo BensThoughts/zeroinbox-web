@@ -13,6 +13,7 @@ export interface ISendersResponse {
   totalSizeEstimate: number;
   unsubscribeEmail: string;
   unsubscribeWeb: string;
+  unsubscribed: boolean;
 }
 
 export interface SendersResponse {

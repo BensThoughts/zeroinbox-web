@@ -10,6 +10,7 @@ import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
+import { UnsubscribeDialogAction } from '../../state/subscriptions.actions';
 import { 
   selectSubscriptions,
   selectSubscriptionsByName
@@ -120,9 +121,8 @@ export class SubscriptionsTableComponent implements OnInit {
 
   }
 
-  unsubscribe(suggestion) {
-
+  unsubscribe(suggestion: ISender) {
+    this.store.dispatch(new UnsubscribeDialogAction({ sender: suggestion}))
   }
-
 
 }

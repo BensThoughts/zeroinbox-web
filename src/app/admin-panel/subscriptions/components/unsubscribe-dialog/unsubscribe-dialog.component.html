@@ -1,0 +1,31 @@
+<div class=mat-logout-component>
+  
+  <mat-dialog-content>
+    
+    <div>
+        Would you like to unsubscribe?
+    </div>
+
+    <div>
+      <ul>
+        <li>
+          {{ sender.fromName }}
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="unsubscribeNewTab">
+      This subscription involves opening a new window to unsubscribe
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-stroked-button (click)="unsubscribe()">
+      Unsubscribe
+    </button>
+  </mat-dialog-actions>
+
+</div>

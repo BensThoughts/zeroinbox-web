@@ -68,7 +68,8 @@ export class SendersEffects {
                   totalSizeEstimate: totalSizeEstimate,
                   sizeGroup: sizeGroup,
                   unsubscribeEmail: sender.unsubscribeEmail,
-                  unsubscribeWeb: sender.unsubscribeWeb
+                  unsubscribeWeb: sender.unsubscribeWeb,
+                  unsubscribed: sender.unsubscribed
                 };
               })
               return new AddAllSendersAction({ senders: senders });

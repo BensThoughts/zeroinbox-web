@@ -31,7 +31,7 @@ export interface FirstRunStatusResponse {
 @Injectable()
 export class BootstrapService {
 
-    private _downloadingSendersUrl = '/downloading';
+    private _downloadingSendersUrl = '/admin-panel/downloading';
     private _sendersDownloadedUrl = '/admin-panel/home';
 
     constructor(private httpClient: HttpClient) {}
