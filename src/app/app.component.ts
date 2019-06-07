@@ -31,7 +31,7 @@ import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 export class AppComponent implements OnInit {
 
   title = env.appName;
-  logo = require('../assets/logo.png');
+  // logo = require('../assets/logo.png');
 
   // A list of each menu item MenuItem: { name, route, icon }
   menu_items: MenuItem[] = menu_items;
