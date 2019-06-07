@@ -12,16 +12,11 @@ export interface MenuItem {
   icon: string;
 }
 
-export const menu_items: MenuItem[] = [
+export const auth_menu_items: MenuItem[] = [
   {
     name: 'Home',
     route: '/admin-panel/home',
     icon: 'home'
-  },
-  {
-    name: 'How-To',
-    route: '/admin-panel/how-to',
-    icon: 'book'
   },
   {
     name: 'Subscriptions',
@@ -32,5 +27,18 @@ export const menu_items: MenuItem[] = [
     name: 'Senders',
     route: '/admin-panel/suggestions',
     icon: 'lightbulb',
+  },
+]
+
+export const menu_items: MenuItem[] = [
+  {
+    name: 'Home',
+    route: '/home',
+    icon: 'home'
+  },
+  {
+    name: 'Manual',
+    route: '/manual',
+    icon: 'book'
   },
 ];

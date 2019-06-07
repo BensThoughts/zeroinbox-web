@@ -11,6 +11,7 @@ import { exhaustMap, map, catchError, filter } from 'rxjs/operators';
 import { SendersService } from '../../services/senders/senders.service';
 import { ISender } from './model/senders.model';
 import { of, fromEvent } from 'rxjs';
+import { NotificationService } from '../../services/notifications/notification.service';
 
 @Injectable()
 export class SendersEffects {
@@ -73,6 +74,7 @@ export class SendersEffects {
               return new AddAllSendersAction({ senders: senders });
             }),
             catchError((err) => {
+              this.notificationService.connectionError();
               console.error(err);
               return of(new SendersRequestFailureAction());
             })
@@ -99,7 +101,8 @@ export class SendersEffects {
 
       constructor(
           private sendersService: SendersService,
-          private actions$: Actions
+          private actions$: Actions,
+          private notificationService: NotificationService
           ) {}
       
 }

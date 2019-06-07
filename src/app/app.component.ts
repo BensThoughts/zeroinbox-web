@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { environment as env } from '@env/environment';
 
-import { MenuItem, menu_items } from './menuitems.data';
+import { MenuItem, menu_items, auth_menu_items } from './menuitems.data';
 
 import {
   sideNavAnimation,
@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
 
   // A list of each menu item MenuItem: { name, route, icon }
   menu_items: MenuItem[] = menu_items;
+  auth_menu_items: MenuItem[] = auth_menu_items;
 
   // Determines which menu items should be displayed
   isLoggedIn$: Observable<boolean>;

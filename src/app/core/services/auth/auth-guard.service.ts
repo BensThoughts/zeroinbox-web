@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
     return this.checkStoreAuthentication().pipe(
       tap((authenticated) => {
         if (!authenticated) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
         }
       })
     );

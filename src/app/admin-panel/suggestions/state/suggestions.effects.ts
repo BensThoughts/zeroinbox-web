@@ -20,11 +20,12 @@ import {
 import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { LabelDialogComponent, ConfirmationObject } from '../components/label-dialog/label-dialog.component';
-import { DeleteSendersAction } from '../../../core/state/senders/senders.actions';
+import { DeleteSendersAction } from '@app/core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
-import { ActionsService } from '../../../core/services/actions/actions.service';
+import { ActionsService } from '@app/core/services/actions/actions.service';
 import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
 import { LabelSenderRequestAction } from './suggestions.actions';
+import { NotificationService } from '@app/core/services/notifications/notification.service';
 
 
 @Injectable()
@@ -55,9 +56,7 @@ export class SuggestionsEffects {
           .pipe(
               map((confirmationObject: ConfirmationObject) => {
                 if (confirmationObject === undefined || !confirmationObject.save) {
-                  console.log('CANCEL LABEL');
                 } else {
-                  console.log('LABEL');
                   console.log(confirmationObject.category);
                   console.log(confirmationObject.labelName);
                   this.store.dispatch(new LabelSenderRequestAction({
@@ -87,13 +86,16 @@ export class SuggestionsEffects {
           console.log(response);
           this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
         }),
-        catchError((err) => of(console.log(err)))
+        catchError((err) => {
+          this.notificationService.connectionError();
+          return of(console.log(err))
+        })
       ).subscribe();
     })
   )
 
   @Effect({ dispatch: false }) 
-  deleteSender$ = this.actions$.pipe(
+  deleteSenderDialog$ = this.actions$.pipe(
     ofType<DeleteSenderDialogAction>(SuggestionsActionTypes.DeleteSenderDialog),
     exhaustMap((action) => {
       let dialogRef = this.dialogService.open(DeleteDialogComponent);
@@ -104,10 +106,8 @@ export class SuggestionsEffects {
       .pipe(
         map(confirmed => {
           if (confirmed) {
-            console.log('DELETE');
             this.store.dispatch(new DeleteSendersRequestAction({ senders: [action.payload.sender] }))
           } else {
-            console.log('CANCEL DELETE');
           }
         })
       )
@@ -115,7 +115,7 @@ export class SuggestionsEffects {
   )
 
   @Effect({ dispatch: false })
-  deleteAllSenders$ = this.actions$.pipe(
+  deleteAllSendersDialog$ = this.actions$.pipe(
     ofType<DeleteAllSendersDialogAction>(SuggestionsActionTypes.DeleteAllSendersDialog),
     exhaustMap((action) => {
       let dialogRef = this.dialogService.open(DeleteAllDialogComponent);
@@ -126,14 +126,11 @@ export class SuggestionsEffects {
       .pipe(
         map(confirmed => {
           if (confirmed) {
-            console.log('DELETE_ALL');
             this.store.dispatch(new DeleteSendersRequestAction({ senders: action.payload.senders }))
           } else {
-            console.log('CANCEL DELETE_ALL');
           }
         })
       )
-
     })
   )
 
@@ -151,7 +148,10 @@ export class SuggestionsEffects {
           console.log(response);
           this.store.dispatch(new DeleteSendersAction({ senderIds: senderIds }));
         }),
-        catchError((err) => of(console.log(err)))
+        catchError((err) => {
+          this.notificationService.connectionError();
+          return of(console.log(err))
+        })
       ).subscribe();
     })
   )
@@ -161,5 +161,6 @@ export class SuggestionsEffects {
     private actions$: Actions,
     private store: Store<AppState>,
     private dialogService: MatDialog,
-    private actionsService: ActionsService) { }
+    private actionsService: ActionsService,
+    private notificationService: NotificationService) { }
 }

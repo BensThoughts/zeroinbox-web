@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@mixin anms-home-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  mat-card-content {
+    mat-chip-list {
+      text-align: center;
+      position: relative;
+
+      mat-chip {
+        code {
+          background-color: mat-color($primary);
+          color: white;
+        }
+
+      }
+    }
+  }
+
+
+}

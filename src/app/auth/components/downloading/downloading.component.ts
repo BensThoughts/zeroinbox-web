@@ -2,8 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core';
 import { selectPercentLoaded } from '../../../core/state/bootstrap/bootstrap.selectors';
-import { selectSendersLoaded } from '../../../core/state/senders/senders.selectors';
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '../../../core/state/user/user.model';
 import { selectBasicProfile, selectEmailProfile } from '../../../core/state/user/user.selectors';
