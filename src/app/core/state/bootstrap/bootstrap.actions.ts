@@ -95,7 +95,7 @@ export class UpdatePercentDownloadedAction implements Action {
 
 export class UpdateIsBootstrappedAction implements Action {
   readonly type = BootstrapActionTypes.UpdateIsBootrapped;
-  constructor(public payload: { isBootrapped: boolean }) {}
+  constructor(public payload: { isBootstrapped: boolean }) {}
 }
 
 export class LoadAllDataRequestAction implements Action {

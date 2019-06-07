@@ -73,7 +73,7 @@ export class BootstrapEffects {
               this.router.navigate([this.bootstrapService.downloadingSendersUrl]);
             } else {
               this.store.dispatch(new DownloadSendersRequestAction({ firstRunStatus: false }));
-              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootrapped: true }));
+              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootstrapped: true }));
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
             }
 
@@ -133,7 +133,7 @@ export class BootstrapEffects {
               this.store.dispatch(new DownloadingStatusRequestAction());
             } else {
               this.store.dispatch(new UpdateDownloadingStatusAction({ downloadingStatus: false }));
-              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootrapped: true }));
+              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootstrapped: true }));
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
               this.store.dispatch(new LoadAllDataRequestAction());
             }
