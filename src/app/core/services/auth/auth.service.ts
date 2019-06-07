@@ -15,8 +15,8 @@ export interface AuthUrlResponse {
 export class AuthService {
     // Authentication navigation
     private _onAuthSuccessUrl = '/admin-panel/home';
-    private _onAuthFailureUrl = '/login';
-    private _logoutUrl = '/login';
+    private _onAuthFailureUrl = '/home';
+    private _logoutUrl = '/home';
 
     constructor(private httpClient: HttpClient) { }
 
