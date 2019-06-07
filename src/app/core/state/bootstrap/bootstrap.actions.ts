@@ -22,6 +22,8 @@ export enum BootstrapActionTypes {
   DownloadingStatusRequestFailure = '[Bootstrap Effects] Loading Status Request Failure',
   UpdatePercentDownloaded = '[Boostrap Effects] Update Percent Loaded',
 
+  UpdateIsBootrapped = '[Bootstrap Effects] Update isBootstrapped',
+
   LoadAllDataRequest = '[Bootstrap Effects] Load All Data Request',
 
   ToggleSyncToStorage = '[Auth Effects] Toggle Sync To Storage False',
@@ -75,7 +77,7 @@ export class DownloadSendersRequestFailureAction implements Action {
 
 export class UpdateDownloadingStatusAction implements Action {
   readonly type = BootstrapActionTypes.UpdateDownloadingStatus;
-  constructor(public payload: { loadingStatus: boolean }) {}
+  constructor(public payload: { downloadingStatus: boolean }) {}
 }
 
 export class DownloadingStatusRequestAction implements Action {
@@ -89,6 +91,11 @@ export class DownloadingStatusRequestFailureAction implements Action {
 export class UpdatePercentDownloadedAction implements Action {
   readonly type = BootstrapActionTypes.UpdatePercentDownloaded;
   constructor(public payload: { percentLoaded: number }) {}
+}
+
+export class UpdateIsBootstrappedAction implements Action {
+  readonly type = BootstrapActionTypes.UpdateIsBootrapped;
+  constructor(public payload: { isBootrapped: boolean }) {}
 }
 
 export class LoadAllDataRequestAction implements Action {
@@ -143,6 +150,7 @@ export type BootstrapActions =
   | DownloadingStatusRequestFailureAction
   | UpdatePercentDownloadedAction
 
+  | UpdateIsBootstrappedAction
   | LoadAllDataRequestAction
 
   | ToggleSyncToStorageAction

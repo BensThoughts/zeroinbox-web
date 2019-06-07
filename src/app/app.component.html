@@ -35,8 +35,7 @@
     <mat-sidenav #sidenav class="d-md-none sidenav-sm" mode="over" closed role="navigation" position="start">
       <mat-nav-list>
 
-        <div *ngIf="isLoggedIn$ | async; else loggedOutMenuMobile">
-
+        <div *ngIf="isBootstrapped$ | async; else preBootstrapMenuMobile">
           <a mat-list-item *ngFor="let auth_menu_item of auth_menu_items" routerLink="{{ auth_menu_item.route }}" (click)="sidenav.toggle()">
             <span>
               <mat-icon matListIcon>
@@ -45,6 +44,19 @@
             </span>
             <span class="menu-item-name-sm">
             {{ auth_menu_item.name }}
+            </span>
+          </a>
+        </div>
+
+
+          <a mat-list-item *ngIf="isDownloading$ | async" routerLink="/admin-panel/downloading">
+            <span class="">
+              <mat-icon matListIcon>
+                <fa-icon icon="download"></fa-icon>
+              </mat-icon>
+            </span>
+            <span class="menu-item-name-sm">
+              Download
             </span>
           </a>
 
@@ -59,7 +71,6 @@
             </span>
           </a>
 
-        </div>
 
       </mat-nav-list>
     </mat-sidenav>
@@ -72,7 +83,7 @@
 
           <mat-nav-list>
 
-            <div *ngIf="isLoggedIn$ | async; else loggedOutMenu">
+            <div *ngIf="isBootstrapped$ | async; else preBootstrapMenu">
               <a mat-list-item *ngFor="let auth_menu_item of auth_menu_items" routerLink="{{ auth_menu_item.route }}">
                 <span  class="app-nav-list-icon">
                   <mat-icon matListIcon>
@@ -85,6 +96,16 @@
               </a>
             </div>
 
+            <a mat-list-item *ngIf="isDownloading$ | async" routerLink="/admin-panel/downloading">
+              <span class="">
+                <mat-icon matListIcon>
+                  <fa-icon icon="download"></fa-icon>
+                </mat-icon>
+              </span>
+              <span class="menu-item-name">
+                Download
+              </span>
+            </a>
 
             <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
               <span class="app-nav-list-icon">
@@ -96,6 +117,7 @@
                 Logout
               </span>
             </a>
+
           </mat-nav-list>
 
         </mat-sidenav>
@@ -142,7 +164,7 @@
 
 </div>
 
-<ng-template #loggedOutMenuMobile>
+<ng-template #preBootstrapMenuMobile>
   <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}" (click)="sidenav.toggle()">
     <span>
       <mat-icon matListIcon>
@@ -155,7 +177,7 @@
   </a>
 </ng-template>
 
-<ng-template #loggedOutMenu>
+<ng-template #preBootstrapMenu>
   <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
     <span  class="app-nav-list-icon">
       <mat-icon matListIcon>

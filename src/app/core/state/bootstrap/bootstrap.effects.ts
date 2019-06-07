@@ -18,6 +18,7 @@ import {
   UpdateBootstrapStateAction,
   LoadAllDataRequestAction,
   DownloadSendersRequestSuccessAction,
+  UpdateIsBootstrappedAction,
 } from './bootstrap.actions';
 import { BootstrapService } from '@app/core/services//bootstrap/bootstrap.service';
 import { Store, select } from '@ngrx/store';
@@ -37,6 +38,7 @@ import { SendersRequestAction } from '../senders/senders.actions';
 
 import { Router } from '@angular/router';
 import { UserProfileRequestAction } from '../user/user.actions';
+import { UpdateDownloadingStatusAction } from './bootstrap.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -67,9 +69,11 @@ export class BootstrapEffects {
             }
             this.store.dispatch(new UpdateFirstRunAction({ firstRun: response.data.firstRun }));
             if (response.data.firstRun === true) {
+              this.store.dispatch(new UpdateDownloadingStatusAction({ downloadingStatus: true }))
               this.router.navigate([this.bootstrapService.downloadingSendersUrl]);
             } else {
               this.store.dispatch(new DownloadSendersRequestAction({ firstRunStatus: false }));
+              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootrapped: true }));
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
             }
 
@@ -128,6 +132,8 @@ export class BootstrapEffects {
               this.store.dispatch(new UpdatePercentDownloadedAction({ percentLoaded: percentLoaded }))
               this.store.dispatch(new DownloadingStatusRequestAction());
             } else {
+              this.store.dispatch(new UpdateDownloadingStatusAction({ downloadingStatus: false }));
+              this.store.dispatch(new UpdateIsBootstrappedAction({ isBootrapped: true }));
               this.router.navigate([this.bootstrapService.sendersDownloadedUrl]);
               this.store.dispatch(new LoadAllDataRequestAction());
             }

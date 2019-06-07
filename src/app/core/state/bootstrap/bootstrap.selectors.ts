@@ -15,12 +15,17 @@ export const selectFirstRun = createSelector(
   (state: BootstrapState) => state.firstRun
 );
 
-export const selectLoadingSuggestions = createSelector(
+export const selectDownloadingStatus = createSelector(
   selectBootstrap,
-  (state: BootstrapState) => state.loadingStatus
+  (state: BootstrapState) => state.downloadingStatus
 );
 
 export const selectPercentLoaded = createSelector(
   selectBootstrap,
   (state: BootstrapState) => state.percentLoaded
+);
+
+export const selectIsBootstrapped = createSelector(
+  selectBootstrap,
+  (state: BootstrapState) => state.isBootstrapped
 );

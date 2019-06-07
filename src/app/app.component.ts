@@ -12,7 +12,7 @@ import {
 } from './sidenav.animations';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, LogoutAction } from '@app/core';
+import { AppState, LogoutAction, selectDownloadingStatus, selectIsBootstrapped } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
 import { selectTheme } from './admin-panel/settings/state/settings.selectors';
 
@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
 
   // Determines which menu items should be displayed
   isLoggedIn$: Observable<boolean>;
+  isDownloading$: Observable<boolean>;
+  isBootstrapped$: Observable<boolean>;
 
   // Sets the color theme app-wide
   theme$: Observable<string>;
@@ -53,6 +55,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
+      this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
+      this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
       this.theme$ = this.store.pipe(select(selectTheme));
   }
 
