@@ -19,6 +19,11 @@ export const auth_menu_items: MenuItem[] = [
     icon: 'home'
   },
   {
+    name: 'Manual',
+    route: '/manual',
+    icon: 'book'
+  },
+  {
     name: 'Subscriptions',
     route: '/admin-panel/subscriptions',
     icon: 'newspaper'

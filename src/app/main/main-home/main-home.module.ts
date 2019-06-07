@@ -6,10 +6,11 @@ import { MainHomeComponent } from './components/main-home/main-home.component';
 import { SharedModule } from '@app/shared';
 
 import { RouterModule } from '@angular/router';
+import { LoginCardComponent } from '@app/auth/components/login-card/login-card.component';
 
 
 @NgModule({
-  declarations: [MainHomeComponent],
+  declarations: [MainHomeComponent, LoginCardComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -9,11 +9,12 @@ import { SharedModule } from '@app/shared';
 import { SuggestionsModule } from './suggestions/suggestions.module';
 import { SettingsModule } from './settings/settings.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
-import { HowToComponent } from './how-to/how-to.component';
 import { HomeModule } from './home/home.module';
+import { LogoutPromptComponent } from './logout-prompt/logout-prompt.component';
 
 @NgModule({
-  declarations: [HowToComponent],
+  declarations: [LogoutPromptComponent],
+  entryComponents: [LogoutPromptComponent],
   imports: [
     CommonModule,
     SharedModule,
