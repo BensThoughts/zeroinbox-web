@@ -44,6 +44,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faAddressBook,
   faAddressCard,
   faBars,
   faBook,
@@ -77,8 +78,10 @@ import {
   faTwitter,
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
+import { FooterComponent } from './components/footer.component';
 
 library.add(
+  faAddressBook,
   faAddressCard,
   faBars,
   faBook,
@@ -145,6 +148,7 @@ library.add(
     DragDropModule,
 
   ],**/
+  declarations: [FooterComponent],
   exports: [
     CommonModule,
 

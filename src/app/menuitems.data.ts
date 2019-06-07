@@ -37,6 +37,11 @@ export const auth_menu_items: MenuItem[] = [
     name: 'About',
     route: '/about',
     icon: 'lightbulb',
+  },
+  {
+    name: 'Contact',
+    route: '/contact',
+    icon: 'address-book'
   }
 ]
 
@@ -55,5 +60,10 @@ export const menu_items: MenuItem[] = [
     name: 'About',
     route: '/about',
     icon: 'lightbulb'
+  },
+  {
+    name: 'Contact',
+    route: '/contact',
+    icon: 'address-book'
   }
 ];

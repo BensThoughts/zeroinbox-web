@@ -5,6 +5,7 @@ import { MainHomeComponent } from './main-home/components/main-home/main-home.co
 import { ManualComponent } from './manual/manual.component';
 import { ReverseAuthGuardService } from '../core/services/auth/reverse-auth-guard.service';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {
@@ -20,13 +21,17 @@ const routes: Routes = [
         component: MainHomeComponent,
         canActivate: [ReverseAuthGuardService]
       },
+      { 
+        path: 'manual', 
+        component: ManualComponent
+      },
       {
         path: 'about',
         component: AboutComponent
       },
-      { 
-        path: 'manual', 
-        component: ManualComponent
+      {
+        path: 'contact',
+        component: ContactComponent
       },
       // This redirection re-redirects to /home when not logged in and to
       // /admin-panel/home when logged in

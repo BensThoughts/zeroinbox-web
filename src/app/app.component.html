@@ -110,8 +110,29 @@
       </div>
 
       <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block h-100 reset-md">
-        <router-outlet></router-outlet>
+        <div class="wrap2">
+          <router-outlet></router-outlet>
+        </div>
+        <footer class="footer">
+          <div class="container">
+            <div class="row align-content-center justify-content-center">
+              <button mat-mini-fab class="mx-2">
+                    <fa-icon [icon]="['fab','twitter']"></fa-icon>
+                </button>
+                <button mat-mini-fab class="mx-2">
+                    <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
+                </button>
+                <a href="mailto:MailboxOrganizer@GMail.com">
+                  <button mat-mini-fab class="mx-2">
+                    <fa-icon icon="envelope"></fa-icon>
+                  </button>                
+                </a>
+            </div>
+
+          </div>
+        </footer>
       </div>
+
 
     </mat-sidenav-content>
 
