@@ -49,7 +49,7 @@ export class SubscriptionsEffects {
           actionType: 'unsubscribe',
           filter: false
         };
-        this.actionsService.postActions(actionsRequestBody).pipe(
+       /*  this.actionsService.postActions(actionsRequestBody).pipe(
           map((response) => {
             if (response.status == 'error') {
               console.error(response.status_message)
@@ -59,7 +59,7 @@ export class SubscriptionsEffects {
             this.notificationService.connectionError();
             return of(err);
           })
-        ).subscribe();
+        ).subscribe(); */
       })
     )
 
