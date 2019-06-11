@@ -1,6 +1,7 @@
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { ByCountActions, SuggestionsActionTypes } from './suggestions.actions';
 import { AppState } from '@app/core';
+import { ISender } from '../../../core/state/senders/model/senders.model';
 
 export interface State extends AppState {
   suggestions: SuggestionsState;
@@ -10,13 +11,15 @@ export interface SuggestionsState {
   suggestionsLoaded: boolean;
   countCutoff: number;
   sizeGroup: string;
+  currentSender: ISender;
 }
 
 
 const initialSuggestionsState = {
   suggestionsLoaded: false,
   countCutoff: 1,
-  sizeGroup: 'ALL'
+  sizeGroup: 'ALL',
+  currentSender: undefined
 }
 
 export function suggestionsReducer(
@@ -27,6 +30,9 @@ export function suggestionsReducer(
 
       case SuggestionsActionTypes.SetSizeCutoff:
         return { ...state, sizeGroup: action.payload.sizeCutoff };
+
+      case SuggestionsActionTypes.SetCurrentSender:
+        return { ...state, currentSender: action.payload.sender };
 
       case SuggestionsActionTypes.ResetSuggestions:
         return initialSuggestionsState;

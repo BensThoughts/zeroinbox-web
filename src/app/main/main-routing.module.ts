@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainHomeComponent } from './main-home/components/main-home/main-home.component';
 import { ManualComponent } from './manual/manual.component';
 import { ReverseAuthGuardService } from '../core/services/auth/reverse-auth-guard.service';
-import { AboutComponent } from './about/about.component';
+import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
@@ -26,8 +26,8 @@ const routes: Routes = [
         component: ManualComponent
       },
       {
-        path: 'about',
-        component: AboutComponent
+        path: 'story',
+        component: StoryComponent
       },
       {
         path: 'contact',

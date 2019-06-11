@@ -10,6 +10,10 @@ import { exhaustMap, map, catchError } from 'rxjs/operators';
 import { UnsubscribeDialogComponent } from '../components/unsubscribe-dialog/unsubscribe-dialog.component';
 import { ActionsRequestBody } from '../../../core/services/actions/actions.service';
 import { of } from 'rxjs';
+import { UpdateSenderAction } from '@app/core/state/senders/senders.actions';
+import { Update } from '@ngrx/entity';
+import { ISender } from '../../../core/state/senders/model/senders.model';
+import { send } from 'q';
 
 @Injectable()
 export class SubscriptionsEffects {
@@ -30,9 +34,8 @@ export class SubscriptionsEffects {
                 if (confirmed) {
                   if (sender.unsubscribeWeb !== null) {
                     window.open(sender.unsubscribeWeb, '_blank');
-                  } else if (sender.unsubscribeEmail !== null) {
-                    this.store.dispatch(new UnsubscribeSenderRequestAction({ sender: sender }));
                   }
+                  this.store.dispatch(new UnsubscribeSenderRequestAction({ sender: sender }));
                 }
               })
           )
@@ -47,19 +50,32 @@ export class SubscriptionsEffects {
         let actionsRequestBody: ActionsRequestBody = {
           senderIds: [sender.senderId],
           actionType: 'unsubscribe',
+          unsubscribeEmail: sender.unsubscribeEmail,
+          unsubscribeWeb: sender.unsubscribeWeb,
           filter: false
         };
-       /*  this.actionsService.postActions(actionsRequestBody).pipe(
+       this.actionsService.postActions(actionsRequestBody).pipe(
           map((response) => {
             if (response.status == 'error') {
               console.error(response.status_message)
+            } else {
+              let senderUpdate: Update<ISender> = {
+                id: sender.senderId,
+                changes: {
+                  unsubscribed: true
+                }
+              };
+              this.store.dispatch(new UpdateSenderAction({ senderUpdate: senderUpdate }))
             }
           }),
           catchError((err) => {
             this.notificationService.connectionError();
             return of(err);
           })
-        ).subscribe(); */
+        ).subscribe();
+      }),
+      catchError((error) => {
+        return of(console.log(error));
       })
     )
 

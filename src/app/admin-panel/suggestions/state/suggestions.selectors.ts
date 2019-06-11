@@ -14,6 +14,11 @@ export const selectSuggestionsLoaded = createSelector(
   (state: SuggestionsState) => state.suggestionsLoaded
 );
 
+export const selectCurrentSender = createSelector(
+  selectSuggestionsState,
+  (state: SuggestionsState) => state.currentSender
+);
+
 /*******************************************************************************
  *  BY Name based on count
  * ****************************************************************************/

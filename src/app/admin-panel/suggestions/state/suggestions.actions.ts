@@ -16,6 +16,8 @@ export enum SuggestionsActionTypes {
   DeleteSenderRequestSuccess = '[Suggestions Effects] Delete Sender Request Success',
   DeleteSenderRequestFailure = '[Suggestions Effects] Delete Sender Request Failure',
 
+  SetCurrentSender = '[Suggestions Table] Set Current Sender',
+
   UpdateSuggestionsState = '[Suggestions Effects] Update Suggestions State From Another Tab/Window',
   ResetSuggestions = '[Auth Effects] Reset Suggestions'
 }
@@ -24,16 +26,6 @@ export class SetSizeCutoffAction implements Action {
   readonly type = SuggestionsActionTypes.SetSizeCutoff;
 
   constructor(public payload: { sizeCutoff: string }) {}
-}
-
-export class UpdateSuggestionsStateAction implements Action {
-  readonly type = SuggestionsActionTypes.UpdateSuggestionsState;
-
-  constructor(public payload: any) {}
-}
-
-export class ResetSuggestionsStateAction implements Action {
-  readonly type = SuggestionsActionTypes.ResetSuggestions;
 }
 
 export class LabelSenderDialogAction implements Action {
@@ -82,6 +74,21 @@ export class DeleteSendersRequestFailureAction implements Action {
   readonly type = SuggestionsActionTypes.DeleteSenderRequestFailure;
 }
 
+export class SetCurrentSenderAction implements Action {
+  readonly type = SuggestionsActionTypes.SetCurrentSender;
+  constructor(public payload: { sender: ISender }) {}
+}
+
+export class UpdateSuggestionsStateAction implements Action {
+  readonly type = SuggestionsActionTypes.UpdateSuggestionsState;
+
+  constructor(public payload: any) {}
+}
+
+export class ResetSuggestionsStateAction implements Action {
+  readonly type = SuggestionsActionTypes.ResetSuggestions;
+}
+
 export type ByCountActions =
   | SetSizeCutoffAction
 
@@ -96,6 +103,8 @@ export type ByCountActions =
   | DeleteSendersRequestAction
   | DeleteSendersRequestSuccessAction
   | DeleteSendersRequestFailureAction
+
+  | SetCurrentSenderAction
 
   | UpdateSuggestionsStateAction
   | ResetSuggestionsStateAction

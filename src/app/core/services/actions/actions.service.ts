@@ -4,13 +4,18 @@ import { Observable} from 'rxjs';
 
 import { API_URL } from '../apiurl';
 
-
+export type ActionType = 
+  | 'label'
+  | 'delete'
+  | 'unsubscribe'
 export interface ActionsRequestBody {
   senderIds: string[];
-  actionType: string;
+  actionType: ActionType;
   labelName?: string;
   category?: string;
   filter?: boolean;
+  unsubscribeEmail?: string;
+  unsubscribeWeb?: string;
 }
 
 export interface ActionsResponse {

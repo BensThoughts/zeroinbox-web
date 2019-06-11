@@ -7,11 +7,11 @@ import { SharedModule } from '@app/shared';
 
 import { ManualComponent } from './manual/manual.component';
 import { MainHomeModule } from './main-home/main-home.module';
-import { AboutComponent } from './about/about.component';
+import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
-  declarations: [ManualComponent, AboutComponent, ContactComponent],
+  declarations: [ManualComponent, StoryComponent, ContactComponent],
   imports: [
     CommonModule,
     SharedModule,
