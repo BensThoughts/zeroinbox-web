@@ -19,7 +19,7 @@ import { ISender } from '../../../../core/state/senders/model/senders.model';
   styleUrls: ['./sender-view-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SuggestionsComponent implements OnInit {
+export class SenderViewCardComponent implements OnInit {
 
   sendersLoaded$: Observable<boolean>;
   currentSender$: Observable<ISender>;

@@ -165,7 +165,7 @@
 </div>
 
 <ng-template #preBootstrapMenuMobile>
-  <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}" (click)="sidenav.toggle()">
+  <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
     <span>
       <mat-icon matListIcon>
         <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
