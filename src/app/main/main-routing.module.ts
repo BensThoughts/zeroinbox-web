@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MainHomeComponent } from './main-home/components/main-home/main-home.component';
-import { ManualComponent } from './manual/manual.component';
+import { ManualComponent } from './manual/components/manual/manual.component';
 import { ReverseAuthGuardService } from '../core/services/auth/reverse-auth-guard.service';
 import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
