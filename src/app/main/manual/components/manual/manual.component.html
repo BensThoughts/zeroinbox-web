@@ -15,11 +15,128 @@
         <mat-card-title>
           Manual
         </mat-card-title>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-          Manual
+        <mat-divider class="my-2"></mat-divider>
+        <mat-card-content class="text-left">
+          Cleaning up your inbox can be done in a number of different ways. The recommended steps to using this app are as follows.
+          <mat-divider class="my-2"></mat-divider>
+          <ol>
+            <li>
+              Login
+              <ul>
+                <li>
+                  Login and select an account
+                </li>
+                <li>
+                  Wait for your inbox to be downloaded to our servers
+                </li>
+                <li>
+                  Large inboxes can take up to 4 or 5 minutes
+                </li>
+                <li>
+                  Smaller ones may not even show a downloading phase
+                </li>
+              </ul>
+            </li>
+            <li>
+              Stats
+              <ul>
+                <li>
+                  After the inbox has downloaded
+                </li>
+                <li>
+                  Stats can be seen on the homepage
+                </li>
+              </ul>
+            </li>
+            <li>
+              Subscriptions
+              <ul>
+                <li>
+                  View all of your subscriptions.
+                </li>
+                <li>
+                  Unsubscribe from the ones you no longer wish to receive.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Senders
+              <ul>
+                <li>
+                  View all people that have sent you email by number of messages or size
+                </li>
+                <li>
+                  Label the ones you wish to keep around
+                </li>
+                <li>
+                  Trash the ones you no longer care about
+                </li>
+                <li>
+                  Bulk trash the remaining senders
+                </li>
+              </ul>
+            </li>
+          </ol>
+
+        <mat-divider class="my-2"></mat-divider>
+          It is important to unsubscribe from email lists before deciding which senders
+          to label and delete because after a sender is removed from your inbox it will no longer show up in
+          your list of subscriptions.
         </mat-card-content>
       </mat-card>
+      <mat-accordion class="my-2">
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Login
+            </mat-panel-title>
+            <mat-panel-description>
+              How to login
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-manual-login-card></app-manual-login-card>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Downloading
+              </mat-panel-title>
+              <mat-panel-description>
+                Downloading Process
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-manual-downloading-card></app-manual-downloading-card>
+          </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Subscriptions
+            </mat-panel-title>
+            <mat-panel-description>
+              Quickly unsubscribe from email lists
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-manual-unsubscribe-card></app-manual-unsubscribe-card>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Senders
+            </mat-panel-title>
+            <mat-panel-description>
+              Manage Senders
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-manual-senders-card></app-manual-senders-card>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
     </div>
   </div>
 </div>
