@@ -26,6 +26,11 @@
                 <li>
                   Login and select an account
                 </li>
+              </ul>
+            </li>
+            <li>
+              Downloading
+              <ul>
                 <li>
                   Wait for your inbox to be downloaded to our servers
                 </li>
@@ -45,6 +50,9 @@
                 </li>
                 <li>
                   Stats can be seen on the homepage
+                </li>
+                <li>
+                  These stats will change in real time as you clean up the mess
                 </li>
               </ul>
             </li>
@@ -110,6 +118,18 @@
             </mat-expansion-panel-header>
             <app-manual-downloading-card></app-manual-downloading-card>
           </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Stats
+                </mat-panel-title>
+                <mat-panel-description>
+                  View real time stats
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <app-manual-stats-card></app-manual-stats-card>
+            </mat-expansion-panel>
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
