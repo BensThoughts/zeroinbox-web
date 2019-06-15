@@ -58,6 +58,7 @@ export class SuggestionsEffects {
           .pipe(
               map((confirmationObject: ConfirmationObject) => {
                 if (confirmationObject === undefined || !confirmationObject.save) {
+                  // Do nothing
                 } else {
                   // console.log(confirmationObject.category);
                   // console.log(confirmationObject.labelName);
@@ -83,7 +84,9 @@ export class SuggestionsEffects {
       .afterClosed()
       .pipe(
         map(confirmationObject => {
-          if ((confirmationObject != undefined) || (confirmationObject.save)) {
+          if (confirmationObject === undefined || !confirmationObject.save) {
+            // Do Nothing
+          } else {
             this.store.dispatch(new LabelSendersRequestAction({
               senders: action.payload.senders,
               labelName: confirmationObject.labelName,
