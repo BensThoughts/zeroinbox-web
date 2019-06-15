@@ -1,0 +1,39 @@
+<div class=mat-logout-component>
+
+  
+  <mat-dialog-content>
+
+    <form [formGroup]="formGroup">
+      <div>
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+              <mat-select [placeholder]=""
+                          formControlName="category">
+                  <mat-option *ngFor="let category of categories" [value]="category.value">
+                    {{ category.name }}
+                  </mat-option>
+                </mat-select>
+          </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Label Name</mat-label>
+          <input matInput placeholder="Label Name" 
+                          #searchInput
+                          formControlName="labelName">
+        </mat-form-field>
+      </div>
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-stroked-button [disabled]="!formGroup.valid" (click)="save()">
+      Label
+    </button>
+  </mat-dialog-actions>
+
+</div>

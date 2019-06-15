@@ -12,6 +12,7 @@ import { SuggestionsSizeTableComponent } from './components/suggestions-size-tab
 import { LabelDialogComponent } from './components/label-dialog/label-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-all-dialog.component';
+import { LabelAllDialogComponent } from './components/label-all-dialog/label-all-dialog.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-
     SuggestionsCountTableComponent, 
     SuggestionsSizeTableComponent,
     LabelDialogComponent,
+    LabelAllDialogComponent,
     DeleteDialogComponent,
     DeleteAllDialogComponent
   ],
@@ -31,6 +33,7 @@ import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-
   ],
   entryComponents: [
     LabelDialogComponent,
+    LabelAllDialogComponent,
     DeleteDialogComponent,
     DeleteAllDialogComponent
   ]

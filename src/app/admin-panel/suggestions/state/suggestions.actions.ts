@@ -5,16 +5,17 @@ export enum SuggestionsActionTypes {
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
   LabelSenderDialog = '[Suggestions Component] Edit Label Dialog',
+  LabelAllSendersDialog = '[Suggestions Component] Label All Senders Dialog',
   DeleteSenderDialog = '[Suggestions Component] Delete Sender Dialog',
   DeleteAllSendersDialog = '[Suggestions Component] Delete All Senders Dialog',
 
-  LabelSenderRequest = '[Suggestions Effects] Label Sender Request',
-  LabelSenderRequestSuccess = '[Suggestions Effects] Label Sender Request Success',
-  LabelSenderRequestFailure = '[Suggestions Effects] Label Sender Request Failure',
+  LabelSendersRequest = '[Suggestions Effects] Label Sender Request',
+  LabelSendersRequestSuccess = '[Suggestions Effects] Label Sender Request Success',
+  LabelSendersRequestFailure = '[Suggestions Effects] Label Sender Request Failure',
 
-  DeleteSenderRequest = '[Suggestions Effects] Delete Sender Request',
-  DeleteSenderRequestSuccess = '[Suggestions Effects] Delete Sender Request Success',
-  DeleteSenderRequestFailure = '[Suggestions Effects] Delete Sender Request Failure',
+  DeleteSendersRequest = '[Suggestions Effects] Delete Sender Request',
+  DeleteSendersRequestSuccess = '[Suggestions Effects] Delete Sender Request Success',
+  DeleteSendersRequestFailure = '[Suggestions Effects] Delete Sender Request Failure',
 
   SetCurrentSender = '[Suggestions Table] Set Current Sender',
 
@@ -33,21 +34,26 @@ export class LabelSenderDialogAction implements Action {
   constructor(public payload: { sender: ISender }) {}
 }
 
-export class LabelSenderRequestAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSenderRequest;
+export class LabelAllSendersDialogAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelAllSendersDialog;
+  constructor(public payload: { senders: ISender[] }) {}
+}
+
+export class LabelSendersRequestAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSendersRequest;
   constructor(public payload: { 
-    sender: ISender,
+    senders: ISender[],
     labelName: string,
     category: string, 
   }) {}
 }
 
-export class LabelSenderRequestSuccessAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSenderRequestSuccess;
+export class LabelSendersRequestSuccessAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSendersRequestSuccess;
 }
 
-export class LabelSenderRequestFailureAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSenderRequestFailure;
+export class LabelSendersRequestFailureAction implements Action {
+  readonly type = SuggestionsActionTypes.LabelSendersRequestFailure;
 }
 
 export class DeleteSenderDialogAction implements Action {
@@ -61,17 +67,17 @@ export class DeleteAllSendersDialogAction implements Action {
 }
 
 export class DeleteSendersRequestAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSenderRequest;
+  readonly type = SuggestionsActionTypes.DeleteSendersRequest;
   constructor(public payload: { senders: ISender[] }) {}
 }
 
 export class DeleteSendersRequestSuccessAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSenderRequestSuccess;
+  readonly type = SuggestionsActionTypes.DeleteSendersRequestSuccess;
   constructor(public payload: { senderIds: string[] }) {}
 }
 
 export class DeleteSendersRequestFailureAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSenderRequestFailure;
+  readonly type = SuggestionsActionTypes.DeleteSendersRequestFailure;
 }
 
 export class SetCurrentSenderAction implements Action {
@@ -93,12 +99,13 @@ export type ByCountActions =
   | SetSizeCutoffAction
 
   | LabelSenderDialogAction
+  | LabelAllSendersDialogAction
   | DeleteSenderDialogAction
   | DeleteAllSendersDialogAction
 
-  | LabelSenderRequestAction
-  | LabelSenderRequestSuccessAction
-  | LabelSenderRequestFailureAction
+  | LabelSendersRequestAction
+  | LabelSendersRequestSuccessAction
+  | LabelSendersRequestFailureAction
 
   | DeleteSendersRequestAction
   | DeleteSendersRequestSuccessAction

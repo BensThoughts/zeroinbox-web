@@ -69,11 +69,26 @@
   </div>
 </ng-template>
 
+<!-- Extra small screens -->
+<div class="d-none d-xs-block d-sm-none d-flex my-2 align-items-center justify-content-between">
+  <button class="mx-2" mat-stroked-button (click)="deleteAll()">Label All</button>
+  <button class="mx-2" mat-stroked-button (click)="deleteAll()">Trash All</button>
+</div>
 
-<div class="d-none d-flex justify-content-end align-items-center flex-nowrap">
-    <mat-paginator #paginator
-                   [length]="totalRows$ | async"
-                   [pageSizeOptions]="pageSizeOptions"
-                   showFirstLastButtons="true">
-    </mat-paginator>
+<div class="d-xs-block d-sm-none">
+  <mat-divider inset="true" class="my-2"></mat-divider>
+</div>
+
+
+<div class="d-none d-flex justify-content-between align-items-center flex-nowrap">
+  <!-- Small and larger screens -->
+  <div class="d-none d-sm-block">
+      <button class="mx-2 my-1" mat-stroked-button (click)="labelAll()">Label All</button>
+      <button class="mx-2 my-1" mat-stroked-button (click)="deleteAll()">Trash All</button>
+  </div>
+  <mat-paginator #paginator
+                 [length]="totalRows$ | async"
+                 [pageSizeOptions]="pageSizeOptions"
+                 showFirstLastButtons="true">
+  </mat-paginator>
 </div>

@@ -8,7 +8,8 @@ import {
   UpdateSuggestionsStateAction,
   DeleteSenderDialogAction,
   DeleteAllSendersDialogAction,
-  DeleteSendersRequestAction
+  DeleteSendersRequestAction,
+  LabelAllSendersDialogAction
 } from './suggestions.actions';
 import { 
   map, 
@@ -24,8 +25,9 @@ import { DeleteSendersAction } from '@app/core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { ActionsService } from '@app/core/services/actions/actions.service';
 import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
-import { LabelSenderRequestAction } from './suggestions.actions';
+import { LabelSendersRequestAction } from './suggestions.actions';
 import { NotificationService } from '@app/core/services/notifications/notification.service';
+import { LabelAllDialogComponent } from '../components/label-all-dialog/label-all-dialog.component';
 
 
 @Injectable()
@@ -57,10 +59,10 @@ export class SuggestionsEffects {
               map((confirmationObject: ConfirmationObject) => {
                 if (confirmationObject === undefined || !confirmationObject.save) {
                 } else {
-                  console.log(confirmationObject.category);
-                  console.log(confirmationObject.labelName);
-                  this.store.dispatch(new LabelSenderRequestAction({
-                    sender: action.payload.sender,
+                  // console.log(confirmationObject.category);
+                  // console.log(confirmationObject.labelName);
+                  this.store.dispatch(new LabelSendersRequestAction({
+                    senders: [action.payload.sender],
                     labelName: confirmationObject.labelName,
                     category: confirmationObject.category
                   }))
@@ -71,10 +73,33 @@ export class SuggestionsEffects {
   );
 
   @Effect({ dispatch: false })
-  labelSenderRequest$ = this.actions$.pipe(
-    ofType<LabelSenderRequestAction>(SuggestionsActionTypes.LabelSenderRequest),
+  labelAllSendersDialog$ = this.actions$.pipe(
+    ofType<LabelAllSendersDialogAction>(SuggestionsActionTypes.LabelAllSendersDialog),
+    exhaustMap((action) => {
+      let dialogRef = this.dialogService.open(LabelAllDialogComponent);
+      let instance = dialogRef.componentInstance;
+      instance.senders = action.payload.senders;
+      return dialogRef
+      .afterClosed()
+      .pipe(
+        map(confirmationObject => {
+          if ((confirmationObject != undefined) || (confirmationObject.save)) {
+            this.store.dispatch(new LabelSendersRequestAction({
+              senders: action.payload.senders,
+              labelName: confirmationObject.labelName,
+              category: confirmationObject.category
+            }))    
+          }
+        })
+      )
+    })
+  )
+
+  @Effect({ dispatch: false })
+  labelSendersRequest$ = this.actions$.pipe(
+    ofType<LabelSendersRequestAction>(SuggestionsActionTypes.LabelSendersRequest),
     map((action) => {
-      let senderIds = [action.payload.sender.senderId];
+      let senderIds = action.payload.senders.map(sender => sender.senderId)
       this.actionsService.postActions({
         senderIds: senderIds,
         actionType: 'label',
@@ -134,9 +159,10 @@ export class SuggestionsEffects {
     })
   )
 
+
   @Effect({ dispatch: false })
   deleteSenderRequest$ = this.actions$.pipe(
-    ofType<DeleteSendersRequestAction>(SuggestionsActionTypes.DeleteSenderRequest),
+    ofType<DeleteSendersRequestAction>(SuggestionsActionTypes.DeleteSendersRequest),
     map((action) => {
       let senderIds = action.payload.senders.map(sender => sender.senderId)
       this.actionsService.postActions({

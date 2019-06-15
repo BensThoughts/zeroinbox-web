@@ -24,6 +24,7 @@ import { ISender } from '../../../../core/state/senders/model/senders.model';
 
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { selectSendersBySizeGroupFiltered } from '../../state/suggestions.selectors';
+import { DeleteAllSendersDialogAction, LabelAllSendersDialogAction } from '../../state/suggestions.actions';
 
 
 @Component({
@@ -161,6 +162,16 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
   deleteSender(suggestion: ISender) {
     this.store.dispatch(new DeleteSenderDialogAction({ sender: suggestion }));
+  }
+
+  deleteAll() {
+    let senders = this.dataSource.getValues();
+    this.store.dispatch(new DeleteAllSendersDialogAction({ senders: senders }))
+  }
+
+  labelAll() {
+    let senders = this.dataSource.getValues();
+    this.store.dispatch(new LabelAllSendersDialogAction({ senders: senders }))
   }
 
 }
