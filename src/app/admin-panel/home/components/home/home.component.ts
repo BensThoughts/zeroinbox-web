@@ -16,6 +16,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
 import { selectTotalSubscriptions } from '@app/admin-panel/subscriptions/state/subscriptions.selectors';
+import { SendersRequestAction } from '../../../../core/state/senders/senders.actions';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new SendersRequestAction());
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.total_threads$ = this.store.pipe(select(selectTotalThreads));
