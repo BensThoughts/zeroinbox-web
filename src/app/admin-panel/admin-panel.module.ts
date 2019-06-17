@@ -12,10 +12,10 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { HomeModule } from './home/home.module';
 import { LogoutPromptComponent } from './logout-prompt/logout-prompt.component';
 import { DownloadingComponent } from './downloading/downloading.component';
-import { SenderViewCardComponent } from './suggestions/components/sender-view-card/sender-view-card.component';
+import { MessageViewerModule } from './message-viewer/message-viewer.module';
 
 @NgModule({
-  declarations: [LogoutPromptComponent, DownloadingComponent, SenderViewCardComponent],
+  declarations: [LogoutPromptComponent, DownloadingComponent],
   entryComponents: [LogoutPromptComponent],
   imports: [
     CommonModule,
@@ -24,7 +24,8 @@ import { SenderViewCardComponent } from './suggestions/components/sender-view-ca
     SubscriptionsModule,
     SuggestionsModule,
     SettingsModule,
-    AdminPanelRoutingModule
+    AdminPanelRoutingModule,
+    MessageViewerModule
   ],
   providers: []
 })
