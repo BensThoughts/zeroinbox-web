@@ -26,7 +26,7 @@ import { DownloadingModule } from './downloading/downloading.module';
     HomeModule,
     SubscriptionsModule,
     SendersModule,
-    SettingsModule,
+    SettingsModule, // needed for theme
     AdminPanelRoutingModule,
 /*     TranslateModule.forChild({
       loader: {

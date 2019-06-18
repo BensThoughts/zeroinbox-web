@@ -30,7 +30,7 @@ const routes: Routes = [
         // canActivate: [AuthGuardService] 
       },
       { 
-        path: 'suggestions', 
+        path: 'senders', 
         component: SendersComponent,
         // canActivate: [AuthGuardService] 
       },

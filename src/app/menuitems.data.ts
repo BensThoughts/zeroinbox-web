@@ -30,7 +30,7 @@ export const auth_menu_items: MenuItem[] = [
   },
   {
     name: 'Senders',
-    route: '/admin-panel/suggestions',
+    route: '/admin-panel/senders',
     icon: 'address-card'
   },
   {
