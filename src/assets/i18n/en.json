@@ -60,6 +60,10 @@
             "lg": "large emails",
             "xl": "extra large emails"
           }
+        },
+        "label-dialog": {
+          "cancel-button": "Cancel",
+          "confirm-button": "Label"
         }
       }
     },

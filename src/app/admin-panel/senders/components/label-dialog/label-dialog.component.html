@@ -28,10 +28,10 @@
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="cancel()">
-      Cancel
+      {{ 'app.admin-panel.senders.label-dialog.cancel-button' | translate }}
     </button>
     <button mat-stroked-button [disabled]="!formGroup.valid" (click)="save()">
-      Label
+      {{ 'app.admin-panel.senders.label-dialog.confirm-button' | translate }}
     </button>
   </mat-dialog-actions>
 

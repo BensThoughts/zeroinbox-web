@@ -69,7 +69,6 @@ export class SendersSizeTableComponent implements OnInit {
     private translate: TranslateService
   ) {
     translate.get('app.admin-panel.senders.size-table.size-selector').subscribe((res) => {
-      console.log(res);
       this.sizeCutoffs = [
         { value: 'ALL', label: res.all },
         { value: 'XS', label: res.xs },
