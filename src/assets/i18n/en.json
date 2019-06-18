@@ -22,6 +22,12 @@
           "unique-senders": "Unique senders in your inbox: ",
           "subscriptions-inbox": "Number of subscriptions in your inbox: "
         }
+      },
+      "logout-prompt": {
+        "title": "Sign out",
+        "content": "Do you want to sign out?",
+        "confirm-button": "Yes",
+        "cancel-button": "No"
       }
     }
   }
