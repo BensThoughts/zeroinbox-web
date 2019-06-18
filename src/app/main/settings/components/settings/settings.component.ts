@@ -5,6 +5,7 @@ import { SettingsState } from '../../state/settings.reducer';
 import { selectSettings } from '../../state/settings.selectors';
 import { SettingsChangeThemeAction } from '../../state/settings.actions';
 import { AppState } from '@app/core';
+import { selectIsBootstrapped } from '../../../../core/state/bootstrap/bootstrap.selectors';
 
 @Component({
   selector: 'app-settings',
@@ -14,6 +15,7 @@ import { AppState } from '@app/core';
 })
 export class SettingsComponent implements OnInit {
   settings$: Observable<SettingsState>;
+  isBootstrapped$: Observable<boolean>;
 
   themes = [
     { value: 'DEFAULT-THEME', label: 'blue' },
@@ -28,6 +30,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.settings$ = this.store.pipe(select(selectSettings));
+    this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
   }
 
   onThemeSelect({ value: theme }) {

@@ -1,5 +1,6 @@
 import { SettingsActions, SettingsActionTypes } from './settings.actions';
 import { AppState } from '@app/core';
+import { Category } from './category.model';
 
 export interface State extends AppState {
   settings: SettingsState;
@@ -7,10 +8,7 @@ export interface State extends AppState {
 
 export interface SettingsState {
   theme: string;
-  categories: {
-    name: string;
-    value: string;
-  }[];
+  categories: Category[]
 }
 
 export const initialState: SettingsState = {

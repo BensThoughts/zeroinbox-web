@@ -1,11 +1,23 @@
 <mat-card>
   <h2>Categories</h2>
-  <div class="icon-form-field">
-    <mat-list>
-      <mat-list-item *ngFor="let category of categories">
-          <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
-        {{ category.name }}
+  <div class="" *ngIf="categories$ | async as categories">
+
+    <mat-list class="">
+      <mat-list-item *ngFor="let category of categories" class="my-2 label-list-item">
+        <span class="w-100 label-item">
+          <span class="label">
+            <mat-icon color="accent"><fa-icon icon="tag" color="accent"></fa-icon></mat-icon>
+            {{ category.name }}
+          </span>
+          <span>
+            <button class="minus-button" mat-stroked-button (click)="removeCategory(category)">
+              <fa-icon icon="minus"></fa-icon>
+            </button>
+          </span>
+        </span>
       </mat-list-item>
     </mat-list>
+
+    <button mat-stroked-button (click)="addCategory()">Add Category</button>
   </div>
 </mat-card>

@@ -1,12 +1,18 @@
-<div class="container-fluid ">
+<div class="container-fluid" *ngIf="settings$ | async as settings">
+    <div><h1>Settings</h1></div>
   <div class="row">
     <div class="col-sm">
-      <div><h1>Settings</h1></div>
-      <br>
-      <div *ngIf="settings$ | async as settings">
-        <app-settings-theme [theme]="settings.theme"></app-settings-theme>
-<!--           <app-settings-categories></app-settings-categories>
- -->   </div>
+      <div>
+        <app-settings-theme [theme]="settings.theme" class="my-2"></app-settings-theme>
+      </div>
+
+    </div>
+  </div>
+  <div class="row" *ngIf="isBootstrapped$ | async">
+    <div class="col-sm">
+      <div class="my-2">
+        <app-settings-categories class="my-2"></app-settings-categories>
+      </div>
     </div>
   </div>
 </div>
