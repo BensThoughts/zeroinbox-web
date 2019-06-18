@@ -15,7 +15,7 @@ export const selectTheme = createSelector(
   (state: SettingsState) => state.theme.toLowerCase()
 );
   
-/* export const selectCategories = createSelector(
+export const selectCategories = createSelector(
   selectSettings,
   (state: SettingsState) => state.categories
-) */
+)

@@ -31,7 +31,7 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
     case SettingsActionTypes.ChangeTheme:
       return { ...state, ...action.payload }
 
-/*     case SettingsActionTypes.AddCategory:
+    case SettingsActionTypes.AddCategory:
       return { 
         ...state,
         categories: [...state.categories.concat(action.payload.category)]
@@ -45,7 +45,7 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
           ...state.categories.slice(0, index),
           ...state.categories.slice(index + 1)
         ]
-      } */
+      }
 
     case SettingsActionTypes.UpdateSettingsState:
       return action.payload;
