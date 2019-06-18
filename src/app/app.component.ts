@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { environment as env } from '@env/environment';
 
 import { MenuItem, menu_items, auth_menu_items } from './menuitems.data';
@@ -49,8 +51,14 @@ export class AppComponent implements OnInit {
   isOpen = false;
 
 
-  constructor(private store: Store<AppState>) {
+  testTranslate = { value: 'Logout' };
 
+  constructor(
+    private store: Store<AppState>,
+    translate: TranslateService
+    ) {
+      translate.setDefaultLang('en');
+      translate.use('en');
   }
 
   ngOnInit(): void {

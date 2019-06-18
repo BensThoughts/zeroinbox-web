@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 /* All dumb reusable modules are maintained in the shared module. */
 import { SharedModule } from '@app/shared';
@@ -22,8 +22,6 @@ import { AuthModule } from './auth/auth.module';
 
 // Handles the admin-panel interface of the main app
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
-
-
 
 @NgModule({
   declarations: [

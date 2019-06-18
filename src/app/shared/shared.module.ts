@@ -80,6 +80,7 @@ import {
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
 import { FooterComponent } from './components/footer.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 library.add(
   faAddressBook,
@@ -184,6 +185,8 @@ library.add(
     MatToolbarModule,
 
     DragDropModule,
+
+    TranslateModule
   ]
 })
 export class SharedModule {}

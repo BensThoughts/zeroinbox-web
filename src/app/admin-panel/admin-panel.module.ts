@@ -12,6 +12,9 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { HomeModule } from './home/home.module';
 import { LogoutPromptComponent } from './logout-prompt/logout-prompt.component';
 import { DownloadingComponent } from './downloading/downloading.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../core/core.module';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [LogoutPromptComponent, DownloadingComponent],
@@ -24,6 +27,14 @@ import { DownloadingComponent } from './downloading/downloading.component';
     SuggestionsModule,
     SettingsModule,
     AdminPanelRoutingModule,
+/*     TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      isolate: true
+    }) */
   ],
   providers: []
 })

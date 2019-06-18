@@ -5,7 +5,7 @@
     <div class="col-sm">
       <mat-card class="mat-user-card text-center my-2">
         <mat-card-title>
-          Welcome...
+          {{ 'app.admin-panel.home.welcom-title' | translate }}
         </mat-card-title>
         <span *ngIf="basic_profile$ | async as basic_profile">
           <img [src]="basic_profile.picture" class="user">
@@ -29,12 +29,12 @@
     <div class="col-sm">
       <mat-card class="my-2">
         <mat-card-title>
-          Manual
+          {{ 'app.admin-panel.home.manual-title' | translate }}
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-card-content>
           <div class="content">
-            Get up to speed quickly on how to use this app.
+            {{ 'app.admin-panel.home.manual-description' | translate }}
           </div>
 
         </mat-card-content>
@@ -42,7 +42,7 @@
         <mat-card-actions>
           <a routerLink="/manual">
             <button mat-stroked-button>
-              Goto
+              {{ 'app.admin-panel.home.goto-button' | translate }}
             </button>
           </a>
         </mat-card-actions>
@@ -55,19 +55,17 @@
       <div class="col-sm">
           <mat-card class="my-2">
             <mat-card-title>
-              Senders
+              {{ 'app.admin-panel.home.senders-title' | translate }}
             </mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-              Get control back where it belongs. See who has sent you the most number and largest size
-              emails. Then take actions to get them out of the inbox.  Delete them or have them categorized
-              into a label so that they stay out of the inbox.
+              {{ 'app.admin-panel.home.senders-description' | translate }}
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions>
               <a routerLink="/admin-panel/suggestions">
                 <button mat-stroked-button>
-                    Goto
+                  {{ 'app.admin-panel.home.goto-button' | translate }}
                 </button>
               </a>      
             </mat-card-actions>
@@ -80,18 +78,17 @@
     <div class="col-sm">
       <mat-card class="my-2">
         <mat-card-title>
-          Subscriptions
+           {{ 'app.admin-panel.home.subscriptions-title' | translate }}
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-card-content>
-          View all of the email lists that you are subscribed to in one place. Unsubscribe
-          in one easy click!
+          {{ 'app.admin-panel.home.subscriptions-description' | translate }}
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
           <a routerLink="/admin-panel/subscriptions">
             <button mat-stroked-button>
-                Goto
+              {{ 'app.admin-panel.home.goto-button' | translate }}
             </button>         
           </a>
 
@@ -105,7 +102,7 @@
     <div class="col-sm" *ngIf="sendersLoaded$ | async">
       <mat-card class="my-2">
         <mat-card-title>
-          Stats
+          {{ 'app.admin-panel.home.stats.title' | translate }}
         </mat-card-title>
         <mat-divider class="my-2"></mat-divider>
         <mat-card-content>
@@ -113,30 +110,30 @@
             <div class="row">
 
               <div class="col-sm">
-                Statistics about the current state of your GMail inbox.
+                {{ 'app.admin-panel.home.stats.description' | translate }}
                 <mat-divider></mat-divider>
                 
                 <div class="my-2">
                 <mat-chip-list>
-                    Threads in your GMail account: 
+                  {{ 'app.admin-panel.home.stats.threads-account' | translate }}
                   <mat-chip *ngIf="email_profile$ | async as email_profile">
                     <code><b>{{ email_profile.threadsTotal }}</b></code>
                   </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list>
-                    Threads in your inbox: 
+                    {{ 'app.admin-panel.home.stats.threads-inbox' | translate }}
                   <mat-chip *ngIf="total_threads$ | async as total_threads">
                     <code><b>{{ total_threads }}</b></code>
                   </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list *ngIf="unique_senders$ | async as unique_senders">
-                    Unique senders in your inbox: 
+                    {{ 'app.admin-panel.home.stats.unique-senders' | translate }}
                     <mat-chip>
                       <code><b>{{ unique_senders }}</b></code>
                     </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list *ngIf="total_subscriptions$ | async as total_subscriptions">
-                    Number of subscriptions in your inbox:   
+                    {{ 'app.admin-panel.home.stats.subscriptions-inbox' | translate }}
                   <mat-chip>
                       <code><b>{{ total_subscriptions }}</b></code>
                   </mat-chip>
