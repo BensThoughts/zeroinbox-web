@@ -42,6 +42,11 @@ export const auth_menu_items: MenuItem[] = [
     name: 'Contact',
     route: '/contact',
     icon: 'address-book'
+  },
+  {
+    name: 'Settings',
+    route: '/settings',
+    icon: 'cog'
   }
 ]
 
@@ -65,5 +70,10 @@ export const menu_items: MenuItem[] = [
     name: 'Contact',
     route: '/contact',
     icon: 'address-book'
+  },
+  {
+    name: 'Settings',
+    route: '/settings',
+    icon: 'cog'
   }
 ];

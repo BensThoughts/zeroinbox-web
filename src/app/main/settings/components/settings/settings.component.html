@@ -1,0 +1,11 @@
+<div class="wrapper">
+
+  <div class="row">
+    <div><h1>Settings</h1></div>
+  </div>
+  <br>
+  <ng-container *ngIf="settings$ | async as settings">
+    <app-settings-theme [theme]="settings.theme"></app-settings-theme>
+  </ng-container>
+
+</div>

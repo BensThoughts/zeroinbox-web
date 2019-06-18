@@ -16,7 +16,7 @@ import {
 import { Store, select } from '@ngrx/store';
 import { AppState, LogoutAction, selectDownloadingStatus, selectIsBootstrapped } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
-import { selectTheme } from './admin-panel/settings/state/settings.selectors';
+import { selectTheme } from './main/settings/state/settings.selectors';
 
 @Component({
   selector: 'app-root',

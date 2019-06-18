@@ -10,6 +10,7 @@ import { MainHomeModule } from './main-home/main-home.module';
 import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
 import { ManualModule } from './manual/manual.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [StoryComponent, ContactComponent],
@@ -18,7 +19,8 @@ import { ManualModule } from './manual/manual.module';
     SharedModule,
     MainHomeModule,
     MainRoutingModule,
-    ManualModule
+    ManualModule,
+    SettingsModule
   ],
   providers: []
 })

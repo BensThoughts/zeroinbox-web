@@ -6,6 +6,7 @@ import { ManualComponent } from './manual/components/manual/manual.component';
 import { ReverseAuthGuardService } from '../core/services/auth/reverse-auth-guard.service';
 import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
+import { SettingsComponent } from './settings/components/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       },
       // This redirection re-redirects to /home when not logged in and to
       // /admin-panel/home when logged in
