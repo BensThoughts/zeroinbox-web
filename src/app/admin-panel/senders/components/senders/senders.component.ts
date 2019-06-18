@@ -3,14 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 
 import { Observable } from 'rxjs';
-import { selectPercentLoaded, selectByCount, selectBySize } from '@app/core';
 import { selectSendersLoaded } from '../../../../core/state/senders/senders.selectors';
-import {
-  selectSuggestionsLoaded,
-  // selectByCountGroup_TS,
-  // selectByCountGroup_TC,
-  // selectByCountGroup_TL,
-} from '../../state/senders-view.selectors';
 import { SendersRequestAction } from '@app/core/state/senders/senders.actions';
 
 

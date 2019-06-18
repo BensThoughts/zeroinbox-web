@@ -8,22 +8,20 @@ export interface State extends AppState {
 }
 
 export interface SendersViewState {
-  suggestionsLoaded: boolean;
   countCutoff: number;
   sizeGroup: string;
   currentSender: ISender;
 }
 
 
-const initialSuggestionsState = {
-  suggestionsLoaded: false,
+const initialSendersViewState = {
   countCutoff: 1,
   sizeGroup: 'ALL',
   currentSender: undefined
 }
 
 export function suggestionsReducer(
-  state = initialSuggestionsState,
+  state = initialSendersViewState,
   action: ByCountActions): SendersViewState {
 
     switch (action.type) {
@@ -35,7 +33,7 @@ export function suggestionsReducer(
         return { ...state, currentSender: action.payload.sender };
 
       case SendersViewActionTypes.ResetSuggestions:
-        return initialSuggestionsState;
+        return initialSendersViewState;
 
       case SendersViewActionTypes.UpdateSuggestionsState:
         return action.payload;

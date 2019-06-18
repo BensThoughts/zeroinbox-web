@@ -11,11 +11,11 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
         'bootstrap', 
         'settings', 
         'senders', 
-        'suggestions',
+        'senders-view',
       ],
       rehydrate: true,
       removeOnUndefined: true,
-      storageKeySerializer: (key) => 'go-app-' + key,
+      storageKeySerializer: (key) => 'zi-app-' + key,
       syncCondition: (state: AppState) => {
         // return true;
         return state.bootstrap.syncToStorage

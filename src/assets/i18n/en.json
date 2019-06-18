@@ -36,6 +36,13 @@
           "confirm-button": "Unsubscribe",
           "cancel-button": "Cancel"
         }
+      },
+      "senders": {
+        "threads-label": "Threads",
+        "size-label": "Size",
+        "count-table": {
+          "search": "Search Address"
+        }
       }
     },
     "auth": {

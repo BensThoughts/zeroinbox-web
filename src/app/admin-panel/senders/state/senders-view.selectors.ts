@@ -1,17 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { SendersViewState, State } from './suggestions.reducer';
+import { SendersViewState, State } from './senders-view.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 
 export const selectSendersViewState = createFeatureSelector<State, SendersViewState>(
   'senders-view'
-);
-
-/**
- * Select boolean to determine if suggestions are loaded from server
- */
-export const selectSuggestionsLoaded = createSelector(
-  selectSendersViewState,
-  (state: SendersViewState) => state.suggestionsLoaded
 );
 
 export const selectCurrentSender = createSelector(
