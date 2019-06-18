@@ -16,10 +16,10 @@
           <span class="d-flex justify-content-between align-items-center">
             
             <span class="d-flex">
-              <span class="mat-header-cell" mat-sort-header="fromAddress">Sort By Address</span>
+               <span class="mat-header-cell" mat-sort-header="fromAddress">{{ 'app.admin-panel.senders.count-table.sort-address' | translate }}</span>
             </span>  
                
-            <button mat-stroked-button (click)="deleteAll()">Trash All</button>
+            <button mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
 
             
           </span>
@@ -63,8 +63,8 @@
 
   <!-- Extra small screens -->
   <div class="d-none d-xs-block d-sm-none d-flex my-2 align-items-center justify-content-between">
-    <button class="mx-2" mat-stroked-button (click)="deleteAll()">Label All</button>
-    <button class="mx-2" mat-stroked-button (click)="deleteAll()">Trash All</button>
+    <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
+    <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
   </div>
 
   <div class="d-xs-block d-sm-none">

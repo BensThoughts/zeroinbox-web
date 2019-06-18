@@ -41,7 +41,25 @@
         "threads-label": "Threads",
         "size-label": "Size",
         "count-table": {
-          "search": "Search Address"
+          "search": "Search Address",
+          "sort-address": "Sort By Address",
+          "trash-all-button": "Trash All",
+          "label-all-button": "Label All"
+        },
+        "size-table": {
+          "search": "Search Address",
+          "sort-address": "Sort By Address",
+          "trash-all-button": "Trash All",
+          "label-all-button": "Label All",
+          "size-selector-title": "Show senders with",
+          "size-selector": {
+            "all": "any size email",
+            "xs": "extra small emails",
+            "sm": "small emails",
+            "md": "medium emails",
+            "lg": "large emails",
+            "xl": "extra large emails"
+          }
         }
       }
     },

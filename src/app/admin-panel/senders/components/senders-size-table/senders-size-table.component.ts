@@ -26,6 +26,7 @@ import { ISender } from '../../../../core/state/senders/model/senders.model';
 
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { selectSendersBySizeGroupFiltered } from '../../state/senders-view.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -52,14 +53,7 @@ export class SendersSizeTableComponent implements OnInit {
   totalRows$: Observable<number>;
 
   sizeCutoff$: Observable<string>;
-  sizeCutoffs = [
-    { value: 'ALL', label: 'any size email' },
-    { value: 'XS', label: 'extra small emails' },
-    { value: 'SM', label: 'small emails' },
-    { value: 'MD', label: 'medium emails' },
-    { value: 'LG', label: 'large emails' },
-    { value: 'XL', label: 'extra large emails' }
-  ];
+  sizeCutoffs;
 
   handler1: Subscription;
   handler2: Subscription;
@@ -70,7 +64,22 @@ export class SendersSizeTableComponent implements OnInit {
      this.myRemoved = !this.myRemoved;
    }
 
-  constructor(private store: Store<AppState>) { }
+  constructor(
+    private store: Store<AppState>,
+    private translate: TranslateService
+  ) {
+    translate.get('app.admin-panel.senders.size-table.size-selector').subscribe((res) => {
+      console.log(res);
+      this.sizeCutoffs = [
+        { value: 'ALL', label: res.all },
+        { value: 'XS', label: res.xs },
+        { value: 'SM', label: res.sm },
+        { value: 'MD', label: res.md },
+        { value: 'LG', label: res.lg },
+        { value: 'XL', label: res.xl }
+      ]
+    })
+  }
 
   ngOnInit() {
     this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));

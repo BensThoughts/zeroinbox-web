@@ -3,7 +3,7 @@
   <span class="d-flex flex-wrap justify-content-center align-items-center">
     <form>
       <mat-form-field>
-        <input matInput placeholder="Search Address" #searchInput>
+        <input matInput placeholder="{{ 'app.admin-panel.senders.count-table.search' | translate }}" #searchInput>
       </mat-form-field>
     </form>
   </span>
@@ -16,11 +16,11 @@
         <span class="d-flex justify-content-between align-items-center">
           
           <span class="d-flex">
-            <span class="mat-header-cell" mat-sort-header="fromAddress">Sort By Address</span>
+            <span class="mat-header-cell" mat-sort-header="fromAddress">{{ 'app.admin-panel.senders.size-table.sort-address' | translate }}</span>
           </span>  
              
           <mat-form-field>
-            Show senders with
+            {{ 'app.admin-panel.senders.size-table.size-selector-title' | translate }}
             <mat-select [placeholder]=""
                         [ngModel]="sizeCutoff$ | async"
                         (selectionChange)="onCutoffSelect($event)"
@@ -71,8 +71,8 @@
 
 <!-- Extra small screens -->
 <div class="d-none d-xs-block d-sm-none d-flex my-2 align-items-center justify-content-between">
-  <button class="mx-2" mat-stroked-button (click)="deleteAll()">Label All</button>
-  <button class="mx-2" mat-stroked-button (click)="deleteAll()">Trash All</button>
+  <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.size-table.label-all-button' | translate }}</button>
+  <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.size-table.trash-all-button' | translate }}</button>
 </div>
 
 <div class="d-xs-block d-sm-none">
