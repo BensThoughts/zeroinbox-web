@@ -3,14 +3,14 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectLabelNamesBySenderId } from '@app/core';
 import {
-  SuggestionsActionTypes,
+  SendersViewActionTypes,
   LabelSenderDialogAction,
-  UpdateSuggestionsStateAction,
+  UpdateSendersViewStateAction,
   DeleteSenderDialogAction,
   DeleteAllSendersDialogAction,
   DeleteSendersRequestAction,
   LabelAllSendersDialogAction
-} from './suggestions.actions';
+} from './senders-view.actions';
 import { 
   map, 
   filter, 
@@ -25,13 +25,13 @@ import { DeleteSendersAction } from '@app/core/state/senders/senders.actions';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { ActionsService } from '@app/core/services/actions/actions.service';
 import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
-import { LabelSendersRequestAction } from './suggestions.actions';
+import { LabelSendersRequestAction } from './senders-view.actions';
 import { NotificationService } from '@app/core/services/notifications/notification.service';
 import { LabelAllDialogComponent } from '../components/label-all-dialog/label-all-dialog.component';
 
 
 @Injectable()
-export class SuggestionsEffects {
+export class SendersViewEffects {
 
   @Effect()
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
@@ -42,13 +42,13 @@ export class SuggestionsEffects {
     filter(evt => evt.newValue !== null),
     map(evt => {
       let suggestionsState = JSON.parse(evt.newValue);
-      return new UpdateSuggestionsStateAction(suggestionsState);
+      return new UpdateSendersViewStateAction(suggestionsState);
     })
   );
 
   @Effect({dispatch: false})
   editLabel = this.actions$.pipe(
-      ofType<LabelSenderDialogAction>(SuggestionsActionTypes.LabelSenderDialog),
+      ofType<LabelSenderDialogAction>(SendersViewActionTypes.LabelSenderDialog),
       exhaustMap((action) => {
           let dialoagRef = this.dialogService.open(LabelDialogComponent);
           let instance = dialoagRef.componentInstance;
@@ -75,7 +75,7 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
   labelAllSendersDialog$ = this.actions$.pipe(
-    ofType<LabelAllSendersDialogAction>(SuggestionsActionTypes.LabelAllSendersDialog),
+    ofType<LabelAllSendersDialogAction>(SendersViewActionTypes.LabelAllSendersDialog),
     exhaustMap((action) => {
       let dialogRef = this.dialogService.open(LabelAllDialogComponent);
       let instance = dialogRef.componentInstance;
@@ -100,7 +100,7 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
   labelSendersRequest$ = this.actions$.pipe(
-    ofType<LabelSendersRequestAction>(SuggestionsActionTypes.LabelSendersRequest),
+    ofType<LabelSendersRequestAction>(SendersViewActionTypes.LabelSendersRequest),
     map((action) => {
       let senderIds = action.payload.senders.map(sender => sender.senderId)
       this.actionsService.postActions({
@@ -124,7 +124,7 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false }) 
   deleteSenderDialog$ = this.actions$.pipe(
-    ofType<DeleteSenderDialogAction>(SuggestionsActionTypes.DeleteSenderDialog),
+    ofType<DeleteSenderDialogAction>(SendersViewActionTypes.DeleteSenderDialog),
     exhaustMap((action) => {
       let dialogRef = this.dialogService.open(DeleteDialogComponent);
       let instance = dialogRef.componentInstance;
@@ -144,7 +144,7 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
   deleteAllSendersDialog$ = this.actions$.pipe(
-    ofType<DeleteAllSendersDialogAction>(SuggestionsActionTypes.DeleteAllSendersDialog),
+    ofType<DeleteAllSendersDialogAction>(SendersViewActionTypes.DeleteAllSendersDialog),
     exhaustMap((action) => {
       let dialogRef = this.dialogService.open(DeleteAllDialogComponent);
       let instance = dialogRef.componentInstance;
@@ -165,7 +165,7 @@ export class SuggestionsEffects {
 
   @Effect({ dispatch: false })
   deleteSenderRequest$ = this.actions$.pipe(
-    ofType<DeleteSendersRequestAction>(SuggestionsActionTypes.DeleteSendersRequest),
+    ofType<DeleteSendersRequestAction>(SendersViewActionTypes.DeleteSendersRequest),
     map((action) => {
       let senderIds = action.payload.senders.map(sender => sender.senderId)
       this.actionsService.postActions({

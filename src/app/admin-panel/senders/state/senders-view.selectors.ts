@@ -1,22 +1,22 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { SuggestionsState, State } from './suggestions.reducer';
+import { SendersViewState, State } from './suggestions.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 
-export const selectSuggestionsState = createFeatureSelector<State, SuggestionsState>(
-  'suggestions'
+export const selectSendersViewState = createFeatureSelector<State, SendersViewState>(
+  'senders-view'
 );
 
 /**
  * Select boolean to determine if suggestions are loaded from server
  */
 export const selectSuggestionsLoaded = createSelector(
-  selectSuggestionsState,
-  (state: SuggestionsState) => state.suggestionsLoaded
+  selectSendersViewState,
+  (state: SendersViewState) => state.suggestionsLoaded
 );
 
 export const selectCurrentSender = createSelector(
-  selectSuggestionsState,
-  (state: SuggestionsState) => state.currentSender
+  selectSendersViewState,
+  (state: SendersViewState) => state.currentSender
 );
 
 /*******************************************************************************
@@ -36,8 +36,8 @@ export const selectSendersByCount = createSelector(
 
 
 export const selectSizeGroup = createSelector(
-  selectSuggestionsState,
-  (state: SuggestionsState) => state.sizeGroup
+  selectSendersViewState,
+  (state: SendersViewState) => state.sizeGroup
 );
 
 export const selectSendersBySize = createSelector(

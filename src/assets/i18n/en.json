@@ -2,11 +2,12 @@
   "app": {
     "component": {
       "logout": "Logout",
-      "download": "Download"
+      "download": "Download",
+      "about-button": "About"
     },
     "admin-panel": {
       "home": {
-        "welcom-title": "Welcome...",
+        "welcome-title": "Welcome...",
         "goto-button": "goto",
         "manual-title": "Manual",
         "manual-description": "Get up to speed quickly on how to use the app.",

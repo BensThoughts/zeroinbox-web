@@ -1,41 +1,36 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef } from '@angular/core';
-import { MatPaginator, MatTable, MatSort } from '@angular/material';
-import { Store, select } from '@ngrx/store';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input } from '@angular/core';
+import { MatPaginator, MatTable, MatSort, MatTableDataSource } from '@angular/material';
+import { Store } from '@ngrx/store';
 import {
   AppState,
 } from '@app/core';
 
 import {
-  selectSizeGroup,
-} from '../../state/suggestions.selectors';
-
-import { 
-  SetSizeCutoffAction, 
-  LabelSenderDialogAction, 
-  DeleteSenderDialogAction 
-} from '../../state/suggestions.actions';
-
-
+  selectSendersByCount
+} from '../../state/senders-view.selectors';
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
 import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { rowAnimations } from '../../animations/rowAnimations';
-import { ISender } from '../../../../core/state/senders/model/senders.model';
-
+import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
-import { selectSendersBySizeGroupFiltered } from '../../state/suggestions.selectors';
-import { DeleteAllSendersDialogAction, LabelAllSendersDialogAction } from '../../state/suggestions.actions';
 
+import { 
+  LabelSenderDialogAction,
+  DeleteSenderDialogAction,
+  DeleteAllSendersDialogAction,
+  LabelAllSendersDialogAction
+} from '../../state/senders-view.actions';
 
 @Component({
-  selector: 'go-suggestions-size-table',
-  templateUrl: './suggestions-size-table.component.html',
-  styleUrls: ['./suggestions-size-table.component.scss'],
+  selector: 'app-senders-count-table',
+  templateUrl: './senders-count-table.component.html',
+  styleUrls: ['./senders-count-table.component.scss'],
   animations: [rowAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class SuggestionsSizeTableComponent implements OnInit {
+export class SendersCountTableComponent implements OnInit {
 
 
   @ViewChild(MatTable) table: MatTable<any>;
@@ -43,27 +38,20 @@ export class SuggestionsSizeTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
-  displayedColumns: string[] = ['totalSizeEstimate'];
+  displayedColumns: string[] = ['count'];
 
   dataSource: SimpleDataSource<ISender>;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
   totalRows$: Observable<number>;
 
-  sizeCutoff$: Observable<string>;
-  sizeCutoffs = [
-    { value: 'ALL', label: 'any size email' },
-    { value: 'XS', label: 'extra small emails' },
-    { value: 'SM', label: 'small emails' },
-    { value: 'MD', label: 'medium emails' },
-    { value: 'LG', label: 'large emails' },
-    { value: 'XL', label: 'extra large emails' }
-  ];
-
   handler1: Subscription;
   handler2: Subscription;
 
+  @Input() test2: Observable<ISender>;
+
   myRemoved = true;
+
 
    toggle() {
      this.myRemoved = !this.myRemoved;
@@ -72,11 +60,9 @@ export class SuggestionsSizeTableComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.sizeCutoff$ = this.store.pipe(select(selectSizeGroup));
-
     this.dataSource = new SimpleDataSource(
-      this.store,
-      selectSendersBySizeGroupFiltered,
+      this.store, 
+      selectSendersByCount, 
       this.paginator,
       this.sort
     );
@@ -85,23 +71,22 @@ export class SuggestionsSizeTableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
     this.loadSuggestionsPage();
     this.updatePaginatorLength();
 
-
     this.handler1 = fromEvent(this.input.nativeElement, 'keyup')
-    .pipe(
-      debounceTime(150),
-      distinctUntilChanged(),
-      tap(() => {
-        this.paginator.pageIndex = 0;
-        this.loadSuggestionsPage();
-        this.updatePaginatorLength();
-      })
-    ).subscribe();
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadSuggestionsPage();
+          this.updatePaginatorLength();
+        })
+      ).subscribe();
   
-    this.handler2 = this.paginator.page.pipe(
+    this.handler2 = this.paginator.page
+    .pipe(
       tap(() => this.loadSuggestionsPage())
     ).subscribe();
 
@@ -110,14 +95,6 @@ export class SuggestionsSizeTableComponent implements OnInit {
   ngOnDestroy() {
     this.handler1.unsubscribe();
     this.handler2.unsubscribe();
-  }
-
-
-  onCutoffSelect({ value: cutoff }) {
-    this.store.dispatch(new SetSizeCutoffAction({ sizeCutoff: cutoff }));
-
-    this.updatePaginatorLength();
-    this.paginator.firstPage();
   }
 
 
@@ -131,14 +108,8 @@ export class SuggestionsSizeTableComponent implements OnInit {
 
 
   createActions() {
-    this.toggle();
-    this.store.pipe(
-      select(selectSizeGroup),
-      take(1),
-      map((sizeGroup) => {
-      })
-    ).subscribe();
 
+    this.toggle();
 
     of(true).pipe(
       take(1),
@@ -173,5 +144,4 @@ export class SuggestionsSizeTableComponent implements OnInit {
     let senders = this.dataSource.getValues();
     this.store.dispatch(new LabelAllSendersDialogAction({ senders: senders }))
   }
-
 }

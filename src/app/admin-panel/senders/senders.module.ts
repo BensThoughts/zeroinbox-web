@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuggestionsComponent } from './components/suggestions/suggestions.component';
-import { SuggestionsCountTableComponent } from './components/suggestions-count-table/suggestions-count-table.component';
+import { SendersComponent } from './components/senders/senders.component';
+import { SendersCountTableComponent } from './components/senders-count-table/senders-count-table.component';
 import { SharedModule } from '@app/shared';
 import { StoreModule } from '@ngrx/store';
 import { suggestionsReducer } from './state/suggestions.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { SuggestionsEffects } from './state/suggestions.effects';
-import { SuggestionsSizeTableComponent } from './components/suggestions-size-table/suggestions-size-table.component';
+import { SendersViewEffects } from './state/senders-view.effects';
+import { SendersSizeTableComponent } from './components/senders-size-table/senders-size-table.component';
 import { LabelDialogComponent } from './components/label-dialog/label-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-all-dialog.component';
@@ -18,9 +18,9 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
 
 @NgModule({
   declarations: [
-    SuggestionsComponent, 
-    SuggestionsCountTableComponent, 
-    SuggestionsSizeTableComponent,
+    SendersComponent, 
+    SendersCountTableComponent, 
+    SendersSizeTableComponent,
     LabelDialogComponent,
     LabelAllDialogComponent,
     DeleteDialogComponent,
@@ -31,7 +31,7 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
     CommonModule,
     SharedModule,
     StoreModule.forFeature('suggestions', suggestionsReducer),
-    EffectsModule.forFeature([SuggestionsEffects])
+    EffectsModule.forFeature([SendersViewEffects])
   ],
   entryComponents: [
     LabelDialogComponent,
@@ -40,4 +40,4 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
     DeleteAllDialogComponent
   ]
 })
-export class SuggestionsModule { }
+export class SendersModule { }

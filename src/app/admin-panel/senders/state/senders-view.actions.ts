@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 
-export enum SuggestionsActionTypes {
+export enum SendersViewActionTypes {
   SetSizeCutoff = '[Suggestions Component] Set Size Cutoff',
 
   LabelSenderDialog = '[Suggestions Component] Edit Label Dialog',
@@ -24,23 +24,23 @@ export enum SuggestionsActionTypes {
 }
 
 export class SetSizeCutoffAction implements Action {
-  readonly type = SuggestionsActionTypes.SetSizeCutoff;
+  readonly type = SendersViewActionTypes.SetSizeCutoff;
 
   constructor(public payload: { sizeCutoff: string }) {}
 }
 
 export class LabelSenderDialogAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSenderDialog;
+  readonly type = SendersViewActionTypes.LabelSenderDialog;
   constructor(public payload: { sender: ISender }) {}
 }
 
 export class LabelAllSendersDialogAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelAllSendersDialog;
+  readonly type = SendersViewActionTypes.LabelAllSendersDialog;
   constructor(public payload: { senders: ISender[] }) {}
 }
 
 export class LabelSendersRequestAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSendersRequest;
+  readonly type = SendersViewActionTypes.LabelSendersRequest;
   constructor(public payload: { 
     senders: ISender[],
     labelName: string,
@@ -49,50 +49,50 @@ export class LabelSendersRequestAction implements Action {
 }
 
 export class LabelSendersRequestSuccessAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSendersRequestSuccess;
+  readonly type = SendersViewActionTypes.LabelSendersRequestSuccess;
 }
 
 export class LabelSendersRequestFailureAction implements Action {
-  readonly type = SuggestionsActionTypes.LabelSendersRequestFailure;
+  readonly type = SendersViewActionTypes.LabelSendersRequestFailure;
 }
 
 export class DeleteSenderDialogAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSenderDialog;
+  readonly type = SendersViewActionTypes.DeleteSenderDialog;
   constructor(public payload: { sender: ISender }) {}
 }
 
 export class DeleteAllSendersDialogAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteAllSendersDialog;
+  readonly type = SendersViewActionTypes.DeleteAllSendersDialog;
   constructor(public payload: { senders: ISender[] }) {}
 }
 
 export class DeleteSendersRequestAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSendersRequest;
+  readonly type = SendersViewActionTypes.DeleteSendersRequest;
   constructor(public payload: { senders: ISender[] }) {}
 }
 
 export class DeleteSendersRequestSuccessAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSendersRequestSuccess;
+  readonly type = SendersViewActionTypes.DeleteSendersRequestSuccess;
   constructor(public payload: { senderIds: string[] }) {}
 }
 
 export class DeleteSendersRequestFailureAction implements Action {
-  readonly type = SuggestionsActionTypes.DeleteSendersRequestFailure;
+  readonly type = SendersViewActionTypes.DeleteSendersRequestFailure;
 }
 
 export class SetCurrentSenderAction implements Action {
-  readonly type = SuggestionsActionTypes.SetCurrentSender;
+  readonly type = SendersViewActionTypes.SetCurrentSender;
   constructor(public payload: { sender: ISender }) {}
 }
 
-export class UpdateSuggestionsStateAction implements Action {
-  readonly type = SuggestionsActionTypes.UpdateSuggestionsState;
+export class UpdateSendersViewStateAction implements Action {
+  readonly type = SendersViewActionTypes.UpdateSuggestionsState;
 
   constructor(public payload: any) {}
 }
 
-export class ResetSuggestionsStateAction implements Action {
-  readonly type = SuggestionsActionTypes.ResetSuggestions;
+export class ResetSendersViewStateAction implements Action {
+  readonly type = SendersViewActionTypes.ResetSuggestions;
 }
 
 export type ByCountActions =
@@ -113,5 +113,5 @@ export type ByCountActions =
 
   | SetCurrentSenderAction
 
-  | UpdateSuggestionsStateAction
-  | ResetSuggestionsStateAction
+  | UpdateSendersViewStateAction
+  | ResetSendersViewStateAction

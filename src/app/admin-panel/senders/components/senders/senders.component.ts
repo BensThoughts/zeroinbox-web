@@ -10,18 +10,18 @@ import {
   // selectByCountGroup_TS,
   // selectByCountGroup_TC,
   // selectByCountGroup_TL,
-} from '../../state/suggestions.selectors';
+} from '../../state/senders-view.selectors';
 import { SendersRequestAction } from '@app/core/state/senders/senders.actions';
 
 
 
 @Component({
-  selector: 'app-suggestions',
-  templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss'],
+  selector: 'app-senders',
+  templateUrl: './senders.component.html',
+  styleUrls: ['./senders.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SuggestionsComponent implements OnInit {
+export class SendersComponent implements OnInit {
 
   sendersLoaded$: Observable<boolean>;
 

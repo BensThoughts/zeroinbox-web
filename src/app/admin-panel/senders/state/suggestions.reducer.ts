@@ -1,13 +1,13 @@
 import { EntityState, createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { ByCountActions, SuggestionsActionTypes } from './suggestions.actions';
+import { ByCountActions, SendersViewActionTypes } from './senders-view.actions';
 import { AppState } from '@app/core';
 import { ISender } from '../../../core/state/senders/model/senders.model';
 
 export interface State extends AppState {
-  suggestions: SuggestionsState;
+  'senders-view': SendersViewState;
 }
 
-export interface SuggestionsState {
+export interface SendersViewState {
   suggestionsLoaded: boolean;
   countCutoff: number;
   sizeGroup: string;
@@ -24,20 +24,20 @@ const initialSuggestionsState = {
 
 export function suggestionsReducer(
   state = initialSuggestionsState,
-  action: ByCountActions): SuggestionsState {
+  action: ByCountActions): SendersViewState {
 
     switch (action.type) {
 
-      case SuggestionsActionTypes.SetSizeCutoff:
+      case SendersViewActionTypes.SetSizeCutoff:
         return { ...state, sizeGroup: action.payload.sizeCutoff };
 
-      case SuggestionsActionTypes.SetCurrentSender:
+      case SendersViewActionTypes.SetCurrentSender:
         return { ...state, currentSender: action.payload.sender };
 
-      case SuggestionsActionTypes.ResetSuggestions:
+      case SendersViewActionTypes.ResetSuggestions:
         return initialSuggestionsState;
 
-      case SuggestionsActionTypes.UpdateSuggestionsState:
+      case SendersViewActionTypes.UpdateSuggestionsState:
         return action.payload;
 
       default:

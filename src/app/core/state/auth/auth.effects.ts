@@ -32,7 +32,7 @@ import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/
 import { UserService } from '../../services/user/user.service';
 
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
-import { ResetSuggestionsStateAction } from '@app/admin-panel/suggestions/state/suggestions.actions';
+import { ResetSendersViewStateAction } from '@app/admin-panel/senders/state/senders-view.actions';
 import { ResetSendersStateAction } from '../senders/senders.actions';
 import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
 import { BootstrapAppAction } from '../bootstrap/bootstrap.actions';
@@ -182,7 +182,7 @@ export class AuthEffects {
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetSuggestionsStateAction());
+      this.store.dispatch(new ResetSendersViewStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
       
       this.router.navigate([this.authService.logoutUrl]);
@@ -203,7 +203,7 @@ export class AuthEffects {
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetSuggestionsStateAction());
+      this.store.dispatch(new ResetSendersViewStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
 
       this.router.navigate([this.authService.logoutUrl]);

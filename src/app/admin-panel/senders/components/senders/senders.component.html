@@ -13,14 +13,14 @@
         <mat-divider></mat-divider>
     
         <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="Threads">
+          <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
             <mat-card class="my-2">
-              <app-count-suggestions-table></app-count-suggestions-table>
+              <app-senders-count-table></app-senders-count-table>
             </mat-card>
           </mat-tab>
-          <mat-tab label="Size">
+          <mat-tab label="{{ 'app.admin-panel.senders.size-label' | translate }}">
             <mat-card class="my-2">
-              <go-suggestions-size-table></go-suggestions-size-table>
+              <app-senders-size-table></app-senders-size-table>
             </mat-card>
           </mat-tab>
         </mat-tab-group>

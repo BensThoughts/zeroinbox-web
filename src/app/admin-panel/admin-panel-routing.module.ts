@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/components/home/home.component';
 import { AuthGuardService } from '@app/core';
-import { SuggestionsComponent } from './suggestions/components/suggestions/suggestions.component';
+import { SendersComponent } from './senders/components/senders/senders.component';
 import { SettingsComponent } from './settings/components/settings.component';
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions/subscriptions.component';
 import { DownloadingComponent } from './downloading/downloading.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
       },
       { 
         path: 'suggestions', 
-        component: SuggestionsComponent,
+        component: SendersComponent,
         // canActivate: [AuthGuardService] 
       },
       {
