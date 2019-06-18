@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 /**
  * [ngrx module imports]
@@ -50,6 +50,12 @@ import { GoogleAnalyticsEffects } from './state/router/google-analytics.effects'
 import { LocalStorageSyncEffects } from './state/meta-reducers/local-storage-sync.effects';
 import { ActionsService } from './services/actions/actions.service';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 /**
  * [NgModule core module (includes all singleton services,
@@ -72,6 +78,15 @@ import { ActionsService } from './services/actions/actions.service';
       SendersEffects,
       UserEffects,
     ]),
+
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     environment.production ? [] : StoreDevtoolsModule.instrument({
       name: 'Gmail Starter'
     }),
