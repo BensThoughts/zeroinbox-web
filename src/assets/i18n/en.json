@@ -23,6 +23,21 @@
           "subscriptions-inbox": "Number of subscriptions in your inbox: "
         }
       },
+      "subscriptions": {
+        "tab-label": "Subscriptions",
+        "table": {
+          "search": "Search Name"
+        },
+        "unsubscribe-dialog": {
+          "title": "Unsubscribe?",
+          "content": "Would you like to unsubscribe?",
+          "external-link-content": "This subscription involves opening a new window to unsubscribe",
+          "confirm-button": "Unsubscribe",
+          "cancel-button": "Cancel"
+        }
+      }
+    },
+    "auth": {
       "logout-prompt": {
         "title": "Sign out",
         "content": "Do you want to sign out?",

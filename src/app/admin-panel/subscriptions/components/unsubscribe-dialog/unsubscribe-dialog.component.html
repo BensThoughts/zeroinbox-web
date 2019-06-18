@@ -1,9 +1,11 @@
 <div class=mat-logout-component>
   
+  <h3 mat-dialog-title>{{ 'app.admin-panel.subscriptions.unsubscribe-dialog.title' | translate }}</h3>
+
   <mat-dialog-content>
     
     <div>
-        Would you like to unsubscribe?
+        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.content' | translate }}
     </div>
 
     <div>
@@ -15,16 +17,16 @@
     </div>
 
     <div *ngIf="unsubscribeNewTab">
-      This subscription involves opening a new window to unsubscribe
+      {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.external-link-content' | translate }}
     </div>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="cancel()">
-      Cancel
+        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.cancel-button' | translate }}
     </button>
     <button mat-stroked-button (click)="unsubscribe()">
-      Unsubscribe
+        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.confirm-button' | translate }}
     </button>
   </mat-dialog-actions>
 
