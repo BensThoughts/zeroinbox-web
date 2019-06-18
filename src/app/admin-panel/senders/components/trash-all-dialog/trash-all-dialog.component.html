@@ -1,7 +1,7 @@
 <div class=mat-logout-component>
   
   <mat-dialog-content>
-    Move all emails to the trash?
+    {{ 'app.admin-panel.senders.trash-all-dialog.content' | translate }}
     <ul>
       <li *ngFor="let sender of senders">
         {{ sender.fromAddress}}
@@ -11,10 +11,10 @@
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="cancel()">
-      Cancel
+      {{ 'app.admin-panel.senders.trash-all-dialog.cancel-button' | translate }}
     </button>
     <button mat-stroked-button (click)="delete()">
-      Trash
+      {{ 'app.admin-panel.senders.trash-all-dialog.confirm-button' | translate }}
     </button>
   </mat-dialog-actions>
 

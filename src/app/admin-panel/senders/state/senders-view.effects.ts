@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
-import { AppState, selectLabelNamesBySenderId } from '@app/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/core';
 import {
   SendersViewActionTypes,
   LabelSenderDialogAction,
@@ -22,9 +22,9 @@ import { fromEvent, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { LabelDialogComponent, ConfirmationObject } from '../components/label-dialog/label-dialog.component';
 import { DeleteSendersAction } from '@app/core/state/senders/senders.actions';
-import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
+import { TrashDialogComponent } from '../components/trash-dialog/trash-dialog.component';
 import { ActionsService } from '@app/core/services/actions/actions.service';
-import { DeleteAllDialogComponent } from '../components/delete-all-dialog/delete-all-dialog.component';
+import { TrashAllDialogComponent } from '../components/trash-all-dialog/trash-all-dialog.component';
 import { LabelSendersRequestAction } from './senders-view.actions';
 import { NotificationService } from '@app/core/services/notifications/notification.service';
 import { LabelAllDialogComponent } from '../components/label-all-dialog/label-all-dialog.component';
@@ -123,10 +123,10 @@ export class SendersViewEffects {
   )
 
   @Effect({ dispatch: false }) 
-  deleteSenderDialog$ = this.actions$.pipe(
+  trashSenderDialog$ = this.actions$.pipe(
     ofType<DeleteSenderDialogAction>(SendersViewActionTypes.DeleteSenderDialog),
     exhaustMap((action) => {
-      let dialogRef = this.dialogService.open(DeleteDialogComponent);
+      let dialogRef = this.dialogService.open(TrashDialogComponent);
       let instance = dialogRef.componentInstance;
       instance.sender = action.payload.sender;
       return dialogRef
@@ -143,10 +143,10 @@ export class SendersViewEffects {
   )
 
   @Effect({ dispatch: false })
-  deleteAllSendersDialog$ = this.actions$.pipe(
+  trashAllSendersDialog$ = this.actions$.pipe(
     ofType<DeleteAllSendersDialogAction>(SendersViewActionTypes.DeleteAllSendersDialog),
     exhaustMap((action) => {
-      let dialogRef = this.dialogService.open(DeleteAllDialogComponent);
+      let dialogRef = this.dialogService.open(TrashAllDialogComponent);
       let instance = dialogRef.componentInstance;
       instance.senders = action.payload.senders;
       return dialogRef

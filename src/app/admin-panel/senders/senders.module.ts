@@ -10,8 +10,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { SendersViewEffects } from './state/senders-view.effects';
 import { SendersSizeTableComponent } from './components/senders-size-table/senders-size-table.component';
 import { LabelDialogComponent } from './components/label-dialog/label-dialog.component';
-import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-all-dialog.component';
+import { TrashDialogComponent } from './components/trash-dialog/trash-dialog.component';
+import { TrashAllDialogComponent } from './components/trash-all-dialog/trash-all-dialog.component';
 import { LabelAllDialogComponent } from './components/label-all-dialog/label-all-dialog.component';
 import { MessageViewerComponent } from './components/message-viewer/message-viewer.component';
 
@@ -23,8 +23,8 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
     SendersSizeTableComponent,
     LabelDialogComponent,
     LabelAllDialogComponent,
-    DeleteDialogComponent,
-    DeleteAllDialogComponent,
+    TrashDialogComponent,
+    TrashAllDialogComponent,
     MessageViewerComponent
   ],
   imports: [
@@ -36,8 +36,8 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
   entryComponents: [
     LabelDialogComponent,
     LabelAllDialogComponent,
-    DeleteDialogComponent,
-    DeleteAllDialogComponent
+    TrashDialogComponent,
+    TrashAllDialogComponent
   ]
 })
 export class SendersModule { }

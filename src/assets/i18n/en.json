@@ -72,6 +72,18 @@
           "label-name-input-title": "Label Name",
           "cancel-button": "Cancel",
           "confirm-button": "Label All"
+        },
+        "trash-dialog": {
+          "title": "Trash?",
+          "content": "Move all emails to the trash?",
+          "confirm-button": "Trash",
+          "cancel-button": "Cancel"
+        },
+        "trash-all-dialog": {
+          "title": "Trash All?",
+          "content": "Move all emails to the trash?",
+          "confirm-button": "Trash All",
+          "cancel-button": "Cancel"
         }
       }
     },

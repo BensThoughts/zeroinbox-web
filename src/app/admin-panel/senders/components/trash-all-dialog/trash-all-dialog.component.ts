@@ -5,18 +5,18 @@ import { AppState } from '@app/core';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 
 @Component({
-  selector: 'app-delete-dialog',
-  templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.scss'],
+  selector: 'app-trash-all-dialog',
+  templateUrl: './trash-all-dialog.component.html',
+  styleUrls: ['./trash-all-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeleteDialogComponent {
+export class TrashAllDialogComponent {
   constructor(
-    private ref: MatDialogRef<DeleteDialogComponent>,
+    private ref: MatDialogRef<TrashAllDialogComponent>,
     private store: Store<AppState>
     ) {}
 
-  @Input() sender: ISender;
+  @Input() senders: ISender[];
 
   delete() {
     this.ref.close(true);
