@@ -12,7 +12,6 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { HomeModule } from './home/home.module';
 import { LogoutPromptComponent } from './logout-prompt/logout-prompt.component';
 import { DownloadingComponent } from './downloading/downloading.component';
-import { MessageViewerModule } from './message-viewer/message-viewer.module';
 
 @NgModule({
   declarations: [LogoutPromptComponent, DownloadingComponent],
@@ -25,7 +24,6 @@ import { MessageViewerModule } from './message-viewer/message-viewer.module';
     SuggestionsModule,
     SettingsModule,
     AdminPanelRoutingModule,
-    MessageViewerModule
   ],
   providers: []
 })

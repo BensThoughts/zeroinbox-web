@@ -13,6 +13,7 @@ import { LabelDialogComponent } from './components/label-dialog/label-dialog.com
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DeleteAllDialogComponent } from './components/delete-all-dialog/delete-all-dialog.component';
 import { LabelAllDialogComponent } from './components/label-all-dialog/label-all-dialog.component';
+import { MessageViewerComponent } from './components/message-viewer/message-viewer.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LabelAllDialogComponent } from './components/label-all-dialog/label-all
     LabelDialogComponent,
     LabelAllDialogComponent,
     DeleteDialogComponent,
-    DeleteAllDialogComponent
+    DeleteAllDialogComponent,
+    MessageViewerComponent
   ],
   imports: [
     CommonModule,
