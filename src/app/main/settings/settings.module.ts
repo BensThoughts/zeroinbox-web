@@ -10,9 +10,10 @@ import { SettingsEffects } from './state/settings.effects';
 import { SharedModule } from '@app/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { SettingsThemeComponent } from './components/theme/theme.component';
+import { SettingsCategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
-  declarations: [SettingsComponent, SettingsThemeComponent, SettingsThemeComponent],
+  declarations: [SettingsComponent, SettingsThemeComponent, SettingsCategoriesComponent],
   imports: [
     CommonModule,
     SharedModule,

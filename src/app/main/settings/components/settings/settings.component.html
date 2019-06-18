@@ -1,11 +1,12 @@
-<div class="wrapper">
-
+<div class="container-fluid ">
   <div class="row">
-    <div><h1>Settings</h1></div>
+    <div class="col-sm">
+      <div><h1>Settings</h1></div>
+      <br>
+      <div *ngIf="settings$ | async as settings">
+        <app-settings-theme [theme]="settings.theme"></app-settings-theme>
+<!--           <app-settings-categories></app-settings-categories>
+ -->   </div>
+    </div>
   </div>
-  <br>
-  <ng-container *ngIf="settings$ | async as settings">
-    <app-settings-theme [theme]="settings.theme"></app-settings-theme>
-  </ng-container>
-
 </div>

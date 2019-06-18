@@ -7,7 +7,7 @@
 
 
   .go-header {
-    color: mat-color($primary) !important;
+    // color: mat-color($primary) !important;
   }
 
 
@@ -20,17 +20,14 @@
     mat-icon {
       color: mat-color($primary, lighter);
     }
-
-    .logout-button {
-      background-color: mat-color($primary, darker);
-    }
+    background-color: mat-color($primary);
   }
 
 
   mat-sidenav-container {
 
     .app-sidenav {
-      background-color: mat-color($primary, darker);
+      background-color: mat-color($primary);
     }
 
     mat-sidenav {
@@ -39,6 +36,10 @@
 
       .menu-chevron {
         color: mat-color($primary, lighter);
+      }
+
+      .chevron-button {
+        color: mat-color($primary, darker);
       }
 
       mat-icon {
@@ -61,7 +62,7 @@
 
     .footer {
       color: mat-color($primary, lighter);
-      background-color: mat-color($primary, darker);
+      background-color: mat-color($primary);
 
       .links,
       .signature {

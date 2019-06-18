@@ -15,12 +15,19 @@ import { AppState } from '@app/core';
 
 export class SettingsCategoriesComponent implements OnInit {
 
+  categories = [
+    { name: 'Friends', value: 'Friends'},
+    { name: 'Shopping', value: 'Shopping'},
+    { name: 'News', value: 'News'},
+    { name: 'Work', value: 'Work'},
+    { name: 'Finance', value: 'Finance'},
+    { name: 'Travel', value: 'Travel'},
+    { name: 'Misc', value: 'Misc'},
+  ]
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-  }
-
-  onThemeSelect({ value: theme }) {
   }
 
 }

@@ -1,29 +1,11 @@
-<div class="wrapper">
-
-  <div class="row">
-    <div><h1>Settings</h1></div>
+<mat-card>
+  <h2>Categories</h2>
+  <div class="icon-form-field">
+    <mat-list>
+      <mat-list-item *ngFor="let category of categories">
+          <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
+        {{ category.name }}
+      </mat-list-item>
+    </mat-list>
   </div>
-  <br>
-  <ng-container *ngIf="settings$ | async as settings">
-    <div>
-      <mat-card>
-      <h2>Theme</h2>
-      <div class="icon-form-field">
-        <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
-        <mat-form-field>
-          <mat-select placeholder="Color Theme"
-                      [ngModel]="settings.theme"
-                      (selectionChange)="onThemeSelect($event)"
-                      name="themes">
-            <mat-option *ngFor="let t of themes" [value]="t.value">
-              {{ t.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      </mat-card>
-    </div>
-
-  </ng-container>
-
-</div>
+</mat-card>
