@@ -6,7 +6,7 @@
     <form [formGroup]="formGroup">
       <div>
         <mat-form-field>
-            <mat-label>Category</mat-label>
+            <mat-label>{{ 'app.admin-panel.senders.label-all-dialog.category-selector-title' | translate }}</mat-label>
               <mat-select [placeholder]=""
                           formControlName="category">
                   <mat-option *ngFor="let category of categories" [value]="category.value">
@@ -17,7 +17,7 @@
       </div>
       <div>
         <mat-form-field>
-          <mat-label>Label Name</mat-label>
+          <mat-label>{{ 'app.admin-panel.senders.label-all-dialog.label-name-input-title' | translate }}</mat-label>
           <input matInput placeholder="Label Name" 
                           #searchInput
                           formControlName="labelName">
@@ -29,10 +29,10 @@
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="cancel()">
-      Cancel
+      {{ 'app.admin-panel.senders.label-all-dialog.cancel-button' | translate }}
     </button>
     <button mat-stroked-button [disabled]="!formGroup.valid" (click)="save()">
-      Label
+      {{ 'app.admin-panel.senders.label-all-dialog.confirm-button' | translate }}
     </button>
   </mat-dialog-actions>
 

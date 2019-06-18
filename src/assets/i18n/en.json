@@ -62,8 +62,16 @@
           }
         },
         "label-dialog": {
+          "category-selector-title": "Category",
+          "label-name-input-title": "Label Name",
           "cancel-button": "Cancel",
           "confirm-button": "Label"
+        },
+        "label-all-dialog": {
+          "category-selector-title": "Category",
+          "label-name-input-title": "Label Name",
+          "cancel-button": "Cancel",
+          "confirm-button": "Label All"
         }
       }
     },
