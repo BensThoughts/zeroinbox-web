@@ -6,7 +6,7 @@ import { AuthGuardService } from '@app/core';
 import { SendersComponent } from './senders/components/senders/senders.component';
 import { SettingsComponent } from './settings/components/settings.component';
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions/subscriptions.component';
-import { DownloadingComponent } from './downloading/downloading.component';
+import { DownloadingComponent } from './downloading/components/downloading/downloading.component';
 
 
 

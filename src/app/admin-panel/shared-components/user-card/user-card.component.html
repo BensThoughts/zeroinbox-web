@@ -1,0 +1,21 @@
+<mat-card class="mat-user-card text-center">
+  <mat-card-title>
+    Welcome...
+  </mat-card-title>
+  <span *ngIf="basic_profile$ | async as basic_profile">
+    <img [src]="basic_profile.picture" class="user">
+  </span> 
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <span *ngIf="basic_profile$ | async as basic_profile">
+      <div>
+        {{ basic_profile.name }}
+      </div>
+    </span>
+    <span *ngIf="email_profile$ | async as email_profile">
+      <div>
+        {{ email_profile.emailAddress }}
+      </div>
+    </span>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,40 @@
+.user {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  // border-width: 10px;
+  // border-color: black;
+  border-radius: 50%;
+
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.mat-user-card {
+  max-width: 500px;
+  min-width: 300px;
+  margin-top: 20px;
+  img {
+    margin: 10px;
+  }
+}
+
+mat-card {
+  // max-width: 300px;
+
+  mat-divider {
+    position: relative;
+    align-self: center;
+  }
+
+  mat-card-title {
+    position: relative;
+  }
+
+  mat-card-footer {
+    vertical-align: middle;
+  }
+
+}

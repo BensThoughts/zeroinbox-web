@@ -13,7 +13,7 @@ import { LabelDialogComponent } from './components/label-dialog/label-dialog.com
 import { TrashDialogComponent } from './components/trash-dialog/trash-dialog.component';
 import { TrashAllDialogComponent } from './components/trash-all-dialog/trash-all-dialog.component';
 import { LabelAllDialogComponent } from './components/label-all-dialog/label-all-dialog.component';
-import { MessageViewerComponent } from './components/message-viewer/message-viewer.component';
+import { SharedComponentModule } from '../shared-components/shared-components.module';
 
 
 @NgModule({
@@ -25,11 +25,11 @@ import { MessageViewerComponent } from './components/message-viewer/message-view
     LabelAllDialogComponent,
     TrashDialogComponent,
     TrashAllDialogComponent,
-    MessageViewerComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    SharedComponentModule,
     StoreModule.forFeature('senders-view', suggestionsReducer),
     EffectsModule.forFeature([SendersViewEffects])
   ],
