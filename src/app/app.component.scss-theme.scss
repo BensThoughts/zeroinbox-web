@@ -38,10 +38,6 @@
         color: mat-color($primary, lighter);
       }
 
-      .chevron-button {
-        color: mat-color($primary, darker);
-      }
-
       mat-icon {
         color: mat-color($primary, lighter);
       }
@@ -74,6 +70,10 @@
         }
       }
     }
+  }
+
+  .chevron-button {
+    color: mat-color($accent);
   }
 
   .error-notification-overlay {
