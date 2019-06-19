@@ -4,7 +4,13 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   selectTheme,
 } from './settings.selectors';
-import { SettingsActionTypes, SettingsActions, UpdateSettingsStateAction, SettingsAddCategoryDialogAction, SettingsAddCategoryAction } from './settings.actions';
+
+import { 
+  SettingsActionTypes, 
+  SettingsActions, 
+  UpdateSettingsStateAction
+} from './settings.actions';
+
 import { INIT, Store, select } from '@ngrx/store';
 import { merge, fromEvent } from 'rxjs';
 import { tap, withLatestFrom, filter, map, exhaustMap } from 'rxjs/operators';
