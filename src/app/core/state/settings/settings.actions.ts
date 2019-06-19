@@ -33,6 +33,19 @@ export class SettingsGetCategoriesRequestFailureAction implements Action {
   readonly type = SettingsActionTypes.GetCategoriesRequestFailure;
 }
 
+export class SettingsSetCategoriesRequestAction implements Action {
+  readonly type = SettingsActionTypes.SetCategoriesRequest;
+  constructor(public payload: { add: boolean, category: Category}) {}
+}
+
+export class SettingsSetCategoriesRequestSuccessAction implements Action {
+  readonly type = SettingsActionTypes.SetCategoriesRequestSuccess;
+}
+
+export class SettingsSetCategoriesRequestFailureAction implements Action {
+  readonly type = SettingsActionTypes.SetCategoriesRequestFailure;
+}
+
 export class SettingsSetCategoriesAction implements Action {
   readonly type = SettingsActionTypes.SetCategories;
   constructor(public payload: { categories: Category[] }) {}
@@ -60,6 +73,10 @@ export type SettingsActions =
   | SettingsGetCategoriesRequestAction
   | SettingsGetCategoriesRequestSuccessAction
   | SettingsGetCategoriesRequestFailureAction
+
+  | SettingsSetCategoriesRequestAction
+  | SettingsSetCategoriesRequestSuccessAction
+  | SettingsSetCategoriesRequestFailureAction
 
   | SettingsSetCategoriesAction
   | SettingsAddCategoryAction

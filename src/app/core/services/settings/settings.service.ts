@@ -25,6 +25,11 @@ export interface ActionsResponse {
   status_message: string,
 } */
 
+export interface SetCategoriesRequestBody {
+  add: boolean;
+  category: Category;
+};
+
 export interface GetCategoriesResponse {
   status: string,
   status_code: number,
@@ -32,6 +37,12 @@ export interface GetCategoriesResponse {
   data: {
     categories: Category[]
   }
+};
+
+export interface SetCategoriesResponse {
+  status: string,
+  status_code: number,
+  status_message: string
 }
 
 @Injectable()
@@ -48,6 +59,15 @@ export class SettingsService {
           return categories;
         })
       );
+    }
+
+    public setCategories(body: SetCategoriesRequestBody) {
+      return this.httpClient.post<SetCategoriesResponse>(API_URL + '/settings/categories', body, {
+        withCredentials: true,
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        })
+      })
     }
 
 }

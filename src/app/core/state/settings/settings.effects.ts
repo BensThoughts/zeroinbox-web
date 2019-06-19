@@ -10,7 +10,9 @@ import {
   SettingsActions, 
   UpdateSettingsStateAction,
   SettingsGetCategoriesRequestAction,
-  SettingsSetCategoriesAction
+  SettingsSetCategoriesAction,
+  SettingsSetCategoriesRequestFailureAction,
+  SettingsSetCategoriesRequestAction
 } from './settings.actions';
 
 import { INIT, Store, select } from '@ngrx/store';
@@ -21,6 +23,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AddCategoryDialogComponent, CategoryConfirmationObject } from '@app/main/settings/components/add-category-dialog/add-category-dialog.component';
 import { SettingsService } from '../../services/settings/settings.service';
+import { NotificationService } from '../../services/notifications/notification.service';
+import { SettingsAddCategoryAction, SettingsRemoveCategoryAction } from './settings.actions';
 
 
 @Injectable()
@@ -72,11 +76,39 @@ export class SettingsEffects {
     })
   )
 
+  @Effect({ dispatch: false })
+  setCategories$ = this.actions$.pipe(
+    ofType<SettingsSetCategoriesRequestAction>(SettingsActionTypes.SetCategoriesRequest),
+    exhaustMap((action) => {
+      let category = action.payload.category;
+      let add = action.payload.add;
+      let requestBody = { 
+        add: add, 
+        category: category 
+      };
+      return this.settingsService.setCategories(requestBody).pipe(
+        map((response) => {
+          console.log(response);
+          if (response.status === 'error') {
+            this.notificationService.connectionError();
+            this.store.dispatch(new SettingsSetCategoriesRequestFailureAction());
+          } else if (add) {
+            this.store.dispatch(new SettingsAddCategoryAction({ category: category }))
+          } else {
+            this.store.dispatch(new SettingsRemoveCategoryAction({ category: category }))
+          }
+        }),
+        catchError((err) => of(err))
+      )
+    })
+  )
+
   constructor(
     private actions$: Actions<SettingsActions>,
     private store: Store<State>,
     private overlayContainer: OverlayContainer,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private notificationService: NotificationService
   ) {}
 
 }
