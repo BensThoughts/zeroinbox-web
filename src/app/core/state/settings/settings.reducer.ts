@@ -8,7 +8,7 @@ export interface State extends AppState {
 
 export interface SettingsState {
   theme: string;
-  categories: Category[]
+  categories: Category[];
 }
 
 export const initialState: SettingsState = {
@@ -21,13 +21,19 @@ export const initialState: SettingsState = {
     { name: 'Finance', value: 'Finance'},
     { name: 'Travel', value: 'Travel'},
     { name: 'Misc', value: 'Misc'},
-  ]
+  ],
 }
 
 export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
   switch (action.type) {
     case SettingsActionTypes.ChangeTheme:
       return { ...state, ...action.payload }
+
+    case SettingsActionTypes.SetCategories:
+      return {
+        ...state,
+        categories: action.payload.categories
+      }
 
     case SettingsActionTypes.AddCategory:
       return { 

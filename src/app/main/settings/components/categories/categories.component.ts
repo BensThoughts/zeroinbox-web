@@ -10,7 +10,7 @@ import { AppState } from '@app/core';
 import { Category } from '@app/core/state/settings/category.model';
 import { MatDialog } from '@angular/material';
 import { AddCategoryDialogComponent, CategoryConfirmationObject } from '../add-category-dialog/add-category-dialog.component';
-import { SettingsAddCategoryAction } from '../../../../core/state/settings/settings.actions';
+import { SettingsAddCategoryAction, SettingsGetCategoriesRequestAction } from '../../../../core/state/settings/settings.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -30,6 +30,7 @@ export class SettingsCategoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store.dispatch(new SettingsGetCategoriesRequestAction());
     this.categories$ = this.store.pipe(select(selectCategories));
   }
 

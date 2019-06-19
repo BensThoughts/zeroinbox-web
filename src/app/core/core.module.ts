@@ -53,6 +53,7 @@ import { ActionsService } from './services/actions/actions.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsEffects } from './state/settings/settings.effects';
+import { SettingsService } from './services/settings/settings.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -109,6 +110,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReverseAuthGuardService,
     SendersService,
     UserService,
+    SettingsService,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */

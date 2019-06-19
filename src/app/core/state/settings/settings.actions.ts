@@ -9,6 +9,7 @@ export enum SettingsActionTypes {
   SetCategoriesRequest = '[Settings Categories Component] Set Categories Request',
   SetCategoriesRequestSuccess = '[Settings Effects] Set Categories Request Success',
   SetCategoriesRequestFailure = '[Settings Effects] Set Categories Request Failure',
+  SetCategories = '[Settings Effects] Set Categories',
   AddCategory = '[Settings Categories Component] Add Category',
   RemoveCategory = '[Settings Categories Component] Remove Category',
   UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window',
@@ -32,6 +33,10 @@ export class SettingsGetCategoriesRequestFailureAction implements Action {
   readonly type = SettingsActionTypes.GetCategoriesRequestFailure;
 }
 
+export class SettingsSetCategoriesAction implements Action {
+  readonly type = SettingsActionTypes.SetCategories;
+  constructor(public payload: { categories: Category[] }) {}
+}
 export class SettingsAddCategoryAction implements Action {
   readonly type = SettingsActionTypes.AddCategory;
   constructor(public payload: { category: Category }) {}
@@ -56,6 +61,7 @@ export type SettingsActions =
   | SettingsGetCategoriesRequestSuccessAction
   | SettingsGetCategoriesRequestFailureAction
 
+  | SettingsSetCategoriesAction
   | SettingsAddCategoryAction
   | SettingsRemoveCategoryAction
   

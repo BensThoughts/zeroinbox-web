@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable, of} from 'rxjs';
 
 import { API_URL } from '../apiurl';
 import { Category } from '../../state/settings/category.model';
+import { map, tap } from 'rxjs/operators';
 
 /* export type ActionType = 
   | 'label'
@@ -38,10 +39,15 @@ export class SettingsService {
 
     constructor(private httpClient: HttpClient) {}
 
-    public getCategories(): Observable<GetCategoriesResponse> {
+    public getCategories(): Observable<Category[]> {
       return this.httpClient.get<GetCategoriesResponse>(API_URL + '/settings/categories', {
         withCredentials: true,
-      });
+      }).pipe(
+        map((response: GetCategoriesResponse) => {
+          let categories = response.data.categories;
+          return categories;
+        })
+      );
     }
 
 }
