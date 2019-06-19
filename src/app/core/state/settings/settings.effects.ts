@@ -11,7 +11,7 @@ import { tap, withLatestFrom, filter, map, exhaustMap } from 'rxjs/operators';
 import { State } from './settings.reducer';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AddCategoryDialogComponent, CategoryConfirmationObject } from '../../../main/settings/components/add-category-dialog/add-category-dialog.component';
+import { AddCategoryDialogComponent, CategoryConfirmationObject } from '@app/main/settings/components/add-category-dialog/add-category-dialog.component';
 
 
 @Injectable()
@@ -48,27 +48,6 @@ export class SettingsEffects {
       return new UpdateSettingsStateAction(settingsState);
     })
   );
-
-  @Effect({ dispatch: false })
-  addCategoryDialog = this.actions$.pipe(
-    ofType<SettingsAddCategoryDialogAction>(SettingsActionTypes.AddCategoryDialog),
-    exhaustMap((action) => {
-      let dialoagRef = this.dialogService.open(AddCategoryDialogComponent);
-      return dialoagRef
-      .afterClosed()
-      .pipe(
-          map((confirmationObject: CategoryConfirmationObject) => {
-            if (confirmationObject === undefined || !confirmationObject.save) {
-              // Do nothing
-            } else {
-              // console.log(confirmationObject.category);
-              // console.log(confirmationObject.labelName);
-              this.store.dispatch(new SettingsAddCategoryAction({ category: confirmationObject.category }))
-            }
-          })
-      )
-  })
-  )
 
   constructor(
     private actions$: Actions<SettingsActions>,

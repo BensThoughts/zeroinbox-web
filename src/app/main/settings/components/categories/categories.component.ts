@@ -9,6 +9,10 @@ import {
 } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
 import { Category } from '@app/core/state/settings/category.model';
+import { MatDialog } from '@angular/material';
+import { AddCategoryDialogComponent, CategoryConfirmationObject } from '../add-category-dialog/add-category-dialog.component';
+import { SettingsAddCategoryAction } from '../../../../core/state/settings/settings.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings-categories',
@@ -21,7 +25,10 @@ export class SettingsCategoriesComponent implements OnInit {
 
   categories$;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(
+    private store: Store<AppState>,
+    private dialogService: MatDialog
+  ) { }
 
   ngOnInit() {
     this.categories$ = this.store.pipe(select(selectCategories));
@@ -33,7 +40,22 @@ export class SettingsCategoriesComponent implements OnInit {
   }
 
   addCategory() {
-    this.store.dispatch(new SettingsAddCategoryDialogAction());
+    // this.store.dispatch(new SettingsAddCategoryDialogAction());
+    let dialoagRef = this.dialogService.open(AddCategoryDialogComponent);
+    dialoagRef
+    .afterClosed()
+    .pipe(
+        map((confirmationObject: CategoryConfirmationObject) => {
+          if (confirmationObject === undefined || !confirmationObject.save) {
+            // Do nothing
+          } else {
+            // console.log(confirmationObject.category);
+            // console.log(confirmationObject.labelName);
+            this.store.dispatch(new SettingsAddCategoryAction({ category: confirmationObject.category }))
+          }
+        })
+    ).subscribe();
+  
   }
 
 }
