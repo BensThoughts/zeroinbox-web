@@ -1,11 +1,11 @@
-<mat-card class="mat-user-card text-center">
+<mat-card class="text-center">
   <mat-card-title>
     Welcome...
   </mat-card-title>
   <span *ngIf="basic_profile$ | async as basic_profile">
     <img [src]="basic_profile.picture" class="user">
   </span> 
-  <mat-divider></mat-divider>
+  <mat-divider inset="true"></mat-divider>
   <mat-card-content>
     <span *ngIf="basic_profile$ | async as basic_profile">
       <div>
