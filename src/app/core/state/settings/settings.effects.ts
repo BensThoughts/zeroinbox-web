@@ -35,26 +35,8 @@ export class SettingsEffects {
     })
   );
 
-/*   @Effect({ dispatch: false })
-  updateTheme = merge(
-    INIT,
-    this.actions$.pipe(
-      ofType(SettingsActionTypes.ChangeTheme),
-      withLatestFrom(this.store.pipe(select(selectTheme))),
-      tap(([action, theme]) => {
-        const classList = this.overlayContainer.getContainerElement().classList;
-        const toRemove = Array.from(classList).filter((item: string) =>
-          item.includes('-theme')
-        );
-        if (toRemove.length > 0) {
-          classList.remove(...toRemove);
-        }
-        classList.add(theme);
-      })
-    )
-  ); */
 
-/*   @Effect()
+  @Effect()
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
   // listen to our storage key
     filter((evt) => {
@@ -65,7 +47,7 @@ export class SettingsEffects {
       let settingsState = JSON.parse(evt.newValue);
       return new UpdateSettingsStateAction(settingsState);
     })
-  ); */
+  );
 
   @Effect({ dispatch: false })
   addCategoryDialog = this.actions$.pipe(
