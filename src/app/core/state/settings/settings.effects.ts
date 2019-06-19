@@ -24,7 +24,7 @@ import { MatDialog } from '@angular/material';
 import { AddCategoryDialogComponent, CategoryConfirmationObject } from '@app/main/settings/components/add-category-dialog/add-category-dialog.component';
 import { SettingsService } from '../../services/settings/settings.service';
 import { NotificationService } from '../../services/notifications/notification.service';
-import { SettingsAddCategoryAction, SettingsRemoveCategoryAction } from './settings.actions';
+import { SettingsAddCategoryAction, SettingsRemoveCategoryAction, SettingsSetCategoriesRequestSuccessAction } from './settings.actions';
 
 
 @Injectable()
@@ -91,12 +91,14 @@ export class SettingsEffects {
           console.log(response);
           if (response.status === 'error') {
             this.notificationService.connectionError();
+            if (add) {
+              this.store.dispatch(new SettingsRemoveCategoryAction({ category: category }))
+            } else {
+              this.store.dispatch(new SettingsAddCategoryAction({ category: category }))
+            }
             this.store.dispatch(new SettingsSetCategoriesRequestFailureAction());
-          } else if (add) {
-            this.store.dispatch(new SettingsAddCategoryAction({ category: category }))
-          } else {
-            this.store.dispatch(new SettingsRemoveCategoryAction({ category: category }))
           }
+          this.store.dispatch(new SettingsSetCategoriesRequestSuccessAction());
         }),
         catchError((err) => of(err))
       )

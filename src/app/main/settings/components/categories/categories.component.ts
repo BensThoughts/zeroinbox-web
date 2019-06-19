@@ -36,8 +36,8 @@ export class SettingsCategoriesComponent implements OnInit {
 
   removeCategory(category: Category) {
     console.log(category);
+    this.store.dispatch(new SettingsRemoveCategoryAction( { category: category }));
     this.store.dispatch(new SettingsSetCategoriesRequestAction({ add: false, category: category }))
-    // this.store.dispatch(new SettingsRemoveCategoryAction( { category: category }));
   }
 
   addCategory() {
@@ -53,7 +53,7 @@ export class SettingsCategoriesComponent implements OnInit {
             let category = confirmationObject.category;
             // console.log(confirmationObject.category);
             // console.log(confirmationObject.labelName);
-            // this.store.dispatch(new SettingsAddCategoryAction({ category: confirmationObject.category }))
+            this.store.dispatch(new SettingsAddCategoryAction({ category: confirmationObject.category }))
             this.store.dispatch(new SettingsSetCategoriesRequestAction({ add: true, category: category}))
           }
         })
