@@ -17,8 +17,10 @@ import { sendersReducer, SendersState } from './senders/senders.reducer';
 import { debug } from './meta-reducers/debug.reducer';
 import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
 import { BootstrapState, bootstrapReducer } from './bootstrap/bootstrap.reducer';
+import { settingsReducer, SettingsState } from './settings/settings.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
+  settings: settingsReducer,
   router: routerReducer,
   auth: authReducer,
   user: userReducer,
@@ -53,6 +55,10 @@ export const selectSendersState = createFeatureSelector<AppState, SendersState>(
   'senders'
 )
 
+export const selectSettingsState = createFeatureSelector<AppState, SettingsState>(
+  'settings'
+)
+
 
 export const selectRouterState = createFeatureSelector<
   AppState,
@@ -62,6 +68,7 @@ export const selectRouterState = createFeatureSelector<
 
 
 export interface AppState {
+  settings: SettingsState;
   router: RouterReducerState<RouterStateUrl>;
   user: UserState;
   auth: AuthState;

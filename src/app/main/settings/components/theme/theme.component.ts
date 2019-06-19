@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { SettingsState } from '../../state/settings.reducer';
-import { selectSettings } from '../../state/settings.selectors';
-import { SettingsChangeThemeAction } from '../../state/settings.actions';
+import { SettingsState } from '@app/core/state/settings/settings.reducer';
+import { selectSettings } from '@app/core/state/settings/settings.selectors';
+import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
-import { faThemeco } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-settings-theme',
@@ -22,7 +21,6 @@ export class SettingsThemeComponent implements OnInit {
   ];
 
   @Input() theme;
-
 
   constructor(private store: Store<AppState>) { }
 

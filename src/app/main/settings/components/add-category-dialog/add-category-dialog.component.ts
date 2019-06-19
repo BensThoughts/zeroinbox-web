@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
 import { MatDialogRef } from '@angular/material';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Category } from '../../state/category.model';
+import { Category } from '../../../../core/state/settings/category.model';
 
 export interface CategoryConfirmationObject {
   save: boolean;

@@ -1,9 +1,6 @@
 import { SettingsState, State } from './settings.reducer';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-
-export const selectSettingsState = createFeatureSelector<State, SettingsState>(
-  'settings'
-);
+import { selectSettingsState } from '@app/core/state/core.state';
 
 export const selectSettings = createSelector(
   selectSettingsState,

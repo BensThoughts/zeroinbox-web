@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { SettingsState } from '../../state/settings.reducer';
-import { selectSettings } from '../../state/settings.selectors';
-import { SettingsChangeThemeAction } from '../../state/settings.actions';
+import { SettingsState } from '@app/core/state/settings/settings.reducer';
+import { selectSettings } from '@app/core/state/settings/settings.selectors';
+import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
 import { selectIsBootstrapped } from '../../../../core/state/bootstrap/bootstrap.selectors';
 
@@ -16,15 +16,6 @@ import { selectIsBootstrapped } from '../../../../core/state/bootstrap/bootstrap
 export class SettingsComponent implements OnInit {
   settings$: Observable<SettingsState>;
   isBootstrapped$: Observable<boolean>;
-
-  themes = [
-    { value: 'DEFAULT-THEME', label: 'blue' },
-    { value: 'LIGHT-THEME', label: 'light' },
-    { value: 'NATURE-THEME', label: 'nature' },
-    { value: 'BLACK-THEME', label: 'dark' }
-  ];
-
-
 
   constructor(private store: Store<AppState>) { }
 

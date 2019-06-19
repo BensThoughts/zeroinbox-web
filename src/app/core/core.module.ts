@@ -52,6 +52,7 @@ import { ActionsService } from './services/actions/actions.service';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SettingsEffects } from './state/settings/settings.effects';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
     EffectsModule.forRoot([
+      SettingsEffects,
       AuthEffects,
       BootstrapEffects,
       GoogleAnalyticsEffects,

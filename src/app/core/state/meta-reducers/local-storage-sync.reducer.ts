@@ -8,13 +8,13 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
       keys: [
         'user', 
         'auth', 
-        'bootstrap', 
+        'bootstrap',
         'settings', 
         'senders', 
         'senders-view',
       ],
       rehydrate: true,
-      removeOnUndefined: true,
+      removeOnUndefined: false,
       storageKeySerializer: (key) => 'zi-app-' + key,
       syncCondition: (state: AppState) => {
         // return true;

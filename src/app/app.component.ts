@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +16,8 @@ import {
 import { Store, select } from '@ngrx/store';
 import { AppState, LogoutAction, selectDownloadingStatus, selectIsBootstrapped } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
-import { selectTheme } from './main/settings/state/settings.selectors';
+import { selectTheme } from '@app/core/state/settings/settings.selectors';
+import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.actions';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit {
   isBootstrapped$: Observable<boolean>;
 
   // Sets the color theme app-wide
-  theme$: Observable<string>;
+  theme$: Observable<string> = of('black-theme');
 
   // track the state of the sidenav
   isOpen = false;
@@ -62,10 +63,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+      this.theme$ = this.store.pipe(select(selectTheme));
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
       this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
       this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
-      this.theme$ = this.store.pipe(select(selectTheme));
   }
 
 
