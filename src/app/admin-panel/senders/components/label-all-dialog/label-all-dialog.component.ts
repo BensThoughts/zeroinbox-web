@@ -2,6 +2,11 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
 import { MatDialogRef } from '@angular/material';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { selectCategories } from '../../../../core/state/settings/settings.selectors';
+import { AppState } from '@app/core';
 
 export interface ConfirmationObject {
   save: boolean;
@@ -41,16 +46,32 @@ export class LabelAllDialogComponent implements OnInit {
     { name: 'Misc', value: 'Misc'},
   ]
 
+  handler: Subscription;
+
   constructor(
     private ref: MatDialogRef<LabelAllDialogComponent>,
+    private store: Store<AppState>
     ) { }
 
 
   ngOnInit() {
-    this.formGroup.setValue({
-      labelName: '',
-      category: 'NO_CATEGORY'
-    });
+    this.handler = this.store.pipe(
+      select(selectCategories),
+      map((categories) => {
+        this.categories  = [
+          { name: 'No Category', value: 'NO_CATEGORY'},
+          ...categories,
+        ];
+        this.formGroup.setValue({
+          labelName: '',
+          category: 'NO_CATEGORY'
+        });
+      })
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.handler.unsubscribe();
   }
 
   save() {

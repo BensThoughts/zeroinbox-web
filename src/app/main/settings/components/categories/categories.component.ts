@@ -5,7 +5,6 @@ import { SettingsState } from '@app/core/state/settings/settings.reducer';
 import { selectSettings, selectCategories } from '@app/core/state/settings/settings.selectors';
 import {
   SettingsRemoveCategoryAction, 
-  SettingsAddCategoryDialogAction 
 } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
 import { Category } from '@app/core/state/settings/category.model';
