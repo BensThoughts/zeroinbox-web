@@ -1,5 +1,5 @@
 <mat-card>
-  <h2>Categories</h2>
+  <h2>{{ 'app.main.settings.categories.title' | translate }}</h2>
   <div class="" *ngIf="categories$ | async as categories">
 
     <mat-list class="">
@@ -18,6 +18,6 @@
       </mat-list-item>
     </mat-list>
 
-    <button mat-stroked-button (click)="addCategory()">Add Category</button>
+    <button mat-stroked-button (click)="addCategory()">{{ 'app.main.settings.categories.add-category-button' | translate }}</button>
   </div>
 </mat-card>

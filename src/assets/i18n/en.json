@@ -87,6 +87,18 @@
         }
       }
     },
+    "main": {
+      "settings": {
+        "title": "Settings",
+        "categories": {
+          "title": "Categories",
+          "add-category-button": "Add Category"
+        },
+        "theme": {
+          "title": "Theme"
+        }
+      }
+    },
     "auth": {
       "logout-prompt": {
         "title": "Sign out",
