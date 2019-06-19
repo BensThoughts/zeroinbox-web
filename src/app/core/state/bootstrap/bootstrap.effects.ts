@@ -39,6 +39,7 @@ import { SendersRequestAction } from '../senders/senders.actions';
 import { Router } from '@angular/router';
 import { UserProfileRequestAction } from '../user/user.actions';
 import { UpdateDownloadingStatusAction } from './bootstrap.actions';
+import { SettingsGetCategoriesRequestAction } from '../settings/settings.actions';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -152,6 +153,7 @@ export class BootstrapEffects {
         ofType<LoadAllDataRequestAction>(BootstrapActionTypes.LoadAllDataRequest),
         map(() => {
           this.store.dispatch(new SendersRequestAction());
+          this.store.dispatch(new SettingsGetCategoriesRequestAction());
         })
       );
 
