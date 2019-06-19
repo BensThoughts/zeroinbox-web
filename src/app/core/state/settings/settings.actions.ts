@@ -3,6 +3,12 @@ import { Category } from './category.model';
 
 export enum SettingsActionTypes {
   ChangeTheme = '[Settings Theme Component] Change Theme',
+  GetCategoriesRequest = '[Settings Categories Component] Get Categories Request',
+  GetCategoriesRequestSuccess = '[Settings Effects] Get Categories Request Success',
+  GetCategoriesRequestFailure = '[Settings Effects] Get Categories Request Failure',
+  SetCategoriesRequest = '[Settings Categories Component] Set Categories Request',
+  SetCategoriesRequestSuccess = '[Settings Effects] Set Categories Request Success',
+  SetCategoriesRequestFailure = '[Settings Effects] Set Categories Request Failure',
   AddCategory = '[Settings Categories Component] Add Category',
   RemoveCategory = '[Settings Categories Component] Remove Category',
   UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window',
@@ -12,6 +18,18 @@ export class SettingsChangeThemeAction implements Action {
   readonly type = SettingsActionTypes.ChangeTheme;
 
   constructor(public payload: { theme: string }) {}
+}
+
+export class SettingsGetCategoriesRequestAction implements Action {
+  readonly type = SettingsActionTypes.GetCategoriesRequest;
+}
+
+export class SettingsGetCategoriesRequestSuccessAction implements Action {
+  readonly type = SettingsActionTypes.GetCategoriesRequestSuccess;
+}
+
+export class SettingsGetCategoriesRequestFailureAction implements Action {
+  readonly type = SettingsActionTypes.GetCategoriesRequestFailure;
 }
 
 export class SettingsAddCategoryAction implements Action {
@@ -33,6 +51,10 @@ export class UpdateSettingsStateAction implements Action {
 
 export type SettingsActions =
   | SettingsChangeThemeAction
+
+  | SettingsGetCategoriesRequestAction
+  | SettingsGetCategoriesRequestSuccessAction
+  | SettingsGetCategoriesRequestFailureAction
 
   | SettingsAddCategoryAction
   | SettingsRemoveCategoryAction
