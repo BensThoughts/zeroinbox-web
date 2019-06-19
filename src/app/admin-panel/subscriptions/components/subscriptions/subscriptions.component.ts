@@ -1,12 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { MatSort, MatPaginator, PageEvent, Sort } from '@angular/material';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { fromMatPaginator, paginateRows, fromMatSort, sortRows } from '../../../../core/utils/datasource-utils';
-import { ISender } from '@app/core/state/senders/model/senders.model';
-import { SendersRequestAction } from '../../../../core/state/senders/senders.actions';
+import { LoadAllDataRequestAction } from '@app/core/state/bootstrap/bootstrap.actions';
 
 @Component({
   selector: 'app-subscriptions-component',
@@ -19,6 +14,6 @@ export class SubscriptionsComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.store.dispatch(new SendersRequestAction());
+    this.store.dispatch(new LoadAllDataRequestAction());
   }
 }

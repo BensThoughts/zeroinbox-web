@@ -5,6 +5,7 @@ import { AppState } from '@app/core/state/core.state';
 import { Observable } from 'rxjs';
 import { selectSendersLoaded } from '../../../../core/state/senders/senders.selectors';
 import { SendersRequestAction } from '@app/core/state/senders/senders.actions';
+import { LoadAllDataRequestAction } from '../../../../core/state/bootstrap/bootstrap.actions';
 
 
 
@@ -21,8 +22,8 @@ export class SendersComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-      this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
-      this.store.dispatch(new SendersRequestAction());
+    this.store.dispatch(new LoadAllDataRequestAction());
+    this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
   }
 
 }
