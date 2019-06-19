@@ -88,7 +88,6 @@ export class SettingsEffects {
       };
       return this.settingsService.setCategories(requestBody).pipe(
         map((response) => {
-          console.log(response);
           if (response.status === 'error') {
             this.notificationService.connectionError();
             if (add) {
