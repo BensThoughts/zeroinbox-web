@@ -35,16 +35,11 @@ export const selectAll = createSelector(
 export const selectTotalThreads = createSelector(
   selectAll,
   (senders) => {
-    let total = senders.map((sender) => sender.count).reduce((acc, curr) => {
+    let total = senders.map((sender) => sender.threadIdCount).reduce((acc, curr) => {
       return acc + curr;
     }, 0);
     return total;
   }
-)
-
-export const selectLabelNamesBySenderId = (id: string) => createSelector(
-  selectSenderEntities,
-  (senders) => senders[id].labelNames
 )
 
 
@@ -59,7 +54,7 @@ export const selectLabelNamesBySenderId = (id: string) => createSelector(
  */
 export const selectByCount = createSelector(
   selectAll,
-  (senders) => senders.sort((a, b) => b.count - a.count).slice()
+  (senders) => senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
 )
 
 export const selectBySize = createSelector(
@@ -79,19 +74,19 @@ export const selectByCountGroup = createSelector(
   suggestions => {
     return {
         Xl: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_XL
+          return suggestion.threadIdCount >= C_XL
         }),
         Lg: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_LG && suggestion.count < C_XL
+          return suggestion.threadIdCount >= C_LG && suggestion.threadIdCount < C_XL
         }),
         Md: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_MD && suggestion.count < C_LG
+          return suggestion.threadIdCount >= C_MD && suggestion.threadIdCount < C_LG
         }),
         Sm: suggestions.filter((suggestion) => {
-          return suggestion.count >= C_SM && suggestion.count < C_MD
+          return suggestion.threadIdCount >= C_SM && suggestion.threadIdCount < C_MD
         }),
         Xs: suggestions.filter((suggestion) => {
-          return suggestion.count < C_SM
+          return suggestion.threadIdCount < C_SM
         }),
     }
   }

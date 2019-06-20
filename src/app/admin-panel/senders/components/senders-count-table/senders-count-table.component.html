@@ -10,7 +10,7 @@
   
     <table mat-table matSort [dataSource]="dataSource" class="mat-table">
   
-      <ng-container matColumnDef="count">
+      <ng-container matColumnDef="threadIdCount">
         
         <th mat-header-cell *matHeaderCellDef>
           <span class="d-flex justify-content-between align-items-center">
@@ -25,19 +25,19 @@
           </span>
         </th>
   
-        <td mat-cell *matCellDef="let suggestion">
+        <td mat-cell *matCellDef="let sender">
           <div class="table-data">
-            {{suggestion.fromAddress}}
+            {{sender.fromAddress}}
             <div class="count-text">
               <span class="count-text2">
                 <span class="icon-handler">
-                  <button mat-stroked-button (click)="labelSender(suggestion)"><fa-icon icon="tag"></fa-icon></button>
+                  <button mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
                 </span>
                 <span class="icon-handler">
-                  <button mat-stroked-button (click)="deleteSender(suggestion)"><fa-icon icon="trash-alt"></fa-icon></button>
+                  <button mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
                 </span>
                 <span class="count-text3">
-                  Threads: {{suggestion.count}}
+                  Threads: {{sender.threadIdCount}}
                 </span>
               </span>
             </div>
@@ -48,7 +48,7 @@
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row
-          *matRowDef="let suggestion; columns: displayedColumns;"
+          *matRowDef="let sender; columns: displayedColumns;"
           [@removeRow]="myRemoved ? 'add' : 'remove'">
       </tr>
     </table>

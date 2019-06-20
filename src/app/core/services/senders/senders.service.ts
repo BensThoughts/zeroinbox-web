@@ -9,7 +9,7 @@ export interface ISendersResponse {
   senderId: string;
   senderAddress: string;
   senderNames: Array<string>;
-  count: number;
+  threadIdCount: number;
   totalSizeEstimate: number;
   unsubscribeEmail: string;
   unsubscribeWeb: string;
@@ -20,7 +20,7 @@ export interface SendersResponse {
   status: string,
   status_message: string,
   data: {
-    suggestions: ISendersResponse[]
+    senders: ISendersResponse[]
   }
 }
 

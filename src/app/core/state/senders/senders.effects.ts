@@ -56,7 +56,7 @@ export class SendersEffects {
         exhaustMap((action) => {
           return this.sendersService.getSenders().pipe(
             map((response) => {
-              let senders: ISender[] = response.data.suggestions.map((sender) => {
+              let senders: ISender[] = response.data.senders.map((sender) => {
                 let totalSizeEstimate = this.toMB(sender.totalSizeEstimate);
                 let sizeGroup = this.getSizeGroup(totalSizeEstimate);
                 return {
@@ -64,7 +64,7 @@ export class SendersEffects {
                   fromAddress: sender.senderAddress,
                   fromName: sender.senderNames[0],
                   labelNames: [sender.senderNames[0]],
-                  count: sender.count,
+                  threadIdCount: sender.threadIdCount,
                   totalSizeEstimate: totalSizeEstimate,
                   sizeGroup: sizeGroup,
                   unsubscribeEmail: sender.unsubscribeEmail,
