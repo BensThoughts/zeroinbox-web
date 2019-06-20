@@ -12,6 +12,7 @@ export interface ConfirmationObject {
   save: boolean;
   category: string;
   labelName: string;
+  filter: boolean;
 }
 
 @Component({
@@ -32,8 +33,10 @@ export class LabelDialogComponent implements OnInit {
       // Validators.pattern(/^[a-z0-9]+$/i)
       Validators.pattern(/^[a-z\d\s.'&-]+$/i)
     ]),
-    category: new FormControl('')
+    category: new FormControl(''),
   })
+
+  filter: boolean = true;
 
   categories = [
     { name: 'No Category', value: 'NO_CATEGORY'},
@@ -75,13 +78,18 @@ export class LabelDialogComponent implements OnInit {
     this.handler.unsubscribe();
   }
 
+  filterChecked() {
+    this.filter = !this.filter;
+  }
+
   save() {
     let currentLabelName = this.formGroup.get('labelName').value;
     let category = this.formGroup.get('category').value;
     let confirmationObj: ConfirmationObject = {
       save: true,
       category: category,
-      labelName: currentLabelName
+      labelName: currentLabelName,
+      filter: this.filter
     }
     this.ref.close(confirmationObj);
   }
@@ -90,7 +98,8 @@ export class LabelDialogComponent implements OnInit {
     let confirmationObj: ConfirmationObject = {
       save: false,
       category: '',
-      labelName: ''
+      labelName: '',
+      filter: this.filter
     }
     this.ref.close(confirmationObj);
   }

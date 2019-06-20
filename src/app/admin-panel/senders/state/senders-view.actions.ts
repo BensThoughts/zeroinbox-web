@@ -44,7 +44,8 @@ export class LabelSendersRequestAction implements Action {
   constructor(public payload: { 
     senders: ISender[],
     labelName: string,
-    category: string, 
+    category: string,
+    filter: boolean
   }) {}
 }
 

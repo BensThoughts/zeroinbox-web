@@ -68,7 +68,6 @@ export class SettingsEffects {
     exhaustMap(() => {
       return this.settingsService.getCategories().pipe(
         map((categories) => {
-          console.log(categories);
           this.store.dispatch(new SettingsSetCategoriesAction({ categories: categories }))
         }),
         catchError(err => of(err))

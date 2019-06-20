@@ -47,7 +47,7 @@ export class SendersViewEffects {
   );
 
   @Effect({dispatch: false})
-  editLabel = this.actions$.pipe(
+  labelSenderDialog$ = this.actions$.pipe(
       ofType<LabelSenderDialogAction>(SendersViewActionTypes.LabelSenderDialog),
       exhaustMap((action) => {
           let dialoagRef = this.dialogService.open(LabelDialogComponent);
@@ -65,7 +65,8 @@ export class SendersViewEffects {
                   this.store.dispatch(new LabelSendersRequestAction({
                     senders: [action.payload.sender],
                     labelName: confirmationObject.labelName,
-                    category: confirmationObject.category
+                    category: confirmationObject.category,
+                    filter: confirmationObject.filter
                   }))
                 }
               })
@@ -83,14 +84,15 @@ export class SendersViewEffects {
       return dialogRef
       .afterClosed()
       .pipe(
-        map(confirmationObject => {
+        map((confirmationObject: ConfirmationObject) => {
           if (confirmationObject === undefined || !confirmationObject.save) {
             // Do Nothing
           } else {
             this.store.dispatch(new LabelSendersRequestAction({
               senders: action.payload.senders,
               labelName: confirmationObject.labelName,
-              category: confirmationObject.category
+              category: confirmationObject.category,
+              filter: confirmationObject.filter
             }))    
           }
         })
@@ -107,7 +109,8 @@ export class SendersViewEffects {
         senderIds: senderIds,
         actionType: 'label',
         category: action.payload.category,
-        labelName: action.payload.labelName
+        labelName: action.payload.labelName,
+        filter: action.payload.filter
       }).pipe(
         retry(3),
         map((response) => {
