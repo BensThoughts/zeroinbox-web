@@ -99,7 +99,7 @@ export class LabelDialogComponent implements OnInit {
       save: false,
       category: '',
       labelName: '',
-      filter: this.filter
+      filter: false
     }
     this.ref.close(confirmationObj);
   }

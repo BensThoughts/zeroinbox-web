@@ -167,13 +167,14 @@ export class SendersViewEffects {
 
 
   @Effect({ dispatch: false })
-  deleteSenderRequest$ = this.actions$.pipe(
+  trashSenderRequest$ = this.actions$.pipe(
     ofType<DeleteSendersRequestAction>(SendersViewActionTypes.DeleteSendersRequest),
     map((action) => {
       let senderIds = action.payload.senders.map(sender => sender.senderId);
       this.actionsService.postActions({
         senderIds: senderIds,
-        actionType: 'delete'
+        actionType: 'delete',
+        filter: false
       }).pipe(
         retry(3),
         map((response) => {

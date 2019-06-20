@@ -13,7 +13,7 @@ export interface ActionsRequestBody {
   actionType: ActionType;
   labelName?: string;
   category?: string;
-  filter?: boolean;
+  filter: boolean;
   unsubscribeEmail?: string;
   unsubscribeWeb?: string;
 }

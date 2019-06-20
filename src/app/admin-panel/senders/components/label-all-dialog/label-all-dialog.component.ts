@@ -12,6 +12,7 @@ export interface ConfirmationObject {
   save: boolean;
   category: string;
   labelName: string;
+  filter: boolean;
 }
 
 @Component({
@@ -80,7 +81,8 @@ export class LabelAllDialogComponent implements OnInit {
     let confirmationObj: ConfirmationObject = {
       save: true,
       category: category,
-      labelName: currentLabelName
+      labelName: currentLabelName,
+      filter: false
     }
     this.ref.close(confirmationObj);
   }
@@ -89,7 +91,8 @@ export class LabelAllDialogComponent implements OnInit {
     let confirmationObj: ConfirmationObject = {
       save: false,
       category: '',
-      labelName: ''
+      labelName: '',
+      filter: false
     }
     this.ref.close(confirmationObj);
   }
