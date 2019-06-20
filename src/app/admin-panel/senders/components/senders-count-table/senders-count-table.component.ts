@@ -38,7 +38,7 @@ export class SendersCountTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') input: ElementRef;
 
-  displayedColumns: string[] = ['threadIdCount'];
+  displayedColumns: string[] = ['messageIdCount'];
 
   dataSource: SimpleDataSource<ISender>;
 

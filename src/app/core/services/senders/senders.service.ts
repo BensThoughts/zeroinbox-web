@@ -10,6 +10,7 @@ export interface ISendersResponse {
   senderAddress: string;
   senderNames: Array<string>;
   threadIdCount: number;
+  messageIdCount: number;
   totalSizeEstimate: number;
   unsubscribeEmail: string;
   unsubscribeWeb: string;

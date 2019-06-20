@@ -10,7 +10,7 @@
   
     <table mat-table matSort [dataSource]="dataSource" class="mat-table">
   
-      <ng-container matColumnDef="threadIdCount">
+      <ng-container matColumnDef="messageIdCount">
         
         <th mat-header-cell *matHeaderCellDef>
           <span class="d-flex justify-content-between align-items-center">
@@ -37,7 +37,7 @@
                   <button mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
                 </span>
                 <span class="count-text3">
-                  Threads: {{sender.threadIdCount}}
+                  Messages: {{sender.messageIdCount}}
                 </span>
               </span>
             </div>
