@@ -54,7 +54,7 @@ export const selectTotalThreads = createSelector(
  */
 export const selectByCount = createSelector(
   selectAll,
-  (senders) => senders.sort((a, b) => b.messageIdCount - a.messageIdCount).slice()
+  (senders) => senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
 )
 
 export const selectBySize = createSelector(
@@ -74,19 +74,19 @@ export const selectByCountGroup = createSelector(
   suggestions => {
     return {
         Xl: suggestions.filter((suggestion) => {
-          return suggestion.messageIdCount >= C_XL
+          return suggestion.threadIdCount >= C_XL
         }),
         Lg: suggestions.filter((suggestion) => {
-          return suggestion.messageIdCount >= C_LG && suggestion.messageIdCount < C_XL
+          return suggestion.threadIdCount >= C_LG && suggestion.threadIdCount < C_XL
         }),
         Md: suggestions.filter((suggestion) => {
-          return suggestion.messageIdCount >= C_MD && suggestion.messageIdCount < C_LG
+          return suggestion.threadIdCount >= C_MD && suggestion.threadIdCount < C_LG
         }),
         Sm: suggestions.filter((suggestion) => {
-          return suggestion.messageIdCount >= C_SM && suggestion.messageIdCount < C_MD
+          return suggestion.threadIdCount >= C_SM && suggestion.threadIdCount < C_MD
         }),
         Xs: suggestions.filter((suggestion) => {
-          return suggestion.messageIdCount < C_SM
+          return suggestion.threadIdCount < C_SM
         }),
     }
   }
