@@ -18,7 +18,7 @@ export const selectCurrentSender = createSelector(
 
 export const selectSendersByCount = createSelector(
   fromSenders.selectAll,
-  (senders) => senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
+  (senders) => senders.sort((a, b) => b.messageIdCount - a.messageIdCount).slice()
 );
 
 

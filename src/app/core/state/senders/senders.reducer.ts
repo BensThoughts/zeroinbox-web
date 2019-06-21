@@ -11,7 +11,7 @@ export function selectSendersId(sender: ISender) {
   }
 
 export function sortByCount(senderA: ISender, senderB: ISender) {
-  return senderB.threadIdCount - senderA.threadIdCount;
+  return senderB.messageIdCount - senderA.messageIdCount;
 }
   
 export const adapter: EntityAdapter<ISender> =
