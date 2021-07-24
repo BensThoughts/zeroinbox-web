@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 
-$go-black-primary: mat-palette($mat-grey, 700, 300, 800);
-$go-black-accent: mat-palette($mat-blue-grey, 400);
-$go-black-warn: mat-palette($mat-red, 500);
+$go-black-primary: mat.define-palette(mat.$grey-palette, 700, 300, 800);
+$go-black-accent: mat.define-palette(mat.$blue-grey-palette, 400);
+$go-black-warn: mat.define-palette(mat.$red-palette, 500);
 
 
-@function create-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+@function create-dark-theme($primary, $accent, $warn: mat.define-palette(mat.$red-palette)) {
   @return (
     primary: $primary,
     accent: $accent,
@@ -15,7 +16,7 @@ $go-black-warn: mat-palette($mat-red, 500);
   );
 }
 
-$go-black-theme: mat-dark-theme(
+$go-black-theme: mat.define-dark-theme(
   $go-black-primary,
   $go-black-accent,
   $go-black-warn
@@ -23,11 +24,11 @@ $go-black-theme: mat-dark-theme(
 
 
 /**
-$anms-nature-primary: mat-palette($mat-brown, 700, 300, 900);
-$anms-nature-accent: mat-palette($mat-deep-purple, 300);
-$anms-nature-warn: mat-palette($mat-red, 600);
+$anms-nature-primary: mat.define-palette(mat.$brown-palette, 700, 300, 900);
+$anms-nature-accent: mat.define-palette(mat.$deep-purple-palette, 300);
+$anms-nature-warn: mat.define-palette(mat.$red-palette, 600);
 
-$anms-nature-theme: mat-light-theme(
+$anms-nature-theme: mat.define-light-theme(
   $anms-nature-primary,
   $anms-nature-accent,
   $anms-nature-warn

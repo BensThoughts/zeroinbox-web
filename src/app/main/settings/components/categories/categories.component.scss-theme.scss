@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin anms-settings-category-component-theme($theme) {
   $primary: map-get($theme, primary);
@@ -6,6 +6,6 @@
   $warn: map-get($theme, warn);
 
   .label-list-item {
-    border-color: mat-color($primary) !important;
+    border-color: mat.get-color-from-palette($primary) !important;
   }
 }

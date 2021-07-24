@@ -1,22 +1,23 @@
-$go-light-primary: mat-palette($mat-grey, 200, 500, 300);
-$go-light-accent: mat-palette($mat-brown, 200);
-$go-light-warn: mat-palette($mat-deep-orange, 200);
+@use '~@angular/material' as mat;
+$go-light-primary: mat.define-palette(mat.$grey-palette, 200, 500, 300);
+$go-light-accent: mat.define-palette(mat.$brown-palette, 200);
+$go-light-warn: mat.define-palette(mat.$deep-orange-palette, 200);
 
 
 $go-light-theme-background: (
   status-bar: green,
-  app-bar:    map_get($mat-blue, 300),
-  background: map_get($mat-grey, 500),
+  app-bar:    map_get(mat.$blue-palette, 300),
+  background: map_get(mat.$grey-palette, 500),
   hover:      rgba(white, 0.04),
-  card:       map_get($mat-blue, 300),
-  dialog:     map_get($mat-grey, 800),
+  card:       map_get(mat.$blue-palette, 300),
+  dialog:     map_get(mat.$grey-palette, 800),
   disabled-button: $white-12-opacity,
-  raised-button: map-get($mat-grey, 800),
+  raised-button: map-get(mat.$grey-palette, 800),
   focused-button: $white-6-opacity,
-  selected-button: map_get($mat-grey, 900),
-  selected-disabled-button: map_get($mat-grey, 800),
+  selected-button: map_get(mat.$grey-palette, 900),
+  selected-disabled-button: map_get(mat.$grey-palette, 800),
   disabled-button-toggle: black,
-  unselected-chip: map_get($mat-grey, 700),
+  unselected-chip: map_get(mat.$grey-palette, 700),
   disabled-list-option: black,
 );
 
@@ -37,7 +38,7 @@ $go-light-theme-foreground: (
   slider-off-active: rgba(white, 0.3),
 );
 
-@function create-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+@function create-light-theme($primary, $accent, $warn: mat.define-palette(mat.$red-palette)) {
   @return (
     primary: $primary,
     accent: $accent,

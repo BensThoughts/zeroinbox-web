@@ -1,5 +1,6 @@
-$go-primary: mat-palette($mat-blue, 500, 300, 900);
-$go-accent: mat-palette($mat-light-blue);
-$go-warn: mat-palette($mat-pink, 600);
+@use '~@angular/material' as mat;
+$go-primary: mat.define-palette(mat.$blue-palette, 500, 300, 900);
+$go-accent: mat.define-palette(mat.$light-blue-palette);
+$go-warn: mat.define-palette(mat.$pink-palette, 600);
 
-$go-theme: mat-light-theme($go-primary, $go-accent, $go-warn);
+$go-theme: mat.define-light-theme($go-primary, $go-accent, $go-warn);
