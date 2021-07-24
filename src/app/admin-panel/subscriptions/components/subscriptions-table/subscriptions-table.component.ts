@@ -32,7 +32,7 @@ export class SubscriptionsTableComponent implements OnInit {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild('searchInput', { static: false }) input: ElementRef;
+  @ViewChild('searchInput') input: ElementRef;
 
   displayedColumns: string[] = ['count'];
 

@@ -15,7 +15,7 @@ import { AuthEffects } from './state/auth/auth.effects';
 // used for the cutom router state
 import {
   StoreRouterConnectingModule,
-  RouterStateSerializer
+  RouterStateSerializer, DefaultRouterStateSerializer
 } from '@ngrx/router-store';
 // router state custom serializer
 import { CustomSerializer } from './state/router/custom-serializer';
@@ -74,8 +74,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     // GoogleChartsModule.forRoot(),
 
-    StoreModule.forRoot(reducers, { metaReducers }),    // ngrx store
-    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),    // ngrx router store
+    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),    // ngrx store
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer,stateKey: 'router'}),    // ngrx router store
     EffectsModule.forRoot([
       SettingsEffects,
       AuthEffects,

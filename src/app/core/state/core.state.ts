@@ -4,7 +4,7 @@ import {
   createFeatureSelector
 } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
-import { storeFreeze } from 'ngrx-store-freeze';
+
 
 import { environment } from '@env/environment';
 
