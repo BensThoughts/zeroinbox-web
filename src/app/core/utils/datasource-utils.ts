@@ -1,15 +1,18 @@
 import { DataSource } from '@angular/cdk/table';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { concat } from 'rxjs';
-import { defer } from 'rxjs';
-import { of } from 'rxjs';
-import { combineLatest } from 'rxjs';
+import { 
+  Observable,
+  BehaviorSubject,
+  concat,
+  defer,
+  of,
+  combineLatest,
+} from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import { Store, MemoizedSelector, select } from '@ngrx/store';
 import { AppState } from '@app/core';
-import { tap, map } from 'rxjs/operators';
 
 export class SimpleDataSource<T> extends DataSource<T> {
     private dataSubject = new BehaviorSubject<T[]>([]);
