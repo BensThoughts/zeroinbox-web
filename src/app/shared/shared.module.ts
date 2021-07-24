@@ -41,8 +41,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Fontawesome library
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+
 import {
   faAddressBook,
   faAddressCard,
@@ -83,76 +85,9 @@ import {
 import { FooterComponent } from './components/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-library.add(
-  faAddressBook,
-  faAddressCard,
-  faBars,
-  faBook,
-  faBookDead,
-  faCog,
-  faChartPie,
-  faChevronCircleLeft,
-  faDoorOpen,
-  faDownload,
-  faEdit,
-  faEnvelope,
-  faFilter,
-  faHome,
-  faLightbulb,
-  faMinus,
-  faMinusSquare,
-  faNewspaper,
-  faPaintBrush,
-  faPlus,
-  faSignOutAlt,
-  faStream,
-  faTag,
-  faTasks,
-  faTrash,
-  faTrashAlt,
-  faWindowMaximize,
 
-  faFacebook,
-  faGithub,
-  faInstagram,
-  faMediumM,
-  faTwitter,
-);
 
 @NgModule({
-  /**imports: [
-    CommonModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    FontAwesomeModule,
-
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-
-    DragDropModule,
-
-  ],**/
   declarations: [FooterComponent],
   exports: [
     CommonModule,
@@ -191,4 +126,42 @@ library.add(
     TranslateModule
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faAddressBook,
+      faAddressCard,
+      faBars,
+      faBook,
+      faBookDead,
+      faCog,
+      faChartPie,
+      faChevronCircleLeft,
+      faDoorOpen,
+      faDownload,
+      faEdit,
+      faEnvelope,
+      faFilter,
+      faHome,
+      faLightbulb,
+      faMinus,
+      faMinusSquare,
+      faNewspaper,
+      faPaintBrush,
+      faPlus,
+      faSignOutAlt,
+      faStream,
+      faTag,
+      faTasks,
+      faTrash,
+      faTrashAlt,
+      faWindowMaximize,
+    
+      faFacebook,
+      faGithub,
+      faInstagram,
+      faMediumM,
+      faTwitter,
+    );
+  }
+}

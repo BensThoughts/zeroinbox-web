@@ -18,7 +18,7 @@ import { SharedComponentModule } from '../shared-components/shared-components.mo
     SharedModule,
     RouterModule,
     SharedComponentModule,
-    GoogleChartsModule.forRoot()
+    GoogleChartsModule
   ],
   providers: []
 })

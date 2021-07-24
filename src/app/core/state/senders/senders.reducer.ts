@@ -32,7 +32,7 @@ export function sendersReducer(
     switch (action.type) {
 
       case SendersActionTypes.AddAllSenders:  
-        return adapter.addAll(action.payload.senders, { ...state, sendersLoaded: true });
+        return adapter.addMany(action.payload.senders, { ...state, sendersLoaded: true });
 
       case SendersActionTypes.UpdateSender:
         return adapter.updateOne(action.payload.senderUpdate, state);
