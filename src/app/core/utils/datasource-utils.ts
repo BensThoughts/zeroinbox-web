@@ -160,16 +160,28 @@ export function sortRows<U>(
     sortFns: PropertySortFns<U> = {},
     useDefault = true
   ): (obs$: Observable<U[]>) => Observable<U[]> {
-    return (rows$: Observable<U[]>) => combineLatest(
-      rows$,
-      sort$.pipe(toSortFn(sortFns, useDefault)),
-      (rows, sortFn) => {
+    return (rows$: Observable<U[]>) => combineLatest([rows$, sort$.pipe(toSortFn(sortFns, useDefault))]).pipe(
+      map(items => {
+        const rows = items[0];
+        const sortFn = items[1];
         if (!sortFn) { return rows; }
-  
+
         const copy = rows.slice();
         return copy.sort(sortFn);
-      }
+      })
     );
+    
+    // TODO: Changed from depricated use of combineLatest
+    // combineLatest(
+    //   rows$,
+    //   sort$.pipe(toSortFn(sortFns, useDefault)),
+    //   (rows, sortFn) => {
+    //     if (!sortFn) { return rows; }
+  
+    //     const copy = rows.slice();
+    //     return copy.sort(sortFn);
+    //   }
+    // );
 }
 
 /** Creates an Observable stream of PageEvent objects from a MatPaginator component */
@@ -186,15 +198,26 @@ export function fromMatPaginator(pager: MatPaginator): Observable<PageEvent> {
   
   /** RxJs operator to paginate an array based on an Observable of PageEvent objects **/
   export function paginateRows<U>(page$: Observable<PageEvent>): (obs$: Observable<U[]>) => Observable<U[]> {
-    return (rows$: Observable<U[]>) => combineLatest(
-      rows$,
-      page$,
-      (rows, page) => {
+    return (rows$: Observable<U[]>) => combineLatest([rows$, page$]).pipe(
+      map(items => {
+        const rows = items[0];
+        const page = items[1];;
         const startIndex = page.pageIndex * page.pageSize;
         const copy = rows.slice();
         return copy.splice(startIndex, page.pageSize);
-      }
-    );
+      })
+    )
+    
+    // TODO: Changed from depricated use of combineLatest
+    // combineLatest(
+    //   rows$,
+    //   page$,
+    //   (rows, page) => {
+    //     const startIndex = page.pageIndex * page.pageSize;
+    //     const copy = rows.slice();
+    //     return copy.splice(startIndex, page.pageSize);
+    //   }
+    // );
   }
   
 
