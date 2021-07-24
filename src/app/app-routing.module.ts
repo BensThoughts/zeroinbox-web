@@ -18,11 +18,11 @@ const routes: Routes = [
   }, */
   {
     path: '',
-    loadChildren: './main/main.module#MainModule'
+    loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   },
   {
     path: 'admin-panel',
-    loadChildren: './admin-panel/admin-panel.module#AdminPanelModule',
+    loadChildren: () => import('./admin-panel/admin-panel.module').then(m => m.AdminPanelModule),
     // canActivate: [AuthGuardService]
   }
 ];

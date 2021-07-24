@@ -33,10 +33,10 @@ import {
 export class SendersCountTableComponent implements OnInit {
 
 
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('searchInput') input: ElementRef;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('searchInput', { static: true }) input: ElementRef;
 
   displayedColumns: string[] = ['threadIdCount'];
 
