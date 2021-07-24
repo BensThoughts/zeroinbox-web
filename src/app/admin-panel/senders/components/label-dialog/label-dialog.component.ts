@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';

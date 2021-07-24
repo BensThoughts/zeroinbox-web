@@ -1,7 +1,8 @@
 import { DataSource } from '@angular/cdk/table';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CollectionViewer } from '@angular/cdk/collections';
-import { MatPaginator, PageEvent, MatSort, Sort } from '@angular/material';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { concat } from 'rxjs/observable/concat';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';

@@ -20,7 +20,7 @@ import { merge, fromEvent, of } from 'rxjs';
 import { tap, withLatestFrom, filter, map, exhaustMap, catchError } from 'rxjs/operators';
 import { State } from './settings.reducer';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryDialogComponent, CategoryConfirmationObject } from '@app/main/settings/components/add-category-dialog/add-category-dialog.component';
 import { SettingsService } from '../../services/settings/settings.service';
 import { NotificationService } from '../../services/notifications/notification.service';

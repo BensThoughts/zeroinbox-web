@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input } from '@angular/core';
-import { MatPaginator, MatTable, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import {
   AppState,

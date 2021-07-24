@@ -19,7 +19,7 @@ import {
   retry
 } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { LabelDialogComponent, ConfirmationObject } from '../components/label-dialog/label-dialog.component';
 import { DeleteSendersAction } from '@app/core/state/senders/senders.actions';
 import { TrashDialogComponent } from '../components/trash-dialog/trash-dialog.component';

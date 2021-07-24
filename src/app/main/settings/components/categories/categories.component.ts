@@ -8,7 +8,7 @@ import {
 } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
 import { Category } from '@app/core/state/settings/category.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryDialogComponent, CategoryConfirmationObject } from '../add-category-dialog/add-category-dialog.component';
 import { SettingsAddCategoryAction, SettingsGetCategoriesRequestAction, SettingsSetCategoriesAction } from '../../../../core/state/settings/settings.actions';
 import { map } from 'rxjs/operators';

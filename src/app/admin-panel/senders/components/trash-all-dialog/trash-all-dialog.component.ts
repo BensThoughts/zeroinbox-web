@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AppState } from '@app/core';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 

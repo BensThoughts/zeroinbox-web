@@ -14,7 +14,7 @@ import {
 import { Injectable, NgZone } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { tap, map, exhaustMap, catchError, filter, concatMap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { of, fromEvent } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';

@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { NotificationService } from '@app/core/services/notifications/notification.service';
 import { ActionsService } from '@app/core/services/actions/actions.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AppState } from '@app/core/state/core.state';
 import { UnsubscribeDialogAction, SubscriptionsActionTypes, UnsubscribeSenderRequestAction } from './subscriptions.actions';
 import { exhaustMap, map, catchError } from 'rxjs/operators';
