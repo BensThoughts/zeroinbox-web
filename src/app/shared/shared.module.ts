@@ -41,8 +41,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Fontawesome library
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import {
