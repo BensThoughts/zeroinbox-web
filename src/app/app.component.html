@@ -1,20 +1,18 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
   
-  <mat-toolbar color="primary">
-    <span class="spacer">
-      <button mat-icon-button class="d-md-none" (click)="sidenav.toggle()">
+  <mat-toolbar color="primary" class="">
+      <button *ngIf="innerWidth < 768" class="" (click)="sidenav.toggle()">
         <fa-icon icon="bars"></fa-icon>
       </button>
+    <span class="pl-2">
       Zero Inbox
-               <!--<img src="./assets/logo2.png">-->
-               <div class="testTitle">
-                
-               </div>
     </span>
-
-    <a routerLink="/story">
-      <button mat-flat-button>{{ 'app.component.about-button' | translate }}</button>
+    <span class="flex-auto"></span>
+    <a routerLink="/story" class="">
+      <button class="items-end" mat-flat-button>{{ 'app.component.about-button' | translate }}</button>
     </a>
+  </mat-toolbar>
+
             
 <!--     <span *ngIf="isLoggedIn$ | async">
       <a (click)="signOut()">
@@ -26,11 +24,10 @@
       </a>
     </span> -->
 
-  </mat-toolbar>
 
   <mat-sidenav-container class="wrapper">
 
-    <mat-sidenav #sidenav class="d-md-none sidenav-sm" mode="over" closed role="navigation" position="start">
+    <mat-sidenav #sidenav class="md:hidden sidenav-sm" mode="over" closed role="navigation" position="start">
       <mat-nav-list>
 
         <div *ngIf="isBootstrapped$ | async; else preBootstrapMenuMobile">
@@ -40,7 +37,7 @@
                 <fa-icon icon="{{ auth_menu_item.icon }}"></fa-icon>
               </mat-icon>
             </span>
-            <span class="menu-item-name-sm">
+            <span class="">
             {{ auth_menu_item.name }}
             </span>
           </a>
@@ -53,7 +50,7 @@
                 <fa-icon icon="download"></fa-icon>
               </mat-icon>
             </span>
-            <span class="menu-item-name-sm">
+            <span class="">
               {{ 'app.component.download' | translate }}
             </span>
           </a>
@@ -64,7 +61,7 @@
                 <fa-icon icon="sign-out-alt"></fa-icon>
               </mat-icon>
             </span>
-            <span class="menu-item-name-sm">
+            <span class="">
               {{ 'app.component.logout' | translate }}
             </span>
           </a>
@@ -76,7 +73,7 @@
     <mat-sidenav-content  class="content container-fluid">
 
       <!-- Only displayed on md or larger screens -->
-      <div class="d-none d-md-block app-sidenav">
+      <div *ngIf="innerWidth > 768" class="">
         <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
 
           <mat-nav-list>
@@ -167,7 +164,7 @@
         <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
       </mat-icon>
     </span>
-    <span class="menu-item-name-sm">
+    <span class="">
     {{ menu_item.name }}
     </span>
   </a>
@@ -175,12 +172,12 @@
 
 <ng-template #preBootstrapMenu>
   <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
-    <span  class="app-nav-list-icon">
+    <span  class="">
       <mat-icon matListIcon>
         <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
       </mat-icon>
     </span>
-    <span *ngIf="isOpen" class="menu-item-name">
+    <span *ngIf="isOpen" class="">
       {{ menu_item.name }}
     </span>
   </a>

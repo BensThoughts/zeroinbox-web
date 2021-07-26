@@ -3,9 +3,9 @@
 
 @import 'styles-variables';
 
-@import '../node_modules/bootstrap/scss/bootstrap-reboot';
-@import '../node_modules/bootstrap/scss/bootstrap-grid';
-@import '../node_modules/bootstrap/scss/utilities';
+// @import '../node_modules/bootstrap/scss/bootstrap-reboot';
+// @import '../node_modules/bootstrap/scss/bootstrap-grid';
+// @import '../node_modules/bootstrap/scss/utilities';
 @import 'styles-reset';
 
 // @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
@@ -13,6 +13,10 @@
 
 @import '../node_modules/@angular/material/theming';
 @include mat.core();
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 
 @import './themes/black-theme.scss';
@@ -26,6 +30,7 @@
 @import './app/admin-panel/home/components/home/home.component.scss-theme.scss';
 @import './app/admin-panel/subscriptions/components/subscriptions/subcriptions.component.scss-theme.scss';
 @import './app/main/settings/components/categories/categories.component.scss-theme.scss';
+
 
 @mixin custom-components-theme($theme) {
   @include anms-styles-reset-theme($theme);

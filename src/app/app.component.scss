@@ -26,25 +26,12 @@ mat-toolbar {
   width: 100%;
   z-index: 10;
 
-  .testTitle {
-    font-size: 10px;
-    padding: 0px;
-  }
 
-  .testLine {
-    padding: 0px;
-    margin: 0px;
-    height: 10px;
-  }
-
-  .spacer {
-    flex: 1 1 auto;
-  }
 
 
   button {
-    height: 40px;
-    margin-left: 5px;
+    // height: 40px;
+    // margin-left: 5px;
   }
 
   .logout {

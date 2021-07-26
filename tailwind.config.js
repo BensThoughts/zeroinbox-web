@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
-    enabled: true,
-    content: ['./src/**/*.{html,ts}']
+    enabled: process.env.TAILWIND_MODE === 'build',
+    content: ['./src/**/*.{html,scss, ts}']
   },
   theme: {
     extend: {},
