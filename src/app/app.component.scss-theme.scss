@@ -27,10 +27,11 @@
   mat-sidenav-container {
 
     .app-sidenav {
-      background-color: mat.get-color-from-palette($primary);
     }
 
     mat-sidenav {
+      background-color: mat.get-color-from-palette($primary);
+
 
       // background-color: #90a4ae !important;
 
@@ -56,7 +57,7 @@
 
     }
 
-    .footer {
+    footer {
       color: mat.get-color-from-palette($primary, lighter);
       background-color: mat.get-color-from-palette($primary);
 

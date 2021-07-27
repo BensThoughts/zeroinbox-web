@@ -13,9 +13,9 @@
       <ng-container matColumnDef="threadIdCount">
         
         <th mat-header-cell *matHeaderCellDef>
-          <span class="d-flex justify-content-between align-items-center">
+          <span class="flex justify-between items-center">
             
-            <span class="d-flex">
+            <span class="flex">
                <span class="mat-header-cell" mat-sort-header="fromAddress">{{ 'app.admin-panel.senders.count-table.sort-address' | translate }}</span>
             </span>  
                
@@ -26,37 +26,31 @@
         </th>
   
         <td mat-cell *matCellDef="let sender">
-          <div class="table-data">
-            {{sender.fromAddress}}
-            <div class="container py-3 px-0">
-              <div class="row align-items-center">
-                <div class="col flex-grow-1">
-                  <span style="margin-right: 10px;">
-                    <button style="height: 30px;" mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
-                  </span>
-                  <span style="margin-left: 0px;">
-                    <button style="height: 30px;" mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
-
-                  </span>
-
+          <div class="flex flex-row">
+            <div class="flex flex-col">
+              <div class="mt-2">
+                {{sender.fromAddress}}
+              </div>
+              <div class="flex flex-row my-2">
+                <div>
+                  <button class="" style="height: 30px;" mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
                 </div>
-                <div class="col-md-6 col-sm-3 flex-shrink-1">
-
-                </div>
-                <div class="col flex-shrink-1 align-items-center">
-                  <p style="text-align: right;">
-                    Threads: {{sender.threadIdCount}}
-
-                  </p>
-
-
+                <div class="ml-3">
+                  <button style="height: 30px;" mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
                 </div>
               </div>
+            </div>
+            <div class="flex-1"></div>
+            <div class="flex align-middle text-center content-center">
+              <span class="align-middle">
+                Threads: {{sender.threadIdCount}}
 
+              </span>
             </div>
           </div>
         </td>
   
+
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -75,12 +69,12 @@
 
 
   <!-- Extra small screens -->
-  <div class="d-none d-xs-block d-sm-none d-flex my-2 align-items-center justify-content-between">
+  <div class="flex my-2 align-items-center justify-content-between sm:hidden">
     <button class="mx-2" mat-stroked-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
     <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
   </div>
 
-  <div class="d-xs-block d-sm-none">
+  <div class="block md:hidden">
     <mat-divider inset="true" class="my-2"></mat-divider>
   </div>
 
@@ -88,16 +82,49 @@
 
   
   
-  <div class="d-flex justify-content-between align-items-center flex-nowrap">
+  <div class="mt-4 flex flex-row justify-content-between align-items-center flex-nowrap">
     <!-- Small and larger screens -->
-    <div class="d-none d-sm-block">
+    <div class="hidden sm:flex sm:flex-row">
         <button class="mx-2 my-1" mat-stroked-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
         <button class="mx-2 my-1" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.size-table.trash-all-button' | translate }}</button>
     </div>
-    <mat-paginator #paginator
-                   [length]="totalRows$ | async"
-                   [pageSizeOptions]="pageSizeOptions"
-                   showFirstLastButtons="true">
-    </mat-paginator>
+    <div class="flex-1"></div>
+    <div class="justify-end">
+      <mat-paginator #paginator
+      [length]="totalRows$ | async"
+      [pageSizeOptions]="pageSizeOptions"
+      showFirstLastButtons="true">
+      </mat-paginator>
+    </div>
+
   </div>
+
+
+
+ <!-- <div>
+</div>
+<div class="flex flex-row">
+  <div class="">
+    <div class="">
+      <span style="margin-right: 10px;">
+      </span>
+      <span style="margin-left: 0px;">
+
+      </span>
+
+    </div>
+    <div class="col-md-6 col-sm-3 flex-shrink-1">
+
+    </div>
+    <div class="col flex-shrink-1 justify-end">
+      <p style="text-align: right;">
+
+      </p>
+
+
+    </div>
+  </div> -->
+
+<!-- </div> -->
+
   

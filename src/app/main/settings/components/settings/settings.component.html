@@ -1,18 +1,9 @@
-<div class="container-fluid" *ngIf="settings$ | async as settings">
-    <div><h1>{{ 'app.main.settings.title' | translate }}</h1></div>
-  <div class="row">
-    <div class="col-sm">
-      <div>
-        <app-settings-theme [theme]="settings.theme" class="my-2"></app-settings-theme>
-      </div>
-
+<div class="flex flex-col items-center w-full" *ngIf="settings$ | async as settings">
+    <div class="my-2"><h1 class="align-middle uppercase">{{ 'app.main.settings.title' | translate }}</h1></div>
+    <div class="my-2">
+      <app-settings-theme [theme]="settings.theme"></app-settings-theme>
     </div>
-  </div>
-  <div class="row" *ngIf="isBootstrapped$ | async">
-    <div class="col-sm">
-      <div class="my-2">
-        <app-settings-categories class="my-2"></app-settings-categories>
-      </div>
+    <div *ngIf="isBootstrapped$ | async" class="my-2">
+      <app-settings-categories  ></app-settings-categories>
     </div>
-  </div>
 </div>

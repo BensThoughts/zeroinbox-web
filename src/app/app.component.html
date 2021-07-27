@@ -1,7 +1,7 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
   
   <mat-toolbar color="primary" class="">
-      <button *ngIf="innerWidth < 768" class="" (click)="sidenav.toggle()">
+      <button (click)="sidenav.toggle()">
         <fa-icon icon="bars"></fa-icon>
       </button>
     <span class="pl-2">
@@ -27,7 +27,9 @@
 
   <mat-sidenav-container class="wrapper">
 
-    <mat-sidenav #sidenav class="md:hidden sidenav-sm" mode="over" closed role="navigation" position="start">
+
+
+    <mat-sidenav #sidenav class="fixed h-full" mode="over" closed role="navigation" position="start">
       <mat-nav-list>
 
         <div *ngIf="isBootstrapped$ | async; else preBootstrapMenuMobile">
@@ -37,7 +39,7 @@
                 <fa-icon icon="{{ auth_menu_item.icon }}"></fa-icon>
               </mat-icon>
             </span>
-            <span class="">
+            <span class="ml-2">
             {{ auth_menu_item.name }}
             </span>
           </a>
@@ -50,7 +52,7 @@
                 <fa-icon icon="download"></fa-icon>
               </mat-icon>
             </span>
-            <span class="">
+            <span class="ml-2">
               {{ 'app.component.download' | translate }}
             </span>
           </a>
@@ -61,7 +63,7 @@
                 <fa-icon icon="sign-out-alt"></fa-icon>
               </mat-icon>
             </span>
-            <span class="">
+            <span class="ml-2">
               {{ 'app.component.logout' | translate }}
             </span>
           </a>
@@ -70,79 +72,27 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content  class="content container-fluid">
-
-      <!-- Only displayed on md or larger screens -->
-      <div *ngIf="innerWidth > 768" class="">
-        <mat-sidenav #sidenavInside [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened >
-
-          <mat-nav-list>
-
-            <div *ngIf="isBootstrapped$ | async; else preBootstrapMenu">
-              <a mat-list-item *ngFor="let auth_menu_item of auth_menu_items" routerLink="{{ auth_menu_item.route }}">
-                <span  class="app-nav-list-icon">
-                  <mat-icon matListIcon>
-                    <fa-icon icon="{{ auth_menu_item.icon }}"></fa-icon>
-                  </mat-icon>
-                </span>
-                <span *ngIf="isOpen" class="menu-item-name">
-                  {{ auth_menu_item.name }}
-                </span>
-              </a>
-            </div>
-
-            <a mat-list-item *ngIf="isDownloading$ | async" routerLink="/admin-panel/downloading">
-              <span class="">
-                <mat-icon matListIcon>
-                  <fa-icon icon="download"></fa-icon>
-                </mat-icon>
-              </span>
-              <span class="menu-item-name">
-                {{ 'app.component.download' | translate }}
-              </span>
-            </a>
-
-            <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
-              <span class="app-nav-list-icon">
-                <mat-icon matListIcon>
-                  <fa-icon icon="sign-out-alt"></fa-icon>
-                </mat-icon>
-              </span>
-              <span *ngIf="isOpen" class="menu-item-name">
-                {{ 'app.component.logout' | translate }}
-              </span>
-            </a>
-
-          </mat-nav-list>
-
-        </mat-sidenav>
+    <mat-sidenav-content class="min-h-full">
+      <div class="min-h-full -mb-14">
+        <router-outlet></router-outlet>
+        <div class="h-14"></div>
       </div>
 
-      <div class="menu-chevron d-none d-md-block">
-      
-        <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="chevron-button" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
-          <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
-        </button>
-    
-      </div>
 
-      <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="d-block h-100 reset-md">
-        <div class="outlet-wrapper">
-          <router-outlet></router-outlet>
-        </div>
-        <footer class="footer" color="primary">
-          <div class="container d-inline-flex align-content-center justify-content-center">
-            <a href="https://twitter.com/InboxOrganizer" target="_blank">
+      <div class="">
+        <footer class="h-14 w-full flex flex-row items-center justify-center">
+          <div class="items-center">
+            <a  class="mx-2" href="https://twitter.com/InboxOrganizer" target="_blank">
               <button mat-mini-fab class="mx-2">
                   <fa-icon [icon]="['fab','twitter']"></fa-icon>
               </button>
             </a>
-            <a href="https://facebook.com">
+            <a class="mx-2" href="https://facebook.com">
               <button mat-mini-fab class="mx-2">
                 <fa-icon [icon]="['fab', 'facebook']"></fa-icon>
               </button> 
             </a>
-            <a href="mailto:ZeroInbox.app@GMail.com">
+            <a class="mx-2" href="mailto:ZeroInbox.app@GMail.com">
               <button mat-mini-fab class="mx-2">
                 <fa-icon icon="envelope"></fa-icon>
               </button>                
@@ -150,8 +100,72 @@
           </div>
         </footer>
       </div>
+     
 
     </mat-sidenav-content>
+
+      <!-- Only displayed on md or larger screens -->
+        <!-- <div [@openCloseSidenav]="isOpen ? 'open' : 'closed'" opened class="bg-gray-700 bg-opacity-50 hidden md:min-h-full md:block md:fixed md:left-0">
+
+          <mat-nav-list>
+
+            <div *ngIf="isBootstrapped$ | async; else preBootstrapMenu">
+              <a mat-list-item *ngFor="let auth_menu_item of auth_menu_items" routerLink="{{ auth_menu_item.route }}">
+                <span  class="pb-1 text-center">
+                  <mat-icon matListIcon>
+                    <fa-icon icon="{{ auth_menu_item.icon }}"></fa-icon>
+                  </mat-icon>
+                </span>
+                <span *ngIf="isOpen" class="ml-4">
+                  {{ auth_menu_item.name }}
+                </span>
+              </a>
+            </div>
+
+            <a mat-list-item *ngIf="isDownloading$ | async" routerLink="/admin-panel/downloading">
+              <span class="pb-1">
+                <mat-icon matListIcon>
+                  <fa-icon icon="download"></fa-icon>
+                </mat-icon>
+              </span>
+              <span class="ml-4">
+                {{ 'app.component.download' | translate }}
+              </span>
+            </a>
+
+            <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
+              <span class="pb-1">
+                <mat-icon matListIcon>
+                  <fa-icon icon="sign-out-alt"></fa-icon>
+                </mat-icon>
+              </span>
+              <span *ngIf="isOpen" class="ml-4">
+                {{ 'app.component.logout' | translate }}
+              </span>
+            </a>
+
+          </mat-nav-list>
+
+        </div> -->
+
+
+
+      <!-- <div class="hidden md:block md:fixed md:left-2 md:bottom-3 z-50">
+      
+        <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
+          <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
+        </button>
+    
+      </div> -->
+
+      <!-- <div [@openCloseSidenavContent]="isOpen ? 'open' : 'closed'" class="left-0 min-h-full block h-full">
+      </div> -->
+
+
+
+
+
+
 
   </mat-sidenav-container>
 

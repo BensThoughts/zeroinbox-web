@@ -21,122 +21,122 @@
 }
 
 
-mat-toolbar {
-  position: fixed;
-  width: 100%;
-  z-index: 10;
+// mat-toolbar {
+//   position: fixed;
+//   width: 100%;
+//   z-index: 10;
 
 
 
 
-  button {
-    // height: 40px;
-    // margin-left: 5px;
-  }
+  // button {
+  //   // height: 40px;
+  //   // margin-left: 5px;
+  // }
 
-  .logout {
-    height: 40px;
-    width: 40px;
-    padding-right: 10px;
-  }
+//   .logout {
+//     height: 40px;
+//     width: 40px;
+//     padding-right: 10px;
+//   }
 
-  .logout-button{
+//   .logout-button{
 
-    .logout-icon {
-      padding-bottom: 31px;
-      padding-left: 3px;
+//     .logout-icon {
+//       padding-bottom: 31px;
+//       padding-left: 3px;
 
-    }
+//     }
 
-  }
+//   }
 
-} // END: mat-toolbar
-
-
-
-mat-sidenav-container {
-
-  mat-sidenav-content {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  .app-nav-list-icon {
-    padding-bottom: 7px;
-    text-align: center;
-  }
-
-  .menu-item-name-sm {
-    margin-left: 10px;
-  }
-
-  .sidenav-sm {
-    position: fixed;
-    height: 100%;
-    margin-top: 56px;
-  }
-
-  .menu-item-name {
-    margin-left: 15px;
-  }
-
-  .chevron-button {
-    padding-top: 4px;
-
-  }
-
-  .menu-chevron {
-    position: fixed;
-    left: 9px;
-    bottom: 10px;
-    z-index: 999;
-  }
-
-  .app-sidenav {
-    position: fixed;
-    left: 0px;
-    height: 100%;
-  }
+// } // END: mat-toolbar
 
 
 
-  @media (max-width: map-get($grid-breakpoints, md)) {
+// mat-sidenav-container {
 
-    /**
-     *
-     *  Usualy @openCloseSidenavContent animation trigger sets the router-outlet
-     *  div margin-left between 64px and 181px to open and close the mini-icon
-     *  sidenav displayed on larger screens.
-     *
-     *  This places the margin-left back to 0px and resets the height and width
-     *  for medium and smaller screens in which the mini-icon sidenav is not
-     *  displayed.
-     *
-     **/
-    .reset-md {
-      margin-left: 0px !important;
-      height: 100%;
-      width: 100%;
+  // mat-sidenav-content {
+  //   padding-left: 0px;
+  //   padding-right: 0px;
+  // }
 
-    }
+  // .app-nav-list-icon {
+  //   padding-bottom: 7px;
+  //   text-align: center;
+  // }
 
-  }
+  // .menu-item-name-sm {
+  //   margin-left: 10px;
+  // }
 
-} // END: mat-sidenav-container
+  // .sidenav-sm {
+  //   position: fixed;
+  //   height: 100%;
+  //   margin-top: 56px;
+  // }
+
+  // .menu-item-name {
+  //   margin-left: 15px;
+  // }
+
+  // .chevron-button {
+  //   padding-top: 4px;
+
+  // }
+
+  // .menu-chevron {
+  //   position: fixed;
+  //   left: 9px;
+  //   bottom: 10px;
+  //   z-index: 999;
+  // }
+
+  // .app-sidenav {
+  //   position: fixed;
+  //   left: 0px;
+  //   height: 100%;
+  // }
 
 
-.menu-item-name {
-  padding-left: 10px;
-}
 
-.footer {
-  padding: 10px;
-  margin-top: -60px;
-  // position: relative;
-}
+//   @media (max-width: map-get($grid-breakpoints, md)) {
 
-.outlet-wrapper {
-  min-height: 100%;
-  // padding-bottom: 150px;
-  padding-bottom: 70px;
-}
+//     /**
+//      *
+//      *  Usualy @openCloseSidenavContent animation trigger sets the router-outlet
+//      *  div margin-left between 64px and 181px to open and close the mini-icon
+//      *  sidenav displayed on larger screens.
+//      *
+//      *  This places the margin-left back to 0px and resets the height and width
+//      *  for medium and smaller screens in which the mini-icon sidenav is not
+//      *  displayed.
+//      *
+//      **/
+//     .reset-md {
+//       margin-left: 0px !important;
+//       height: 100%;
+//       width: 100%;
+
+//     }
+
+//   }
+
+// } // END: mat-sidenav-container
+
+
+// .menu-item-name {
+//   padding-left: 10px;
+// }
+
+// .footer {
+//   padding: 10px;
+//   margin-top: -60px;
+//   // position: relative;
+// }
+
+// .outlet-wrapper {
+//   min-height: 100%;
+//   // padding-bottom: 150px;
+//   padding-bottom: 70px;
+// }
