@@ -1,6 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ISizes } from '@app/core/state/senders/model/sizes.model';
 
+interface GoogleChart {
+  title: string;
+  type: string;
+  columns: string[];
+  data: Array<Array<any>>;
+}
+
+
 @Component({
   selector: 'app-stats-barchart',
   templateUrl: './stats-barchart.component.html',
@@ -9,16 +17,25 @@ import { ISizes } from '@app/core/state/senders/model/sizes.model';
 export class StatsBarchartComponent implements OnInit {
 
   @Input() sizes: ISizes;
-  @Input() title: string;
-  @Input() columnNames: string[];
-  @Input() type: string;
+  @Input() title: string = '';
+  @Input() columns: string[];
+  @Input() type: string = '';
 
-  testData: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
+  data: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
+
+  chart: GoogleChart;
 
   constructor() { }
 
   ngOnInit() {
-    this.testData = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
+    { }
+    this.data = [['Inbox', this.sizes.Xl, this.sizes.Lg, this.sizes.Md, this.sizes.Sm, this.sizes.Xs]];
+    this.chart = {
+      title: this.title,
+      type: this.type,
+      columns: this.columns,
+      data: this.data
+    }
   }
 
 }

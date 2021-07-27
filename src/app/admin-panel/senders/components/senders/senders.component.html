@@ -1,29 +1,26 @@
-<div class="h-100">
-  <div class="h-100 my-4 mx-6">
-    <!-- Senders Loaded Screen -->
-    <div class="" *ngIf="sendersLoaded$ | async; else loading">
-      <mat-divider></mat-divider>
-      <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
-          <mat-card class="my-2">
-            <app-senders-count-table></app-senders-count-table>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="{{ 'app.admin-panel.senders.size-label' | translate }}">
-          <mat-card class="my-2">
-            <app-senders-size-table></app-senders-size-table>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <!-- Senders Loaded Screen -->
-    <ng-template #loading>
-      <div class="container h-full">
-        <div class="h-full justify-center items-center">
-          <mat-spinner [strokeWidth]="7"></mat-spinner>
-        </div>
-      </div>
-    </ng-template>
-
+<div class="py-4 mx-6">
+  <!-- Senders Loaded Screen -->
+  <div class="" *ngIf="sendersLoaded$ | async; else loading">
+    <mat-divider></mat-divider>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
+        <mat-card class="my-2">
+          <app-senders-count-table></app-senders-count-table>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="{{ 'app.admin-panel.senders.size-label' | translate }}">
+        <mat-card class="my-2">
+          <app-senders-size-table></app-senders-size-table>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
   </div>
+  <!-- Senders Loading Screen -->
+  <ng-template #loading>
+    <div class="container h-full">
+      <div class="h-full justify-center items-center">
+        <mat-spinner [strokeWidth]="7"></mat-spinner>
+      </div>
+    </div>
+  </ng-template>
 </div>

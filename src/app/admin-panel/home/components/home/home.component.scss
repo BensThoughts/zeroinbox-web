@@ -1,54 +1,54 @@
-@import '../../../../../styles-variables';
+// @import '../../../../../styles-variables';
 
-.user-card {
-  margin-top: 8px;
-}
+// .user-card {
+//   margin-top: 8px;
+// }
 
-mat-card {
-  // max-width: 300px;
-  // min-height: 300px;
+// mat-card {
+//   // max-width: 300px;
+//   // min-height: 300px;
 
-  mat-divider {
-    position: relative;
-    align-self: center;
-  }
+//   mat-divider {
+//     position: relative;
+//     align-self: center;
+//   }
 
-  mat-card-title {
+//   mat-card-title {
 
-    position: relative;
-  }
-
-
-  mat-card-actions {
-    button {
-      margin: 5px;
-    }
-  }
-
-  .welcome-card {
-    text-align: center;
-  }
+//     position: relative;
+//   }
 
 
-  .content {
-    text-align: center;
-  }
+//   mat-card-actions {
+//     button {
+//       margin: 5px;
+//     }
+//   }
 
-  .stats {
-    width: 100%;
-    position: relative;
-    text-align: center;
-  }
+//   .welcome-card {
+//     text-align: center;
+//   }
 
-  mat-card-content {
-    mat-chip-list {
-      text-align: center;
-      position: relative;
-    }
-  }
 
-  mat-card-footer {
-    vertical-align: middle;
-  }
+//   .content {
+//     text-align: center;
+//   }
 
-}
+//   .stats {
+//     width: 100%;
+//     position: relative;
+//     text-align: center;
+//   }
+
+//   mat-card-content {
+//     mat-chip-list {
+//       text-align: center;
+//       position: relative;
+//     }
+//   }
+
+//   mat-card-footer {
+//     vertical-align: middle;
+//   }
+
+// }
