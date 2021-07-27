@@ -1,42 +1,25 @@
-
-
 <div class="h-100">
-  <div class="container-fluid h-100 my-4">
-    
-    <div class="row" *ngIf="sendersLoaded$ | async; else loading">
-      <div class="col">
-
-<!--         <span class="d-flex align-items-center justify-content-center my-2">
-          View Senders
-        </span> -->
-
-        <mat-divider></mat-divider>
-    
-        <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
-            <mat-card class="my-2">
-              <app-senders-count-table></app-senders-count-table>
-            </mat-card>
-          </mat-tab>
-          <mat-tab label="{{ 'app.admin-panel.senders.size-label' | translate }}">
-            <mat-card class="my-2">
-              <app-senders-size-table></app-senders-size-table>
-            </mat-card>
-          </mat-tab>
-        </mat-tab-group>
-
-      </div>
+  <div class="h-100 my-4 mx-6">
+    <!-- Senders Loaded Screen -->
+    <div class="" *ngIf="sendersLoaded$ | async; else loading">
+      <mat-divider></mat-divider>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
+          <mat-card class="my-2">
+            <app-senders-count-table></app-senders-count-table>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="{{ 'app.admin-panel.senders.size-label' | translate }}">
+          <mat-card class="my-2">
+            <app-senders-size-table></app-senders-size-table>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
     </div>
-
-<!--     <div class="row">
-      <div class="col">
-        <app-message-viewer></app-message-viewer>
-      </div>
-    </div> -->
-
+    <!-- Senders Loaded Screen -->
     <ng-template #loading>
-      <div class="container h-100">
-        <div class="row h-100 justify-content-center align-items-center">
+      <div class="container h-full">
+        <div class="h-full justify-center items-center">
           <mat-spinner [strokeWidth]="7"></mat-spinner>
         </div>
       </div>
