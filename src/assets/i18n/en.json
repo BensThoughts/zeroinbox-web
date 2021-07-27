@@ -27,7 +27,7 @@
       "subscriptions": {
         "tab-label": "Subscriptions",
         "table": {
-          "search": "Search Name"
+          "search": "Search Email"
         },
         "unsubscribe-dialog": {
           "title": "Unsubscribe?",

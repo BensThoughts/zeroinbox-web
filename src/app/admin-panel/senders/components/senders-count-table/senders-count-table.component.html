@@ -1,6 +1,6 @@
 <div>
 
-    <span class="d-flex flex-wrap justify-content-center align-items-center">
+    <span class="flex flex-wrap justify-center items-center">
       <form>
         <mat-form-field>
             <input matInput placeholder="{{ 'app.admin-panel.senders.count-table.search' | translate }}" #searchInput>
@@ -8,21 +8,25 @@
       </form>
     </span>
   
-    <table mat-table matSort [dataSource]="dataSource" class="mat-table">
+    <table mat-table matSort [dataSource]="dataSource" class="w-full">
   
       <ng-container matColumnDef="threadIdCount">
         
         <th mat-header-cell *matHeaderCellDef>
-          <span class="flex justify-between items-center">
+          <div class="flex flex-row justify-between items-center">
             
-            <span class="flex">
+            <div class="">
                <span class="mat-header-cell" mat-sort-header="fromAddress">{{ 'app.admin-panel.senders.count-table.sort-address' | translate }}</span>
-            </span>  
+            </div>
+            <div class="flex-1"></div>
+            <div class="-mr-2">
+              <button mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
+
+            </div>
                
-            <button mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
 
             
-          </span>
+          </div>
         </th>
   
         <td mat-cell *matCellDef="let sender">
@@ -33,19 +37,16 @@
               </div>
               <div class="flex flex-row my-2">
                 <div>
-                  <button class="" style="height: 30px;" mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
+                  <button class="h-8"  mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
                 </div>
                 <div class="ml-3">
-                  <button style="height: 30px;" mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
+                  <button class="h-8" mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
                 </div>
               </div>
             </div>
             <div class="flex-1"></div>
-            <div class="flex align-middle text-center content-center">
-              <span class="align-middle">
-                Threads: {{sender.threadIdCount}}
-
-              </span>
+            <div class="my-6">
+                <p class=""> Threads: {{sender.threadIdCount}}</p>
             </div>
           </div>
         </td>
@@ -69,12 +70,19 @@
 
 
   <!-- Extra small screens -->
-  <div class="flex my-2 align-items-center justify-content-between sm:hidden">
-    <button class="mx-2" mat-stroked-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
-    <button class="mx-2" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
+  <div class="flex my-2 sm:hidden">
+    <div class="ml-4">
+      <button class="mx-2" mat-raised-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
+
+    </div>
+    <div class="flex-1"></div>
+    <div class="mr-4">
+      <button class="mx-2" mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
+
+    </div>
   </div>
 
-  <div class="block md:hidden">
+  <div class="block sm:hidden">
     <mat-divider inset="true" class="my-2"></mat-divider>
   </div>
 
@@ -84,9 +92,13 @@
   
   <div class="mt-4 flex flex-row justify-content-between align-items-center flex-nowrap">
     <!-- Small and larger screens -->
-    <div class="hidden sm:flex sm:flex-row">
-        <button class="mx-2 my-1" mat-stroked-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
-        <button class="mx-2 my-1" mat-stroked-button (click)="deleteAll()">{{ 'app.admin-panel.senders.size-table.trash-all-button' | translate }}</button>
+    <div class="hidden sm:flex sm:flex-row sm:items-center">
+      <div class="ml-4">
+        <button class="mx-2 my-1" mat-raised-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
+      </div>
+      <div class="ml-4">
+        <button class="mx-2 my-1" mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.size-table.trash-all-button' | translate }}</button>
+      </div>
     </div>
     <div class="flex-1"></div>
     <div class="justify-end">
