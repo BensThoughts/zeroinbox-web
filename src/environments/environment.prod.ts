@@ -1,5 +1,8 @@
 const packageJson = require('../../package.json');
 
+const dependencies = packageJson.dependencies;
+const devDependencies = packageJson.devDependencies;
+
 export const environment = {
   appName: packageJson.name,
   appVersion: packageJson.version,
@@ -9,13 +12,13 @@ export const environment = {
   test: false,
   i18nPrefix: '',
   packageVersions: {
-    angular: packageJson.dependencies['@angular/core'],
-    ngrx: packageJson.dependencies['@ngrx/store'],
-    material: packageJson.dependencies['@angular/material'],
-    bootstrap: packageJson.dependencies.bootstrap,
-    rxjs: packageJson.dependencies.rxjs,
-    fontAwesome: packageJson.dependencies['@fortawesome/fontawesome-free'],
-    angularCli: packageJson.devDependencies['@angular/cli'],
-    typescript: packageJson.devDependencies['typescript'],
+    angular: dependencies['@angular/core'],
+    ngrx: dependencies['@ngrx/store'],
+    material: dependencies['@angular/material'],
+    bootstrap: dependencies['bootstrap'],
+    rxjs: dependencies['rxjs'],
+    fontAwesome: dependencies['@fortawesome/angular-fontawesome'],
+    angularCli: devDependencies['@angular/cli'],
+    typescript: devDependencies['typescript'],
   }
 };
