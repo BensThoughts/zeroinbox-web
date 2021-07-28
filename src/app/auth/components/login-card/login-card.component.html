@@ -1,14 +1,27 @@
 <mat-card>
-  <mat-card-header class="mb-3">
-    Zero Inbox - Beta
+  <mat-card-header>
+      <div mat-card-avatar style="background-image: url('assets/Circle-icons-mail.svg'); background-size: cover;"></div>
+      <mat-card-title>Zero Inbox</mat-card-title>
+      <mat-card-subtitle><i>A portfolio project by Benjamin Blumenfeld-Jones</i></mat-card-subtitle>
   </mat-card-header>
   <div class="h-3">
     <mat-divider inset="true"></mat-divider>
   </div>
   <mat-card-content class="mt-2">
-    This app is in beta development. The site will be up and down for at least
-    the next month. If you stumbled across this page in the wild and the
-    login functionality is turned on you can quickly clean up your GMail inbox.
+    <div class="flex flex-col">
+
+      <div class="my-2">
+        &nbsp; &nbsp; &nbsp; &nbsp;Being a developer requires knowing which tool is the right one for a job and then integrating that tool.
+        This app showcases my deep knowledge in a laundry list of the latest web technologies.
+        It also showcases my ability to piece together technologies with computer code to create something remarkably useful.
+      </div>
+      <div class="my-2">
+        &nbsp; &nbsp; &nbsp; &nbsp; If you stumble across this page in the wild or are a recruiter looking to hire.  
+        Send me an email and I can add you to the access list.
+      </div>
+    </div>
+
+
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-raised-button (click)="signIn()" color="primary">Login</button>
