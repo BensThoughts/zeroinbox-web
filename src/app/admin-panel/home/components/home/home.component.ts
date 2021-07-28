@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
 import { selectTotalSubscriptions } from '@app/admin-panel/subscriptions/state/subscriptions.selectors';
 import { LoadAllDataRequestAction } from '../../../../core/state/bootstrap/bootstrap.actions';
+import { ISizes } from '@app/core/state/senders/model/sizes.model';
 
 @Component({
   selector: 'app-home',
@@ -36,8 +37,8 @@ export class HomeComponent implements OnInit {
   sendersLoaded$: Observable<boolean>;
 
 
-  cg_Tl$;
-  sg_Tl$;
+  cg_Tl$: Observable<ISizes>;
+  sg_Tl$: Observable<ISizes>;
   sizesColumnNames = ['Threads', 'over 1MB', '1MB - 500KB', '500KB - 300KB', '300KB - 200KB', 'under 200KB'];
   countColumnNames = ['Threads', 'over 500', '500 - 100', '50 - 100', '15 - 50', 'under 15'];
 

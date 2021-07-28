@@ -52,26 +52,23 @@
                 <div class="my-2 sm:mr-2" *ngIf="sg_Tl$ | async as sg_Tl">
                   <app-stats-barchart
                     title="Total Number of Senders x Size Count"
-                    type="ColumnChart"
                     [sizes]="sg_Tl"
-                    [columnNames]="sizesColumnNames">
+                    [columns]="sizesColumnNames">
                   </app-stats-barchart>
                 </div>
   
                 <div class="my-2 sm:ml-2" *ngIf="cg_Tl$ | async as cg_Tl">
                   <app-stats-barchart
                     title="Total Number of Senders x Thread Count"
-                    type="ColumnChart"
                     [sizes]="cg_Tl"
-                    [columnNames]="countColumnNames">
+                    [columns]="countColumnNames">
                   </app-stats-barchart>
                 </div>
               </div>
 
             </div>
           </div>
-    
-              
+            
         </mat-card-content>
       </mat-card>
     </div>

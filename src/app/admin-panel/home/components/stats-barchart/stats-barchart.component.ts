@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ISizes } from '@app/core/state/senders/model/sizes.model';
+import { ChartType } from 'angular-google-charts';
 
 interface GoogleChart {
   title: string;
-  type: string;
+  type: ChartType;
   columns: string[];
   data: Array<Array<any>>;
 }
@@ -19,7 +20,7 @@ export class StatsBarchartComponent implements OnInit {
   @Input() sizes: ISizes;
   @Input() title: string = '';
   @Input() columns: string[];
-  @Input() type: string = '';
+  @Input() type: ChartType = ChartType.ColumnChart;
 
   data: Array<Array<any>> = [['Today', 90, 134, 108, 0 ]];
 
