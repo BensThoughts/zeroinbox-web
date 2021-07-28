@@ -95,7 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
 
     environment.production ? [] : StoreDevtoolsModule.instrument({
-      name: 'Gmail Starter'
+      name: 'ZeroInbox Store'
     }),
   ],
 
