@@ -21,15 +21,15 @@
             <div class="my-2 flex flex-col">
 
               <div class="flex flex-col my-2 pl-2">
-                <mat-chip-list>
+                <mat-chip-list *ngIf="email_profile$ | async as email_profile">
                   {{ 'app.admin-panel.home.stats.threads-account' | translate }}
-                  <mat-chip *ngIf="email_profile$ | async as email_profile">
+                  <mat-chip>
                     <code><b>{{ email_profile.threadsTotal }}</b></code>
                   </mat-chip>
                 </mat-chip-list>
-                <mat-chip-list>
+                <mat-chip-list *ngIf="total_threads$ | async as total_threads">
                     {{ 'app.admin-panel.home.stats.threads-inbox' | translate }}
-                  <mat-chip *ngIf="total_threads$ | async as total_threads">
+                  <mat-chip>
                     <code><b>{{ total_threads }}</b></code>
                   </mat-chip>
                 </mat-chip-list>

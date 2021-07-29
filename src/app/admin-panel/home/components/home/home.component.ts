@@ -13,7 +13,7 @@ import {
 } from '@app/core';
 
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
 import { selectTotalSubscriptions } from '@app/admin-panel/subscriptions/state/subscriptions.selectors';
 import { LoadAllDataRequestAction } from '../../../../core/state/bootstrap/bootstrap.actions';
@@ -56,7 +56,6 @@ export class HomeComponent implements OnInit {
     this.cg_Tl$ = this.store.pipe(select(selectByCountGroup_TL));
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() { }
 
 }
