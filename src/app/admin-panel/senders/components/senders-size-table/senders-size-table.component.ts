@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -39,7 +39,7 @@ import { TranslateService } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class SendersSizeTableComponent implements OnInit {
+export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;

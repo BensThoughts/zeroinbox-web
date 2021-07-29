@@ -7,14 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class StoryComponent implements OnInit {
-
+export class StoryComponent {
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -26,7 +26,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class SubscriptionsTableComponent implements OnInit {
+export class SubscriptionsTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;

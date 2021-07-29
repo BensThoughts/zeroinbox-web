@@ -56,6 +56,4 @@ export class HomeComponent implements OnInit {
     this.cg_Tl$ = this.store.pipe(select(selectByCountGroup_TL));
   }
 
-  ngOnDestroy() { }
-
 }

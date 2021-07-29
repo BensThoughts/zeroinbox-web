@@ -7,14 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ManualSendersCardComponent implements OnInit {
-
+export class ManualSendersCardComponent {
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
 }

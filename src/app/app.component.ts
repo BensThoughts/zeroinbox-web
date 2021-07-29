@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   // Determines which menu items should be displayed
   isLoggedIn$: Observable<boolean>;
   isDownloading$: Observable<boolean>;
-  isBootstrapped$: Observable<boolean>;
+   isBootstrapped$: Observable<boolean>
 
   // Sets the color theme app-wide
   theme$: Observable<string> = of('black-theme');
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.innerWidth = window.innerWidth;
+       this.innerWidth = window.innerWidth;
       this.theme$ = this.store.pipe(select(selectTheme));
       this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
       this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));

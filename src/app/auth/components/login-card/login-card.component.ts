@@ -11,12 +11,11 @@ import { LoginRequestedAction } from '@app/core/state/auth/auth.actions';
   styleUrls: ['./login-card.component.scss']
 })
 
-export class LoginCardComponent implements OnInit {
+export class LoginCardComponent {
 
   constructor(private store: Store<AppState>) {
   }
 
-  ngOnInit() { }
   public signIn() {
     this.store.dispatch(new LoginRequestedAction());
   }

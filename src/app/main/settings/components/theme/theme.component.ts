@@ -12,8 +12,8 @@ import { AppState } from '@app/core';
   styleUrls: ['./theme.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsThemeComponent implements OnInit {
-  // settings$: Observable<SettingsState>;
+export class SettingsThemeComponent {
+  //// settings$: Observable<SettingsState>;
 
   themes = [
     { value: 'DEFAULT-THEME', label: 'light' },
@@ -24,9 +24,10 @@ export class SettingsThemeComponent implements OnInit {
 
   constructor(private store: Store<AppState>) { }
 
-  ngOnInit() {
-    // this.settings$ = this.store.pipe(select(selectSettings));
-  }
+  //TODO: Re-Enable detection of current theme setting?
+  //// ngOnInit() {
+  //// this.settings$ = this.store.pipe(select(selectSettings));
+  //// }
 
   onThemeSelect({ value: theme }) {
     this.store.dispatch(new SettingsChangeThemeAction({ theme }));

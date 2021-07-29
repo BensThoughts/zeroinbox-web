@@ -8,7 +8,7 @@ import { LoginCompleteAction } from '@app/core/state/auth/auth.actions';
  */
 
 @Component({
-  selector: 'go-loading',
+  selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss']
 })

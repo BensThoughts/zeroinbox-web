@@ -7,14 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ContactComponent implements OnInit {
+export class ContactComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
 
 }

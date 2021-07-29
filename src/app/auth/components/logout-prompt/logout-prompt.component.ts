@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'go-logout-prompt',
+  selector: 'app-logout-prompt',
   templateUrl: './logout-prompt.component.html',
   styleUrls: ['./logout-prompt.component.scss']
 })

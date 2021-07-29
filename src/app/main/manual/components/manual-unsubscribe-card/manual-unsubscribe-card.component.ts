@@ -7,14 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ManualUnsubscribeCardComponent implements OnInit {
-
+export class ManualUnsubscribeCardComponent {
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
 }

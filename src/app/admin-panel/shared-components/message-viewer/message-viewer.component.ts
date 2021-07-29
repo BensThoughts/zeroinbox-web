@@ -15,18 +15,10 @@ import { ISender } from '@app/core/state/senders/model/senders.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MessageViewerComponent implements OnInit {
+export class MessageViewerComponent {
 
   @Input() sender: ISender;
 
   constructor(private store: Store<AppState>) { }
-
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-    
-  }
 
 }

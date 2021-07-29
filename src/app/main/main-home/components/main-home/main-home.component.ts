@@ -17,7 +17,7 @@ import { LogService } from '@app/core/services/log/log.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class MainHomeComponent implements OnInit {
+export class MainHomeComponent {
   appName = env.appName;
   isProd = env.production;
   envName = env.envName;
@@ -38,12 +38,5 @@ export class MainHomeComponent implements OnInit {
       this.logService.log(packageName + ': ' + version)
     })
    }
-
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-  }
 
 }
