@@ -3,14 +3,9 @@
   "compilerOptions": {
     "baseUrl": "",
     "outDir": "../out-tsc/app",
-    "types": [ "node" ],
-    "typeRoots": [ "../node_modules/@types" ]
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"]
   },
-  "files": [
-    "main.ts",
-    "polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["main.ts", "polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
 }

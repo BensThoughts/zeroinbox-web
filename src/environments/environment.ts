@@ -21,7 +21,7 @@ export const environment = {
     rxjs: dependencies['rxjs'],
     fontAwesome: dependencies['@fortawesome/angular-fontawesome'],
     angularCli: devDependencies['@angular/cli'],
-    typescript: devDependencies['typescript'],
+    typescript: devDependencies['typescript']
   }
 };
 
