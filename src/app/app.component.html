@@ -36,7 +36,7 @@
           <a mat-list-item *ngFor="let auth_menu_item of auth_menu_items" routerLink="{{ auth_menu_item.route }}">
             <span>
               <mat-icon matListIcon>
-                <fa-icon icon="{{ auth_menu_item.icon }}"></fa-icon>
+                <fa-icon [icon]=auth_menu_item.icon></fa-icon>
               </mat-icon>
             </span>
             <span class="ml-2">
@@ -175,7 +175,7 @@
   <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
     <span>
       <mat-icon matListIcon>
-        <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
+        <fa-icon [icon]=menu_item.icon></fa-icon>
       </mat-icon>
     </span>
     <span class="">
@@ -188,7 +188,7 @@
   <a mat-list-item *ngFor="let menu_item of menu_items" routerLink="{{ menu_item.route }}">
     <span  class="">
       <mat-icon matListIcon>
-        <fa-icon icon="{{ menu_item.icon }}"></fa-icon>
+        <fa-icon [icon]=menu_item.icon></fa-icon>
       </mat-icon>
     </span>
     <span *ngIf="isOpen" class="">

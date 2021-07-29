@@ -1,3 +1,5 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+
 /**
  * [MenuItem] An individual item in the sidenav
  * @property name: the full text name to appear
@@ -9,7 +11,7 @@
 export interface MenuItem {
   name: string;
   route: string;
-  icon: string;
+  icon: IconProp;
 }
 
 export const auth_menu_items: MenuItem[] = [
