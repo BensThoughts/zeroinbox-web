@@ -1,57 +1,59 @@
 <div>
+  <table mat-table matSort [dataSource]="dataSource" class="mat-table">
+    <ng-container matColumnDef="count">
+      <th mat-header-cell *matHeaderCellDef>
+        <span class="flex justify-center align-middle items-center">
+          <form>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="{{
+                  'app.admin-panel.subscriptions.table.search' | translate
+                }}"
+                #searchInput
+              />
+            </mat-form-field>
+          </form>
+        </span>
+      </th>
 
-    <table mat-table matSort [dataSource]="dataSource" class="mat-table">
-  
-      <ng-container matColumnDef="count">
-        
-        <th mat-header-cell *matHeaderCellDef>
-          <span class="flex justify-center align-middle items-center">
-
-            <form>
-                <mat-form-field>
-                  <input matInput placeholder="{{ 'app.admin-panel.subscriptions.table.search' | translate }}" #searchInput>
-                </mat-form-field>
-              </form>
-            
-          </span>
-        </th>
-  
-        <td mat-cell *matCellDef="let suggestion">
-          <div class="text-center">
-              <div class="my-1">
-                  {{suggestion.fromName}}
-              </div>
-              <div class="my-1">
-                  {{suggestion.fromAddress}}
-              </div>
-              <div class="my-1">
-                  <button mat-stroked-button (click)="unsubscribe(suggestion)">Unsubscribe</button>
-              </div>
+      <td mat-cell *matCellDef="let suggestion">
+        <div class="text-center">
+          <div class="my-1">
+            {{ suggestion.fromName }}
           </div>
+          <div class="my-1">
+            {{ suggestion.fromAddress }}
+          </div>
+          <div class="my-1">
+            <button mat-stroked-button (click)="unsubscribe(suggestion)">
+              Unsubscribe
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let suggestion; columns: displayedColumns"
+      [@removeRow]="myRemoved ? 'add' : 'remove'"
+    ></tr>
+  </table>
+</div>
 
-        </td>
-  
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row
-          *matRowDef="let suggestion; columns: displayedColumns;"
-          [@removeRow]="myRemoved ? 'add' : 'remove'">
-      </tr>
-    </table>
-  </div>  
-  
-  <div class="d-none d-flex justify-content-end align-items-center flex-nowrap">
-      <mat-paginator #paginator
-                     [length]="totalRows$ | async"
-                     [pageSizeOptions]="pageSizeOptions"
-                     showFirstLastButtons="true">
-      </mat-paginator>
-  </div>
+<div class="d-none d-flex justify-content-end align-items-center flex-nowrap">
+  <mat-paginator
+    #paginator
+    [length]="totalRows$ | async"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons="true"
+  >
+  </mat-paginator>
+</div>
 
 <!-- <ng-template #noneLeft>
   <div *ngIf="cutoff$ | async as cutoff">
     Congratulations, your inbox is now empty :-).
   </div>
 </ng-template> -->
-  
