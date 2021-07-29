@@ -80,13 +80,12 @@ import {
   faTwitter,
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
-import { FooterComponent } from './components/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 
 
 @NgModule({
-  declarations: [FooterComponent],
+  declarations: [],
   exports: [
     CommonModule,
 
