@@ -25,7 +25,7 @@
       "dom"
     ]
   },
-  "angularCompilerOptions": {
-    "strictTemplates": "true"
-  }
+  // "angularCompilerOptions": {
+  //   "strictTemplates": "false"
+  // }
 }
