@@ -27,10 +27,7 @@ import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { UnsubscribeDialogAction } from '../../state/subscriptions.actions';
-import {
-  selectSubscriptions,
-  selectSubscriptionsByName
-} from '../../state/subscriptions.selectors';
+import { selectSubscriptionsByName } from '../../state/subscriptions.selectors';
 
 @Component({
   selector: 'app-subscriptions-table',

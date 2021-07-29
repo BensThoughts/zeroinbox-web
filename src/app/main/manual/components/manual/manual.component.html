@@ -1,77 +1,56 @@
-
-
 <div class="flex flex-col text-center">
-    <div class="mx-4">
-      <mat-card class="my-2">
-        <mat-card-title>
-          Manual
-        </mat-card-title>
-        <mat-divider inset="true" class="my-2"></mat-divider>
-        <div  class="mt-2">
-          Cleaning up your inbox can be done in a number of different ways. The recommended steps to using this app are as follows.
-        </div>
-      </mat-card>
-    </div>
-    <div class="mx-4">
-      <mat-accordion class="my-2">
+  <div class="mx-4">
+    <mat-card class="my-2">
+      <mat-card-title>Manual</mat-card-title>
+      <mat-divider inset="true" class="my-2"></mat-divider>
+      <div class="mt-2">
+        <p>
+          Cleaning up your inbox can be done in a number of different ways.
+          Recommended steps to using this app are as follows.
+        </p>
+      </div>
+    </mat-card>
+  </div>
+  <div class="mx-4">
+    <mat-accordion class="my-2">
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Login</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <app-manual-login-card></app-manual-login-card>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel class="my-2">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Login
-            </mat-panel-title>
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Downloading</mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-manual-downloading-card></app-manual-downloading-card>
+      </mat-expansion-panel>
 
-          </mat-expansion-panel-header>
-          <mat-divider></mat-divider>
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Stats</mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-manual-stats-card></app-manual-stats-card>
+      </mat-expansion-panel>
 
-          <app-manual-login-card></app-manual-login-card>
-        </mat-expansion-panel>
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Subscriptions</mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-manual-unsubscribe-card></app-manual-unsubscribe-card>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel class="my-2">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Downloading
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-manual-downloading-card></app-manual-downloading-card>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="my-2">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Stats
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <app-manual-stats-card></app-manual-stats-card>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="my-2">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Subscriptions
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-manual-unsubscribe-card></app-manual-unsubscribe-card>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="my-2">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Senders
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-manual-senders-card></app-manual-senders-card>
-        </mat-expansion-panel>
-
-      </mat-accordion>
-
-    </div>
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Senders</mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-manual-senders-card></app-manual-senders-card>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>
-
-
-
-
 
 <!-- 
 Cleaning up your inbox can be done in a number of different ways. The recommended steps to using this app are as follows.
@@ -151,4 +130,3 @@ Cleaning up your inbox can be done in a number of different ways. The recommende
     </ul>
   </li>
 </ol> -->
-

@@ -1,27 +1,19 @@
-<div class=mat-logout-component>
-
-  
+<div>
   <mat-dialog-content>
-
     <form [formGroup]="formGroup">
       <div>
         <mat-form-field>
           <mat-label>Category Name</mat-label>
-          <input matInput placeholder="" 
-                          formControlName="categoryName">
+          <input matInput placeholder="" formControlName="categoryName" />
         </mat-form-field>
       </div>
     </form>
-
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-stroked-button (click)="cancel()">
-      Cancel
-    </button>
+    <button mat-stroked-button (click)="cancel()">Cancel</button>
     <button mat-stroked-button [disabled]="!formGroup.valid" (click)="save()">
       Add Category
     </button>
   </mat-dialog-actions>
-
 </div>
