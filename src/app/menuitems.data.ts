@@ -34,7 +34,7 @@ export const auth_menu_items: MenuItem[] = [
     icon: 'address-card'
   },
   {
-    name: 'Story',
+    name: 'About',
     route: '/story',
     icon: 'lightbulb',
   },
@@ -57,7 +57,7 @@ export const menu_items: MenuItem[] = [
     icon: 'home'
   },
   {
-    name: 'Story',
+    name: 'About',
     route: '/story',
     icon: 'lightbulb'
   },
