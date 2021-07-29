@@ -22,7 +22,7 @@ import { map } from 'rxjs/operators';
 
 export class SettingsCategoriesComponent implements OnInit {
 
-  categories$;
+  categories$: Observable<Category[]>;
 
   constructor(
     private store: Store<AppState>,
