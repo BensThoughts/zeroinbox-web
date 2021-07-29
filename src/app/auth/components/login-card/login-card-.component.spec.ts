@@ -10,16 +10,14 @@ describe('LoginPageComponent', () => {
   let component: LoginCardComponent;
   let fixture: ComponentFixture<LoginCardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginCardComponent ],
-      imports: [
-        StoreModule.forRoot({...fromRoot.reducers}),
-        SharedModule
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [LoginCardComponent],
+        imports: [StoreModule.forRoot({ ...fromRoot.reducers }), SharedModule]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginCardComponent);

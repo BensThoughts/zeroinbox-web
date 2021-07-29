@@ -8,10 +8,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Material component modules
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -41,7 +38,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Fontawesome library
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from '@fortawesome/angular-fontawesome';
 
 import {
   faAddressBook,
@@ -70,7 +70,7 @@ import {
   faTasks,
   faTrash,
   faTrashAlt,
-  faWindowMaximize,
+  faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -78,11 +78,9 @@ import {
   faGithub,
   faMediumM,
   faTwitter,
-  faInstagram,
+  faInstagram
 } from '@fortawesome/free-brands-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
-
-
 
 @NgModule({
   declarations: [],
@@ -153,12 +151,12 @@ export class SharedModule {
       faTrash,
       faTrashAlt,
       faWindowMaximize,
-    
+
       faFacebook,
       faGithub,
       faInstagram,
       faMediumM,
-      faTwitter,
+      faTwitter
     );
   }
 }

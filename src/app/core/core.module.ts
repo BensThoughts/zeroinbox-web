@@ -15,7 +15,8 @@ import { AuthEffects } from './state/auth/auth.effects';
 // used for the cutom router state
 import {
   StoreRouterConnectingModule,
-  RouterStateSerializer, DefaultRouterStateSerializer
+  RouterStateSerializer,
+  DefaultRouterStateSerializer
 } from '@ngrx/router-store';
 // router state custom serializer
 import { CustomSerializer } from './state/router/custom-serializer';
@@ -33,7 +34,6 @@ import { ReverseAuthGuardService } from './services/auth/reverse-auth-guard.serv
 import { NotificationService } from './services/notifications/notification.service';
 // error handler service
 import { AppErrorHandler } from './services/error-handler/app-error-handler.service';
-
 
 /* environment variables */
 import { environment } from '@env/environment';
@@ -69,13 +69,22 @@ export function HttpLoaderFactory(http: HttpClient) {
  */
 @NgModule({
   imports: [
-    CommonModule,    // angular
+    CommonModule, // angular
     HttpClientModule,
 
     // GoogleChartsModule.forRoot(),
 
-    StoreModule.forRoot(reducers, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),    // ngrx store
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer,stateKey: 'router'}),    // ngrx router store
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }), // ngrx store
+    StoreRouterConnectingModule.forRoot({
+      serializer: DefaultRouterStateSerializer,
+      stateKey: 'router'
+    }), // ngrx router store
     EffectsModule.forRoot([
       SettingsEffects,
       AuthEffects,
@@ -83,7 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       GoogleAnalyticsEffects,
       LocalStorageSyncEffects,
       SendersEffects,
-      UserEffects,
+      UserEffects
     ]),
 
     TranslateModule.forRoot({
@@ -94,9 +103,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
 
-    environment.production ? [] : StoreDevtoolsModule.instrument({
-      name: 'ZeroInbox Store'
-    }),
+    environment.production
+      ? []
+      : StoreDevtoolsModule.instrument({
+          name: 'ZeroInbox Store'
+        })
   ],
 
   declarations: [],
@@ -115,7 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */
     { provide: RouterStateSerializer, useClass: CustomSerializer }
-  ],
+  ]
 })
 
 /**

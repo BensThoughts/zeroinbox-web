@@ -41,12 +41,14 @@ export class LabelAllSendersDialogAction implements Action {
 
 export class LabelSendersRequestAction implements Action {
   readonly type = SendersViewActionTypes.LabelSendersRequest;
-  constructor(public payload: { 
-    senders: ISender[],
-    labelName: string,
-    category: string,
-    filter: boolean
-  }) {}
+  constructor(
+    public payload: {
+      senders: ISender[];
+      labelName: string;
+      category: string;
+      filter: boolean;
+    }
+  ) {}
 }
 
 export class LabelSendersRequestSuccessAction implements Action {
@@ -98,21 +100,16 @@ export class ResetSendersViewStateAction implements Action {
 
 export type ByCountActions =
   | SetSizeCutoffAction
-
   | LabelSenderDialogAction
   | LabelAllSendersDialogAction
   | DeleteSenderDialogAction
   | DeleteAllSendersDialogAction
-
   | LabelSendersRequestAction
   | LabelSendersRequestSuccessAction
   | LabelSendersRequestFailureAction
-
   | DeleteSendersRequestAction
   | DeleteSendersRequestSuccessAction
   | DeleteSendersRequestFailureAction
-
   | SetCurrentSenderAction
-
   | UpdateSendersViewStateAction
-  | ResetSendersViewStateAction
+  | ResetSendersViewStateAction;

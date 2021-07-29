@@ -6,7 +6,7 @@ export enum SubscriptionsActionTypes {
 
   UnsubscribeSenderRequest = '[Subscriptions Effects] Unsubscribe Sender Request',
   UnsubscribeRequestSuccess = '[Subscriptions Effects] Unsubscribe Request Success',
-  UnsubscribeRequestFailure = '[Subscriptions Effects] Unsubscribe Request Failure',
+  UnsubscribeRequestFailure = '[Subscriptions Effects] Unsubscribe Request Failure'
 }
 
 export class UnsubscribeDialogAction implements Action {
@@ -29,8 +29,8 @@ export class UnsubscribeRequestFailureAction implements Action {
   readonly type = SubscriptionsActionTypes.UnsubscribeRequestFailure;
 }
 
-export type SubscriptionsActions = 
+export type SubscriptionsActions =
   | UnsubscribeDialogAction
   | UnsubscribeSenderRequestAction
   | UnsubscribeRequestSuccessAction
-  | UnsubscribeRequestFailureAction 
+  | UnsubscribeRequestFailureAction;

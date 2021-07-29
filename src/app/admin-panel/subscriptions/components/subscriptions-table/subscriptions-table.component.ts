@@ -1,19 +1,33 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ElementRef, Input, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ElementRef,
+  Input,
+  OnDestroy,
+  AfterViewInit
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import {
-  AppState,
-} from '@app/core';
+import { AppState } from '@app/core';
 
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
-import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  tap,
+  map,
+  take,
+  delay,
+  debounceTime,
+  distinctUntilChanged
+} from 'rxjs/operators';
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '@app/core/state/senders/model/senders.model';
 import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { UnsubscribeDialogAction } from '../../state/subscriptions.actions';
-import { 
+import {
   selectSubscriptions,
   selectSubscriptionsByName
 } from '../../state/subscriptions.selectors';
@@ -23,12 +37,11 @@ import {
   templateUrl: './subscriptions-table.component.html',
   styleUrls: ['./subscriptions-table.component.scss'],
   animations: [rowAnimations],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubscriptionsTableComponent implements OnInit, OnDestroy, AfterViewInit {
-
-
+export class SubscriptionsTableComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -48,17 +61,16 @@ export class SubscriptionsTableComponent implements OnInit, OnDestroy, AfterView
 
   myRemoved = true;
 
+  toggle() {
+    this.myRemoved = !this.myRemoved;
+  }
 
-   toggle() {
-     this.myRemoved = !this.myRemoved;
-   }
-
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.dataSource = new SimpleDataSource(
-      this.store, 
-      selectSubscriptionsByName, 
+      this.store,
+      selectSubscriptionsByName,
       this.paginator,
       this.sort
     );
@@ -79,13 +91,12 @@ export class SubscriptionsTableComponent implements OnInit, OnDestroy, AfterView
           this.loadSuggestionsPage();
           this.updatePaginatorLength();
         })
-      ).subscribe();
-  
-    this.handler2 = this.paginator.page
-    .pipe(
-      tap(() => this.loadSuggestionsPage())
-    ).subscribe();
+      )
+      .subscribe();
 
+    this.handler2 = this.paginator.page
+      .pipe(tap(() => this.loadSuggestionsPage()))
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -93,38 +104,44 @@ export class SubscriptionsTableComponent implements OnInit, OnDestroy, AfterView
     this.handler2.unsubscribe();
   }
 
-
   loadSuggestionsPage() {
-    this.dataSource.loadFilteredData(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
+    this.dataSource.loadFilteredData(
+      this.input.nativeElement.value.toLowerCase(),
+      'fromAddress'
+    );
   }
 
   updatePaginatorLength() {
-    this.dataSource.setFilteredLength(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
+    this.dataSource.setFilteredLength(
+      this.input.nativeElement.value.toLowerCase(),
+      'fromAddress'
+    );
   }
 
-
   createActions() {
-
     this.toggle();
 
-    of(true).pipe(
-      take(1),
-      delay(100),
-      map(() => {
-        if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
-          if (this.dataSource.getLength() === 0) {
-            this.paginator.previousPage();
+    of(true)
+      .pipe(
+        take(1),
+        delay(100),
+        map(() => {
+          if (
+            !this.paginator.hasNextPage() &&
+            this.paginator.hasPreviousPage()
+          ) {
+            if (this.dataSource.getLength() === 0) {
+              this.paginator.previousPage();
+            }
           }
-        }
-        this.updatePaginatorLength();
-        this.toggle();
-      })
-    ).subscribe();
-
+          this.updatePaginatorLength();
+          this.toggle();
+        })
+      )
+      .subscribe();
   }
 
   unsubscribe(suggestion: ISender) {
-    this.store.dispatch(new UnsubscribeDialogAction({ sender: suggestion}))
+    this.store.dispatch(new UnsubscribeDialogAction({ sender: suggestion }));
   }
-
 }

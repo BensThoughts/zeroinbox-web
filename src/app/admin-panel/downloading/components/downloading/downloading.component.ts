@@ -4,7 +4,10 @@ import { AppState } from '@app/core';
 import { selectPercentLoaded } from '@app/core/state/bootstrap/bootstrap.selectors';
 import { Observable } from 'rxjs';
 import { BasicProfile, EmailProfile } from '@app/core/state/user/user.model';
-import { selectBasicProfile, selectEmailProfile } from '@app/core/state/user/user.selectors';
+import {
+  selectBasicProfile,
+  selectEmailProfile
+} from '@app/core/state/user/user.selectors';
 import { DownloadSendersRequestAction } from '@app/core/state/bootstrap/bootstrap.actions';
 
 /**
@@ -29,6 +32,8 @@ export class DownloadingComponent implements OnInit {
     this.basic_profile$ = this.store.pipe(select(selectBasicProfile));
     this.email_profile$ = this.store.pipe(select(selectEmailProfile));
     this.percentLoaded$ = this.store.pipe(select(selectPercentLoaded));
-    this.store.dispatch(new DownloadSendersRequestAction({ firstRunStatus: true }));
+    this.store.dispatch(
+      new DownloadSendersRequestAction({ firstRunStatus: true })
+    );
   }
 }

@@ -6,63 +6,55 @@ import { of } from 'rxjs';
 import { ISender } from './model/senders.model';
 import { ISizes } from './model/sizes.model';
 
-
-export const selectSenders= createSelector(
+export const selectSenders = createSelector(
   selectSendersState,
   (state: fromSenders.SendersState) => state
 );
 
 export const selectSendersLoaded = createSelector(
-    selectSendersState,
-    (state: fromSenders.SendersState) => state.sendersLoaded
+  selectSendersState,
+  (state: fromSenders.SendersState) => state.sendersLoaded
 );
 
 export const selectUniqueSenders = createSelector(
-    selectSendersState,
-    fromSenders.selectTotal
+  selectSendersState,
+  fromSenders.selectTotal
 );
 
 export const selectSenderEntities = createSelector(
-    selectSendersState,
-    fromSenders.selectEntities
-)
+  selectSendersState,
+  fromSenders.selectEntities
+);
 
 export const selectAll = createSelector(
-    selectSendersState,
-    fromSenders.selectAll
-)
+  selectSendersState,
+  fromSenders.selectAll
+);
 
-export const selectTotalThreads = createSelector(
-  selectAll,
-  (senders) => {
-    let total = senders.map((sender) => sender.threadIdCount).reduce((acc, curr) => {
+export const selectTotalThreads = createSelector(selectAll, (senders) => {
+  let total = senders
+    .map((sender) => sender.threadIdCount)
+    .reduce((acc, curr) => {
       return acc + curr;
     }, 0);
-    return total;
-  }
-)
-
+  return total;
+});
 
 /*******************************************************************************
  *  CHARTS
  ******************************************************************************/
 
-
 /**
  * Important, you must return a deep copy of these with .slice() or
  * else ngrx gets confused
  */
-export const selectByCount = createSelector(
-  selectAll,
-  (senders) => senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
-)
+export const selectByCount = createSelector(selectAll, (senders) =>
+  senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
+);
 
-export const selectBySize = createSelector(
-    selectAll,
-    (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate).slice()
-)
-
-
+export const selectBySize = createSelector(selectAll, (senders) =>
+  senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate).slice()
+);
 
 export const C_XL = 500;
 export const C_LG = 100;
@@ -71,71 +63,68 @@ export const C_SM = 15;
 
 export const selectByCountGroup = createSelector(
   selectByCount,
-  suggestions => {
+  (suggestions) => {
     return {
-        Xl: suggestions.filter((suggestion) => {
-          return suggestion.threadIdCount >= C_XL
-        }),
-        Lg: suggestions.filter((suggestion) => {
-          return suggestion.threadIdCount >= C_LG && suggestion.threadIdCount < C_XL
-        }),
-        Md: suggestions.filter((suggestion) => {
-          return suggestion.threadIdCount >= C_MD && suggestion.threadIdCount < C_LG
-        }),
-        Sm: suggestions.filter((suggestion) => {
-          return suggestion.threadIdCount >= C_SM && suggestion.threadIdCount < C_MD
-        }),
-        Xs: suggestions.filter((suggestion) => {
-          return suggestion.threadIdCount < C_SM
-        }),
-    }
+      Xl: suggestions.filter((suggestion) => {
+        return suggestion.threadIdCount >= C_XL;
+      }),
+      Lg: suggestions.filter((suggestion) => {
+        return (
+          suggestion.threadIdCount >= C_LG && suggestion.threadIdCount < C_XL
+        );
+      }),
+      Md: suggestions.filter((suggestion) => {
+        return (
+          suggestion.threadIdCount >= C_MD && suggestion.threadIdCount < C_LG
+        );
+      }),
+      Sm: suggestions.filter((suggestion) => {
+        return (
+          suggestion.threadIdCount >= C_SM && suggestion.threadIdCount < C_MD
+        );
+      }),
+      Xs: suggestions.filter((suggestion) => {
+        return suggestion.threadIdCount < C_SM;
+      })
+    };
   }
 );
 
 export const selectByCountGroup_TL = createSelector(
   selectByCountGroup,
   (suggestions) => {
-    return <ISizes> {
+    return <ISizes>{
       Xl: suggestions.Xl.length,
       Lg: suggestions.Lg.length,
       Md: suggestions.Md.length,
       Sm: suggestions.Sm.length,
       Xs: suggestions.Xs.length
-    }
+    };
   }
 );
 
-
-
-
-export const selectBySizeGroup = createSelector(
-  selectBySize,
-  senders => {
-    return {
-        Xl: senders.filter(sender => sender.sizeGroup === 'XL'),
-        Lg: senders.filter(sender => sender.sizeGroup === 'LG'),
-        Md: senders.filter(sender => sender.sizeGroup === 'MD'),
-        Sm: senders.filter(sender => sender.sizeGroup === 'SM'),
-        Xs: senders.filter(sender => sender.sizeGroup === 'XS'),
-    }
-  }
-);
-
+export const selectBySizeGroup = createSelector(selectBySize, (senders) => {
+  return {
+    Xl: senders.filter((sender) => sender.sizeGroup === 'XL'),
+    Lg: senders.filter((sender) => sender.sizeGroup === 'LG'),
+    Md: senders.filter((sender) => sender.sizeGroup === 'MD'),
+    Sm: senders.filter((sender) => sender.sizeGroup === 'SM'),
+    Xs: senders.filter((sender) => sender.sizeGroup === 'XS')
+  };
+});
 
 export const selectBySizeGroup_TL = createSelector(
   selectBySizeGroup,
   (senders) => {
-    return <ISizes> {
+    return <ISizes>{
       Xl: senders.Xl.length,
       Lg: senders.Lg.length,
       Md: senders.Md.length,
       Sm: senders.Sm.length,
       Xs: senders.Xs.length
-    }
+    };
   }
 );
-
-
 
 /* export const selectByCountGroup_TS = createSelector(
   selectByCountGroup,

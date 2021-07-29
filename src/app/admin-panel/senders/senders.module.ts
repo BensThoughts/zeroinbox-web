@@ -15,16 +15,15 @@ import { TrashAllDialogComponent } from './components/trash-all-dialog/trash-all
 import { LabelAllDialogComponent } from './components/label-all-dialog/label-all-dialog.component';
 import { SharedComponentModule } from '../shared-components/shared-components.module';
 
-
 @NgModule({
   declarations: [
-    SendersComponent, 
-    SendersCountTableComponent, 
+    SendersComponent,
+    SendersCountTableComponent,
     SendersSizeTableComponent,
     LabelDialogComponent,
     LabelAllDialogComponent,
     TrashDialogComponent,
-    TrashAllDialogComponent,
+    TrashAllDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,4 +39,4 @@ import { SharedComponentModule } from '../shared-components/shared-components.mo
     TrashAllDialogComponent
   ]
 })
-export class SendersModule { }
+export class SendersModule {}

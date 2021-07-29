@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 
-
 import { SendersModule } from './senders/senders.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { HomeModule } from './home/home.module';
@@ -21,8 +20,8 @@ import { DownloadingModule } from './downloading/downloading.module';
     HomeModule,
     SubscriptionsModule,
     SendersModule,
-    AdminPanelRoutingModule,
-/*     TranslateModule.forChild({
+    AdminPanelRoutingModule
+    /*     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
@@ -33,4 +32,4 @@ import { DownloadingModule } from './downloading/downloading.module';
   ],
   providers: []
 })
-export class AdminPanelModule { }
+export class AdminPanelModule {}

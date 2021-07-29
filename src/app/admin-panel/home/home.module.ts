@@ -5,11 +5,10 @@ import { HomeComponent } from './components/home/home.component';
 
 import { SharedModule } from '@app/shared';
 
-import { GoogleChartsModule } from 'angular-google-charts'
+import { GoogleChartsModule } from 'angular-google-charts';
 import { StatsBarchartComponent } from './components/stats-barchart/stats-barchart.component';
 import { RouterModule } from '@angular/router';
 import { SharedComponentModule } from '../shared-components/shared-components.module';
-
 
 @NgModule({
   declarations: [HomeComponent, StatsBarchartComponent],
@@ -22,4 +21,4 @@ import { SharedComponentModule } from '../shared-components/shared-components.mo
   ],
   providers: []
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { API_URL } from '../apiurl';
 
-export type ActionType = 
-  | 'label'
-  | 'delete'
-  | 'unsubscribe'
+export type ActionType = 'label' | 'delete' | 'unsubscribe';
 export interface ActionsRequestBody {
   senderIds: string[];
   actionType: ActionType;
@@ -19,21 +16,20 @@ export interface ActionsRequestBody {
 }
 
 export interface ActionsResponse {
-  status: string,
-  status_message: string,
+  status: string;
+  status_message: string;
 }
 
 @Injectable()
 export class ActionsService {
+  constructor(private httpClient: HttpClient) {}
 
-    constructor(private httpClient: HttpClient) {}
-
-    public postActions(body: ActionsRequestBody): Observable<ActionsResponse> {
-      return this.httpClient.post<ActionsResponse>(API_URL + '/actions', body, {
-        withCredentials: true,
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
-      });
-    }
+  public postActions(body: ActionsRequestBody): Observable<ActionsResponse> {
+    return this.httpClient.post<ActionsResponse>(API_URL + '/actions', body, {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 }

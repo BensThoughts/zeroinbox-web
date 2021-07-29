@@ -6,9 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./contact.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ContactComponent {
-
-  constructor() { }
-
+  constructor() {}
 }

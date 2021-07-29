@@ -22,5 +22,4 @@ import { EffectsModule } from '@ngrx/effects';
     EffectsModule.forFeature([SubscriptionsEffects])
   ]
 })
-
-export class SubscriptionsModule { }
+export class SubscriptionsModule {}

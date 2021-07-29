@@ -1,4 +1,4 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 /**
  * [MenuItem] An individual item in the sidenav
@@ -38,7 +38,7 @@ export const auth_menu_items: MenuItem[] = [
   {
     name: 'About',
     route: '/story',
-    icon: 'lightbulb',
+    icon: 'lightbulb'
   },
   {
     name: 'Contact',
@@ -50,7 +50,7 @@ export const auth_menu_items: MenuItem[] = [
     route: '/settings',
     icon: 'cog'
   }
-]
+];
 
 export const menu_items: MenuItem[] = [
   {

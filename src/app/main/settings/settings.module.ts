@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import { SettingsComponent } from './components/settings/settings.component';
 import { StoreModule } from '@ngrx/store';
 
@@ -14,13 +13,18 @@ import { SettingsCategoriesComponent } from './components/categories/categories.
 import { AddCategoryDialogComponent } from './components/add-category-dialog/add-category-dialog.component';
 
 @NgModule({
-  declarations: [SettingsComponent, SettingsThemeComponent, SettingsCategoriesComponent, AddCategoryDialogComponent],
+  declarations: [
+    SettingsComponent,
+    SettingsThemeComponent,
+    SettingsCategoriesComponent,
+    AddCategoryDialogComponent
+  ],
   entryComponents: [AddCategoryDialogComponent],
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule
     // StoreModule.forFeature('settings', settingsReducer),
     // EffectsModule.forFeature([SettingsEffects])
   ]
 })
-export class SettingsModule { }
+export class SettingsModule {}

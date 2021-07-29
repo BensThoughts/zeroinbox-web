@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,9 +27,7 @@ export interface ConfirmationObject {
   styleUrls: ['./label-all-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class LabelAllDialogComponent implements OnInit, OnDestroy {
-
   @Input() senders: ISender[];
 
   formGroup = new FormGroup({
@@ -34,41 +38,42 @@ export class LabelAllDialogComponent implements OnInit, OnDestroy {
       Validators.pattern(/^[a-z\d\s.'&-]+$/i)
     ]),
     category: new FormControl('')
-  })
+  });
 
   categories = [
-    { name: 'No Category', value: 'NO_CATEGORY'},
-    { name: 'Friends', value: 'Friends'},
-    { name: 'Shopping', value: 'Shopping'},
-    { name: 'News', value: 'News'},
-    { name: 'Work', value: 'Work'},
-    { name: 'Finance', value: 'Finance'},
-    { name: 'Travel', value: 'Travel'},
-    { name: 'Misc', value: 'Misc'},
-  ]
+    { name: 'No Category', value: 'NO_CATEGORY' },
+    { name: 'Friends', value: 'Friends' },
+    { name: 'Shopping', value: 'Shopping' },
+    { name: 'News', value: 'News' },
+    { name: 'Work', value: 'Work' },
+    { name: 'Finance', value: 'Finance' },
+    { name: 'Travel', value: 'Travel' },
+    { name: 'Misc', value: 'Misc' }
+  ];
 
   handler: Subscription;
 
   constructor(
     private ref: MatDialogRef<LabelAllDialogComponent>,
     private store: Store<AppState>
-    ) { }
-
+  ) {}
 
   ngOnInit() {
-    this.handler = this.store.pipe(
-      select(selectCategories),
-      map((categories) => {
-        this.categories  = [
-          { name: 'No Category', value: 'NO_CATEGORY'},
-          ...categories,
-        ];
-        this.formGroup.setValue({
-          labelName: '',
-          category: 'NO_CATEGORY'
-        });
-      })
-    ).subscribe();
+    this.handler = this.store
+      .pipe(
+        select(selectCategories),
+        map((categories) => {
+          this.categories = [
+            { name: 'No Category', value: 'NO_CATEGORY' },
+            ...categories
+          ];
+          this.formGroup.setValue({
+            labelName: '',
+            category: 'NO_CATEGORY'
+          });
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
@@ -83,7 +88,7 @@ export class LabelAllDialogComponent implements OnInit, OnDestroy {
       category: category,
       labelName: currentLabelName,
       filter: false
-    }
+    };
     this.ref.close(confirmationObj);
   }
 
@@ -93,8 +98,7 @@ export class LabelAllDialogComponent implements OnInit, OnDestroy {
       category: '',
       labelName: '',
       filter: false
-    }
+    };
     this.ref.close(confirmationObj);
   }
-
 }

@@ -11,21 +11,16 @@ import { ManualSendersCardComponent } from './components/manual-senders-card/man
 import { ManualDownloadingCardComponent } from './components/manual-downloading-card/manual-downloading-card.component';
 import { ManualStatsCardComponent } from './components/manual-stats-card/manual-stats-card.component';
 
-
 @NgModule({
   declarations: [
     ManualComponent,
-    ManualLoginCardComponent, 
-    ManualUnsubscribeCardComponent, 
+    ManualLoginCardComponent,
+    ManualUnsubscribeCardComponent,
     ManualSendersCardComponent,
     ManualDownloadingCardComponent,
     ManualStatsCardComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-  ],
+  imports: [CommonModule, SharedModule, RouterModule],
   providers: []
 })
-export class ManualModule { }
+export class ManualModule {}

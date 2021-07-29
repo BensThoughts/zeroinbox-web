@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { SettingsState } from '@app/core/state/settings/settings.reducer';
@@ -22,7 +27,7 @@ export class SettingsThemeComponent {
 
   @Input() theme;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   //TODO: Re-Enable detection of current theme setting?
   //// ngOnInit() {
@@ -32,5 +37,4 @@ export class SettingsThemeComponent {
   onThemeSelect({ value: theme }) {
     this.store.dispatch(new SettingsChangeThemeAction({ theme }));
   }
-
 }

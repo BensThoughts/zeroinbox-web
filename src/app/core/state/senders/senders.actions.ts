@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { ISender } from './model/senders.model';
 import { Update } from '@ngrx/entity';
 
-
 export enum SendersActionTypes {
   SendersRequest = '[Senders Effects] Senders Requested',
   SendersRequestFailure = '[Senders Effects] Senders Request Failure',
@@ -40,20 +39,18 @@ export class DeleteSendersAction implements Action {
 
 export class UpdateSendersStateAction implements Action {
   readonly type = SendersActionTypes.UpdateSendersState;
-  constructor(public payload: any ) {}
+  constructor(public payload: any) {}
 }
 
 export class ResetSendersStateAction implements Action {
   readonly type = SendersActionTypes.ResetSendersState;
 }
 
-
-export type SendersActions = 
+export type SendersActions =
   | SendersRequestAction
   | SendersRequestFailureAction
   | AddAllSendersAction
   | UpdateSenderAction
   | DeleteSendersAction
-  
   | UpdateSendersStateAction
-  | ResetSendersStateAction
+  | ResetSendersStateAction;

@@ -4,12 +4,12 @@ describe('SettingsChangeThemeAction', () => {
   it('should create an action', () => {
     const payload = {
       theme: 'DEFAULT-THEME'
-    }
+    };
     const action = new fromSettingsActions.SettingsChangeThemeAction(payload);
 
-    expect({...action}).toEqual({
+    expect({ ...action }).toEqual({
       type: fromSettingsActions.SettingsActionTypes.ChangeTheme,
       payload
-    })
+    });
   });
 });

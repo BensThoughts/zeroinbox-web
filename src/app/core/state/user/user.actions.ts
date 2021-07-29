@@ -36,8 +36,8 @@ export class ResetUserStateAction implements Action {
 }
 
 export class UpdateUserStateAction implements Action {
-  readonly type = UserActionTypes.UpdateUserState
-  constructor(public payload: any){}
+  readonly type = UserActionTypes.UpdateUserState;
+  constructor(public payload: any) {}
 }
 
 export type UserActions =

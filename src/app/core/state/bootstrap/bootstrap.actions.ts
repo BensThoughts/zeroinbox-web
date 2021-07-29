@@ -1,7 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 export enum BootstrapActionTypes {
-
   BoostrapApp = '[Auth Effects] Bootstrap App',
 
   GetAllSenders = '[Bootstrap Effects] Get All Suggestions',
@@ -61,7 +60,6 @@ export class NavigateToDownloadingPageAction implements Action {
   readonly type = BootstrapActionTypes.NaviagteToDownloadingPage;
 }
 
-
 export class DownloadSendersRequestAction implements Action {
   readonly type = BootstrapActionTypes.DownloadSendersRequest;
   constructor(public payload: { firstRunStatus: boolean }) {}
@@ -102,10 +100,9 @@ export class LoadAllDataRequestAction implements Action {
   readonly type = BootstrapActionTypes.LoadAllDataRequest;
 }
 
-
 /**
  * Used to temporarily turn sync to storage off, so that when the state
- * is updated from another tab/window durring the logout process, this 
+ * is updated from another tab/window durring the logout process, this
  * tab/window does not also sync state to the local storage (which would cause
  * a looping effect).
  */
@@ -115,44 +112,36 @@ export class ToggleSyncToStorageAction implements Action {
   constructor(public payload: { syncToStorage: boolean }) {}
 }
 
-
 /**
  * [constructor description]
  * @param payload [description]
  */
 export class UpdateBootstrapStateAction implements Action {
   readonly type = BootstrapActionTypes.UpdateBootstrapState;
-  constructor(public payload: any){}
+  constructor(public payload: any) {}
 }
 
 export class ResetBootstrapStateAction implements Action {
   readonly type = BootstrapActionTypes.ResetBootstrapState;
 }
 
-
 export type BootstrapActions =
   | BootstrapAppAction
   | GetAllSendersAction
-
   | FirstRunStatusRequestAction
   | FirstRunStatusRequestFailureAction
   | UpdateFirstRunAction
-
   | NavigateToHomePageAction
   | NavigateToDownloadingPageAction
-
   | DownloadSendersRequestAction
   | DownloadSendersRequestSuccessAction
   | DownloadSendersRequestFailureAction
   | UpdateDownloadingStatusAction
-
   | DownloadingStatusRequestAction
   | DownloadingStatusRequestFailureAction
   | UpdatePercentDownloadedAction
-
   | UpdateIsBootstrappedAction
   | LoadAllDataRequestAction
-
   | ToggleSyncToStorageAction
   | ResetBootstrapStateAction
   | UpdateBootstrapStateAction;

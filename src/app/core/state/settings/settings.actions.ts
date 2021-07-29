@@ -12,7 +12,7 @@ export enum SettingsActionTypes {
   SetCategories = '[Settings Effects] Set Categories',
   AddCategory = '[Settings Categories Component] Add Category',
   RemoveCategory = '[Settings Categories Component] Remove Category',
-  UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window',
+  UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window'
 }
 
 export class SettingsChangeThemeAction implements Action {
@@ -35,7 +35,7 @@ export class SettingsGetCategoriesRequestFailureAction implements Action {
 
 export class SettingsSetCategoriesRequestAction implements Action {
   readonly type = SettingsActionTypes.SetCategoriesRequest;
-  constructor(public payload: { add: boolean, category: Category}) {}
+  constructor(public payload: { add: boolean; category: Category }) {}
 }
 
 export class SettingsSetCategoriesRequestSuccessAction implements Action {
@@ -66,20 +66,15 @@ export class UpdateSettingsStateAction implements Action {
   constructor(public payload: any) {}
 }
 
-
 export type SettingsActions =
   | SettingsChangeThemeAction
-
   | SettingsGetCategoriesRequestAction
   | SettingsGetCategoriesRequestSuccessAction
   | SettingsGetCategoriesRequestFailureAction
-
   | SettingsSetCategoriesRequestAction
   | SettingsSetCategoriesRequestSuccessAction
   | SettingsSetCategoriesRequestFailureAction
-
   | SettingsSetCategoriesAction
   | SettingsAddCategoryAction
   | SettingsRemoveCategoryAction
-  
-  | UpdateSettingsStateAction
+  | UpdateSettingsStateAction;

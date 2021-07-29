@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   settings$: Observable<SettingsState>;
   isBootstrapped$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.settings$ = this.store.pipe(select(selectSettings));
@@ -27,5 +27,4 @@ export class SettingsComponent implements OnInit {
   onThemeSelect({ value: theme }) {
     this.store.dispatch(new SettingsChangeThemeAction({ theme }));
   }
-
 }

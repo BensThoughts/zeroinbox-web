@@ -24,4 +24,4 @@ import { SettingsModule } from './settings/settings.module';
   ],
   providers: []
 })
-export class MainModule { }
+export class MainModule {}

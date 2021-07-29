@@ -2,15 +2,26 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { SettingsState } from '@app/core/state/settings/settings.reducer';
-import { selectSettings, selectCategories } from '@app/core/state/settings/settings.selectors';
 import {
-  SettingsRemoveCategoryAction, SettingsSetCategoriesRequestAction, 
+  selectSettings,
+  selectCategories
+} from '@app/core/state/settings/settings.selectors';
+import {
+  SettingsRemoveCategoryAction,
+  SettingsSetCategoriesRequestAction
 } from '@app/core/state/settings/settings.actions';
 import { AppState } from '@app/core';
 import { Category } from '@app/core/state/settings/category.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCategoryDialogComponent, CategoryConfirmationObject } from '../add-category-dialog/add-category-dialog.component';
-import { SettingsAddCategoryAction, SettingsGetCategoriesRequestAction, SettingsSetCategoriesAction } from '../../../../core/state/settings/settings.actions';
+import {
+  AddCategoryDialogComponent,
+  CategoryConfirmationObject
+} from '../add-category-dialog/add-category-dialog.component';
+import {
+  SettingsAddCategoryAction,
+  SettingsGetCategoriesRequestAction,
+  SettingsSetCategoriesAction
+} from '../../../../core/state/settings/settings.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -19,15 +30,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./categories.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class SettingsCategoriesComponent implements OnInit {
-
   categories$: Observable<Category[]>;
 
   constructor(
     private store: Store<AppState>,
     private dialogService: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(new SettingsGetCategoriesRequestAction());
@@ -36,16 +45,20 @@ export class SettingsCategoriesComponent implements OnInit {
 
   removeCategory(category: Category) {
     console.log(category);
-    this.store.dispatch(new SettingsRemoveCategoryAction( { category: category }));
-    this.store.dispatch(new SettingsSetCategoriesRequestAction({ add: false, category: category }))
+    this.store.dispatch(
+      new SettingsRemoveCategoryAction({ category: category })
+    );
+    this.store.dispatch(
+      new SettingsSetCategoriesRequestAction({ add: false, category: category })
+    );
   }
 
   addCategory() {
     // this.store.dispatch(new SettingsAddCategoryDialogAction());
     let dialoagRef = this.dialogService.open(AddCategoryDialogComponent);
     dialoagRef
-    .afterClosed()
-    .pipe(
+      .afterClosed()
+      .pipe(
         map((confirmationObject: CategoryConfirmationObject) => {
           if (confirmationObject === undefined || !confirmationObject.save) {
             // Do nothing
@@ -53,12 +66,20 @@ export class SettingsCategoriesComponent implements OnInit {
             let category = confirmationObject.category;
             // console.log(confirmationObject.category);
             // console.log(confirmationObject.labelName);
-            this.store.dispatch(new SettingsAddCategoryAction({ category: confirmationObject.category }))
-            this.store.dispatch(new SettingsSetCategoriesRequestAction({ add: true, category: category}))
+            this.store.dispatch(
+              new SettingsAddCategoryAction({
+                category: confirmationObject.category
+              })
+            );
+            this.store.dispatch(
+              new SettingsSetCategoriesRequestAction({
+                add: true,
+                category: category
+              })
+            );
           }
         })
-    ).subscribe();
-  
+      )
+      .subscribe();
   }
-
 }

@@ -7,23 +7,23 @@ import * as fromRoot from '@app/core/state/core.state';
 
 import { StoreModule } from '@ngrx/store';
 
-
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      imports: [
-        SharedModule,
-        StoreModule.forRoot({
-          ...fromRoot.reducers
-        })
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HomeComponent],
+        imports: [
+          SharedModule,
+          StoreModule.forRoot({
+            ...fromRoot.reducers
+          })
+        ]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);

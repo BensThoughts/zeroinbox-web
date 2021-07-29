@@ -7,36 +7,34 @@ import { SendersComponent } from './senders/components/senders/senders.component
 import { SubscriptionsComponent } from './subscriptions/components/subscriptions/subscriptions.component';
 import { DownloadingComponent } from './downloading/components/downloading/downloading.component';
 
-
-
 const routes: Routes = [
   {
     path: 'admin-panel',
     children: [
-      { 
-        path: '', 
-        redirectTo: 'home', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       },
-      { 
-        path: 'home', 
-        component: HomeComponent,
+      {
+        path: 'home',
+        component: HomeComponent
         // canActivate: [AuthGuardService]
       },
-      { 
-        path: 'subscriptions', 
-        component: SubscriptionsComponent,
-        // canActivate: [AuthGuardService] 
+      {
+        path: 'subscriptions',
+        component: SubscriptionsComponent
+        // canActivate: [AuthGuardService]
       },
-      { 
-        path: 'senders', 
-        component: SendersComponent,
-        // canActivate: [AuthGuardService] 
+      {
+        path: 'senders',
+        component: SendersComponent
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'downloading',
-        component: DownloadingComponent,
-      },
+        component: DownloadingComponent
+      }
       // { path: 'settings', component: SettingsComponent }
     ],
     canActivate: [AuthGuardService]
@@ -47,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminPanelRoutingModule { }
+export class AdminPanelRoutingModule {}

@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  HostListener
+} from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -14,7 +19,12 @@ import {
 } from './sidenav.animations';
 
 import { Store, select } from '@ngrx/store';
-import { AppState, LogoutAction, selectDownloadingStatus, selectIsBootstrapped } from '@app/core';
+import {
+  AppState,
+  LogoutAction,
+  selectDownloadingStatus,
+  selectIsBootstrapped
+} from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
 import { selectTheme } from '@app/core/state/settings/settings.selectors';
 import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.actions';
@@ -26,11 +36,10 @@ import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.act
   animations: [
     sideNavChevronAnimation,
     sideNavAnimation,
-    sideNavContentAnimation,
+    sideNavContentAnimation
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class AppComponent implements OnInit {
   public innerWidth: any;
 
@@ -44,7 +53,7 @@ export class AppComponent implements OnInit {
   // Determines which menu items should be displayed
   isLoggedIn$: Observable<boolean>;
   isDownloading$: Observable<boolean>;
-   isBootstrapped$: Observable<boolean>
+  isBootstrapped$: Observable<boolean>;
 
   // Sets the color theme app-wide
   theme$: Observable<string> = of('black-theme');
@@ -52,30 +61,25 @@ export class AppComponent implements OnInit {
   // track the state of the sidenav
   isOpen = false;
 
-
   testTranslate = { value: 'Logout' };
 
-  constructor(
-    private store: Store<AppState>,
-    translate: TranslateService
-    ) {
-      translate.setDefaultLang('en');
-      translate.use('en');
+  constructor(private store: Store<AppState>, translate: TranslateService) {
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit(): void {
-       this.innerWidth = window.innerWidth;
-      this.theme$ = this.store.pipe(select(selectTheme));
-      this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
-      this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
-      this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
+    this.innerWidth = window.innerWidth;
+    this.theme$ = this.store.pipe(select(selectTheme));
+    this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
+    this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
+    this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
   }
-
 
   /**
    * used to sign the google user out of the app

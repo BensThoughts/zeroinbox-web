@@ -8,14 +8,9 @@ import { SharedModule } from '@app/shared';
 import { RouterModule } from '@angular/router';
 import { LoginCardComponent } from '@app/auth/components/login-card/login-card.component';
 
-
 @NgModule({
   declarations: [MainHomeComponent, LoginCardComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-  ],
+  imports: [CommonModule, SharedModule, RouterModule],
   providers: []
 })
-export class MainHomeModule { }
+export class MainHomeModule {}

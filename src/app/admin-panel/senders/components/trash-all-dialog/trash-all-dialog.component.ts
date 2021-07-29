@@ -14,7 +14,7 @@ export class TrashAllDialogComponent {
   constructor(
     private ref: MatDialogRef<TrashAllDialogComponent>,
     private store: Store<AppState>
-    ) {}
+  ) {}
 
   @Input() senders: ISender[];
 
@@ -25,5 +25,4 @@ export class TrashAllDialogComponent {
   cancel() {
     this.ref.close(false);
   }
-
 }

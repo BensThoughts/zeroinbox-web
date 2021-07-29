@@ -11,10 +11,9 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubscriptionsComponent implements OnInit {
-
   sendersLoaded$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new LoadAllDataRequestAction());

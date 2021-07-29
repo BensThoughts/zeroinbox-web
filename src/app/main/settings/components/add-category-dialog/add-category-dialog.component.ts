@@ -1,4 +1,9 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,28 +20,21 @@ export interface CategoryConfirmationObject {
   styleUrls: ['./add-category-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class AddCategoryDialogComponent implements OnInit {
-
   formGroup = new FormGroup({
     categoryName: new FormControl('', [
       Validators.required,
       Validators.maxLength(25),
       // Validators.pattern(/^[a-z0-9]+$/i)
       Validators.pattern(/^[a-z\d\s.'&-]+$/i)
-    ]),
-  })
+    ])
+  });
 
-
-
-  constructor(
-    private ref: MatDialogRef<AddCategoryDialogComponent>,
-    ) { }
-
+  constructor(private ref: MatDialogRef<AddCategoryDialogComponent>) {}
 
   ngOnInit() {
     this.formGroup.setValue({
-      categoryName: '',
+      categoryName: ''
     });
   }
 
@@ -45,11 +43,11 @@ export class AddCategoryDialogComponent implements OnInit {
     let category: Category = {
       name: currentCategoryName,
       value: currentCategoryName
-    }
+    };
     let confirmationObj: CategoryConfirmationObject = {
       save: true,
       category: category
-    }
+    };
     this.ref.close(confirmationObj);
   }
 
@@ -57,8 +55,7 @@ export class AddCategoryDialogComponent implements OnInit {
     let confirmationObj: CategoryConfirmationObject = {
       save: false,
       category: { name: '', value: '' }
-    }
+    };
     this.ref.close(confirmationObj);
   }
-
 }

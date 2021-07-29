@@ -10,18 +10,19 @@ describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ],
-      imports: [
-        SharedModule,
-        StoreModule.forRoot({
-          ...fromRoot.reducers
-        })
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SettingsComponent],
+        imports: [
+          SharedModule,
+          StoreModule.forRoot({
+            ...fromRoot.reducers
+          })
+        ]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);

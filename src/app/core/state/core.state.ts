@@ -5,7 +5,6 @@ import {
 } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
-
 import { environment } from '@env/environment';
 
 import { authReducer, AuthState } from './auth/auth.reducer';
@@ -16,7 +15,10 @@ import { sendersReducer, SendersState } from './senders/senders.reducer';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
-import { BootstrapState, bootstrapReducer } from './bootstrap/bootstrap.reducer';
+import {
+  BootstrapState,
+  bootstrapReducer
+} from './bootstrap/bootstrap.reducer';
 import { settingsReducer, SettingsState } from './settings/settings.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -29,7 +31,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
-  localStorageSyncReducer,
+  localStorageSyncReducer
   // debug
 ];
 
@@ -49,25 +51,24 @@ export const selectUserState = createFeatureSelector<AppState, UserState>(
   'user'
 );
 
-export const selectBootstrapState = createFeatureSelector<AppState, BootstrapState>(
-  'bootstrap'
-);
+export const selectBootstrapState = createFeatureSelector<
+  AppState,
+  BootstrapState
+>('bootstrap');
 
 export const selectSendersState = createFeatureSelector<AppState, SendersState>(
   'senders'
-)
+);
 
-export const selectSettingsState = createFeatureSelector<AppState, SettingsState>(
-  'settings'
-)
-
+export const selectSettingsState = createFeatureSelector<
+  AppState,
+  SettingsState
+>('settings');
 
 export const selectRouterState = createFeatureSelector<
   AppState,
   RouterReducerState<RouterStateUrl>
 >('router');
-
-
 
 export interface AppState {
   settings: SettingsState;

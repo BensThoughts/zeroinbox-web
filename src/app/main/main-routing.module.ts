@@ -12,18 +12,18 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { 
-        path: '', 
-        redirectTo: 'home', 
-        pathMatch: 'full' 
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       },
-      { 
-        path: 'home', 
+      {
+        path: 'home',
         component: MainHomeComponent,
         canActivate: [ReverseAuthGuardService]
       },
-      { 
-        path: 'manual', 
+      {
+        path: 'manual',
         component: ManualComponent
       },
       {
@@ -40,11 +40,11 @@ const routes: Routes = [
       },
       // This redirection re-redirects to /home when not logged in and to
       // /admin-panel/home when logged in
-      { 
-        path: '**', 
-        redirectTo: '/admin-panel/home' 
+      {
+        path: '**',
+        redirectTo: '/admin-panel/home'
       }
-    ],
+    ]
   }
 ];
 
@@ -52,4 +52,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}

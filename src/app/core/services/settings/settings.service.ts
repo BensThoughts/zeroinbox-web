@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { API_URL } from '../apiurl';
 import { Category } from '../../state/settings/category.model';
@@ -28,46 +28,50 @@ export interface ActionsResponse {
 export interface SetCategoriesRequestBody {
   add: boolean;
   category: Category;
-};
+}
 
 export interface GetCategoriesResponse {
-  status: string,
-  status_code: number,
-  status_message: string,
+  status: string;
+  status_code: number;
+  status_message: string;
   data: {
-    categories: Category[]
-  }
-};
+    categories: Category[];
+  };
+}
 
 export interface SetCategoriesResponse {
-  status: string,
-  status_code: number,
-  status_message: string
+  status: string;
+  status_code: number;
+  status_message: string;
 }
 
 @Injectable()
 export class SettingsService {
+  constructor(private httpClient: HttpClient) {}
 
-    constructor(private httpClient: HttpClient) {}
-
-    public getCategories(): Observable<Category[]> {
-      return this.httpClient.get<GetCategoriesResponse>(API_URL + '/settings/categories', {
-        withCredentials: true,
-      }).pipe(
+  public getCategories(): Observable<Category[]> {
+    return this.httpClient
+      .get<GetCategoriesResponse>(API_URL + '/settings/categories', {
+        withCredentials: true
+      })
+      .pipe(
         map((response: GetCategoriesResponse) => {
           let categories = response.data.categories;
           return categories;
         })
       );
-    }
+  }
 
-    public setCategories(body: SetCategoriesRequestBody) {
-      return this.httpClient.post<SetCategoriesResponse>(API_URL + '/settings/categories', body, {
+  public setCategories(body: SetCategoriesRequestBody) {
+    return this.httpClient.post<SetCategoriesResponse>(
+      API_URL + '/settings/categories',
+      body,
+      {
         withCredentials: true,
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         })
-      })
-    }
-
+      }
+    );
+  }
 }

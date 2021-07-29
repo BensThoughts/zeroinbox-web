@@ -1,10 +1,8 @@
 <mat-card class="align-items-center text-center">
-  <mat-card-title>
-    Welcome...
-  </mat-card-title>
+  <mat-card-title>Welcome...</mat-card-title>
   <span *ngIf="basic_profile$ | async as basic_profile">
-    <img [src]="basic_profile.picture" class="user">
-  </span> 
+    <img [src]="basic_profile.picture" class="user" />
+  </span>
   <mat-divider inset="true"></mat-divider>
   <mat-card-content>
     <span *ngIf="basic_profile$ | async as basic_profile">

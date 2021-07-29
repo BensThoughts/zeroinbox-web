@@ -1,28 +1,38 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  ChangeDetectionStrategy,
+  ElementRef,
+  OnDestroy,
+  AfterViewInit
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { Store, select } from '@ngrx/store';
-import {
-  AppState,
-} from '@app/core';
+import { AppState } from '@app/core';
+
+import { selectSizeGroup } from '../../state/senders-view.selectors';
 
 import {
-  selectSizeGroup,
-} from '../../state/senders-view.selectors';
-
-import { 
-  SetSizeCutoffAction, 
-  LabelSenderDialogAction, 
+  SetSizeCutoffAction,
+  LabelSenderDialogAction,
   DeleteSenderDialogAction,
   DeleteAllSendersDialogAction,
   LabelAllSendersDialogAction
 } from '../../state/senders-view.actions';
 
-
-
 import { Observable, of, Subscription, fromEvent } from 'rxjs';
-import { tap, map, take, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  tap,
+  map,
+  take,
+  delay,
+  debounceTime,
+  distinctUntilChanged
+} from 'rxjs/operators';
 import { rowAnimations } from '../../animations/rowAnimations';
 import { ISender } from '../../../../core/state/senders/model/senders.model';
 
@@ -30,18 +40,16 @@ import { SimpleDataSource } from '@app/core/utils/datasource-utils';
 import { selectSendersBySizeGroupFiltered } from '../../state/senders-view.selectors';
 import { TranslateService } from '@ngx-translate/core';
 
-
 @Component({
   selector: 'app-senders-size-table',
   templateUrl: './senders-size-table.component.html',
   styleUrls: ['./senders-size-table.component.scss'],
   animations: [rowAnimations],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewInit {
-
-
+export class SendersSizeTableComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -62,24 +70,26 @@ export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewIn
 
   myRemoved = true;
 
-   toggle() {
-     this.myRemoved = !this.myRemoved;
-   }
+  toggle() {
+    this.myRemoved = !this.myRemoved;
+  }
 
   constructor(
     private store: Store<AppState>,
     private translate: TranslateService
   ) {
-    translate.get('app.admin-panel.senders.size-table.size-selector').subscribe((res) => {
-      this.sizeCutoffs = [
-        { value: 'ALL', label: res.all },
-        { value: 'XS', label: res.xs },
-        { value: 'SM', label: res.sm },
-        { value: 'MD', label: res.md },
-        { value: 'LG', label: res.lg },
-        { value: 'XL', label: res.xl }
-      ]
-    })
+    translate
+      .get('app.admin-panel.senders.size-table.size-selector')
+      .subscribe((res) => {
+        this.sizeCutoffs = [
+          { value: 'ALL', label: res.all },
+          { value: 'XS', label: res.xs },
+          { value: 'SM', label: res.sm },
+          { value: 'MD', label: res.md },
+          { value: 'LG', label: res.lg },
+          { value: 'XL', label: res.xl }
+        ];
+      });
   }
 
   ngOnInit() {
@@ -96,33 +106,30 @@ export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   ngAfterViewInit() {
-
     this.loadSuggestionsPage();
     this.updatePaginatorLength();
 
-
     this.handler1 = fromEvent(this.input.nativeElement, 'keyup')
-    .pipe(
-      debounceTime(150),
-      distinctUntilChanged(),
-      tap(() => {
-        this.paginator.pageIndex = 0;
-        this.loadSuggestionsPage();
-        this.updatePaginatorLength();
-      })
-    ).subscribe();
-  
-    this.handler2 = this.paginator.page.pipe(
-      tap(() => this.loadSuggestionsPage())
-    ).subscribe();
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadSuggestionsPage();
+          this.updatePaginatorLength();
+        })
+      )
+      .subscribe();
 
+    this.handler2 = this.paginator.page
+      .pipe(tap(() => this.loadSuggestionsPage()))
+      .subscribe();
   }
 
   ngOnDestroy() {
     this.handler1.unsubscribe();
     this.handler2.unsubscribe();
   }
-
 
   onCutoffSelect({ value: cutoff }) {
     this.store.dispatch(new SetSizeCutoffAction({ sizeCutoff: cutoff }));
@@ -131,40 +138,48 @@ export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewIn
     this.paginator.firstPage();
   }
 
-
   loadSuggestionsPage() {
-    this.dataSource.loadFilteredData(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
+    this.dataSource.loadFilteredData(
+      this.input.nativeElement.value.toLowerCase(),
+      'fromAddress'
+    );
   }
 
   updatePaginatorLength() {
-    this.dataSource.setFilteredLength(this.input.nativeElement.value.toLowerCase(), 'fromAddress');
+    this.dataSource.setFilteredLength(
+      this.input.nativeElement.value.toLowerCase(),
+      'fromAddress'
+    );
   }
-
 
   createActions() {
     this.toggle();
-    this.store.pipe(
-      select(selectSizeGroup),
-      take(1),
-      map((sizeGroup) => {
-      })
-    ).subscribe();
+    this.store
+      .pipe(
+        select(selectSizeGroup),
+        take(1),
+        map((sizeGroup) => {})
+      )
+      .subscribe();
 
-
-    of(true).pipe(
-      take(1),
-      delay(100),
-      map(() => {
-        if (!this.paginator.hasNextPage() && this.paginator.hasPreviousPage()) {
-          if (this.dataSource.getLength() === 0) {
-            this.paginator.previousPage();
+    of(true)
+      .pipe(
+        take(1),
+        delay(100),
+        map(() => {
+          if (
+            !this.paginator.hasNextPage() &&
+            this.paginator.hasPreviousPage()
+          ) {
+            if (this.dataSource.getLength() === 0) {
+              this.paginator.previousPage();
+            }
           }
-        }
-        this.updatePaginatorLength();
-        this.toggle();
-      })
-    ).subscribe();
-
+          this.updatePaginatorLength();
+          this.toggle();
+        })
+      )
+      .subscribe();
   }
 
   labelSender(suggestion: ISender) {
@@ -177,12 +192,11 @@ export class SendersSizeTableComponent implements OnInit, OnDestroy, AfterViewIn
 
   deleteAll() {
     let senders = this.dataSource.getValues();
-    this.store.dispatch(new DeleteAllSendersDialogAction({ senders: senders }))
+    this.store.dispatch(new DeleteAllSendersDialogAction({ senders: senders }));
   }
 
   labelAll() {
     let senders = this.dataSource.getValues();
-    this.store.dispatch(new LabelAllSendersDialogAction({ senders: senders }))
+    this.store.dispatch(new LabelAllSendersDialogAction({ senders: senders }));
   }
-
 }

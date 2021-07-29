@@ -1,20 +1,20 @@
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/core/state/core.state';
 import { Injectable } from '@angular/core';
 import { tap, map } from 'rxjs/operators';
 import { selectIsAuthenticated } from '@app/core/state/auth/auth.selectors';
 
-
 @Injectable()
 export class ReverseAuthGuardService implements CanActivate {
-  constructor(
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
     /**
      * This was very tricky to get working, We need to make sure to return the
      * opposite of whatever auth-guard is returning...hence reverse-auth-guard
@@ -39,5 +39,4 @@ export class ReverseAuthGuardService implements CanActivate {
   checkStoreAuthentication() {
     return this.store.pipe(select(selectIsAuthenticated));
   }
-
 }

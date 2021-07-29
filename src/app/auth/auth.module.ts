@@ -10,11 +10,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 @NgModule({
   declarations: [LoadingComponent, LogoutPromptComponent],
   entryComponents: [LogoutPromptComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AuthRoutingModule,
-  ],
+  imports: [CommonModule, SharedModule, AuthRoutingModule],
   providers: []
 })
-export class AuthModule { }
+export class AuthModule {}

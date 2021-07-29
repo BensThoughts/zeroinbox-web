@@ -2,9 +2,10 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SendersViewState, State } from './senders-view.reducer';
 import * as fromSenders from '@app/core/state/senders/senders.selectors';
 
-export const selectSendersViewState = createFeatureSelector<State, SendersViewState>(
-  'senders-view'
-);
+export const selectSendersViewState = createFeatureSelector<
+  State,
+  SendersViewState
+>('senders-view');
 
 export const selectCurrentSender = createSelector(
   selectSendersViewState,
@@ -15,17 +16,14 @@ export const selectCurrentSender = createSelector(
  *  BY Name based on count
  * ****************************************************************************/
 
-
 export const selectSendersByCount = createSelector(
   fromSenders.selectAll,
   (senders) => senders.sort((a, b) => b.threadIdCount - a.threadIdCount).slice()
 );
 
-
 /*******************************************************************************
  * SELECT BY SIZE
  ******************************************************************************/
-
 
 export const selectSizeGroup = createSelector(
   selectSendersViewState,
@@ -34,8 +32,9 @@ export const selectSizeGroup = createSelector(
 
 export const selectSendersBySize = createSelector(
   fromSenders.selectAll,
-  (senders) => senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate).slice()
-)
+  (senders) =>
+    senders.sort((a, b) => b.totalSizeEstimate - a.totalSizeEstimate).slice()
+);
 
 export const selectSendersBySizeGroupFiltered = createSelector(
   selectSendersBySize,
@@ -44,8 +43,7 @@ export const selectSendersBySizeGroupFiltered = createSelector(
     if (sizeGroup === 'ALL') {
       return senders;
     } else {
-      return senders.filter((sender) => sender.sizeGroup === sizeGroup)
+      return senders.filter((sender) => sender.sizeGroup === sizeGroup);
     }
   }
 );
-

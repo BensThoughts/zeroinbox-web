@@ -7,23 +7,19 @@ import { selectSendersLoaded } from '../../../../core/state/senders/senders.sele
 import { SendersRequestAction } from '@app/core/state/senders/senders.actions';
 import { LoadAllDataRequestAction } from '../../../../core/state/bootstrap/bootstrap.actions';
 
-
-
 @Component({
   selector: 'app-senders',
   templateUrl: './senders.component.html',
   styleUrls: ['./senders.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SendersComponent implements OnInit {
-
   sendersLoaded$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new LoadAllDataRequestAction());
     this.sendersLoaded$ = this.store.pipe(select(selectSendersLoaded));
   }
-
 }

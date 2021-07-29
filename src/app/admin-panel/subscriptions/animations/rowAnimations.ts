@@ -3,7 +3,7 @@ import {
   state,
   style,
   transition,
-  trigger,
+  trigger
 } from '@angular/animations';
 
 /*
@@ -15,14 +15,12 @@ import {
  */
 
 export const rowAnimations = trigger('removeRow', [
-    /**
+  /**
   transition(':enter', [
     style({ transform: 'translateY(10%)', opacity: '0' }),
     animate('.2s ease-in', style({ transform: 'translateY(0%)', opacity: '1'})),
   ])**/
-    state('add', style({ opacity: '1' })),
-    state('remove', style({ opacity: '0' })),
-    transition('add <=> remove', [
-      animate('0.2s')
-    ]),
-  ]);
+  state('add', style({ opacity: '1' })),
+  state('remove', style({ opacity: '0' })),
+  transition('add <=> remove', [animate('0.2s')])
+]);

@@ -9,26 +9,36 @@ import {
   LoginFailureAction,
   LogoutConfirmedAction,
   LogoutCancelledAction,
-  LogoutConfirmedFromOtherWindowAction,
+  LogoutConfirmedFromOtherWindowAction
 } from './auth.actions';
 import { Injectable, NgZone } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import { tap, map, exhaustMap, catchError, filter, concatMap } from 'rxjs/operators';
+import {
+  tap,
+  map,
+  exhaustMap,
+  catchError,
+  filter,
+  concatMap
+} from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { of, fromEvent } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
-import { 
-  LoadBasicProfileAction, 
-  ResetUserStateAction, 
-  LoadEmailProfileAction } 
-from '../user/user.actions';
-import { 
-  ResetBootstrapStateAction, 
+import {
+  LoadBasicProfileAction,
+  ResetUserStateAction,
+  LoadEmailProfileAction
+} from '../user/user.actions';
+import {
+  ResetBootstrapStateAction,
   GetAllSendersAction,
-  ToggleSyncToStorageAction 
+  ToggleSyncToStorageAction
 } from '../bootstrap/bootstrap.actions';
-import { BasicProfileResponse, EmailProfileResponse } from '../../services/user/user.service';
+import {
+  BasicProfileResponse,
+  EmailProfileResponse
+} from '../../services/user/user.service';
 import { UserService } from '../../services/user/user.service';
 
 import { LogoutPromptComponent } from '@app/auth/components/logout-prompt/logout-prompt.component';
@@ -37,10 +47,8 @@ import { ResetSendersStateAction } from '../senders/senders.actions';
 import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
 import { BootstrapAppAction } from '../bootstrap/bootstrap.actions';
 
-
 @Injectable()
 export class AuthEffects {
-
   /**
    * Effect login$ activates the signIn() flow from the authService.
    * Which pulls in the google auth url from the api and redirects to it.
@@ -53,7 +61,9 @@ export class AuthEffects {
         map((response) => {
           console.log(response);
           if (response.status === 'error') {
-            console.error('Response status_message: ' + response.status_message);
+            console.error(
+              'Response status_message: ' + response.status_message
+            );
           } else {
             window.location.href = response.data.auth_url;
           }
@@ -67,7 +77,6 @@ export class AuthEffects {
       return of(console.error(err));
     })
   );
-
 
   /**
    * Effect loginComplete$ is called from the /loading page, after the user has been redirected
@@ -86,9 +95,8 @@ export class AuthEffects {
       // bootstrap effects so that we can get the firstRun status before showing
       // the homepage
     }),
-    catchError(err => of(console.error(err)))
+    catchError((err) => of(console.error(err)))
   );
-
 
   /**
    * loginRedirect$ redirects the user away from /loading and over to /home
@@ -103,7 +111,6 @@ export class AuthEffects {
       });
     })
   );
-
 
   /**
    * loginFailureRedirect$ This should really never be called because the server handles
@@ -120,30 +127,29 @@ export class AuthEffects {
     })
   );
 
-
   /**
    * logoutConfirmation$ opens the logout dialog to ask the user if they really mean to logout
    */
   @Effect()
   logoutConfirmation$ = this.actions$.pipe(
-  ofType<LogoutAction>(AuthActionTypes.Logout),
-  exhaustMap(() =>
-    this.dialogService
-      .open(LogoutPromptComponent)
-      .afterClosed()
-      .pipe(
-        map(confirmed => {
-          if (confirmed) {
-            return new LogoutConfirmedAction();
-          } else {
-            return new LogoutCancelledAction();
-          }
-        })
-      )
+    ofType<LogoutAction>(AuthActionTypes.Logout),
+    exhaustMap(() =>
+      this.dialogService
+        .open(LogoutPromptComponent)
+        .afterClosed()
+        .pipe(
+          map((confirmed) => {
+            if (confirmed) {
+              return new LogoutConfirmedAction();
+            } else {
+              return new LogoutCancelledAction();
+            }
+          })
+        )
     )
   );
 
-    /**
+  /**
    * onChange$ listens for changes to the local-storage so that if the app is open in
    * another tab/window the changes made in the other tab/window will also be reflected in
    * this tab/window.
@@ -154,9 +160,8 @@ export class AuthEffects {
     filter((evt) => {
       return evt.key === 'go-app-auth';
     }),
-    filter(evt => evt.newValue !== null),
-    map(evt => {
-
+    filter((evt) => evt.newValue !== null),
+    map((evt) => {
       let authenticated = JSON.parse(evt.newValue).isAuthenticated;
 
       if (authenticated) {
@@ -167,7 +172,6 @@ export class AuthEffects {
     })
   );
 
-
   /**
    * Effect logoutConfirmed$ resets the state and sends a request to the api
    * to destroy the current session on the server
@@ -175,16 +179,18 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   logoutConfirmed$ = this.actions$.pipe(
     ofType<LogoutConfirmedAction>(AuthActionTypes.LogoutConfirmed),
-    tap( () => {
+    tap(() => {
       this.authService.logout();
-      this.store.dispatch(new ToggleSyncToStorageAction({ syncToStorage: false }));
+      this.store.dispatch(
+        new ToggleSyncToStorageAction({ syncToStorage: false })
+      );
       this.store.dispatch(new ResetLocalStorageAction());
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
       this.store.dispatch(new ResetSendersViewStateAction());
       this.store.dispatch(new ResetBootstrapStateAction());
-      
+
       this.router.navigate([this.authService.logoutUrl]);
     })
   );
@@ -197,9 +203,13 @@ export class AuthEffects {
    */
   @Effect({ dispatch: false })
   logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
-    ofType<LogoutConfirmedFromOtherWindowAction>(AuthActionTypes.LogoutConfirmedFromOtherWindow),
-    tap( () => {
-      this.store.dispatch(new ToggleSyncToStorageAction({ syncToStorage: false }));
+    ofType<LogoutConfirmedFromOtherWindowAction>(
+      AuthActionTypes.LogoutConfirmedFromOtherWindow
+    ),
+    tap(() => {
+      this.store.dispatch(
+        new ToggleSyncToStorageAction({ syncToStorage: false })
+      );
 
       this.store.dispatch(new ResetSendersStateAction());
       this.store.dispatch(new ResetUserStateAction());
@@ -213,13 +223,13 @@ export class AuthEffects {
     })
   );
 
-constructor(
-  private actions$: Actions,
-  private authService: AuthService,
-  private userService: UserService,
-  private router: Router,
-  private dialogService: MatDialog,
-  private ngZone: NgZone,
-  private store: Store<AppState>
-) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
+    private dialogService: MatDialog,
+    private ngZone: NgZone,
+    private store: Store<AppState>
+  ) {}
 }

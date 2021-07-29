@@ -6,7 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./story.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class StoryComponent {
-  constructor() { }
+  constructor() {}
 }

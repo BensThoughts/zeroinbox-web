@@ -6,12 +6,13 @@ describe('StatsBarchartComponent', () => {
   let component: StatsBarchartComponent;
   let fixture: ComponentFixture<StatsBarchartComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StatsBarchartComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [StatsBarchartComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StatsBarchartComponent);

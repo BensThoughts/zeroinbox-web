@@ -8,29 +8,27 @@ import { SharedModule } from './shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {} from 'jasmine'; // Importing this in this one module seems to solve
-                          // the issue of finding the jasmine types in every
-                          // other
+// the issue of finding the jasmine types in every
+// other
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let store: Store<fromRoot.AppState>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        StoreModule.forRoot({...fromRoot.reducers}),
-        SharedModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-
-
-    }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          BrowserAnimationsModule,
+          StoreModule.forRoot({ ...fromRoot.reducers }),
+          SharedModule
+        ],
+        declarations: [AppComponent]
+      }).compileComponents();
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -44,7 +42,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Zero-Inbox');
   });
 
-/**
+  /**
   it('should display hidden menu items when logged in', () => {
 
     store = TestBed.get(Store);
@@ -65,5 +63,4 @@ describe('AppComponent', () => {
 
   });
 **/
-
 });

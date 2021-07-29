@@ -15,9 +15,11 @@ export const initialState: UserState = {
   email_profile_loaded: false
 };
 
-export function userReducer(state: UserState = initialState, action: UserActions): UserState {
+export function userReducer(
+  state: UserState = initialState,
+  action: UserActions
+): UserState {
   switch (action.type) {
-
     /*
      * Stores the login information, a GoogleUser as in User interface and sets
      * the isLoggedIn flag to true
@@ -34,7 +36,7 @@ export function userReducer(state: UserState = initialState, action: UserActions
         ...state,
         email_profile: action.payload,
         email_profile_loaded: true
-      }
+      };
 
     case UserActionTypes.ResetUserState:
       return initialState;

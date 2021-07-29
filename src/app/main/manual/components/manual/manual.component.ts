@@ -6,7 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./manual.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ManualComponent {
-  constructor() { }
+  constructor() {}
 }

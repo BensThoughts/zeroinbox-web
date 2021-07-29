@@ -5,27 +5,28 @@ export interface AuthState {
 }
 
 export const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: false
 };
 
-
-export function authReducer(state: AuthState = initialState, action: AuthActions): AuthState {
+export function authReducer(
+  state: AuthState = initialState,
+  action: AuthActions
+): AuthState {
   switch (action.type) {
-
     /*
      * Stores the auth information and sets the isLoggedIn flag to true
      */
     case AuthActionTypes.LoginSuccess:
       return {
         ...state,
-        isAuthenticated: true,
+        isAuthenticated: true
       };
 
     case AuthActionTypes.LoginComplete:
       return {
         ...state,
-        isAuthenticated: true,
-    }
+        isAuthenticated: true
+      };
 
     case AuthActionTypes.LogoutConfirmed:
       return initialState;

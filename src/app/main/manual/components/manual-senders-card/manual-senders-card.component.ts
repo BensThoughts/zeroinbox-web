@@ -6,7 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./manual-senders-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ManualSendersCardComponent {
-  constructor() { }
+  constructor() {}
 }

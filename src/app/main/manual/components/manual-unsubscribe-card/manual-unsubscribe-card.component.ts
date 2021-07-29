@@ -6,7 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./manual-unsubscribe-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ManualUnsubscribeCardComponent {
-  constructor() { }
+  constructor() {}
 }

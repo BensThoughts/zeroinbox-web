@@ -1,5 +1,10 @@
 import { Store } from '@ngrx/store';
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  OnInit
+} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AppState } from '@app/core';
 import { ISender } from '@app/core/state/senders/model/senders.model';
@@ -11,11 +16,10 @@ import { ISender } from '@app/core/state/senders/model/senders.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnsubscribeDialogComponent implements OnInit {
-
   constructor(
     private ref: MatDialogRef<UnsubscribeDialogComponent>,
     private store: Store<AppState>
-    ) {}
+  ) {}
 
   @Input() sender: ISender;
 
@@ -35,5 +39,4 @@ export class UnsubscribeDialogComponent implements OnInit {
   cancel() {
     this.ref.close(false);
   }
-
 }

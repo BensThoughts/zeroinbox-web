@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { API_URL } from '../apiurl';
-
 
 export interface ISendersResponse {
   senderId: string;
@@ -18,21 +17,20 @@ export interface ISendersResponse {
 }
 
 export interface SendersResponse {
-  status: string,
-  status_message: string,
+  status: string;
+  status_message: string;
   data: {
-    senders: ISendersResponse[]
-  }
+    senders: ISendersResponse[];
+  };
 }
 
 @Injectable()
 export class SendersService {
+  constructor(private httpClient: HttpClient) {}
 
-    constructor(private httpClient: HttpClient) {}
-
-    public getSenders(): Observable<SendersResponse> {
-      return this.httpClient.get<SendersResponse>(API_URL + '/senders', {
-        withCredentials: true
-      });
-    }
+  public getSenders(): Observable<SendersResponse> {
+    return this.httpClient.get<SendersResponse>(API_URL + '/senders', {
+      withCredentials: true
+    });
+  }
 }

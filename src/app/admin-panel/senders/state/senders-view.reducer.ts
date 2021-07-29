@@ -13,33 +13,30 @@ export interface SendersViewState {
   currentSender: ISender;
 }
 
-
 const initialSendersViewState = {
   countCutoff: 1,
   sizeGroup: 'ALL',
   currentSender: undefined
-}
+};
 
 export function suggestionsReducer(
   state = initialSendersViewState,
-  action: ByCountActions): SendersViewState {
+  action: ByCountActions
+): SendersViewState {
+  switch (action.type) {
+    case SendersViewActionTypes.SetSizeCutoff:
+      return { ...state, sizeGroup: action.payload.sizeCutoff };
 
-    switch (action.type) {
+    case SendersViewActionTypes.SetCurrentSender:
+      return { ...state, currentSender: action.payload.sender };
 
-      case SendersViewActionTypes.SetSizeCutoff:
-        return { ...state, sizeGroup: action.payload.sizeCutoff };
+    case SendersViewActionTypes.ResetSuggestions:
+      return initialSendersViewState;
 
-      case SendersViewActionTypes.SetCurrentSender:
-        return { ...state, currentSender: action.payload.sender };
+    case SendersViewActionTypes.UpdateSuggestionsState:
+      return action.payload;
 
-      case SendersViewActionTypes.ResetSuggestions:
-        return initialSendersViewState;
-
-      case SendersViewActionTypes.UpdateSuggestionsState:
-        return action.payload;
-
-      default:
-        return state;
-    }
-
+    default:
+      return state;
+  }
 }

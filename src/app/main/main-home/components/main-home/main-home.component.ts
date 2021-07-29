@@ -1,9 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { fadeElementsAnimation } from '../../animations/elementsAnimations';
-import {
-  AppState,
-} from '@app/core';
+import { AppState } from '@app/core';
 
 import { Store } from '@ngrx/store';
 import { environment as env } from '@env/environment';
@@ -16,7 +14,6 @@ import { LogService } from '@app/core/services/log/log.service';
   animations: [fadeElementsAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class MainHomeComponent {
   appName = env.appName;
   isProd = env.production;
@@ -35,8 +32,7 @@ export class MainHomeComponent {
     this.logService.log('Api Url: ' + this.api_url);
     Object.keys(this.packageVersions).forEach((packageName) => {
       let version = this.packageVersions[packageName];
-      this.logService.log(packageName + ': ' + version)
-    })
-   }
-
+      this.logService.log(packageName + ': ' + version);
+    });
+  }
 }

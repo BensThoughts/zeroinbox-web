@@ -8,7 +8,7 @@ export enum AuthActionTypes {
   Logout = '[Sidenav Auth] Confirm Logout?',
   LogoutCancelled = '[Auth Effects] Logout Cancelled',
   LogoutConfirmed = '[Auth Effects] Logout Confirmed',
-  LogoutConfirmedFromOtherWindow = '[Auth Effects] Logout Confirmed From Another Tab/Window',
+  LogoutConfirmedFromOtherWindow = '[Auth Effects] Logout Confirmed From Another Tab/Window'
 }
 
 export class LoginRequestedAction implements Action {
@@ -53,4 +53,4 @@ export type AuthActions =
   | LogoutAction
   | LogoutCancelledAction
   | LogoutConfirmedAction
-  | LogoutConfirmedFromOtherWindowAction
+  | LogoutConfirmedFromOtherWindowAction;

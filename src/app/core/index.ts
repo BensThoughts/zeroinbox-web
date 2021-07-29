@@ -12,4 +12,3 @@ export * from './state/senders/senders.selectors';
 export * from './state/router/router.state';
 export * from './state/core.state';
 export * from './core.module';
-

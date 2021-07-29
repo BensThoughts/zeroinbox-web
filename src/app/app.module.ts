@@ -24,9 +24,7 @@ import { AuthModule } from './auth/auth.module';
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -38,12 +36,11 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
     AuthModule,
     AdminPanelModule,
 
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-  }
+  constructor() {}
 }
