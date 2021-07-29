@@ -46,7 +46,7 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "indent": ["error", 2]
+
       }
     }
   ]
