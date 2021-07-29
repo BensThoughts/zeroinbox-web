@@ -3,6 +3,17 @@
   "ignorePatterns": [
     "projects/**/*"
   ],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    // "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    // "indent": ["error", 2]
+  },
   "overrides": [
     {
       "files": [
