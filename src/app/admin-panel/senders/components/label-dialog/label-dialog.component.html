@@ -35,7 +35,7 @@
       <span class="filter-icon">
           <fa-icon icon="filter"></fa-icon>
       </span>
-          <mat-checkbox class="mx-1" checked="true" (change)="filterChecked()"></mat-checkbox>
+          <mat-checkbox class="mx-1" [checked]=true (change)="filterChecked()"></mat-checkbox>
     </span>
 
     <button mat-stroked-button (click)="cancel()">
