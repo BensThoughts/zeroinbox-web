@@ -39,14 +39,7 @@
           [@removeRow]="myRemoved ? 'add' : 'remove'">
       </tr>
     </table>
-  </div>
-  
-  <ng-template #noneLeft>
-    <div *ngIf="cutoff$ | async as cutoff">
-      Congratulations, your inbox is now empty :-).
-    </div>
-  </ng-template>
-  
+  </div>  
   
   <div class="d-none d-flex justify-content-end align-items-center flex-nowrap">
       <mat-paginator #paginator
@@ -55,4 +48,10 @@
                      showFirstLastButtons="true">
       </mat-paginator>
   </div>
+
+<!-- <ng-template #noneLeft>
+  <div *ngIf="cutoff$ | async as cutoff">
+    Congratulations, your inbox is now empty :-).
+  </div>
+</ng-template> -->
   
