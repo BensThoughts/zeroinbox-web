@@ -1,12 +1,8 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    // "plugin:prettier/recommended"
-  ],
+  "extends": ["plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
@@ -16,14 +12,9 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
-        ],
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -50,15 +41,9 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-
-      }
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
     }
   ]
 }
