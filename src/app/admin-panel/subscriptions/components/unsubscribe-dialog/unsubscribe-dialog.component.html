@@ -1,13 +1,13 @@
-<div class=mat-logout-component>
-  
-  <h3 mat-dialog-title>{{ 'app.admin-panel.subscriptions.unsubscribe-dialog.title' | translate }}</h3>
-
+<div class="mat-logout-component">
+  <h3 mat-dialog-title>
+    {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.title' | translate }}
+  </h3>
   <mat-dialog-content>
-    
     <div>
-        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.content' | translate }}
+      {{
+        'app.admin-panel.subscriptions.unsubscribe-dialog.content' | translate
+      }}
     </div>
-
     <div>
       <ul>
         <li>
@@ -15,19 +15,26 @@
         </li>
       </ul>
     </div>
-
     <div *ngIf="unsubscribeNewTab">
-      {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.external-link-content' | translate }}
+      {{
+        'app.admin-panel.subscriptions.unsubscribe-dialog.external-link-content'
+          | translate
+      }}
     </div>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button mat-stroked-button (click)="cancel()">
-        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.cancel-button' | translate }}
+      {{
+        'app.admin-panel.subscriptions.unsubscribe-dialog.cancel-button'
+          | translate
+      }}
     </button>
     <button mat-stroked-button (click)="unsubscribe()">
-        {{ 'app.admin-panel.subscriptions.unsubscribe-dialog.confirm-button' | translate }}
+      {{
+        'app.admin-panel.subscriptions.unsubscribe-dialog.confirm-button'
+          | translate
+      }}
     </button>
   </mat-dialog-actions>
-
 </div>

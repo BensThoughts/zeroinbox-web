@@ -1,41 +1,50 @@
-<div class=mat-logout-component>
-  
+<div class="mat-logout-component">
   <mat-dialog-content class>
-
     <form [formGroup]="formGroup">
       <div>
         <mat-form-field>
-            <mat-label>{{ 'app.admin-panel.senders.label-dialog.category-selector-title' | translate }}</mat-label>
-              <mat-select [placeholder]=""
-                          formControlName="category">
-                  <mat-option *ngFor="let category of categories" [value]="category.value">
-                    {{ category.name }}
-                  </mat-option>
-                </mat-select>
-          </mat-form-field>
+          <mat-label>
+            {{
+              'app.admin-panel.senders.label-dialog.category-selector-title'
+                | translate
+            }}
+          </mat-label>
+          <mat-select [placeholder]="" formControlName="category">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.value"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <mat-label>{{ 'app.admin-panel.senders.label-dialog.label-name-input-title' | translate }} </mat-label>
-          <input matInput placeholder="Label Name" 
-                          [value]="sender.fromName"
-                          formControlName="labelName">
+          <mat-label>
+            {{
+              'app.admin-panel.senders.label-dialog.label-name-input-title'
+                | translate
+            }}
+          </mat-label>
+          <input
+            matInput
+            placeholder="Label Name"
+            [value]="sender.fromName"
+            formControlName="labelName"
+          />
         </mat-form-field>
       </div>
     </form>
-
-    <div>
-
-  </div>
-
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <span class="filter-checkbox-span">
       <span class="filter-icon">
-          <fa-icon icon="filter"></fa-icon>
+        <fa-icon icon="filter"></fa-icon>
       </span>
-          <mat-checkbox class="mx-1" [checked]=true (change)="filterChecked()"></mat-checkbox>
+      <mat-checkbox class="mx-1" [checked]="true" (change)="filterChecked()">
+      </mat-checkbox>
     </span>
 
     <button mat-stroked-button (click)="cancel()">
@@ -45,5 +54,4 @@
       {{ 'app.admin-panel.senders.label-dialog.confirm-button' | translate }}
     </button>
   </mat-dialog-actions>
-
 </div>

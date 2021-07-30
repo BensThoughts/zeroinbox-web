@@ -1,10 +1,9 @@
-<div class=mat-logout-component>
-  
+<div class="mat-logout-component">
   <mat-dialog-content>
     {{ 'app.admin-panel.senders.trash-all-dialog.content' | translate }}
     <ul>
       <li *ngFor="let sender of senders">
-        {{ sender.fromAddress}}
+        {{ sender.fromAddress }}
       </li>
     </ul>
   </mat-dialog-content>
@@ -14,8 +13,9 @@
       {{ 'app.admin-panel.senders.trash-all-dialog.cancel-button' | translate }}
     </button>
     <button mat-stroked-button (click)="delete()">
-      {{ 'app.admin-panel.senders.trash-all-dialog.confirm-button' | translate }}
+      {{
+        'app.admin-panel.senders.trash-all-dialog.confirm-button' | translate
+      }}
     </button>
   </mat-dialog-actions>
-
 </div>

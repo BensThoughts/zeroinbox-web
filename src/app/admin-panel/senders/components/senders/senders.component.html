@@ -3,7 +3,9 @@
   <div class="" *ngIf="sendersLoaded$ | async; else loading">
     <mat-divider></mat-divider>
     <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="{{ 'app.admin-panel.senders.threads-label' | translate }}">
+      <mat-tab
+        label="{{ 'app.admin-panel.senders.threads-label' | translate }}"
+      >
         <mat-card class="my-2">
           <app-senders-count-table></app-senders-count-table>
         </mat-card>

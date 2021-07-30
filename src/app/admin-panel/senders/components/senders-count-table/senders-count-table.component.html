@@ -1,14 +1,19 @@
 <div>
-
   <!-- Search Bar -->
   <span class="flex flex-wrap justify-center items-center">
     <form>
       <mat-form-field>
-        <input matInput placeholder="{{ 'app.admin-panel.senders.count-table.search' | translate }}" #searchInput>
+        <input
+          matInput
+          placeholder="{{
+            'app.admin-panel.senders.count-table.search' | translate
+          }}"
+          #searchInput
+        />
       </mat-form-field>
     </form>
   </span>
-  
+
   <!-- Table -->
   <table mat-table matSort [dataSource]="dataSource" class="w-full">
     <ng-container matColumnDef="threadIdCount">
@@ -16,11 +21,20 @@
       <th mat-header-cell *matHeaderCellDef>
         <div class="flex flex-row justify-between items-center">
           <div class="">
-             <span class="mat-header-cell" mat-sort-header="fromAddress">{{ 'app.admin-panel.senders.count-table.sort-address' | translate }}</span>
+            <span class="mat-header-cell" mat-sort-header="fromAddress">
+              {{
+                'app.admin-panel.senders.count-table.sort-address' | translate
+              }}
+            </span>
           </div>
           <div class="flex-1"></div>
           <div class="-mr-2">
-            <button mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
+            <button mat-raised-button (click)="deleteAll()">
+              {{
+                'app.admin-panel.senders.count-table.trash-all-button'
+                  | translate
+              }}
+            </button>
           </div>
         </div>
       </th>
@@ -30,14 +44,26 @@
           <!-- Sender Address/Button Column -->
           <div class="flex flex-col">
             <div class="mt-2">
-              {{sender.fromAddress}}
+              {{ sender.fromAddress }}
             </div>
             <div class="flex flex-row my-2">
               <div>
-                <button class="h-8"  mat-stroked-button (click)="deleteSender(sender)"><fa-icon icon="trash-alt"></fa-icon></button>
+                <button
+                  class="h-8"
+                  mat-stroked-button
+                  (click)="deleteSender(sender)"
+                >
+                  <fa-icon icon="trash-alt"></fa-icon>
+                </button>
               </div>
               <div class="ml-3">
-                <button class="h-8" mat-stroked-button (click)="labelSender(sender)"><fa-icon icon="tag"></fa-icon></button>
+                <button
+                  class="h-8"
+                  mat-stroked-button
+                  (click)="labelSender(sender)"
+                >
+                  <fa-icon icon="tag"></fa-icon>
+                </button>
               </div>
             </div>
           </div>
@@ -45,54 +71,62 @@
           <div class="flex-1"></div>
           <!-- Threads Column -->
           <div class="my-6">
-            <p class=""> Threads: {{sender.threadIdCount}}</p>
+            <p class="">Threads: {{ sender.threadIdCount }}</p>
           </div>
         </div>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        *matRowDef="let sender; columns: displayedColumns;"
-        [@removeRow]="myRemoved ? 'add' : 'remove'">
-    </tr>
+    <tr
+      mat-row
+      *matRowDef="let sender; columns: displayedColumns"
+      [@removeRow]="myRemoved ? 'add' : 'remove'"
+    ></tr>
   </table>
 </div>
 
 <!-- XS Screens -->
 <div class="flex my-2 sm:hidden">
   <div class="ml-4">
-    <button class="mx-2" mat-raised-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
-
+    <button class="mx-2" mat-raised-button (click)="labelAll()">
+      {{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}
+    </button>
   </div>
   <div class="flex-1"></div>
   <div class="mr-4">
-    <button class="mx-2" mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
-
+    <button class="mx-2" mat-raised-button (click)="deleteAll()">
+      {{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}
+    </button>
   </div>
 </div>
 <!-- Divider for XS Screens -->
 <div class="block sm:hidden">
   <mat-divider inset="true" class="my-2"></mat-divider>
 </div>
-  
 <!-- Bottom Row Buttons/Paginator -->
-<div class="mt-4 flex flex-row justify-content-between align-items-center flex-nowrap">
+<div class="mt-4 flex flex-row justify-content-between align-items-center">
   <!-- Small and larger screens -->
   <div class="hidden sm:flex sm:flex-row sm:items-center">
     <div class="ml-4">
-      <button class="mx-2 my-1" mat-raised-button (click)="labelAll()">{{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}</button>
+      <button class="mx-2 my-1" mat-raised-button (click)="labelAll()">
+        {{ 'app.admin-panel.senders.count-table.label-all-button' | translate }}
+      </button>
     </div>
     <div class="ml-4">
-      <button class="mx-2 my-1" mat-raised-button (click)="deleteAll()">{{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}</button>
+      <button class="mx-2 my-1" mat-raised-button (click)="deleteAll()">
+        {{ 'app.admin-panel.senders.count-table.trash-all-button' | translate }}
+      </button>
     </div>
   </div>
   <div class="flex-1"></div>
   <div class="justify-end">
-    <mat-paginator #paginator
-    [length]="totalRows$ | async"
-    [pageSizeOptions]="pageSizeOptions"
-    showFirstLastButtons="true">
+    <mat-paginator
+      #paginator
+      [length]="totalRows$ | async"
+      [pageSizeOptions]="pageSizeOptions"
+      showFirstLastButtons="true"
+    >
     </mat-paginator>
   </div>
 </div>
@@ -103,4 +137,3 @@
     Congratulations, your inbox is now empty :-).
   </div>
 </ng-template> -->
-  

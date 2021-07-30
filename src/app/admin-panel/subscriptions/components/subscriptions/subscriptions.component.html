@@ -3,17 +3,19 @@
   <div class="" *ngIf="sendersLoaded$ | async; else loading">
     <mat-divider></mat-divider>
     <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="{{ 'app.admin-panel.subscriptions.tab-label' | translate }}">
+      <mat-tab
+        label="{{ 'app.admin-panel.subscriptions.tab-label' | translate }}"
+      >
         <mat-card class="my-2">
-            <app-subscriptions-table></app-subscriptions-table>
+          <app-subscriptions-table></app-subscriptions-table>
         </mat-card>
       </mat-tab>
     </mat-tab-group>
   </div>
   <!-- Senders Loading Screen -->
   <ng-template #loading>
-    <div class="container h-full">
-      <div class="h-full justify-center items-center">
+    <div class="flex h-full items-center justify-center -mb-14">
+      <div>
         <mat-spinner [strokeWidth]="7"></mat-spinner>
       </div>
     </div>

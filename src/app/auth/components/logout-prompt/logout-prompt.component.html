@@ -1,17 +1,14 @@
-<div class=mat-logout-component>
-    <h3 mat-dialog-title>{{ 'app.auth.logout-prompt.title' | translate }}</h3>
- 
-   <mat-dialog-content>
-     {{ 'app.auth.logout-prompt.content' | translate }}
-   </mat-dialog-content>
- 
-   <mat-dialog-actions>
-     <button mat-stroked-button (click)="cancel()">
-       {{ 'app.auth.logout-prompt.cancel-button' | translate }}
-     </button>
-     <button mat-stroked-button (click)="confirm()">
-       {{ 'app.auth.logout-prompt.confirm-button' | translate }}
-     </button>
-   </mat-dialog-actions>
- </div>
- 
+<div class="mat-logout-component">
+  <h3 mat-dialog-title>{{ 'app.auth.logout-prompt.title' | translate }}</h3>
+  <mat-dialog-content>
+    {{ 'app.auth.logout-prompt.content' | translate }}
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="cancel()">
+      {{ 'app.auth.logout-prompt.cancel-button' | translate }}
+    </button>
+    <button mat-stroked-button (click)="confirm()">
+      {{ 'app.auth.logout-prompt.confirm-button' | translate }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,30 +1,37 @@
 <mat-card class="flex flex-col items-center justify-center">
-  <h2 class="text-center">{{ 'app.main.settings.categories.title' | translate }}</h2>
+  <h2 class="text-center">
+    {{ 'app.main.settings.categories.title' | translate }}
+  </h2>
   <div class="" *ngIf="categories$ | async as categories">
-
     <mat-list class="">
-      <mat-list-item *ngFor="let category of categories" class="my-2 rounded-xl border-2 border-opacity-30">
+      <mat-list-item
+        *ngFor="let category of categories"
+        class="my-2 rounded-xl border-2 border-opacity-30"
+      >
         <div class="flex flex-row w-full text-center align-middle">
-            <div class="flex flex-row mt-2">
-              <mat-icon color="accent"><fa-icon icon="tag" color="accent"></fa-icon></mat-icon>
-              <div class="text-center">
-                {{ category.name }}
-
-              </div>
+          <div class="flex flex-row mt-2">
+            <mat-icon color="accent">
+              <fa-icon icon="tag" color="accent"></fa-icon>
+            </mat-icon>
+            <div class="text-center">
+              {{ category.name }}
             </div>
-
-            <span class="flex-1 justify-between w-5"></span>
-            <div class="mb-1">
-              <button class="w-2 h-10" mat-stroked-button (click)="removeCategory(category)">
-                <fa-icon icon="minus"></fa-icon>
-              </button>
-            </div>
-
           </div>
-
+          <span class="flex-1 justify-between w-5"></span>
+          <div class="mb-1">
+            <button
+              class="w-2 h-10"
+              mat-stroked-button
+              (click)="removeCategory(category)"
+            >
+              <fa-icon icon="minus"></fa-icon>
+            </button>
+          </div>
+        </div>
       </mat-list-item>
     </mat-list>
-
-    <button mat-stroked-button (click)="addCategory()">{{ 'app.main.settings.categories.add-category-button' | translate }}</button>
+    <button mat-stroked-button (click)="addCategory()">
+      {{ 'app.main.settings.categories.add-category-button' | translate }}
+    </button>
   </div>
 </mat-card>

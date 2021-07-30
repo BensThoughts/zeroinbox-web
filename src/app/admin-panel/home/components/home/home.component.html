@@ -11,38 +11,51 @@
           {{ 'app.admin-panel.home.stats.title' | translate }}
         </mat-card-title>
         <mat-divider inset="true" class=""></mat-divider>
-        <mat-card-content>    
+        <mat-card-content>
           <div class="px-3 my-3">
             <div class="my-3">
               {{ 'app.admin-panel.home.stats.description' | translate }}
             </div>
-            <mat-divider inset="true"></mat-divider> 
+            <mat-divider inset="true"></mat-divider>
 
             <div class="my-2 flex flex-col">
-
               <div class="flex flex-col my-2 pl-2">
                 <mat-chip-list *ngIf="email_profile$ | async as email_profile">
                   {{ 'app.admin-panel.home.stats.threads-account' | translate }}
                   <mat-chip>
-                    <code><b>{{ email_profile.threadsTotal }}</b></code>
+                    <code>
+                      <b>{{ email_profile.threadsTotal }}</b>
+                    </code>
                   </mat-chip>
                 </mat-chip-list>
                 <mat-chip-list *ngIf="total_threads$ | async as total_threads">
-                    {{ 'app.admin-panel.home.stats.threads-inbox' | translate }}
+                  {{ 'app.admin-panel.home.stats.threads-inbox' | translate }}
                   <mat-chip>
-                    <code><b>{{ total_threads }}</b></code>
+                    <code>
+                      <b>{{ total_threads }}</b>
+                    </code>
                   </mat-chip>
                 </mat-chip-list>
-                <mat-chip-list *ngIf="unique_senders$ | async as unique_senders">
-                    {{ 'app.admin-panel.home.stats.unique-senders' | translate }}
-                    <mat-chip>
-                      <code><b>{{ unique_senders }}</b></code>
-                    </mat-chip>
-                </mat-chip-list>
-                <mat-chip-list *ngIf="total_subscriptions$ | async as total_subscriptions">
-                    {{ 'app.admin-panel.home.stats.subscriptions-inbox' | translate }}
+                <mat-chip-list
+                  *ngIf="unique_senders$ | async as unique_senders"
+                >
+                  {{ 'app.admin-panel.home.stats.unique-senders' | translate }}
                   <mat-chip>
-                      <code><b>{{ total_subscriptions }}</b></code>
+                    <code>
+                      <b>{{ unique_senders }}</b>
+                    </code>
+                  </mat-chip>
+                </mat-chip-list>
+                <mat-chip-list
+                  *ngIf="total_subscriptions$ | async as total_subscriptions"
+                >
+                  {{
+                    'app.admin-panel.home.stats.subscriptions-inbox' | translate
+                  }}
+                  <mat-chip>
+                    <code>
+                      <b>{{ total_subscriptions }}</b>
+                    </code>
                   </mat-chip>
                 </mat-chip-list>
               </div>
@@ -53,36 +66,30 @@
                   <app-stats-barchart
                     title="Total Number of Senders x Size Count"
                     [sizes]="sg_Tl"
-                    [columns]="sizesColumnNames">
+                    [columns]="sizesColumnNames"
+                  >
                   </app-stats-barchart>
                 </div>
-  
+
                 <div class="my-2 sm:ml-2" *ngIf="cg_Tl$ | async as cg_Tl">
                   <app-stats-barchart
                     title="Total Number of Senders x Thread Count"
                     [sizes]="cg_Tl"
-                    [columns]="countColumnNames">
+                    [columns]="countColumnNames"
+                  >
                   </app-stats-barchart>
                 </div>
               </div>
-
             </div>
           </div>
-            
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </div>
 
-
-
-
-
-
-
-    <!-- Manual Card -->
-    <!-- <div class="">
+<!-- Manual Card -->
+<!-- <div class="">
       <mat-card class="my-2">
         <mat-card-title>
           {{ 'app.admin-panel.home.manual-title' | translate }}
@@ -114,8 +121,8 @@
       </mat-card>
     </div>
    -->
-    <!-- Senders Content -->
-    <!-- <div class="">
+<!-- Senders Content -->
+<!-- <div class="">
       <mat-card class="my-2">
         <mat-card-title>
           {{ 'app.admin-panel.home.senders-title' | translate }}
@@ -135,8 +142,8 @@
       </mat-card>
     </div> -->
 
-    <!-- Subscriptions Content -->
-    <!-- <div class="">
+<!-- Subscriptions Content -->
+<!-- <div class="">
       <mat-card class="my-2">
         <mat-card-title>
            {{ 'app.admin-panel.home.subscriptions-title' | translate }}
@@ -154,4 +161,4 @@
           </a>
         </mat-card-actions>
       </mat-card>
-    </div> -->
+</div> -->
