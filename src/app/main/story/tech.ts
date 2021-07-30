@@ -31,6 +31,11 @@ export const tech_stack: TechStackItem[] = [
     imageSrc: 'assets/avatars/expressjs.png'
   },
   {
+    name: 'Firebase',
+    url: 'https://firebase.google.com/',
+    imageSrc: 'assets/avatars/firebase.png'
+  },
+  {
     name: 'fontawesome',
     url: 'https://fontawesome.com/',
     imageSrc: 'assets/avatars/fontawesome.png'
@@ -41,12 +46,17 @@ export const tech_stack: TechStackItem[] = [
     imageSrc: 'assets/avatars/git.png'
   },
   {
+    name: 'Google Analytics',
+    url: 'https://analytics.google.com/',
+    imageSrc: 'assets/avatars/googleanalytics.png'
+  },
+  {
     name: 'Google Cloud',
     url: 'https://cloud.google.com/',
     imageSrc: 'assets/avatars/googlecloud.png'
   },
   {
-    name: 'Google Cloud Kubernetes',
+    name: 'Kubernetes',
     url: 'https://cloud.google.com/kubernetes-engine',
     imageSrc: 'assets/avatars/gke.png'
   },
@@ -108,7 +118,7 @@ export const tech_stack: TechStackItem[] = [
   {
     name: 'tailwindcss',
     url: 'https://tailwindcss.com/',
-    imageSrc: ''
+    imageSrc: 'assets/avatars/tailwindcss.png'
   },
   {
     name: 'Typescript',
