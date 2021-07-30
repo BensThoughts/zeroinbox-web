@@ -10,6 +10,9 @@ import { ManualUnsubscribeCardComponent } from './components/manual-unsubscribe-
 import { ManualSendersCardComponent } from './components/manual-senders-card/manual-senders-card.component';
 import { ManualDownloadingCardComponent } from './components/manual-downloading-card/manual-downloading-card.component';
 import { ManualStatsCardComponent } from './components/manual-stats-card/manual-stats-card.component';
+import { ManualLabelSendersComponent } from './manual-label-senders/manual-label-senders.component';
+import { ManualBulkActionsComponent } from './manual-bulk-actions/manual-bulk-actions.component';
+import { ManualTrashSendersComponent } from './manual-trash-senders/manual-trash-senders.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { ManualStatsCardComponent } from './components/manual-stats-card/manual-
     ManualUnsubscribeCardComponent,
     ManualSendersCardComponent,
     ManualDownloadingCardComponent,
-    ManualStatsCardComponent
+    ManualStatsCardComponent,
+    ManualLabelSendersComponent,
+    ManualBulkActionsComponent,
+    ManualTrashSendersComponent
   ],
   imports: [CommonModule, SharedModule, RouterModule],
   providers: []

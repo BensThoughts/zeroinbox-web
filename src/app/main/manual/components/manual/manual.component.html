@@ -1,5 +1,5 @@
-<div class="flex flex-col text-center">
-  <div class="mx-4">
+<div class="flex flex-col text-center w-full">
+  <div class="mx-7 mt-5 max-w-2xl self-center">
     <mat-card class="my-2">
       <mat-card-title>Manual</mat-card-title>
       <mat-divider inset="true" class="my-2"></mat-divider>
@@ -11,42 +11,79 @@
       </div>
     </mat-card>
   </div>
-  <div class="mx-4">
+  <div class="my-4 w-10/12 max-w-2xl self-center">
     <mat-accordion class="my-2">
       <mat-expansion-panel class="my-2">
         <mat-expansion-panel-header>
           <mat-panel-title>Login</mat-panel-title>
         </mat-expansion-panel-header>
         <mat-divider></mat-divider>
-        <app-manual-login-card></app-manual-login-card>
+        <div class="my-3">
+          <app-manual-login-card></app-manual-login-card>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="my-2">
         <mat-expansion-panel-header>
           <mat-panel-title>Downloading</mat-panel-title>
         </mat-expansion-panel-header>
-        <app-manual-downloading-card></app-manual-downloading-card>
+        <div class="my-3">
+          <app-manual-downloading-card></app-manual-downloading-card>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="my-2">
         <mat-expansion-panel-header>
           <mat-panel-title>Stats</mat-panel-title>
         </mat-expansion-panel-header>
-        <app-manual-stats-card></app-manual-stats-card>
+        <div class="my-3">
+          <app-manual-stats-card></app-manual-stats-card>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="my-2">
         <mat-expansion-panel-header>
           <mat-panel-title>Subscriptions</mat-panel-title>
         </mat-expansion-panel-header>
-        <app-manual-unsubscribe-card></app-manual-unsubscribe-card>
+        <div class="my-3">
+          <app-manual-unsubscribe-card></app-manual-unsubscribe-card>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="my-2">
         <mat-expansion-panel-header>
           <mat-panel-title>Senders</mat-panel-title>
         </mat-expansion-panel-header>
-        <app-manual-senders-card></app-manual-senders-card>
+        <div class="my-3">
+          <app-manual-senders-card></app-manual-senders-card>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Label</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="my-3">
+          <app-manual-label-senders></app-manual-label-senders>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Trash</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="my-3">
+          <app-manual-trash-senders></app-manual-trash-senders>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="my-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Bulk Actions</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="my-3">
+          <app-manual-bulk-actions></app-manual-bulk-actions>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
