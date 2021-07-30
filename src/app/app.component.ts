@@ -4,6 +4,8 @@ import {
   ChangeDetectionStrategy,
   HostListener
 } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +29,8 @@ import {
 } from '@app/core';
 import { selectIsAuthenticated } from '@app/core';
 import { selectTheme } from '@app/core/state/settings/settings.selectors';
-import { SettingsChangeThemeAction } from '@app/core/state/settings/settings.actions';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -63,7 +66,18 @@ export class AppComponent implements OnInit {
 
   testTranslate = { value: 'Logout' };
 
-  constructor(private store: Store<AppState>, translate: TranslateService) {
+  constructor(
+    private store: Store<AppState>,
+    public translate: TranslateService,
+    public router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-LPEB1S5EBP', {
+          'page-path': event.urlAfterRedirects
+        });
+      }
+    });
     translate.setDefaultLang('en');
     translate.use('en');
   }
