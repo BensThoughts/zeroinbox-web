@@ -7,12 +7,12 @@ import { tap, filter } from 'rxjs/operators';
 export class GoogleAnalyticsEffects {
   constructor(private router: Router) {}
 
-  @Effect({ dispatch: false })
-  pageView = this.router.events.pipe(
-    filter((event) => event instanceof NavigationEnd),
-    tap((event: NavigationEnd) => {
-      (<any>window).ga('set', 'page', event.urlAfterRedirects);
-      (<any>window).ga('send', 'pageview');
-    })
-  );
+  // @Effect({ dispatch: false })
+  // pageView = this.router.events.pipe(
+  //   filter((event) => event instanceof NavigationEnd),
+  //   tap((event: NavigationEnd) => {
+  //     (<any>window).gtag('config', 'page', event.urlAfterRedirects);
+  //     (<any>window).ga('send', 'pageview');
+  //   })
+  // );
 }
