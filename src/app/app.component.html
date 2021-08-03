@@ -14,7 +14,7 @@
   <mat-sidenav-container class="wrapper">
     <mat-sidenav
       #sidenav
-      class="fixed h-full"
+      (click)="sidenav.toggle()"
       mode="over"
       closed
       role="navigation"
