@@ -48,7 +48,7 @@ export const tech_stack: TechStackItem[] = [
   {
     name: 'Google Analytics',
     url: 'https://analytics.google.com/',
-    imageSrc: 'assets/avatars/googleanalytics-down.png'
+    imageSrc: 'assets/avatars/ganal.png'
   },
   {
     name: 'Google Cloud',
