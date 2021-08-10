@@ -26,7 +26,7 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
 
