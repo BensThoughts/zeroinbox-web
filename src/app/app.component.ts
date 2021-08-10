@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  HostListener
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
@@ -83,16 +78,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.innerWidth = window.innerWidth;
     this.theme$ = this.store.pipe(select(selectTheme));
     this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
     this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
     this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = window.innerWidth;
   }
 
   /**
