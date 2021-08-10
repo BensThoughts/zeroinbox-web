@@ -58,6 +58,15 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false
             }
           },
           "defaultConfiguration": ""
@@ -118,6 +127,12 @@
               ],
               "optimization": true,
               "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {
+              "outputHashing": "media",
+              "optimization": false,
+              "sourceMap": true,
               "extractLicenses": true
             }
           },
