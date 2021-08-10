@@ -86,18 +86,18 @@ export class SendersEffects {
     })
   );
 
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-senders';
-    }),
-    filter((evt) => evt.newValue !== null),
-    map((evt) => {
-      let suggestionsState = JSON.parse(evt.newValue);
-      return new UpdateSendersStateAction(suggestionsState);
-    })
-  );
+  // @Effect()
+  // onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  //   // listen to our storage key
+  //   filter((evt) => {
+  //     return evt.key === 'go-app-senders';
+  //   }),
+  //   filter((evt) => evt.newValue !== null),
+  //   map((evt) => {
+  //     let suggestionsState = JSON.parse(evt.newValue);
+  //     return new UpdateSendersStateAction(suggestionsState);
+  //   })
+  // );
 
   constructor(
     private sendersService: SendersService,

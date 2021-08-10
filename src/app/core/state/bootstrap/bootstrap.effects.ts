@@ -167,18 +167,18 @@ export class BootstrapEffects {
     })
   );
 
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-bootstrap';
-    }),
-    filter((evt) => evt.newValue !== null),
-    map((evt) => {
-      let BootstrapState = JSON.parse(evt.newValue);
-      return new UpdateBootstrapStateAction(BootstrapState);
-    })
-  );
+  // @Effect()
+  // onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  //   // listen to our storage key
+  //   filter((evt) => {
+  //     return evt.key === 'go-app-bootstrap';
+  //   }),
+  //   filter((evt) => evt.newValue !== null),
+  //   map((evt) => {
+  //     let BootstrapState = JSON.parse(evt.newValue);
+  //     return new UpdateBootstrapStateAction(BootstrapState);
+  //   })
+  // );
 
   constructor(
     private actions$: Actions,

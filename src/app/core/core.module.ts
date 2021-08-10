@@ -54,6 +54,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsEffects } from './state/settings/settings.effects';
 import { SettingsService } from './services/settings/settings.service';
+import { WindowRef } from './services/windows/window.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -90,7 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       AuthEffects,
       BootstrapEffects,
       GoogleAnalyticsEffects,
-      LocalStorageSyncEffects,
+      // LocalStorageSyncEffects,
       SendersEffects,
       UserEffects
     ]),
@@ -122,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SendersService,
     UserService,
     SettingsService,
+    WindowRef,
     /* app wide error handler */
     { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */

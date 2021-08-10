@@ -58,18 +58,18 @@ export class SettingsEffects {
     })
   );
 
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-settings';
-    }),
-    filter((evt) => evt.newValue !== null),
-    map((evt) => {
-      let settingsState = JSON.parse(evt.newValue);
-      return new UpdateSettingsStateAction(settingsState);
-    })
-  );
+  // @Effect()
+  // onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  //   // listen to our storage key
+  //   filter((evt) => {
+  //     return evt.key === 'go-app-settings';
+  //   }),
+  //   filter((evt) => evt.newValue !== null),
+  //   map((evt) => {
+  //     let settingsState = JSON.parse(evt.newValue);
+  //     return new UpdateSettingsStateAction(settingsState);
+  //   })
+  // );
 
   @Effect({ dispatch: false })
   getCategories$ = this.actions$.pipe(

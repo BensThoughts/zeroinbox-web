@@ -28,18 +28,18 @@ import { LabelAllDialogComponent } from '../components/label-all-dialog/label-al
 
 @Injectable()
 export class SendersViewEffects {
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-suggestions';
-    }),
-    filter((evt) => evt.newValue !== null),
-    map((evt) => {
-      let suggestionsState = JSON.parse(evt.newValue);
-      return new UpdateSendersViewStateAction(suggestionsState);
-    })
-  );
+  // @Effect()
+  // onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  //   // listen to our storage key
+  //   filter((evt) => {
+  //     return evt.key === 'go-app-suggestions';
+  //   }),
+  //   filter((evt) => evt.newValue !== null),
+  //   map((evt) => {
+  //     let suggestionsState = JSON.parse(evt.newValue);
+  //     return new UpdateSendersViewStateAction(suggestionsState);
+  //   })
+  // );
 
   @Effect({ dispatch: false })
   labelSenderDialog$ = this.actions$.pipe(
