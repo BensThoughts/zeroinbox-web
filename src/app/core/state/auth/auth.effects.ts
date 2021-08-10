@@ -47,6 +47,8 @@ import { ResetSendersStateAction } from '../senders/senders.actions';
 import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
 import { BootstrapAppAction } from '../bootstrap/bootstrap.actions';
 
+import { WindowRef } from '@app/core/services/windows/window.service';
+
 @Injectable()
 export class AuthEffects {
   /**
@@ -65,7 +67,8 @@ export class AuthEffects {
               'Response status_message: ' + response.status_message
             );
           } else {
-            window.location.href = response.data.auth_url;
+            this.windowRef.nativeWindow.location.href = response.data.auth_url;
+            // window.location.href = response.data.auth_url;
           }
         }),
         catchError((err) => {
@@ -154,23 +157,23 @@ export class AuthEffects {
    * another tab/window the changes made in the other tab/window will also be reflected in
    * this tab/window.
    */
-  @Effect()
-  onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
-    // listen to our storage key
-    filter((evt) => {
-      return evt.key === 'go-app-auth';
-    }),
-    filter((evt) => evt.newValue !== null),
-    map((evt) => {
-      let authenticated = JSON.parse(evt.newValue).isAuthenticated;
+  // @Effect()
+  // onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
+  //   // listen to our storage key
+  //   filter((evt) => {
+  //     return evt.key === 'go-app-auth';
+  //   }),
+  //   filter((evt) => evt.newValue !== null),
+  //   map((evt) => {
+  //     let authenticated = JSON.parse(evt.newValue).isAuthenticated;
 
-      if (authenticated) {
-        return new LoginSuccessAction();
-      } else {
-        return new LogoutConfirmedFromOtherWindowAction();
-      }
-    })
-  );
+  //     if (authenticated) {
+  //       return new LoginSuccessAction();
+  //     } else {
+  //       return new LogoutConfirmedFromOtherWindowAction();
+  //     }
+  //   })
+  // );
 
   /**
    * Effect logoutConfirmed$ resets the state and sends a request to the api
@@ -201,27 +204,27 @@ export class AuthEffects {
    * this is being called. ToggleSyncToStorage is used so that we don't end up in a loop between
    * two or more windows/tabs, all tabs confirmed from "other window" will not write to localStorage.
    */
-  @Effect({ dispatch: false })
-  logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
-    ofType<LogoutConfirmedFromOtherWindowAction>(
-      AuthActionTypes.LogoutConfirmedFromOtherWindow
-    ),
-    tap(() => {
-      this.store.dispatch(
-        new ToggleSyncToStorageAction({ syncToStorage: false })
-      );
+  // @Effect({ dispatch: false })
+  // logoutConfirmedFromOtherWindow$ = this.actions$.pipe(
+  //   ofType<LogoutConfirmedFromOtherWindowAction>(
+  //     AuthActionTypes.LogoutConfirmedFromOtherWindow
+  //   ),
+  //   tap(() => {
+  //     this.store.dispatch(
+  //       new ToggleSyncToStorageAction({ syncToStorage: false })
+  //     );
 
-      this.store.dispatch(new ResetSendersStateAction());
-      this.store.dispatch(new ResetUserStateAction());
-      this.store.dispatch(new ResetSendersViewStateAction());
-      this.store.dispatch(new ResetBootstrapStateAction());
+  //     this.store.dispatch(new ResetSendersStateAction());
+  //     this.store.dispatch(new ResetUserStateAction());
+  //     this.store.dispatch(new ResetSendersViewStateAction());
+  //     this.store.dispatch(new ResetBootstrapStateAction());
 
-      this.router.navigate([this.authService.logoutUrl]);
+  //     this.router.navigate([this.authService.logoutUrl]);
 
-      // this.store.dispatch(new ResetLocalStorageAction());
-      // this.authService.logout();
-    })
-  );
+  //     // this.store.dispatch(new ResetLocalStorageAction());
+  //     // this.authService.logout();
+  //   })
+  // );
 
   constructor(
     private actions$: Actions,
@@ -230,6 +233,7 @@ export class AuthEffects {
     private router: Router,
     private dialogService: MatDialog,
     private ngZone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private windowRef: WindowRef
   ) {}
 }
