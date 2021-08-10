@@ -17,12 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/zero-inbox",
+            "outputPath": "dist/zero-inbox/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", {
+              "glob": "_redirects",
+              "input": "src",
+              "output": "/"
+            }],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
@@ -135,7 +139,7 @@
       "inlineTemplate": false,
       "flat": false,
       "spec": true,
-      "prefix": "go",
+      "prefix": "app",
       "styleext": "scss"
     }
   }
