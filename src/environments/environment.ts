@@ -9,7 +9,7 @@ export const environment = {
   appName: packageJson.name,
   appVersion: packageJson.version,
   envName: 'DEV',
-  apiHost: 'http://127.0.0.1:8080/v1',
+  apiHost: 'http://127.0.0.1:8081/v1',
   production: false,
   test: false,
   i18nPrefix: '',
