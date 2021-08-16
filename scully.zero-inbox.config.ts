@@ -4,5 +4,6 @@ export const config: ScullyConfig = {
   projectName: 'zero-inbox',
   distFolder: '/dist/zero-inbox/browser',
   outDir: './dist/static',
-  routes: {}
+  routes: {},
+  extraRoutes: ['/story', '/settings', '/manual', '/home', '/contact']
 };
