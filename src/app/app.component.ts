@@ -68,6 +68,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private titleService: Title,
+    private metaService: Meta,
     public translate: TranslateService,
     public router: Router
   ) {
@@ -83,6 +85,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle(this.title);
+    this.metaService.addTags([
+      {
+        property: 'og:title',
+        content: 'Zero Inbox'
+      },
+      {
+        property: 'og:image',
+        content:
+          'https://res.cloudinary.com/bensthoughts/image/upload/v1629100664/zeroinbox/assets/linkedin/home-scaled_twkdaf.png'
+      },
+      {
+        property: 'og:description',
+        content: 'Zero Inbox Homepage'
+      },
+      {
+        property: 'og:url',
+        content: '//zeroinbox.app'
+      }
+    ]);
     this.theme$ = this.store.pipe(select(selectTheme));
     this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
     this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
