@@ -1,1 +1,36 @@
-<p>zeroinbox-api-gateway works!</p>
+<mat-card class="my-2">
+  <mat-card-header>
+    <mat-card-title>Api Gateway</mat-card-title>
+    <!-- <mat-card-subtitle><i>ExpressJS</i></mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="my-3">
+    <div class="flex flex-col justify-center w-full">
+      <div class="w-full my-2">
+        <a
+          href="https://github.com/bensthoughts/zeroinbox-api-gateway"
+          target="_blank"
+        >
+          <img
+            src="https://gh-card.dev/repos/bensthoughts/zeroinbox-api-gateway.svg"
+          />
+        </a>
+      </div>
+      <div class="my-2">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="my-2">
+        <p class="text-base text-left">
+          &nbsp;&nbsp;&nbsp;&nbsp;The Api-Gateway is the entry point into the
+          backend. The API gateway is built with ExpressJS and runs in a Node
+          container on a Google Kubernetes cluster. Its primary responsibility
+          is to handle user auth/sessions, fetching email/user data, and
+          dispatching instructions to the other microservices. It handles auth
+          using Googles auth API and tracks user sessions using a Redis
+          container. Email/user data is fetched from MongoDB. Instructions to
+          other microservices are dispatched using RabbitMQ.
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

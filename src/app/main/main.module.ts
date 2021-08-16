@@ -9,7 +9,6 @@ import { MainHomeModule } from './main-home/main-home.module';
 import { ContactComponent } from './contact/contact.component';
 import { ManualModule } from './manual/manual.module';
 import { SettingsModule } from './settings/settings.module';
-import { MicroServicesComponent } from './story/components/micro-services/micro-services.component';
 import { StoryModule } from './story/story.module';
 
 @NgModule({
