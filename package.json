@@ -11,7 +11,9 @@
     "eslint": "tsc --noEmit && eslint . --ext js,ts,json --quiet --fix",
     "e2e": "ng e2e",
     "scully": "npx scully --",
-    "scully:serve": "npx scully serve --"
+    "scully:serve": "npx scully serve --",
+    "jam": "ng build && npm run scully",
+    "jam-prod": "ng build --configuration production && npm run scully -- --nw"
   },
   "private": true,
   "dependencies": {
