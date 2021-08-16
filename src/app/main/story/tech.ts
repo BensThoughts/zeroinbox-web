@@ -9,136 +9,156 @@ export const tech_stack: TechStackItem[] = [
     name: 'Angular',
     url: 'https://angular.io',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/angular-down_kttfsf.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/angular_wqnaj4.png'
   },
   {
     name: 'bash',
     url: 'https://www.gnu.org/software/bash/',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/bash-down_cyosmi.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/bash_w3v99z.png'
   },
   {
     name: 'Docker',
     url: 'https://www.docker.com/',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/docker-down_tyfslt.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/docker_o4q459.png'
   },
   {
     name: 'eslint',
     url: 'https://eslint.org/',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090014/zeroinbox/assets/avatars/eslint-down_auypwj.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/eslint_ch5mke.png'
   },
   {
     name: 'Express.js',
     url: 'https://expressjs.com/',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090014/zeroinbox/assets/avatars/expressjs-down_z1emma.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/expressjs_txrqm3.png'
   },
   {
     name: 'Firebase',
     url: 'https://firebase.google.com/',
-    imageSrc: 'assets/avatars/firebase-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/firebase_ctra4z.png'
   },
   {
     name: 'fontawesome',
     url: 'https://fontawesome.com/',
-    imageSrc: 'assets/avatars/fontawesome-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/fontawesome_tuoyrt.png'
   },
   {
     name: 'git',
     url: 'https://git-scm.com/',
     imageSrc:
-      'https://res.cloudinary.com/bensthoughts/image/upload/v1629091386/zeroinbox/assets/avatars/git-down_xjuiut.png'
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/git_nt7g3j.png'
   },
   {
     name: 'Google Analytics',
     url: 'https://analytics.google.com/',
-    imageSrc: 'assets/avatars/ganal.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/ganal_srulen.png'
   },
   {
     name: 'Google Cloud',
     url: 'https://cloud.google.com/',
-    imageSrc: 'assets/avatars/googlecloud-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/googlecloud_ereha8.png'
   },
   {
     name: 'Kubernetes',
     url: 'https://cloud.google.com/kubernetes-engine',
-    imageSrc: 'assets/avatars/gke-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099367/zeroinbox/assets/avatars/large-compressed/gke_rv1fdy.png'
   },
   {
     name: 'mochajs',
     url: 'https://mochajs.org/',
-    imageSrc: 'assets/avatars/mochajs-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/mochajs_fetbyo.png'
   },
   {
     name: 'MongoDB',
     url: 'https://www.mongodb.com/',
-    imageSrc: 'assets/avatars/mongodb-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/mongodb_sj0i27.png'
   },
   {
     name: 'ngx-translate',
     url: 'http://www.ngx-translate.com/',
-    imageSrc: 'assets/avatars/ngx-translate-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/ngx-translate_h7v5ta.png'
   },
   {
     name: 'ngrx',
     url: 'https://ngrx.io/',
-    imageSrc: 'assets/avatars/ngrx-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/ngrx_c5wews.png'
   },
   {
     name: 'node.js',
     url: 'https://nodejs.org/',
-    imageSrc: 'assets/avatars/node-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/node_aevgja.png'
   },
   {
     name: 'npm',
     url: 'https://www.npmjs.com/',
-    imageSrc: 'assets/avatars/npm-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/npm_f4w0za.png'
   },
   {
     name: 'Prettier',
     url: 'https://prettier.io/',
-    imageSrc: 'assets/avatars/prettier-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/prettier_hxctwi.png'
   },
   {
     name: 'RabbitMQ',
     url: 'https://www.rabbitmq.com/',
-    imageSrc: 'assets/avatars/rabbitmq-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/rabbitmq_bxze5g.png'
   },
   {
     name: 'redis',
     url: 'https://redis.io/',
-    imageSrc: 'assets/avatars/redis-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/redis_fo0fr7.png'
   },
   {
     name: 'rxjs',
     url: 'https://rxjs.dev/',
-    imageSrc: 'assets/avatars/rxjs-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/rxjs-black_awvhnf.png'
   },
   {
     name: 'sinon.js',
     url: 'https://sinonjs.org/',
-    imageSrc: 'assets/avatars/sinon-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/sinon_hjfjnj.png'
   },
   {
     name: 'tailwindcss',
     url: 'https://tailwindcss.com/',
-    imageSrc: 'assets/avatars/tailwindcss-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099368/zeroinbox/assets/avatars/large-compressed/tailwindcss_ngqtf7.png'
   },
   {
     name: 'Typescript',
     url: 'https://www.typescriptlang.org/',
-    imageSrc: 'assets/avatars/typescript-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099369/zeroinbox/assets/avatars/large-compressed/typescript_rb6yci.png'
   },
   {
     name: 'Ubuntu',
     url: 'https://ubuntu.com/',
-    imageSrc: 'assets/avatars/ubuntu-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099369/zeroinbox/assets/avatars/large-compressed/ubuntu_zacb1z.png'
   },
   {
     name: 'VSCode',
     url: 'https://code.visualstudio.com/',
-    imageSrc: 'assets/avatars/vscode-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629099369/zeroinbox/assets/avatars/large-compressed/vscode_oqq8d9.png'
   }
 ];
