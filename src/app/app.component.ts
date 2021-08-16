@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
       },
       {
         name: 'twitter:site',
-        content: '#bensthoughts'
+        content: '@bensthoughts'
       },
       {
         name: 'twitter:creator',
