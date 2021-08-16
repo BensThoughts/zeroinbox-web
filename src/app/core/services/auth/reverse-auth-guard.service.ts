@@ -20,9 +20,9 @@ export class ReverseAuthGuardService implements CanActivate {
      * opposite of whatever auth-guard is returning...hence reverse-auth-guard
      *
      * when we are not authenticated we must return of(true) to let the route for
-     * /login (where reverse-auth-guard is implemented) go through.
+     * /home (where reverse-auth-guard is implemented) go through.
      *
-     * when we are authenticated we need to route to home page and return of(false)
+     * when we are authenticated we need to route to /admin-panel/home and return of(false)
      *
      * @return opposite of current authentication state
      */
