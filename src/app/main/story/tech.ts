@@ -8,27 +8,32 @@ export const tech_stack: TechStackItem[] = [
   {
     name: 'Angular',
     url: 'https://angular.io',
-    imageSrc: 'assets/avatars/angular-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/angular-down_kttfsf.png'
   },
   {
     name: 'bash',
     url: 'https://www.gnu.org/software/bash/',
-    imageSrc: 'assets/avatars/bash-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/bash-down_cyosmi.png'
   },
   {
     name: 'Docker',
     url: 'https://www.docker.com/',
-    imageSrc: 'assets/avatars/docker-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090013/zeroinbox/assets/avatars/docker-down_tyfslt.png'
   },
   {
     name: 'eslint',
     url: 'https://eslint.org/',
-    imageSrc: 'assets/avatars/eslint-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090014/zeroinbox/assets/avatars/eslint-down_auypwj.png'
   },
   {
     name: 'Express.js',
     url: 'https://expressjs.com/',
-    imageSrc: 'assets/avatars/expressjs-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629090014/zeroinbox/assets/avatars/expressjs-down_z1emma.png'
   },
   {
     name: 'Firebase',
@@ -43,7 +48,8 @@ export const tech_stack: TechStackItem[] = [
   {
     name: 'git',
     url: 'https://git-scm.com/',
-    imageSrc: 'assets/avatars/git-down.png'
+    imageSrc:
+      'https://res.cloudinary.com/bensthoughts/image/upload/v1629091386/zeroinbox/assets/avatars/git-down_xjuiut.png'
   },
   {
     name: 'Google Analytics',
