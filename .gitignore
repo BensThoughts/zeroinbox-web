@@ -46,3 +46,5 @@ deploy.env
 docker.sh
 # Local Netlify folder
 .netlify
+
+scully.log
