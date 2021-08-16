@@ -5,15 +5,14 @@ import { MainRoutingModule } from './main-routing.module';
 
 import { SharedModule } from '@app/shared';
 
-import { ManualComponent } from './manual/components/manual/manual.component';
 import { MainHomeModule } from './main-home/main-home.module';
-import { StoryComponent } from './story/story.component';
 import { ContactComponent } from './contact/contact.component';
 import { ManualModule } from './manual/manual.module';
 import { SettingsModule } from './settings/settings.module';
+import { MicroServicesComponent } from './story/components/micro-services/micro-services.component';
 
 @NgModule({
-  declarations: [StoryComponent, ContactComponent],
+  declarations: [ContactComponent],
   imports: [
     CommonModule,
     SharedModule,
