@@ -5,5 +5,12 @@ export const config: ScullyConfig = {
   distFolder: '/dist/zero-inbox/browser',
   outDir: './dist/static',
   routes: {},
-  extraRoutes: ['/story', '/settings', '/manual', '/home', '/contact']
+  extraRoutes: [
+    '/story',
+    '/settings',
+    '/manual',
+    '/home',
+    '/contact',
+    '/loading'
+  ]
 };
