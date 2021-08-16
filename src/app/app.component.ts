@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
+import { Title, Meta } from '@angular/platform-browser';
+
 import { Observable, of } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -44,8 +46,6 @@ declare let gtag: Function;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  public innerWidth: any;
-
   title = env.appName;
   // logo = require('../assets/logo.png');
 
@@ -83,16 +83,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.innerWidth = window.innerWidth;
     this.theme$ = this.store.pipe(select(selectTheme));
     this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
     this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
     this.isBootstrapped$ = this.store.pipe(select(selectIsBootstrapped));
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = window.innerWidth;
   }
 
   /**
