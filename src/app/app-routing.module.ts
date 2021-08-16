@@ -32,7 +32,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: false,
-      relativeLinkResolution: 'legacy'
+      relativeLinkResolution: 'legacy',
+      initialNavigation: 'enabled'
     })
   ],
   exports: [RouterModule]
