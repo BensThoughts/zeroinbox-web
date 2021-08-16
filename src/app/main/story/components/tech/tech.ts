@@ -4,7 +4,7 @@ interface TechStackItem {
   imageSrc: string;
 }
 
-export const tech_stack: TechStackItem[] = [
+export const techStack: TechStackItem[] = [
   {
     name: 'Angular',
     url: 'https://angular.io',

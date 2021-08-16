@@ -10,6 +10,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ManualModule } from './manual/manual.module';
 import { SettingsModule } from './settings/settings.module';
 import { MicroServicesComponent } from './story/components/micro-services/micro-services.component';
+import { StoryModule } from './story/story.module';
 
 @NgModule({
   declarations: [ContactComponent],
@@ -19,7 +20,8 @@ import { MicroServicesComponent } from './story/components/micro-services/micro-
     MainHomeModule,
     MainRoutingModule,
     ManualModule,
-    SettingsModule
+    SettingsModule,
+    StoryModule
   ],
   providers: []
 })

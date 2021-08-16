@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainHomeComponent } from './main-home/components/main-home/main-home.component';
 import { ManualComponent } from './manual/components/manual/manual.component';
 import { ReverseAuthGuardService } from '../core/services/auth/reverse-auth-guard.service';
-import { StoryComponent } from './story/story.component';
+import { StoryComponent } from './story/components/story/story.component';
 import { ContactComponent } from './contact/contact.component';
 import { SettingsComponent } from './settings/components/settings/settings.component';
 
@@ -38,8 +38,9 @@ const routes: Routes = [
         path: 'settings',
         component: SettingsComponent
       },
-      // This redirection re-redirects to /home when not logged in and to
-      // /admin-panel/home when logged in
+      // This redirection re-redirects to /home when not logged in
+      // because /admin-panel/home uses the AuthGuardService to
+      // redirect back to /home if not logged in
       {
         path: '**',
         redirectTo: '/admin-panel/home'

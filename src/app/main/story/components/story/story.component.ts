@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { tech_stack } from './tech';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-story',
@@ -8,8 +7,5 @@ import { tech_stack } from './tech';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoryComponent {
-  public tech_stack;
-  constructor() {
-    this.tech_stack = tech_stack;
-  }
+  constructor() {}
 }

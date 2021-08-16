@@ -1,1 +1,18 @@
-<p>tech works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>About</mat-card-title>
+    <mat-card-subtitle><i>Technologies Used</i></mat-card-subtitle>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="my-3">
+    <mat-chip-list>
+      <!-- <div mat-card-avatar style="background-image: url('assets/Circle-icons-mail.svg'); background-size: cover;"></div> -->
+      <a *ngFor="let tech of techStack" href="{{ tech.url }}" target="_blank">
+        <mat-chip>
+          <img src="{{ tech.imageSrc }}" alt="{{ tech.name }}" matChipAvatar />
+          {{ tech.name }}
+        </mat-chip>
+      </a>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

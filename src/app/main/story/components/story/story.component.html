@@ -1,28 +1,8 @@
-<div class="flex justify-center items-center text-center">
-  <mat-card class="mt-6 mx-3 max-w-2xl">
-    <mat-card-header>
-      <mat-card-title>About</mat-card-title>
-      <mat-card-subtitle><i>Technologies Used</i></mat-card-subtitle>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content class="my-3">
-      <mat-chip-list>
-        <!-- <div mat-card-avatar style="background-image: url('assets/Circle-icons-mail.svg'); background-size: cover;"></div> -->
-        <a
-          *ngFor="let tech of tech_stack"
-          href="{{ tech.url }}"
-          target="_blank"
-        >
-          <mat-chip>
-            <img
-              src="{{ tech.imageSrc }}"
-              alt="{{ tech.name }}"
-              matChipAvatar
-            />
-            {{ tech.name }}
-          </mat-chip>
-        </a>
-      </mat-chip-list>
-    </mat-card-content>
-  </mat-card>
+<div class="flex flex-col justify-center items-center text-center">
+  <div class="mt-6 mx-3 max-w-2xl">
+    <app-tech></app-tech>
+  </div>
+  <div class="my-2">
+    <app-micro-services></app-micro-services>
+  </div>
 </div>
