@@ -1,1 +1,32 @@
-<p>zeroinbox-actions works!</p>
+<mat-card class="my-2">
+  <mat-card-header>
+    <mat-card-title>Actions - Service</mat-card-title>
+    <!-- <mat-card-subtitle><i>ExpressJS</i></mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="my-3">
+    <div class="flex flex-col justify-center w-full">
+      <div class="w-full my-2">
+        <a href="https://github.com/bensthoughts/zeroinbox-actions-controller">
+          <img
+            src="https://res.cloudinary.com/bensthoughts/image/upload/v1629155898/zeroinbox/assets/github-repos/zeroinbox-actions-controller_cgush3.svg"
+          />
+        </a>
+      </div>
+      <div class="my-2">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="my-2">
+        <p class="text-base text-left">
+          &nbsp;&nbsp;&nbsp;&nbsp;The Actions Service is the primary service
+          used to manipulate a users inbox. It receives instructions via
+          RabbitMQ. It can delete messages in bulk. It can create labels, label
+          messages, and move them out of the inbox. It can also create filters
+          to direct messages from a specific sender to a label in the future.
+          Lastly, it can craft and send unsubscribe emails on a users behalf to
+          take them off of a mailing list.
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

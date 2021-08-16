@@ -3,16 +3,31 @@
     <mat-card-title>About</mat-card-title>
     <mat-card-subtitle><i>Technologies Used</i></mat-card-subtitle>
   </mat-card-header>
-  <mat-divider></mat-divider>
+  <mat-divider inset></mat-divider>
   <mat-card-content class="my-3">
-    <mat-chip-list>
-      <!-- <div mat-card-avatar style="background-image: url('assets/Circle-icons-mail.svg'); background-size: cover;"></div> -->
-      <a *ngFor="let tech of techStack" href="{{ tech.url }}" target="_blank">
-        <mat-chip>
-          <img src="{{ tech.imageSrc }}" alt="{{ tech.name }}" matChipAvatar />
-          {{ tech.name }}
-        </mat-chip>
-      </a>
-    </mat-chip-list>
+    <div class="my-2">
+      <p class="text-left text-sm">
+        &nbsp;&nbsp;&nbsp;&nbsp;Zero Inbox is composed of a frontend Angular 12
+        web app, 4 backend microservices, and a host of cloud provider tools.
+      </p>
+    </div>
+    <div class="my-2">
+      <mat-divider inset></mat-divider>
+    </div>
+    <div class="my-2">
+      <mat-chip-list>
+        <!-- <div mat-card-avatar style="background-image: url('assets/Circle-icons-mail.svg'); background-size: cover;"></div> -->
+        <a *ngFor="let tech of techStack" href="{{ tech.url }}" target="_blank">
+          <mat-chip>
+            <img
+              src="{{ tech.imageSrc }}"
+              alt="{{ tech.name }}"
+              matChipAvatar
+            />
+            {{ tech.name }}
+          </mat-chip>
+        </a>
+      </mat-chip-list>
+    </div>
   </mat-card-content>
 </mat-card>
