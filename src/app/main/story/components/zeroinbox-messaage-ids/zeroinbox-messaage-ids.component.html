@@ -1,1 +1,35 @@
-<p>zeroinbox-messaage-ids works!</p>
+<mat-card class="my-2">
+  <mat-card-header>
+    <mat-card-title>Message Ids - Service</mat-card-title>
+    <!-- <mat-card-subtitle><i>ExpressJS</i></mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content class="my-3">
+    <div class="flex flex-col justify-center w-full">
+      <div class="w-full my-2">
+        <a
+          href="https://github.com/bensthoughts/zeroinbox-message-ids-controller"
+          target="_blank"
+        >
+          <img
+            src="https://gh-card.dev/repos/bensthoughts/zeroinbox-message-ids-controller.svg"
+          />
+        </a>
+      </div>
+      <div class="my-2">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="my-2">
+        <p class="text-base text-left">
+          &nbsp;&nbsp;&nbsp;&nbsp;The Message-Ids Controller receives
+          instructions from the API gateway anytime a users emails need to be
+          downloaded. It connects to the Gmail API to download message Ids that
+          are in a users Inbox but not yet in the ZeroInbox database. It stores
+          all of the message Ids in MongoDB and sends instructions with RabbitMQ
+          to the Batch-Messages controller to download the email content of
+          those new messages.
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
