@@ -14,7 +14,11 @@
           target="_blank"
         >
           <mat-chip>
-            <img src="{{ tech.imageSrc }}" matChipAvatar />
+            <img
+              src="{{ tech.imageSrc }}"
+              alt="{{ tech.name }}"
+              matChipAvatar
+            />
             {{ tech.name }}
           </mat-chip>
         </a>
