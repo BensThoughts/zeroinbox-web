@@ -88,6 +88,10 @@ export class AppComponent implements OnInit {
     this.titleService.setTitle(this.title);
     this.metaService.addTags([
       {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
         property: 'og:title',
         content: 'Zero Inbox'
       },
@@ -102,7 +106,37 @@ export class AppComponent implements OnInit {
       },
       {
         property: 'og:url',
-        content: '//zeroinbox.app'
+        content: 'https://zeroinbox.app'
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
+        name: 'twitter:site',
+        content: '#bensthoughts'
+      },
+      {
+        name: 'twitter:creator',
+        content: '@bensthoughts'
+      },
+      {
+        name: 'twitter:description',
+        content:
+          'Being a developer requires knowing which tool is the right one for a job and then integrating that tool. This app showcases my deep knowledge in a laundry list of the latest web technologies. It also showcases my ability to piece together technologies with computer code to create something remarkably useful.'
+      },
+      {
+        name: 'twitter:domain',
+        content: 'zeroinbox.app'
+      },
+      {
+        name: 'twitter:title',
+        content: 'Zero Inbox'
+      },
+      {
+        name: 'twitter:image',
+        content:
+          'https://res.cloudinary.com/bensthoughts/image/upload/v1629102469/zeroinbox/assets/twitter/tech-used_ovig3h.png'
       }
     ]);
     this.theme$ = this.store.pipe(select(selectTheme));
