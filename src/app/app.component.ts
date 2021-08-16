@@ -98,11 +98,12 @@ export class AppComponent implements OnInit {
       {
         property: 'og:image',
         content:
-          'https://res.cloudinary.com/bensthoughts/image/upload/v1629100664/zeroinbox/assets/linkedin/home-scaled_twkdaf.png'
+          'https://res.cloudinary.com/bensthoughts/image/upload/v1629121432/zeroinbox/assets/meta-images/og/og_sce8oa.png'
       },
       {
         property: 'og:description',
-        content: 'Zero Inbox Homepage'
+        content:
+          'At lunch, in transit, or just on a 5-minute break. ZeroInbox helps you get your massively flooded inboxes organized quickly and efficiently.'
       },
       {
         property: 'og:url',
@@ -123,7 +124,7 @@ export class AppComponent implements OnInit {
       {
         name: 'twitter:description',
         content:
-          'Being a developer requires knowing which tool is the right one for a job and then integrating that tool. This app showcases my deep knowledge in a laundry list of the latest web technologies. It also showcases my ability to piece together technologies with computer code to create something remarkably useful.'
+          'At lunch, in transit, or just on a 5-minute break. ZeroInbox helps you get your massively flooded inboxes organized quickly and efficiently.'
       },
       {
         name: 'twitter:domain',
@@ -136,7 +137,7 @@ export class AppComponent implements OnInit {
       {
         name: 'twitter:image',
         content:
-          'https://res.cloudinary.com/bensthoughts/image/upload/v1629102469/zeroinbox/assets/twitter/tech-used_ovig3h.png'
+          'https://res.cloudinary.com/bensthoughts/image/upload/v1629121454/zeroinbox/assets/meta-images/twitter/twitter_znoqhk.png'
       }
     ]);
     this.theme$ = this.store.pipe(select(selectTheme));

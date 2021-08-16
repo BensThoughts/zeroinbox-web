@@ -46,3 +46,7 @@ deploy.env
 docker.sh
 # Local Netlify folder
 .netlify
+
+scully.log
+
+scully.zero-inbox.config.js
