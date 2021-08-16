@@ -22,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
 
 // Handles the admin-panel interface of the main app
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
+import { ScullyLibModule } from '@scullyio/ng-lib';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,9 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
     AuthModule,
     AdminPanelModule,
 
-    AppRoutingModule
+    AppRoutingModule,
+
+    ScullyLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]
