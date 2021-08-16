@@ -48,3 +48,5 @@ docker.sh
 .netlify
 
 scully.log
+
+scully.zero-inbox.config.js
