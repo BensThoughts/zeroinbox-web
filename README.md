@@ -1,3 +1,7 @@
+# Status Badges
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7cd56141-c4ca-499b-aa7f-2dc07b6e624c/deploy-status)](https://app.netlify.com/sites/jolly-benz-0f515f/deploys)
+
 # Zero Inbox
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.
