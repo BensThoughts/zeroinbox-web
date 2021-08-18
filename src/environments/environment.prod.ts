@@ -12,13 +12,15 @@ export const environment = {
   test: false,
   i18nPrefix: '',
   packageVersions: {
-    angular: dependencies['@angular/core'],
-    ngrx: dependencies['@ngrx/store'],
-    material: dependencies['@angular/material'],
+    '@angular/core': dependencies['@angular/core'],
+    '@ngrx/store': dependencies['@ngrx/store'],
+    '@angular/material': dependencies['@angular/material'],
     bootstrap: dependencies['bootstrap'],
     rxjs: dependencies['rxjs'],
-    fontAwesome: dependencies['@fortawesome/angular-fontawesome'],
-    angularCli: devDependencies['@angular/cli'],
+    '@scullyio/init': dependencies['@scullyio/init'],
+    '@fortawesome/angular-fontAwesome':
+      dependencies['@fortawesome/angular-fontawesome'],
+    '@angular/cli': devDependencies['@angular/cli'],
     typescript: devDependencies['typescript']
   }
 };

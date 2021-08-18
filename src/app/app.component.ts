@@ -26,6 +26,7 @@ import { Store, select } from '@ngrx/store';
 import {
   AppState,
   LogoutAction,
+  LogService,
   selectDownloadingStatus,
   selectIsBootstrapped
 } from '@app/core';
@@ -47,6 +48,14 @@ declare let gtag: Function;
 })
 export class AppComponent implements OnInit {
   title = env.appName;
+  appName = env.appName;
+  isProd = env.production;
+  envName = env.envName;
+  version = env.appVersion;
+  year = new Date().getFullYear();
+  api_url = env.apiHost;
+  packageVersions = env.packageVersions;
+
   // logo = require('../assets/logo.png');
 
   // A list of each menu item MenuItem: { name, route, icon }
@@ -71,7 +80,8 @@ export class AppComponent implements OnInit {
     private titleService: Title,
     private metaService: Meta,
     public translate: TranslateService,
-    public router: Router
+    public router: Router,
+    private logService: LogService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -82,6 +92,17 @@ export class AppComponent implements OnInit {
     });
     translate.setDefaultLang('en');
     translate.use('en');
+
+    this.logService.log('App Name: ' + this.appName);
+    this.logService.log('App Version: ' + this.version);
+    this.logService.log('Year: ' + this.year);
+    this.logService.log('Env Name: ' + this.envName);
+    this.logService.log('Production: ' + this.isProd);
+    this.logService.log('Api Url: ' + this.api_url);
+    Object.keys(this.packageVersions).forEach((packageName) => {
+      let version = this.packageVersions[packageName];
+      this.logService.log(packageName + ': ' + version);
+    });
   }
 
   ngOnInit(): void {
