@@ -50,3 +50,5 @@ docker.sh
 scully.log
 
 scully.zero-inbox.config.js
+
+.firebase
