@@ -93,15 +93,15 @@ export class AppComponent implements OnInit {
     translate.setDefaultLang('en');
     translate.use('en');
 
-    this.logService.log('App Name: ' + this.appName);
-    this.logService.log('App Version: ' + this.version);
-    this.logService.log('Year: ' + this.year);
-    this.logService.log('Env Name: ' + this.envName);
-    this.logService.log('Production: ' + this.isProd);
-    this.logService.log('Api Url: ' + this.api_url);
+    this.logService.log('App Name: ' + this.appName, false);
+    this.logService.log('App Version: ' + this.version, false);
+    this.logService.log('Year: ' + this.year, false);
+    this.logService.log('Env Name: ' + this.envName, false);
+    this.logService.log('Production: ' + this.isProd, false);
+    this.logService.log('Api Url: ' + this.api_url, false);
     Object.keys(this.packageVersions).forEach((packageName) => {
       let version = this.packageVersions[packageName];
-      this.logService.log(packageName + ': ' + version);
+      this.logService.log(packageName + ': ' + version, false);
     });
   }
 
