@@ -67,7 +67,7 @@ export class UserEffects {
   onChange$ = fromEvent<StorageEvent>(window, 'storage').pipe(
     // listen to our storage key
     filter((evt) => {
-      return evt.key === 'go-app-user';
+      return evt.key === 'app-user';
     }),
     filter((evt) => evt.newValue !== null),
     map((evt) => {

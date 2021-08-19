@@ -93,7 +93,7 @@ export class SendersEffects {
     fromEvent<StorageEvent>(window, 'storage').pipe(
       // listen to our storage key
       filter((evt) => {
-        return evt.key === 'zi-app-senders';
+        return evt.key === 'app-senders';
       }),
       filter((evt) => evt.newValue !== null),
       map((evt) => {

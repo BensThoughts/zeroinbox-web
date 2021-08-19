@@ -9,7 +9,7 @@ export function localStorageSyncReducer(
     keys: ['user', 'auth', 'bootstrap', 'settings', 'senders', 'senders-view'],
     rehydrate: true,
     removeOnUndefined: true,
-    storageKeySerializer: (key) => 'zi-app-' + key,
+    storageKeySerializer: (key) => 'app-' + key,
     syncCondition: (state: AppState) => {
       // return true;
       return state.bootstrap.syncToStorage;

@@ -194,7 +194,7 @@ export class BootstrapEffects {
     fromEvent<StorageEvent>(window, 'storage').pipe(
       // listen to our storage key
       filter((evt) => {
-        return evt.key === 'go-app-bootstrap';
+        return evt.key === 'app-bootstrap';
       }),
       filter((evt) => evt.newValue !== null),
       map((evt) => {

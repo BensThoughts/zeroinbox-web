@@ -156,7 +156,7 @@ export class AuthEffects {
     fromEvent<StorageEvent>(window, 'storage').pipe(
       // listen to our storage key
       filter((evt) => {
-        return evt.key === 'go-app-auth';
+        return evt.key === 'app-auth';
       }),
       filter((evt) => evt.newValue !== null),
       map((evt) => {
