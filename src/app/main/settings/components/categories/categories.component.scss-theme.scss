@@ -1,0 +1,11 @@
+@use '~@angular/material' as mat;
+
+@mixin app-categories-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  .theme-border-color {
+    border-color: mat.get-color-from-palette($accent, 200);
+  }
+}

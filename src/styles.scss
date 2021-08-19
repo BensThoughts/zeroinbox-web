@@ -19,15 +19,18 @@
 @import './themes/default-theme.scss';
 
 @import './app/app.component.scss-theme.scss';
+@import './app/main/settings/components/categories/categories.component.scss-theme.scss';
 
 .default-theme {
   @include mat.all-component-themes($app-default-theme);
   @include app-component-theme($app-default-theme);
+  @include app-categories-component-theme($app-default-theme);
 }
 
 .black-theme {
   @include mat.all-component-themes($app-black-theme);
   @include app-component-theme($app-black-theme);
+  @include app-categories-component-theme($app-black-theme);
 }
 
 .center-snackbar {
