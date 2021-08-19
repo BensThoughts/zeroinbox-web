@@ -3,16 +3,21 @@ import { Category } from './category.model';
 
 export enum SettingsActionTypes {
   ChangeTheme = '[Settings Theme Component] Change Theme',
+
   GetCategoriesRequest = '[Settings Categories Component] Get Categories Request',
   GetCategoriesRequestSuccess = '[Settings Effects] Get Categories Request Success',
   GetCategoriesRequestFailure = '[Settings Effects] Get Categories Request Failure',
+
   SetCategoriesRequest = '[Settings Categories Component] Set Categories Request',
   SetCategoriesRequestSuccess = '[Settings Effects] Set Categories Request Success',
   SetCategoriesRequestFailure = '[Settings Effects] Set Categories Request Failure',
+
   SetCategories = '[Settings Effects] Set Categories',
   AddCategory = '[Settings Categories Component] Add Category',
   RemoveCategory = '[Settings Categories Component] Remove Category',
-  UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window'
+
+  UpdateSettingsState = '[Settings Effects] Update Settings State From Another Tab/Window',
+  ResetSettingsState = '[Auth Effects] Reset Settings State'
 }
 
 export class SettingsChangeThemeAction implements Action {
@@ -66,6 +71,10 @@ export class UpdateSettingsStateAction implements Action {
   constructor(public payload: any) {}
 }
 
+export class ResetSettingsStateAction implements Action {
+  readonly type = SettingsActionTypes.ResetSettingsState;
+}
+
 export type SettingsActions =
   | SettingsChangeThemeAction
   | SettingsGetCategoriesRequestAction
@@ -77,4 +86,5 @@ export type SettingsActions =
   | SettingsSetCategoriesAction
   | SettingsAddCategoryAction
   | SettingsRemoveCategoryAction
-  | UpdateSettingsStateAction;
+  | UpdateSettingsStateAction
+  | ResetSettingsStateAction;

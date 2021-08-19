@@ -89,6 +89,7 @@ export class SettingsEffects {
                 this.logService.error(categoriesResponse.status_message);
               } else {
                 let categories = categoriesResponse.data.categories;
+                this.logService.log(categories);
                 this.store.dispatch(
                   new SettingsSetCategoriesAction({ categories: categories })
                 );

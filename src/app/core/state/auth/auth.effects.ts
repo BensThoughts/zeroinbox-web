@@ -31,6 +31,7 @@ import { ResetSendersStateAction } from '../senders/senders.actions';
 import { ResetLocalStorageAction } from '../meta-reducers/local-storage-sync-actions';
 import { BootstrapAppAction } from '../bootstrap/bootstrap.actions';
 import { LogService } from '@app/core/services/log/log.service';
+import { ResetSettingsStateAction } from '../settings/settings.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -193,6 +194,7 @@ export class AuthEffects {
           this.store.dispatch(new ResetUserStateAction());
           this.store.dispatch(new ResetSendersViewStateAction());
           this.store.dispatch(new ResetBootstrapStateAction());
+          this.store.dispatch(new ResetSettingsStateAction());
 
           this.router.navigate([this.authService.logoutUrl]);
         })
@@ -222,6 +224,7 @@ export class AuthEffects {
           this.store.dispatch(new ResetUserStateAction());
           this.store.dispatch(new ResetSendersViewStateAction());
           this.store.dispatch(new ResetBootstrapStateAction());
+          this.store.dispatch(new ResetSettingsStateAction());
 
           this.router.navigate([this.authService.logoutUrl]);
 

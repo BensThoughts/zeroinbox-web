@@ -13,15 +13,7 @@ export interface SettingsState {
 
 export const initialState: SettingsState = {
   theme: 'BLACK-THEME',
-  categories: [
-    { name: 'Friends', value: 'Friends' },
-    { name: 'Shopping', value: 'Shopping' },
-    { name: 'News', value: 'News' },
-    { name: 'Work', value: 'Work' },
-    { name: 'Finance', value: 'Finance' },
-    { name: 'Travel', value: 'Travel' },
-    { name: 'Misc', value: 'Misc' }
-  ]
+  categories: []
 };
 
 export function settingsReducer(
@@ -56,6 +48,12 @@ export function settingsReducer(
 
     case SettingsActionTypes.UpdateSettingsState:
       return action.payload;
+
+    case SettingsActionTypes.ResetSettingsState:
+      return {
+        ...state,
+        categories: initialState.categories
+      };
 
     default:
       return state;
