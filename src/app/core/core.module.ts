@@ -33,7 +33,7 @@ import { ReverseAuthGuardService } from './services/auth/reverse-auth-guard.serv
 // notifications service
 import { NotificationService } from './services/notifications/notification.service';
 // error handler service
-import { AppErrorHandler } from './services/error-handler/app-error-handler.service';
+// import { AppErrorHandler } from './services/error-handler/app-error-handler.service';
 
 /* environment variables */
 import { environment } from '@env/environment';
@@ -123,7 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserService,
     SettingsService,
     /* app wide error handler */
-    { provide: ErrorHandler, useClass: AppErrorHandler },
+    // { provide: ErrorHandler, useClass: AppErrorHandler },
     /* ngrx router custom router store */
     { provide: RouterStateSerializer, useClass: CustomSerializer }
   ]
