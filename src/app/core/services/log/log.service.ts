@@ -24,7 +24,7 @@ export class LogService {
       case 'connection':
         this.notificationService.error('Connection Error!');
       default:
-        this.notificationService.error('Error');
+      // this.notificationService.error('Error');
     }
   }
 }
