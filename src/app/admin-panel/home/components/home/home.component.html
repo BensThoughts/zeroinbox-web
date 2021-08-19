@@ -5,12 +5,12 @@
   </div>
   <div class="mb-6">
     <!-- Stats Content -->
-    <div class="" *ngIf="sendersLoaded$ | async">
+    <div *ngIf="sendersLoaded$ | async">
       <mat-card class="my-2">
         <mat-card-title class="text-center">
           {{ 'app.admin-panel.home.stats.title' | translate }}
         </mat-card-title>
-        <mat-divider inset="true" class=""></mat-divider>
+        <mat-divider inset="true"></mat-divider>
         <mat-card-content>
           <div class="px-3 my-3">
             <div class="my-3">
@@ -89,14 +89,14 @@
 </div>
 
 <!-- Manual Card -->
-<!-- <div class="">
+<!-- <div>
       <mat-card class="my-2">
         <mat-card-title>
           {{ 'app.admin-panel.home.manual-title' | translate }}
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-card-content>
-          <div class="">
+          <div>
             {{ 'app.admin-panel.home.manual-description' | translate }}
           </div>
           <mat-divider></mat-divider>
@@ -122,7 +122,7 @@
     </div>
    -->
 <!-- Senders Content -->
-<!-- <div class="">
+<!-- <div>
       <mat-card class="my-2">
         <mat-card-title>
           {{ 'app.admin-panel.home.senders-title' | translate }}
@@ -143,7 +143,7 @@
     </div> -->
 
 <!-- Subscriptions Content -->
-<!-- <div class="">
+<!-- <div>
       <mat-card class="my-2">
         <mat-card-title>
            {{ 'app.admin-panel.home.subscriptions-title' | translate }}

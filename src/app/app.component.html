@@ -1,11 +1,11 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
-  <mat-toolbar color="primary" class="">
+  <mat-toolbar color="primary">
     <button (click)="sidenav.toggle()">
       <fa-icon icon="bars"></fa-icon>
     </button>
     <span class="pl-2">Zero Inbox</span>
     <span class="flex-auto"></span>
-    <a routerLink="/story" class="">
+    <a routerLink="/story">
       <button class="items-end" mat-flat-button>
         {{ 'app.component.about-button' | translate }}
       </button>
@@ -43,7 +43,7 @@
           *ngIf="isDownloading$ | async"
           routerLink="/admin-panel/downloading"
         >
-          <span class="">
+          <span>
             <mat-icon matListIcon>
               <fa-icon icon="download"></fa-icon>
             </mat-icon>
@@ -54,7 +54,7 @@
         </a>
 
         <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
-          <span class="">
+          <span>
             <mat-icon matListIcon>
               <fa-icon icon="sign-out-alt"></fa-icon>
             </mat-icon>
@@ -71,7 +71,7 @@
         <router-outlet></router-outlet>
         <div class="h-14"></div>
       </div>
-      <div class="">
+      <div>
         <footer class="h-14 w-full flex flex-row items-center justify-center">
           <div class="items-center">
             <a
@@ -115,7 +115,7 @@
         <fa-icon [icon]="menu_item.icon"></fa-icon>
       </mat-icon>
     </span>
-    <span class="">
+    <span>
       {{ menu_item.name }}
     </span>
   </a>
@@ -127,12 +127,12 @@
     *ngFor="let menu_item of menu_items"
     routerLink="{{ menu_item.route }}"
   >
-    <span class="">
+    <span>
       <mat-icon matListIcon>
         <fa-icon [icon]="menu_item.icon"></fa-icon>
       </mat-icon>
     </span>
-    <span *ngIf="isOpen" class="">
+    <span *ngIf="isOpen">
       {{ menu_item.name }}
     </span>
   </a>
@@ -194,7 +194,7 @@
 
 <!-- <div class="hidden md:block md:fixed md:left-2 md:bottom-3 z-50">
 
- <button [@twirlChevron]="isOpen ? 'left' : 'right'" class="" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
+ <button [@twirlChevron]="isOpen ? 'left' : 'right'" type="button" aria-label="Toggle nav" mat-icon-button (click)="toggle()">
    <fa-icon size="2x" icon="chevron-circle-left"></fa-icon>
  </button>
 
