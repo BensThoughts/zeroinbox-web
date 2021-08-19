@@ -1,4 +1,4 @@
-import { Effect, ofType, Actions } from '@ngrx/effects';
+import { ofType, Actions, createEffect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import {
   ResetLocalStorageAction,
@@ -8,12 +8,15 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LocalStorageSyncEffects {
-  @Effect({ dispatch: false })
-  reset$ = this.actions$.pipe(
-    ofType<ResetLocalStorageAction>(LocalStorageActionTypes.ResetStorage),
-    map(() => {
-      localStorage.clear();
-    })
+  reset$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType<ResetLocalStorageAction>(LocalStorageActionTypes.ResetStorage),
+        map(() => {
+          localStorage.clear();
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(private actions$: Actions) {}
