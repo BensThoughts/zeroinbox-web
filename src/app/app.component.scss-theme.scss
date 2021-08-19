@@ -1,20 +1,9 @@
 @use '~@angular/material' as mat;
 
-@mixin anms-app-component-theme($theme) {
+@mixin app-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
-
-
-  .go-header {
-    // color: mat.get-color-from-palette($primary) !important;
-  }
-
-
-  /**app-bar {
-    color: mat.get-color-from-palette($primary);
-  }**/
-
 
   mat-toolbar {
     mat-icon {
@@ -26,18 +15,12 @@
 
   mat-sidenav-container {
 
-    .app-sidenav {
-    }
-
     mat-sidenav {
       background-color: mat.get-color-from-palette($primary);
 
-
-      // background-color: #90a4ae !important;
-
-      .menu-chevron {
-        color: mat.get-color-from-palette($primary, lighter);
-      }
+      // .menu-chevron {
+      //   color: mat.get-color-from-palette($primary, lighter);
+      // }
 
       mat-icon {
         color: mat.get-color-from-palette($primary, lighter);
@@ -71,10 +54,6 @@
         }
       }
     }
-  }
-
-  .chevron-button {
-    color: mat.get-color-from-palette($accent);
   }
 
   .error-notification-overlay {

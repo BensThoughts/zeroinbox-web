@@ -1,6 +1,6 @@
 @use '~@angular/material' as mat;
-$go-primary: mat.define-palette(mat.$blue-palette, 500, 300, 900);
-$go-accent: mat.define-palette(mat.$light-blue-palette);
-$go-warn: mat.define-palette(mat.$pink-palette, 600);
+$app-primary: mat.define-palette(mat.$blue-palette, 500, 300, 900);
+$app-accent: mat.define-palette(mat.$light-blue-palette);
+$app-warn: mat.define-palette(mat.$pink-palette, 600);
 
-$go-theme: mat.define-light-theme($go-primary, $go-accent, $go-warn);
+$app-default-theme: mat.define-light-theme($app-primary, $app-accent, $app-warn);

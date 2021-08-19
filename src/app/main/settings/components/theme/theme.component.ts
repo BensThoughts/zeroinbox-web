@@ -21,8 +21,8 @@ export class SettingsThemeComponent {
   //// settings$: Observable<SettingsState>;
 
   themes = [
-    { value: 'DEFAULT-THEME', label: 'light' },
-    { value: 'BLACK-THEME', label: 'dark' }
+    { value: 'DEFAULT-THEME', label: 'Light' },
+    { value: 'BLACK-THEME', label: 'Dark' }
   ];
 
   @Input() theme;

@@ -1,36 +1,19 @@
 @use '~@angular/material' as mat;
 
-$go-black-primary: mat.define-palette(mat.$grey-palette, 700, 300, 800);
-$go-black-accent: mat.define-palette(mat.$blue-grey-palette, 400);
-$go-black-warn: mat.define-palette(mat.$red-palette, 500);
+$app-black-primary: mat.define-palette(mat.$grey-palette, 700, 300, 800);
+$app-black-accent: mat.define-palette(mat.$blue-grey-palette, 400);
+$app-black-warn: mat.define-palette(mat.$red-palette, 500);
 
-
-@function create-dark-theme($primary, $accent, $warn: mat.define-palette(mat.$red-palette)) {
+@function create-dark-theme($primary, $accent, $warn) {
   @return (
     primary: $primary,
     accent: $accent,
     warn: $warn,
-    // is-dark: false,
-    // foreground: $go-dark-theme-foreground,
-    // background: $go-dark-theme-background,
   );
 }
 
-$go-black-theme: mat.define-dark-theme(
-  $go-black-primary,
-  $go-black-accent,
-  $go-black-warn
+$app-black-theme: mat.define-dark-theme(
+  $app-black-primary,
+  $app-black-accent,
+  $app-black-warn
 );
-
-
-/**
-$anms-nature-primary: mat.define-palette(mat.$brown-palette, 700, 300, 900);
-$anms-nature-accent: mat.define-palette(mat.$deep-purple-palette, 300);
-$anms-nature-warn: mat.define-palette(mat.$red-palette, 600);
-
-$anms-nature-theme: mat.define-light-theme(
-  $anms-nature-primary,
-  $anms-nature-accent,
-  $anms-nature-warn
-);
-**/
