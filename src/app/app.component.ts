@@ -123,8 +123,7 @@ export class AppComponent implements OnInit {
       },
       {
         property: 'og:description',
-        content:
-          'At lunch, in transit, or just on a 5-minute break. ZeroInbox helps you get your massively flooded inboxes organized quickly and efficiently.'
+        content: 'ZeroInbox gets your inbox cleaned up fast!'
       },
       {
         property: 'og:url',
