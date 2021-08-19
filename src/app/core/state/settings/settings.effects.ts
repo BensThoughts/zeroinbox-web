@@ -1,4 +1,4 @@
-import { ofType, Effect, Actions, createEffect } from '@ngrx/effects';
+import { ofType, Actions, createEffect } from '@ngrx/effects';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { selectTheme } from './settings.selectors';
