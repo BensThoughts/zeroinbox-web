@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '@app/core';
+import { AppState, LogService } from '@app/core';
 import {
   SendersViewActionTypes,
   LabelSenderDialogAction,
@@ -53,8 +53,6 @@ export class SendersViewEffects {
           if (confirmationObject === undefined || !confirmationObject.save) {
             // Do nothing
           } else {
-            // console.log(confirmationObject.category);
-            // console.log(confirmationObject.labelName);
             this.store.dispatch(
               new LabelSendersRequestAction({
                 senders: [action.payload.sender],
@@ -115,14 +113,15 @@ export class SendersViewEffects {
         .pipe(
           retry(3),
           map((response) => {
-            console.log(response);
-            this.store.dispatch(
-              new DeleteSendersAction({ senderIds: senderIds })
-            );
+            if (response.status != 'error') {
+              this.store.dispatch(
+                new DeleteSendersAction({ senderIds: senderIds })
+              );
+            }
           }),
           catchError((err) => {
-            this.notificationService.connectionError();
-            return of(console.log(err));
+            this.logService.error(err, 'connection');
+            return of(err);
           })
         )
         .subscribe();
@@ -191,14 +190,15 @@ export class SendersViewEffects {
         .pipe(
           retry(3),
           map((response) => {
-            console.log(response);
-            this.store.dispatch(
-              new DeleteSendersAction({ senderIds: senderIds })
-            );
+            if (response.status != 'error') {
+              this.store.dispatch(
+                new DeleteSendersAction({ senderIds: senderIds })
+              );
+            }
           }),
           catchError((err) => {
-            this.notificationService.connectionError();
-            return of(console.log(err));
+            this.logService.error(err, 'connection');
+            return of(err);
           })
         )
         .subscribe();
@@ -210,6 +210,7 @@ export class SendersViewEffects {
     private store: Store<AppState>,
     private dialogService: MatDialog,
     private actionsService: ActionsService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private logService: LogService
   ) {}
 }

@@ -45,22 +45,25 @@ export class AuthEffects {
         exhaustMap(() => {
           return this.authService.signIn().pipe(
             map((response) => {
-              console.log(response);
+              this.logService.log(response);
               if (response.status === 'error') {
-                console.error(
-                  'Response status_message: ' + response.status_message
+                this.logService.error(
+                  'Response status_message: ' + response.status_message,
+                  'connection'
                 );
               } else {
                 window.location.href = response.data.auth_url;
               }
             }),
             catchError((err) => {
-              return of(console.error(err));
+              this.logService.error(err, 'connection');
+              return of(err);
             })
           );
         }),
         catchError((err) => {
-          return of(console.error(err));
+          this.logService.error(err);
+          return of(err);
         })
       ),
     { dispatch: false }

@@ -36,6 +36,7 @@ import { Router } from '@angular/router';
 import { UserProfileRequestAction } from '../user/user.actions';
 import { UpdateDownloadingStatusAction } from './bootstrap.actions';
 import { SettingsGetCategoriesRequestAction } from '../settings/settings.actions';
+import { LogService } from '@app/core/services/log/log.service';
 
 export const MB = 1000000;
 export const DECIMAL = 100;
@@ -86,7 +87,7 @@ export class BootstrapEffects {
               }
             }),
             catchError((err) => {
-              console.error(err);
+              this.logService.error(err);
               return of(new FirstRunStatusRequestFailureAction());
             })
           );
@@ -104,6 +105,7 @@ export class BootstrapEffects {
         return this.bootstrapService.getLoadSuggestions().pipe(
           map((response) => {
             if (response.status === 'error') {
+              this.logService.error(response.status_message);
               return new DownloadSendersRequestFailureAction();
             } else {
               if (action.payload.firstRunStatus) {
@@ -114,13 +116,13 @@ export class BootstrapEffects {
             }
           }),
           catchError((err) => {
-            console.error(err);
+            this.logService.error(err, 'connection');
             return of(new DownloadSendersRequestFailureAction());
           })
         );
       }),
       catchError((err) => {
-        console.error(err);
+        this.logService.error(err);
         return of(new DownloadSendersRequestFailureAction());
       })
     )
@@ -137,6 +139,7 @@ export class BootstrapEffects {
           return this.bootstrapService.getLoadingStatus().pipe(
             map((response) => {
               if (response.status === 'error') {
+                this.logService.error(response.status_message);
                 this.store.dispatch(
                   new DownloadingStatusRequestFailureAction()
                 );
@@ -165,7 +168,7 @@ export class BootstrapEffects {
               }
             }),
             catchError((err) => {
-              console.error(err);
+              this.logService.error(err, 'connection');
               return of(
                 this.store.dispatch(new DownloadingStatusRequestFailureAction())
               );
@@ -209,7 +212,8 @@ export class BootstrapEffects {
     private router: Router,
     private bootstrapService: BootstrapService,
     // private ngZone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private logService: LogService
   ) {}
 }
 

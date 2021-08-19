@@ -44,7 +44,6 @@ export class SettingsCategoriesComponent implements OnInit {
   }
 
   removeCategory(category: Category) {
-    console.log(category);
     this.store.dispatch(
       new SettingsRemoveCategoryAction({ category: category })
     );
@@ -64,8 +63,6 @@ export class SettingsCategoriesComponent implements OnInit {
             // Do nothing
           } else {
             let category = confirmationObject.category;
-            // console.log(confirmationObject.category);
-            // console.log(confirmationObject.labelName);
             this.store.dispatch(
               new SettingsAddCategoryAction({
                 category: confirmationObject.category

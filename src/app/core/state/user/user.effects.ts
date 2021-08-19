@@ -17,6 +17,7 @@ import {
 import { Store } from '@ngrx/store';
 import { AppState } from '../core.state';
 import { FirstRunStatusRequestAction } from '../bootstrap/bootstrap.actions';
+import { LogService } from '@app/core/services/log/log.service';
 
 @Injectable()
 export class UserEffects {
@@ -28,7 +29,7 @@ export class UserEffects {
           return this.userService.getBasicProfile().pipe(
             map((response: BasicProfileResponse) => {
               if (response.status === 'error') {
-                console.error(
+                this.logService.error(
                   'Error getting basic profile: ' + response.status_message
                 );
               } else {
@@ -38,7 +39,8 @@ export class UserEffects {
               }
             }),
             catchError((err) => {
-              return of(console.error(err));
+              this.logService.error(err, 'connection');
+              return of(err);
             })
           );
         }),
@@ -46,7 +48,7 @@ export class UserEffects {
           return this.userService.getEmailProfile().pipe(
             map((response: EmailProfileResponse) => {
               if (response.status === 'error') {
-                console.error(
+                this.logService.error(
                   'Error getting email profile: ' + response.status_message
                 );
               }
@@ -55,7 +57,8 @@ export class UserEffects {
               );
             }),
             catchError((err) => {
-              return of(console.error(err));
+              this.logService.error(err, 'connection');
+              return of(err);
             })
           );
         }),
@@ -83,6 +86,7 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
-    private userService: UserService
+    private userService: UserService,
+    private logService: LogService
   ) {}
 }

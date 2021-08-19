@@ -75,8 +75,7 @@ export class SendersEffects {
             return new AddAllSendersAction({ senders: senders });
           }),
           catchError((err) => {
-            this.notificationService.connectionError();
-            console.error(err);
+            this.logService.error(err, 'connection');
             return of(new SendersRequestFailureAction());
           })
         );
@@ -106,7 +105,6 @@ export class SendersEffects {
   constructor(
     private sendersService: SendersService,
     private actions$: Actions,
-    private notificationService: NotificationService,
     private logService: LogService
   ) {}
 }

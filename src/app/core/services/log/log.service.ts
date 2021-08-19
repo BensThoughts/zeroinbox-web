@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
+import { NotificationService } from '../notifications/notification.service';
 
+export type ErrorType = 'connection' | 'default';
 @Injectable()
 export class LogService {
+  constructor(private notificationService: NotificationService) {}
+
   log(msg: any, printDate: boolean = true) {
     if (printDate) {
-      console.log(new Date() + ': ' + JSON.stringify(msg));
+      console.log(new Date(), msg);
     } else {
-      console.log(JSON.stringify(msg));
+      console.log(msg);
     }
   }
 
-  error(err: any, printDate: boolean = true) {
+  error(err: any, errType: ErrorType = 'default', printDate: boolean = true) {
     if (printDate) {
-      console.error(new Date() + ': ' + JSON.stringify(err));
+      console.error(new Date(), err);
     } else {
-      console.error(JSON.stringify(err));
+      console.error(err);
+    }
+    switch (errType) {
+      case 'connection':
+        this.notificationService.error('Connection Error!');
+      default:
+        this.notificationService.error('Error');
     }
   }
 }

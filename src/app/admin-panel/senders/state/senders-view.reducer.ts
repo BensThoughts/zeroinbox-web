@@ -8,13 +8,11 @@ export interface State extends AppState {
 }
 
 export interface SendersViewState {
-  countCutoff: number;
   sizeGroup: string;
   currentSender: ISender;
 }
 
 const initialSendersViewState = {
-  countCutoff: 1,
   sizeGroup: 'ALL',
   currentSender: undefined
 };
