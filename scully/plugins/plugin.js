@@ -1,8 +1,11 @@
-// import { registerPlugin, getPluginConfig } from '@scullyio/scully';
-// export const myPlugin = 'myPlugin';
-// const myFunctionPlugin = async (html: string): Promise<string> => {
-//   return html;
-// };
-// const validator = async () => [];
-// registerPlugin('postProcessByHtml', myPlugin, myFunctionPlugin, validator);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.myPlugin = void 0;
+const scully_1 = require("@scullyio/scully");
+exports.myPlugin = 'myPlugin';
+const myFunctionPlugin = async (html) => {
+    return html;
+};
+const validator = async () => [];
+scully_1.registerPlugin('postProcessByHtml', exports.myPlugin, myFunctionPlugin, validator);
 //# sourceMappingURL=plugin.js.map
