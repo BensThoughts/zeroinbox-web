@@ -13,7 +13,7 @@ import { RouterStateUrl } from './router/router.state';
 import { userReducer, UserState } from './user/user.reducer';
 import { sendersReducer, SendersState } from './senders/senders.reducer';
 
-import { debug } from './meta-reducers/debug.reducer';
+// import { debug } from './meta-reducers/debug.reducer';
 import { localStorageSyncReducer } from './meta-reducers/local-storage-sync.reducer';
 import {
   BootstrapState,
