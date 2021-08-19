@@ -6,11 +6,11 @@
     <mat-list>
       <mat-list-item
         *ngFor="let category of categories"
-        class="my-2 rounded-xl border-2 border-opacity-30"
+        class="my-2 rounded-xl border-2 theme-border-color"
       >
         <div class="flex flex-row w-full text-center align-middle">
           <div class="flex flex-row mt-2">
-            <mat-icon color="accent" class="mx-2">
+            <mat-icon color="accent" class="mx-3">
               <fa-icon icon="tag" color="accent"></fa-icon>
             </mat-icon>
             <div class="text-center">
@@ -30,7 +30,7 @@
         </div>
       </mat-list-item>
     </mat-list>
-    <button mat-stroked-button (click)="addCategory()">
+    <button mat-stroked-button (click)="addCategory()" class="mt-3">
       {{ 'app.main.settings.categories.add-category-button' | translate }}
     </button>
   </div>

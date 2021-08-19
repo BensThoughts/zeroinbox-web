@@ -1,8 +1,8 @@
 <div
   *ngIf="settings$ | async as settings"
-  class="flex flex-col items-center w-full"
+  class="flex flex-col gap-2 items-center w-full"
 >
-  <div class="my-2">
+  <div class="mt-3">
     <h1 class="align-middle uppercase">
       {{ 'app.main.settings.title' | translate }}
     </h1>
@@ -10,7 +10,7 @@
   <div class="my-2">
     <app-settings-theme [theme]="settings.theme"></app-settings-theme>
   </div>
-  <div *ngIf="isBootstrapped$ | async" class="my-2">
+  <div *ngIf="isBootstrapped$ | async" class="mb-8">
     <app-settings-categories></app-settings-categories>
   </div>
 </div>
