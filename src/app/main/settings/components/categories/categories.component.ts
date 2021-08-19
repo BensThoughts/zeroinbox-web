@@ -44,9 +44,9 @@ export class SettingsCategoriesComponent implements OnInit {
   }
 
   removeCategory(category: Category) {
-    this.store.dispatch(
-      new SettingsRemoveCategoryAction({ category: category })
-    );
+    // this.store.dispatch(
+    //   new SettingsRemoveCategoryAction({ category: category })
+    // );
     this.store.dispatch(
       new SettingsSetCategoriesRequestAction({ add: false, category: category })
     );
@@ -63,11 +63,11 @@ export class SettingsCategoriesComponent implements OnInit {
             // Do nothing
           } else {
             let category = confirmationObject.category;
-            this.store.dispatch(
-              new SettingsAddCategoryAction({
-                category: confirmationObject.category
-              })
-            );
+            // this.store.dispatch(
+            //   new SettingsAddCategoryAction({
+            //     category: confirmationObject.category
+            //   })
+            // );
             this.store.dispatch(
               new SettingsSetCategoriesRequestAction({
                 add: true,

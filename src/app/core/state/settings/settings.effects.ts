@@ -31,12 +31,12 @@ import { Injectable } from '@angular/core';
 //   CategoryConfirmationObject
 // } from '@app/main/settings/components/add-category-dialog/add-category-dialog.component';
 import { SettingsService } from '../../services/settings/settings.service';
-import { NotificationService } from '../../services/notifications/notification.service';
 import {
   SettingsAddCategoryAction,
   SettingsRemoveCategoryAction,
   SettingsSetCategoriesRequestSuccessAction
 } from './settings.actions';
+import { LogService } from '@app/core/services/log/log.service';
 
 @Injectable()
 export class SettingsEffects {
@@ -76,7 +76,7 @@ export class SettingsEffects {
     )
   );
 
-  getCategories$ = createEffect(
+  getCategoriesRequest$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType<SettingsGetCategoriesRequestAction>(
@@ -84,19 +84,28 @@ export class SettingsEffects {
         ),
         exhaustMap(() => {
           return this.settingsService.getCategories().pipe(
-            map((categories) => {
-              this.store.dispatch(
-                new SettingsSetCategoriesAction({ categories: categories })
-              );
+            map((categoriesResponse) => {
+              if (categoriesResponse.status == 'error') {
+                this.logService.error(categoriesResponse.status_message);
+              } else {
+                let categories = categoriesResponse.data.categories;
+                this.store.dispatch(
+                  new SettingsSetCategoriesAction({ categories: categories })
+                );
+              }
             }),
-            catchError((err) => of(err))
+            catchError((err) => {
+              // Don't display snackbar 'connection' error;
+              this.logService.error(err);
+              return of(err);
+            })
           );
         })
       ),
     { dispatch: false }
   );
 
-  setCategories$ = createEffect(
+  setCategoriesRequest$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType<SettingsSetCategoriesRequestAction>(
@@ -112,8 +121,12 @@ export class SettingsEffects {
           return this.settingsService.setCategories(requestBody).pipe(
             map((response) => {
               if (response.status === 'error') {
-                this.notificationService.connectionError();
-                if (add) {
+                this.logService.error(response.status_message);
+                this.store.dispatch(
+                  new SettingsSetCategoriesRequestFailureAction()
+                );
+              } else {
+                if (!add) {
                   this.store.dispatch(
                     new SettingsRemoveCategoryAction({ category: category })
                   );
@@ -123,14 +136,14 @@ export class SettingsEffects {
                   );
                 }
                 this.store.dispatch(
-                  new SettingsSetCategoriesRequestFailureAction()
+                  new SettingsSetCategoriesRequestSuccessAction()
                 );
               }
-              this.store.dispatch(
-                new SettingsSetCategoriesRequestSuccessAction()
-              );
             }),
-            catchError((err) => of(err))
+            catchError((err) => {
+              this.logService.error(err, 'connection');
+              return of(err);
+            })
           );
         })
       ),
@@ -142,6 +155,6 @@ export class SettingsEffects {
     private store: Store<State>,
     private overlayContainer: OverlayContainer,
     private settingsService: SettingsService,
-    private notificationService: NotificationService
+    private logService: LogService
   ) {}
 }

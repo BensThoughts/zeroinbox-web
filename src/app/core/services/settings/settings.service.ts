@@ -49,17 +49,13 @@ export interface SetCategoriesResponse {
 export class SettingsService {
   constructor(private httpClient: HttpClient) {}
 
-  public getCategories(): Observable<Category[]> {
-    return this.httpClient
-      .get<GetCategoriesResponse>(API_URL + '/settings/categories', {
+  public getCategories(): Observable<GetCategoriesResponse> {
+    return this.httpClient.get<GetCategoriesResponse>(
+      API_URL + '/settings/categories',
+      {
         withCredentials: true
-      })
-      .pipe(
-        map((response: GetCategoriesResponse) => {
-          let categories = response.data.categories;
-          return categories;
-        })
-      );
+      }
+    );
   }
 
   public setCategories(body: SetCategoriesRequestBody) {
