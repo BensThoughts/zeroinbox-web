@@ -23,6 +23,8 @@ import { AuthModule } from './auth/auth.module';
 // Handles the admin-panel interface of the main app
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
 import { ScullyLibModule } from '@scullyio/ng-lib';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +41,13 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 
     AppRoutingModule,
 
-    ScullyLibModule
+    ScullyLibModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
