@@ -1,6 +1,6 @@
 [build]
-  publish = "dist/static"
-  command = "npm run jam-prod"
+  publish = "dist/zero-inbox/browser"
+  command = "npm run build_prod"
 [[redirects]]
   from="/*"
   to="/index.html"
