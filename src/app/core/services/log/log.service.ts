@@ -22,7 +22,7 @@ export class LogService {
     }
     switch (errType) {
       case 'connection':
-      // TODO: Need to figure out how to get /loading to not trigger
+      // TODO: Need to figure out how to get /loading to not trigger API
       // this.notificationService.error('Connection Error!');
       default:
       // this.notificationService.error('Error');

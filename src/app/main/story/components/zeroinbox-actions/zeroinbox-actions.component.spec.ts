@@ -8,9 +8,8 @@ describe('ZeroinboxActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ZeroinboxActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [ZeroinboxActionsComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {
