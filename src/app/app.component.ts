@@ -107,59 +107,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle(this.title);
-    this.metaService.addTags([
-      {
-        property: 'og:type',
-        content: 'website'
-      },
-      {
-        property: 'og:title',
-        content: 'Zero Inbox'
-      },
-      {
-        property: 'og:image',
-        content:
-          'https://res.cloudinary.com/bensthoughts/image/upload/v1629121432/zeroinbox/assets/meta-images/og/og_sce8oa.png'
-      },
-      {
-        property: 'og:description',
-        content: 'ZeroInbox gets your inbox cleaned up fast!'
-      },
-      {
-        property: 'og:url',
-        content: 'https://zeroinbox.app'
-      },
-      {
-        name: 'twitter:card',
-        content: 'summary_large_image'
-      },
-      {
-        name: 'twitter:site',
-        content: '@bensthoughts'
-      },
-      {
-        name: 'twitter:creator',
-        content: '@bensthoughts'
-      },
-      {
-        name: 'twitter:description',
-        content:
-          'At lunch, in transit, or just on a 5-minute break. ZeroInbox helps you get your massively flooded inboxes organized quickly and efficiently.'
-      },
-      {
-        name: 'twitter:domain',
-        content: 'zeroinbox.app'
-      },
-      {
-        name: 'twitter:title',
-        content: 'Zero Inbox'
-      },
-      {
-        name: 'twitter:image',
-        content:
-          'https://res.cloudinary.com/bensthoughts/image/upload/v1629121454/zeroinbox/assets/meta-images/twitter/twitter_znoqhk.png'
-      }
-    ]);
     this.theme$ = this.store.pipe(select(selectTheme));
     this.isLoggedIn$ = this.store.pipe(select(selectIsAuthenticated));
     this.isDownloading$ = this.store.pipe(select(selectDownloadingStatus));
@@ -182,3 +129,57 @@ export class AppComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 }
+
+// this.metaService.addTags([
+//   {
+//     property: 'og:type',
+//     content: 'website'
+//   },
+//   {
+//     property: 'og:title',
+//     content: 'Zero Inbox'
+//   },
+//   {
+//     property: 'og:image',
+//     content:
+//       'https://res.cloudinary.com/bensthoughts/image/upload/v1629121432/zeroinbox/assets/meta-images/og/og_sce8oa.png'
+//   },
+//   {
+//     property: 'og:description',
+//     content: 'ZeroInbox gets your inbox cleaned up fast!'
+//   },
+//   {
+//     property: 'og:url',
+//     content: 'https://zeroinbox.app'
+//   },
+//   {
+//     name: 'twitter:card',
+//     content: 'summary_large_image'
+//   },
+//   {
+//     name: 'twitter:site',
+//     content: '@bensthoughts'
+//   },
+//   {
+//     name: 'twitter:creator',
+//     content: '@bensthoughts'
+//   },
+//   {
+//     name: 'twitter:description',
+//     content:
+//       'At lunch, in transit, or just on a 5-minute break. ZeroInbox helps you get your massively flooded inboxes organized quickly and efficiently.'
+//   },
+//   {
+//     name: 'twitter:domain',
+//     content: 'zeroinbox.app'
+//   },
+//   {
+//     name: 'twitter:title',
+//     content: 'Zero Inbox'
+//   },
+//   {
+//     name: 'twitter:image',
+//     content:
+//       'https://res.cloudinary.com/bensthoughts/image/upload/v1629121454/zeroinbox/assets/meta-images/twitter/twitter_znoqhk.png'
+//   }
+// ]);
