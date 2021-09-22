@@ -1,6 +1,8 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
   <mat-toolbar color="primary">
-    <button (click)="sidenav.toggle()">
+    <button
+      (click)="sidenav.toggle()"
+      class="border-2 rounded-md px-2 hover:scale-110 transform transition duration-200">
       <fa-icon icon="bars"></fa-icon>
     </button>
     <span class="pl-2">Zero Inbox</span>
@@ -19,26 +21,42 @@
       closed
       role="navigation"
       position="start"
+      class="w-3/4 md:w-4/12 lg:w-3/12 xl:w-2/12 max-w-md"
     >
-      <mat-nav-list>
-        <div *ngIf="isBootstrapped$ | async; else preBootstrapMenuMobile">
-          <a
-            mat-list-item
-            *ngFor="let auth_menu_item of auth_menu_items"
-            routerLink="{{ auth_menu_item.route }}"
-          >
-            <span>
-              <mat-icon matListIcon>
-                <fa-icon [icon]="auth_menu_item.icon"></fa-icon>
-              </mat-icon>
-            </span>
-            <span class="ml-2">
-              {{ auth_menu_item.name }}
-            </span>
-          </a>
+      <mat-nav-list class="w-full">
+        <div *ngIf="isBootstrapped$ | async; else preBootstrapMenuMobile" class="w-full">
+          <div *ngFor="let auth_menu_item of auth_menu_items" class="w-full">
+            <a mat-list-item routerLink="{{ auth_menu_item.route }}" class="w-full">
+              <div class="flex flex-row items-center justify-between h-16 w-full">
+                <div class="flex items-center justify-center text-center">
+                  <mat-icon matListIcon>
+                    <fa-icon [icon]="auth_menu_item.icon"></fa-icon>
+                  </mat-icon>
+                </div>
+                <h1 class="ml-2 text-xl">
+                  {{ auth_menu_item.name }}
+                </h1>
+                <div class="flex-shrink"></div>
+              </div>
+            </a>
+          </div>
         </div>
 
-        <a
+        <a mat-list-item *ngIf="isDownloading$ | async" routerLink="/admin-panel/downloading" class="w-full">
+          <div class="flex flex-row items-center justify-between h-16 w-full">
+            <div class="flex items-center justify-center text-center">
+              <mat-icon matListIcon>
+                <fa-icon icon="download"></fa-icon>
+              </mat-icon>
+            </div>
+            <h1 class="ml-2 text-xl">
+              {{ 'app.component.download' | translate }}
+            </h1>
+            <div class="flex-shrink"></div>
+          </div>
+        </a>
+
+        <!-- <a
           mat-list-item
           *ngIf="isDownloading$ | async"
           routerLink="/admin-panel/downloading"
@@ -51,9 +69,23 @@
           <span class="ml-2">
             {{ 'app.component.download' | translate }}
           </span>
+        </a> -->
+
+        <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async" class="w-full">
+          <div class="flex flex-row items-center justify-between h-16 w-full">
+            <div class="flex items-center justify-center text-center">
+              <mat-icon matListIcon>
+                <fa-icon icon="sign-out-alt"></fa-icon>
+              </mat-icon>
+            </div>
+            <h1 class="ml-2 text-xl">
+              {{ 'app.component.logout' | translate }}
+            </h1>
+            <div class="flex-shrink"></div>
+          </div>
         </a>
 
-        <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
+        <!-- <a mat-list-item (click)="signOut()" *ngIf="isLoggedIn$ | async">
           <span>
             <mat-icon matListIcon>
               <fa-icon icon="sign-out-alt"></fa-icon>
@@ -62,7 +94,7 @@
           <span class="ml-2">
             {{ 'app.component.logout' | translate }}
           </span>
-        </a>
+        </a> -->
       </mat-nav-list>
     </mat-sidenav>
 
@@ -105,23 +137,24 @@
 </div>
 
 <ng-template #preBootstrapMenuMobile>
-  <a
-    mat-list-item
-    *ngFor="let menu_item of menu_items"
-    routerLink="{{ menu_item.route }}"
-  >
-    <span>
-      <mat-icon matListIcon>
-        <fa-icon [icon]="menu_item.icon"></fa-icon>
-      </mat-icon>
-    </span>
-    <span>
-      {{ menu_item.name }}
-    </span>
-  </a>
+  <div *ngFor="let menu_item of menu_items" class="w-full">
+    <a mat-list-item routerLink="{{ menu_item.route }}" class="w-full">
+      <div class="flex flex-row items-center justify-between h-16 w-full">
+        <div class="flex items-center justify-center text-center">
+          <mat-icon matListIcon>
+            <fa-icon [icon]="menu_item.icon"></fa-icon>
+          </mat-icon>
+        </div>
+        <h1 class="ml-2 text-xl">
+          {{ menu_item.name }}
+        </h1>
+        <div class="flex-shrink"></div>
+      </div>
+    </a>
+  </div>
 </ng-template>
 
-<ng-template #preBootstrapMenu>
+<!-- <ng-template #preBootstrapMenu>
   <a
     mat-list-item
     *ngFor="let menu_item of menu_items"
@@ -136,7 +169,7 @@
       {{ menu_item.name }}
     </span>
   </a>
-</ng-template>
+</ng-template> -->
 
 <!-- <span *ngIf="isLoggedIn$ | async">
 <a (click)="signOut()">
