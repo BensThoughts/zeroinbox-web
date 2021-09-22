@@ -7,10 +7,10 @@ export const config: ScullyConfig = {
   routes: {},
   extraRoutes: [
     '/story',
-    '/settings',
+    // '/settings',
     '/manual',
     '/home',
     '/contact',
-    '/loading'
+    // '/loading'
   ]
 };
